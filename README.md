@@ -24,6 +24,8 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
 - [Datastore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAjwkYGVBhArEiwA4sZLuMMCRUnWZzzy-AwDePYTUTn3gO6-rrT8jGo7D-H2vztegIJ-zEsb8hoCtI8QAvD_BwE&gclsrc=aw.ds) to cache user info, instead of SharedPreferences since it's ~~deprecated~~
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
 - [Accompanist](https://google.github.io/accompanist/) to use components not included in Compose
+  - [System UI Controller](https://google.github.io/accompanist/systemuicontroller/) to change status and navigation bar colors
+  - [Placeholder](https://google.github.io/accompanist/placeholder/) to create a skeleton loader effect when loading a screen
 - [Detekt](https://detekt.dev/) for static code analysis and formatting
 
 ### Gradle and buildSrc
