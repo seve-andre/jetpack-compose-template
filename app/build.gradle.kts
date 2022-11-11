@@ -68,7 +68,7 @@ detekt {
     allRules = false
     config = files("$projectDir/config/detekt/detekt.yml")
 
-    // debug only - REMOVE
+    // REMOVE once edited RepositoryModule and AppDatabase
     ignoreFailures = true
 
     autoCorrect = true
