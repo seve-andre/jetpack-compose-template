@@ -5,6 +5,14 @@
 </p>
 
 # Android Jetpack Compose template
+Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20template-brightgreen)](https://github.com/seve-andre/compose-template/generate) to create your own repo
+## What to update
+- root project name in `setting.gradle.kts`
+- package name (now *com.mitch.appname*)
+- `AndroidManifest.xml` (in app/src/main)
+- `AppName.kt` to your app full name (should match android.name in AndroidManifest.xml)
+- `detekt.yml` rules (in app/config/detekt)
+- dependencies, their versions, plugins, android configuration (appId, minSdk, targetSdk, compileSdk) in `buildSrc`
 
 ## What does it use?
 ### Dependencies
