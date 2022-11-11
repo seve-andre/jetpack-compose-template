@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Android Jetpack Compose Clean Architecture template
+# Android Jetpack Compose template
 
 ## What does it use?
 ### Dependencies
