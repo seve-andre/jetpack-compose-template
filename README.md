@@ -31,6 +31,8 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
 - buildSrc: it includes all `Versions`, `Dependencies`, `Plugins` and `AppConfig` for better gradle dependencies management
 
 ## Inspo
-- general structure: https://github.com/PizzaMarinara/yaat
-- buildSrc: https://github.com/PizzaMarinara/yaat
-- [DependencyHandler extensions](https://github.com/nridwan/android_compose_buildsrc/blob/main/src/main/kotlin/Libraries.kt): https://github.com/nridwan/android_compose_buildsrc
+- general structure: [see inspo](https://github.com/PizzaMarinara/yaat)
+- buildSrc: [see inspo](https://github.com/PizzaMarinara/yaat)
+- [DependencyHandler extensions](https://github.com/nridwan/android_compose_buildsrc/blob/main/src/main/kotlin/Libraries.kt): [see inspo](https://github.com/nridwan/android_compose_buildsrc)
+- [SnackbarController](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/SnackbarController.kt): [see inspo](https://github.com/mitchtabian/MVVMRecipeApp/blob/managing-snackbar-with-scaffold/app/src/main/java/com/codingwithmitch/mvvmrecipeapp/presentation/components/util/SnackbarController.kt)
+- [Resource](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/Resource.kt): [see inspo](https://github.com/philipplackner/StockMarketApp/blob/final/app/src/main/java/com/plcoding/stockmarketapp/util/Resource.kt)
