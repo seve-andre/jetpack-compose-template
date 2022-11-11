@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://developer.android.com/jetpack/compose">
     <img src="https://tabris.com/wp-content/uploads/2021/06/jetpack-compose-icon_RGB.png" alt="Logo" width="200" height="200">
   </a>
 </p>
