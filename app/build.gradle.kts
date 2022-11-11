@@ -91,8 +91,8 @@ dependencies {
     network()
     dependencyInjection()
     localCaching()
+    logging()
     tests()
     coreLibraryDesugaring(Dependencies.jdkDesugar)
     detektPlugins(Dependencies.detektFormatting)
-    implementation(Dependencies.AndroidX.Lifecycle.viewModelCompose)
 }

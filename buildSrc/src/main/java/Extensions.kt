@@ -21,6 +21,8 @@ fun DependencyHandler.ui() {
 
     implementation(Dependencies.Accompanist.systemUiController)
     implementation(Dependencies.Accompanist.placeholder)
+
+    implementation(Dependencies.AndroidX.Lifecycle.viewModelCompose)
 }
 
 fun DependencyHandler.navigation() {
@@ -53,6 +55,10 @@ private fun DependencyHandler.datastore() {
 fun DependencyHandler.localCaching() {
     localDB()
     datastore()
+}
+
+fun DependencyHandler.logging() {
+    implementation(Dependencies.timber)
 }
 
 fun DependencyHandler.tests() {

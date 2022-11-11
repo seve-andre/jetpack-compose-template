@@ -10,4 +10,5 @@ object Versions {
     const val hilt = "2.44"
     const val ksp = "$kotlin-1.0.6"
     const val detekt = "1.21.0"
+    const val timber = "5.0.1"
 }
