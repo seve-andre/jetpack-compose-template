@@ -4,7 +4,7 @@ plugins {
     id(Plugins.kotlinKapt)
     id(Plugins.ksp) version Versions.ksp
     id(Plugins.hilt)
-    id("io.gitlab.arturbosch.detekt").version(Versions.detekt)
+    id(Plugins.detekt).version(Versions.detekt)
 }
 android {
     compileSdk = AppConfig.compileSdkVersion
@@ -92,11 +92,6 @@ dependencies {
     dependencyInjection()
     localCaching()
     tests()
-
     coreLibraryDesugaring(Dependencies.jdkDesugar)
-
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}")
-
-//    implementation(Dependencies.AndroidX.Lifecycle.viewModelCompose)
-//    implementation(Dependencies.AndroidX.Lifecycle.viewModelKtx)
+    detektPlugins(Dependencies.detektFormatting)
 }

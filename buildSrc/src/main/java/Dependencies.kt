@@ -2,6 +2,7 @@ object Dependencies {
     private const val gradlePluginVersion = "7.3.1"
     const val androidGradlePlugin = "com.android.tools.build:gradle:$gradlePluginVersion"
     const val jdkDesugar = "com.android.tools:desugar_jdk_libs:1.1.5"
+    const val detektFormatting = "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}"
 
     object Kotlin {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
