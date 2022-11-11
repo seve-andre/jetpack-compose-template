@@ -1,0 +1,1 @@
+# Put mappers here to convert local db and api entities to app model - [see example](https://github.com/philipplackner/StockMarketApp/blob/final/app/src/main/java/com/plcoding/stockmarketapp/data/mapper/CompanyMapper.kt)
