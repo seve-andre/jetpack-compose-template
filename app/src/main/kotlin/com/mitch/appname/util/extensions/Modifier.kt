@@ -1,29 +1,32 @@
 package com.mitch.appname.util.extensions
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.fade
 import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.material.shimmer
 
-@Composable
 fun Modifier.simpleSkeleton(
     visible: Boolean
-): Modifier = this.placeholder(visible = visible)
+): Modifier = then(
+    placeholder(visible = visible)
+)
 
-@Composable
 fun Modifier.fadeSkeleton(
     visible: Boolean
-): Modifier = this.placeholder(
-    visible = visible,
-    highlight = PlaceholderHighlight.fade()
-)
+): Modifier = composed {
+    placeholder(
+        visible = visible,
+        highlight = PlaceholderHighlight.fade()
+    )
+}
 
-@Composable
 fun Modifier.shimmerSkeleton(
     visible: Boolean
-): Modifier = this.placeholder(
-    visible = visible,
-    highlight = PlaceholderHighlight.shimmer()
-)
+): Modifier = composed {
+    placeholder(
+        visible = visible,
+        highlight = PlaceholderHighlight.shimmer()
+    )
+}
