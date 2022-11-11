@@ -5,7 +5,7 @@
 </p>
 
 # Android Jetpack Compose template
-Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20template-brightgreen)](https://github.com/seve-andre/compose-template/generate) to create your own repo
+Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20template-%23347d39)](https://github.com/seve-andre/compose-template/generate) to create your own repo
 ## What to update
 - root project name in `setting.gradle.kts`
 - package name (now *com.mitch.appname*)
