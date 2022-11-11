@@ -37,7 +37,7 @@ object Dependencies {
             "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
 
         const val placeholder =
-            "com.google.accompanist:accompanist-placeholder:${Versions.accompanist}"
+            "com.google.accompanist:accompanist-placeholder-material:${Versions.accompanist}"
     }
 
     object Navigation {
