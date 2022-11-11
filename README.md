@@ -16,7 +16,7 @@
 - [Datastore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAjwkYGVBhArEiwA4sZLuMMCRUnWZzzy-AwDePYTUTn3gO6-rrT8jGo7D-H2vztegIJ-zEsb8hoCtI8QAvD_BwE&gclsrc=aw.ds) to cache user info, instead of SharedPreferences since it's ~~deprecated~~
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
 - [Accompanist](https://google.github.io/accompanist/) to use components not included in Compose
-- [Detekt](https://detekt.dev/) for static code analysis and code formatting
+- [Detekt](https://detekt.dev/) for static code analysis and formatting
 
 ### Gradle and buildSrc
 - Kotlin DSL: instead of Groovy to make a 100% Kotlin-based template
