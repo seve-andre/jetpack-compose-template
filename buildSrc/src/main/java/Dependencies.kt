@@ -34,6 +34,9 @@ object Dependencies {
     }
 
     object Accompanist {
+        // no swipeRefresh; now Modifier.pullRefresh() can be used;
+        // see https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier#(androidx.compose.ui.Modifier).pullRefresh(androidx.compose.material.pullrefresh.PullRefreshState,kotlin.Boolean)
+
         const val systemUiController =
             "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
 
