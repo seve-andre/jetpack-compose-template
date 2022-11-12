@@ -93,6 +93,11 @@ dependencies {
     localCaching()
     logging()
     tests()
+
+    // security()
+    // notifications()
+    // permissions()
+
     coreLibraryDesugaring(Dependencies.jdkDesugar)
     detektPlugins(Dependencies.detektFormatting)
 }
