@@ -1,6 +1,7 @@
 package com.mitch.appname.util
 
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material.SnackbarResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -23,6 +24,7 @@ class SnackbarController(
         cancelActiveJob()
     }
 
+    // TODO: should show SnackbarResult
     fun showSnackbar(
         scaffoldState: ScaffoldState,
         message: String,
