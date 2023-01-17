@@ -55,6 +55,10 @@ class MainActivity : ComponentActivity() {
                             DestinationsNavHost(
                                 navGraph = NavGraphs.root,
                                 dependenciesContainerBuilder = {
+                                    /*
+                                        TODO: Replace container with manual call to composables
+                                        see at https://composedestinations.rafaelcosta.xyz/destination-arguments/navhost-level-parameters#manually-call-your-screen-composable
+                                    */
                                     dependency(scaffoldState)
                                     dependency(systemUiController)
                                     dependency(snackbarController)
