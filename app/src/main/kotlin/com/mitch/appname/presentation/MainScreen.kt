@@ -15,5 +15,4 @@ fun MainScreen(
     systemUiController: SystemUiController,
     snackbarController: SnackbarController
 ) {
-
 }
