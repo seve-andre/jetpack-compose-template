@@ -1,12 +1,12 @@
-package com.mitch.appname.presentation.ui.theme
+package com.mitch.appname.presentation.ui.theme.custom
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-val spacing = Spacing()
+val padding = Padding()
 
-data class Spacing(
-    val default: Dp = 0.dp,
+data class Padding(
+    val zero: Dp = 0.dp,
     val extraSmall: Dp = 4.dp,
     val small: Dp = 8.dp,
     val medium: Dp = 16.dp,
