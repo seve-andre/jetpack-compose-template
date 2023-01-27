@@ -4,11 +4,16 @@ object Dependencies {
     const val jdkDesugar = "com.android.tools:desugar_jdk_libs:1.1.5"
     const val detektFormatting = "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    const val evaIcons = "br.com.devsrsouza.compose.icons.android:eva-icons:1.0.0"
 
     object Kotlin {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
-        const val extensions = "org.jetbrains.kotlin:kotlin-android-extensions:${Versions.kotlin}"
+        const val serialization =
+            "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinSerialization}"
+
+        const val serializationPlugin =
+            "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlinSerializationPlugin}"
 
         object Coroutines {
             private const val version = "1.6.0"
@@ -57,7 +62,7 @@ object Dependencies {
 
     object Datastore {
         // Datastore + proto
-        const val proto = "androidx.datastore:datastore:1.0.0"
+        const val proto = "androidx.datastore:datastore:${Versions.protoDatastore}"
     }
 
     object Hilt {

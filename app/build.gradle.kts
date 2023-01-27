@@ -5,8 +5,11 @@ plugins {
     id(Plugins.ksp) version Versions.ksp
     id(Plugins.hilt)
     id(Plugins.detekt).version(Versions.detekt)
+    id(Plugins.kotlinSerialization)
 }
 android {
+    namespace = AppConfig.applicationId
+
     compileSdk = AppConfig.compileSdkVersion
     defaultConfig {
         applicationId = AppConfig.applicationId
@@ -45,6 +48,13 @@ android {
     packagingOptions {
         resources.excludes.add("/META-INF/AL2.0")
         resources.excludes.add("/META-INF/LGPL2.1")
+    }
+    applicationVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            }
+        }
     }
 }
 
@@ -85,19 +95,53 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 tasks.getByPath("preBuild").dependsOn("detekt")
 
 dependencies {
-    kotlin()
-    ui()
-    navigation()
-    network()
-    dependencyInjection()
-    localCaching()
-    logging()
-    tests()
+    // Kotlin
+    implementation(Dependencies.Kotlin.stdlib)
+    implementation(Dependencies.Kotlin.Coroutines.android)
+    implementation(Dependencies.Kotlin.serialization)
 
-    // security()
-    // notifications()
-    // permissions()
+    // UI (Compose + Accompanist + Icons + ...)
+    implementation(Dependencies.Compose.activity)
+    implementation(Dependencies.Compose.runtime)
+    implementation(Dependencies.Compose.foundation)
+    implementation(Dependencies.Compose.layout)
+    implementation(Dependencies.Compose.tooling)
+    implementation(Dependencies.Compose.animation)
+    implementation(Dependencies.Compose.material3)
+    implementation(Dependencies.Compose.material3WindowSize)
+    implementation(Dependencies.Accompanist.systemUiController)
+    implementation(Dependencies.Accompanist.placeholder)
+    implementation(Dependencies.AndroidX.Lifecycle.viewModelCompose)
+    implementation(Dependencies.evaIcons)
 
+    // Navigation
+    implementation(Dependencies.Navigation.compose)
+    ksp(Dependencies.Navigation.ksp)
+
+    // Dependency Injection
+    implementation(Dependencies.Hilt.android)
+    kapt(Dependencies.Hilt.compiler)
+
+    // Room
+    implementation(Dependencies.Room.runtime)
+    kapt(Dependencies.Room.compiler)
+    implementation(Dependencies.Room.ktx)
+
+    // Datastore (previously SharedPreferences)
+    implementation(Dependencies.Datastore.proto)
+
+    // Logging
+    implementation(Dependencies.timber)
+
+    // Tests
+    testImplementation(Dependencies.Tests.junit)
+    androidTestImplementation(Dependencies.Tests.androidJUnit)
+    androidTestImplementation(Dependencies.Tests.espressoCore)
+    androidTestImplementation(Dependencies.Tests.composeJUnit)
+
+    // Desugaring - https://developer.android.com/studio/write/java8-support-table
     coreLibraryDesugaring(Dependencies.jdkDesugar)
+
+    // Formatting
     detektPlugins(Dependencies.detektFormatting)
 }
