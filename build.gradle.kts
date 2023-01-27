@@ -7,6 +7,7 @@ buildscript {
         classpath(Dependencies.androidGradlePlugin)
         classpath(Dependencies.Kotlin.gradlePlugin)
         classpath(Dependencies.Hilt.gradlePlugin)
+        classpath(Dependencies.Kotlin.serializationPlugin)
     }
 }
 

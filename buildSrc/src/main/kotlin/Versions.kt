@@ -11,4 +11,7 @@ object Versions {
     const val ksp = "$kotlin-1.0.6"
     const val detekt = "1.21.0"
     const val timber = "5.0.1"
+    const val protoDatastore = "1.0.0"
+    const val kotlinSerialization = "1.4.1"
+    const val kotlinSerializationPlugin = kotlin
 }

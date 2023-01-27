@@ -1,4 +1,4 @@
-package com.mitch.appname.presentation.ui.theme.custom
+package com.mitch.appname.ui.theme.custom
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

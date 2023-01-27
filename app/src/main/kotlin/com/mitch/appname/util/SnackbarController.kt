@@ -1,6 +1,6 @@
 package com.mitch.appname.util
 
-import androidx.compose.material.ScaffoldState
+import androidx.compose.material3.SnackbarHostState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
  *
  */
 class SnackbarController(
+    private val snackbarHostState: SnackbarHostState,
     val scope: CoroutineScope
 ) {
 
@@ -25,13 +26,12 @@ class SnackbarController(
 
     // TODO: should show SnackbarResult
     fun showSnackbar(
-        scaffoldState: ScaffoldState,
         message: String,
         actionLabel: String? = null
     ) {
         if (snackbarJob == null) {
             snackbarJob = scope.launch {
-                scaffoldState.snackbarHostState.showSnackbar(
+                snackbarHostState.showSnackbar(
                     message = message,
                     actionLabel = actionLabel
                 )
@@ -40,7 +40,7 @@ class SnackbarController(
         } else {
             cancelActiveJob()
             snackbarJob = scope.launch {
-                scaffoldState.snackbarHostState.showSnackbar(
+                snackbarHostState.showSnackbar(
                     message = message,
                     actionLabel = actionLabel
                 )
