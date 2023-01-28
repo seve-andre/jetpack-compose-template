@@ -7,19 +7,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.mitch.appname.ui.NavGraphs
+import com.mitch.appname.ui.appCurrentDestinationAsState
 import com.mitch.appname.ui.appDestination
 import com.mitch.appname.ui.destinations.Destination
+import com.mitch.appname.ui.startAppDestination
 import com.mitch.appname.util.SnackbarController
+import com.mitch.appname.util.network.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 @Composable
 fun rememberAppState(
+    networkMonitor: NetworkMonitor,
     navController: NavHostController = rememberNavController(),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
-    coroutineScope: CoroutineScope = rememberCoroutineScope()
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
 ): AppState {
-    return remember(navController, snackbarHostState, coroutineScope) {
-        AppState(navController, snackbarHostState, coroutineScope)
+    return remember(navController, snackbarHostState, coroutineScope, networkMonitor) {
+        AppState(navController, snackbarHostState, coroutineScope, networkMonitor)
     }
 }
 
@@ -27,8 +35,9 @@ fun rememberAppState(
 class AppState(
     val navController: NavHostController,
     val snackbarHostState: SnackbarHostState,
-    private val coroutineScope: CoroutineScope,
-    private val snackbarController: SnackbarController = SnackbarController(
+    coroutineScope: CoroutineScope,
+    networkMonitor: NetworkMonitor,
+    val snackbarController: SnackbarController = SnackbarController(
         snackbarHostState,
         coroutineScope
     )
@@ -37,16 +46,24 @@ class AppState(
      * App's current destination if set, otherwise starting destination.
      *
      * Starting destination: search for `@RootNavGraph(start = true)`
-     *//*
+     */
     val currentDestination: Destination
         @Composable get() = navController.appCurrentDestinationAsState().value
             ?: NavGraphs.root.startAppDestination
 
-    *//**
+    /**
      * App's previous destination if set, otherwise null
      */
     val prevDestination: Destination?
         @Composable get() = navController.previousBackStackEntry?.appDestination()
+
+    val isOffline = networkMonitor.isOnline
+        .map(Boolean::not)
+        .stateIn(
+            scope = coroutineScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false
+        )
 
     fun goBack() {
         navController.navigateUp()
