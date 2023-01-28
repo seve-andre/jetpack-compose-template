@@ -1,11 +1,14 @@
 package com.mitch.appname.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.mitch.appname.data.local.AppDatabase
+import com.mitch.appname.util.network.ConnectivityManagerNetworkMonitor
+import com.mitch.appname.util.network.NetworkMonitor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -15,11 +18,16 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(app: Application): AppDatabase {
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return Room.databaseBuilder(
-            app,
+            appContext,
             AppDatabase::class.java,
-            "stockdb.db"
+            "appname.db"
         ).build()
     }
+
+    @Provides
+    fun provideNetworkMonitor(
+        connectivityManagerNetworkMonitor: ConnectivityManagerNetworkMonitor
+    ): NetworkMonitor = connectivityManagerNetworkMonitor
 }
