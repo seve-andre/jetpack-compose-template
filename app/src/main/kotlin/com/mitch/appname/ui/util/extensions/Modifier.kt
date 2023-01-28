@@ -1,4 +1,4 @@
-package com.mitch.appname.util.extensions
+package com.mitch.appname.ui.util.extensions
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
