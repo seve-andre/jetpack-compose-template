@@ -69,14 +69,21 @@ object Dependencies {
         const val android = "com.google.dagger:hilt-android:${Versions.hilt}"
         const val compiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
         const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
+
+        // hiltViewModel()
+        const val navigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
     }
 
     object AndroidX {
         object Lifecycle {
             private const val version = "2.5.1"
 
+            // SavedStateHandle
             const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
-            const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
+            const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+
+            // collectAsStateWithLifecycle()
+            const val runtimeCompose = "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03"
         }
     }
 
