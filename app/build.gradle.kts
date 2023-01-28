@@ -112,6 +112,9 @@ dependencies {
     implementation(Dependencies.Accompanist.systemUiController)
     implementation(Dependencies.Accompanist.placeholder)
     implementation(Dependencies.AndroidX.Lifecycle.viewModelCompose)
+    implementation(Dependencies.AndroidX.Lifecycle.runtimeKtx)
+    implementation(Dependencies.AndroidX.Lifecycle.runtimeCompose)
+    implementation(Dependencies.Compose.coil)
     implementation(Dependencies.evaIcons)
 
     // Navigation
@@ -121,6 +124,7 @@ dependencies {
     // Dependency Injection
     implementation(Dependencies.Hilt.android)
     kapt(Dependencies.Hilt.compiler)
+    implementation(Dependencies.Hilt.navigationCompose)
 
     // Room
     implementation(Dependencies.Room.runtime)
