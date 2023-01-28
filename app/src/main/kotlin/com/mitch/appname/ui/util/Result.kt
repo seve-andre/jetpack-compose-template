@@ -6,10 +6,14 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
 /**
- * Result
+ * [Result] is useful for situations where an operation could go wrong.
  *
- * @param T
- * @constructor Create empty Result
+ * [Result] returns:
+ * - [Success]: if nothing goes wrong
+ * - [Error]: if something goes wrong
+ * - [Loading]: if it's awaiting for the result
+ *
+ * @param T type of a successful operation
  */
 sealed interface Result<out T> {
     data class Success<T>(val data: T) : Result<T>
@@ -17,6 +21,12 @@ sealed interface Result<out T> {
     object Loading : Result<Nothing>
 }
 
+/**
+ * Converts a simple flow to a [Result] flow.
+ *
+ * @param T type of a successful operation
+ * @return same flow wrapped in a [Result]
+ */
 fun <T> Flow<T>.asResult(): Flow<Result<T>> {
     return this
         .map<T, Result<T>> {
