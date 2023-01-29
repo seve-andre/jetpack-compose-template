@@ -12,6 +12,6 @@ object Versions {
     const val detekt = "1.21.0"
     const val timber = "5.0.1"
     const val protoDatastore = "1.0.0"
-    const val kotlinSerialization = "1.4.1"
-    const val kotlinSerializationPlugin = kotlin
+    const val protobuf = "3.21.9"
+    const val protobufPlugin = "0.8.19"
 }

@@ -5,5 +5,5 @@ object Plugins {
     const val ksp = "com.google.devtools.ksp"
     const val hilt = "com.google.dagger.hilt.android"
     const val detekt = "io.gitlab.arturbosch.detekt"
-    const val kotlinSerialization = "org.jetbrains.kotlin.plugin.serialization"
+    const val proto = "com.google.protobuf"
 }

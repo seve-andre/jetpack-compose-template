@@ -1,3 +1,8 @@
+import com.google.protobuf.gradle.builtins
+import com.google.protobuf.gradle.generateProtoTasks
+import com.google.protobuf.gradle.protobuf
+import com.google.protobuf.gradle.protoc
+
 plugins {
     id(Plugins.androidApp)
     id(Plugins.kotlinAndroid)
@@ -5,7 +10,7 @@ plugins {
     id(Plugins.ksp) version Versions.ksp
     id(Plugins.hilt)
     id(Plugins.detekt).version(Versions.detekt)
-    id(Plugins.kotlinSerialization)
+    id(Plugins.proto) version Versions.protobufPlugin
 }
 android {
     namespace = AppConfig.applicationId
@@ -84,6 +89,24 @@ detekt {
     autoCorrect = true
 }
 
+protobuf {
+    protoc {
+        artifact = Dependencies.Datastore.protoCompiler
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                val java by registering {
+                    option("lite")
+                }
+                val kotlin by registering {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     reports {
         html.required.set(true) // observe findings in your browser with structure and code snippets
@@ -98,7 +121,6 @@ dependencies {
     // Kotlin
     implementation(Dependencies.Kotlin.stdlib)
     implementation(Dependencies.Kotlin.Coroutines.android)
-    implementation(Dependencies.Kotlin.serialization)
 
     // UI (Compose + Accompanist + Icons + ...)
     implementation(Dependencies.Compose.activity)
@@ -133,6 +155,7 @@ dependencies {
 
     // Datastore (previously SharedPreferences)
     implementation(Dependencies.Datastore.proto)
+    implementation(Dependencies.Datastore.kotlinLite)
 
     // Logging
     implementation(Dependencies.timber)

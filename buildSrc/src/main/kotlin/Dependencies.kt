@@ -9,11 +9,6 @@ object Dependencies {
     object Kotlin {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
-        const val serialization =
-            "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinSerialization}"
-
-        const val serializationPlugin =
-            "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlinSerializationPlugin}"
 
         object Coroutines {
             private const val version = "1.6.0"
@@ -63,6 +58,8 @@ object Dependencies {
     object Datastore {
         // Datastore + proto
         const val proto = "androidx.datastore:datastore:${Versions.protoDatastore}"
+        const val protoCompiler = "com.google.protobuf:protoc:${Versions.protobuf}"
+        const val kotlinLite = "com.google.protobuf:protobuf-kotlin-lite:${Versions.protobuf}"
     }
 
     object Hilt {
