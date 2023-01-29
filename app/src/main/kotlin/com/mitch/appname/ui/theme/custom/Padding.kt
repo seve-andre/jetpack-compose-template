@@ -1,5 +1,6 @@
 package com.mitch.appname.ui.theme.custom
 
+import androidx.compose.material3.CardDefaults
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -13,3 +14,9 @@ data class Padding(
     val large: Dp = 32.dp,
     val extraLarge: Dp = 64.dp
 )
+
+val CardDefaults.contentPadding: Dp
+    get() = padding.medium
+
+val CardDefaults.paddingBetweenCards: Dp
+    get() = padding.small
