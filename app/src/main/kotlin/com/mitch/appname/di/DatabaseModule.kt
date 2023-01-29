@@ -2,7 +2,7 @@ package com.mitch.appname.di
 
 import android.content.Context
 import androidx.room.Room
-import com.mitch.appname.data.local.AppDatabase
+import com.mitch.appname.data.local.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

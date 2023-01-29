@@ -1,4 +1,4 @@
-package com.mitch.appname.data.local
+package com.mitch.appname.data.local.db
 
 import androidx.room.RoomDatabase
 
@@ -10,5 +10,5 @@ import androidx.room.RoomDatabase
 )*/
 abstract class AppDatabase : RoomDatabase() {
     // put DAOs here as abstract val
-    // example -> abstract val dao: StockDao
+    // see example at: https://github.com/seve-andre/myUniBo/blob/main/app/src/main/kotlin/com/mitch/my_unibo/db/UniboDatabase.kt
 }
