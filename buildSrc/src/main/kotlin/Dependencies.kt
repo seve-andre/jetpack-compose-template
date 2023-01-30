@@ -5,6 +5,7 @@ object Dependencies {
     const val detektFormatting = "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val evaIcons = "br.com.devsrsouza.compose.icons.android:eva-icons:1.0.0"
+    const val splashscreen = "androidx.core:core-splashscreen:1.0.0"
 
     object Kotlin {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"

@@ -138,6 +138,7 @@ dependencies {
     implementation(Dependencies.AndroidX.Lifecycle.runtimeCompose)
     implementation(Dependencies.Compose.coil)
     implementation(Dependencies.evaIcons)
+    implementation(Dependencies.splashscreen)
 
     // Navigation
     implementation(Dependencies.Navigation.compose)
