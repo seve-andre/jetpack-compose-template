@@ -14,10 +14,11 @@ fun ProtoUserPreferences.toLocalUserPreferences(): UserPreferences {
 fun AppTheme.toProto(): ProtoAppTheme = when (this) {
     AppTheme.Light -> ProtoAppTheme.LIGHT
     AppTheme.Dark -> ProtoAppTheme.DARK
+    AppTheme.FollowSystem -> ProtoAppTheme.UNRECOGNIZED
 }
 
 fun ProtoAppTheme.toLocal(): AppTheme = when (this) {
     ProtoAppTheme.LIGHT -> AppTheme.Light
     ProtoAppTheme.DARK -> AppTheme.Dark
-    ProtoAppTheme.UNRECOGNIZED -> AppTheme.Light
+    ProtoAppTheme.UNRECOGNIZED, ProtoAppTheme.FOLLOW_SYSTEM -> AppTheme.FollowSystem
 }

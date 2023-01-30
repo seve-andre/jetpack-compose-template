@@ -8,5 +8,4 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 @Destination
 @Composable
 fun MainScreen() {
-
 }
