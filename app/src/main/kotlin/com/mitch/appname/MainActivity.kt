@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,7 +40,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /* TODO: add:
-    - splashscreen
     - set theme according to datastore
     - (maybe) per-app language
     - tests
@@ -86,14 +86,16 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val systemUiController = rememberSystemUiController()
-            val darkTheme = isSystemInDarkTheme()
+            val isThemeDark = shouldUseDarkTheme(uiState)
 
-            DisposableEffect(systemUiController, darkTheme) {
-                systemUiController.systemBarsDarkContentEnabled = !darkTheme
+            DisposableEffect(systemUiController, isThemeDark) {
+                systemUiController.systemBarsDarkContentEnabled = !isThemeDark
                 onDispose {}
             }
 
-            AppTheme {
+            AppTheme(
+                darkTheme = isThemeDark
+            ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -128,5 +130,16 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun shouldUseDarkTheme(
+    uiState: MainActivityUiState,
+): Boolean = when (uiState) {
+    MainActivityUiState.Loading -> isSystemInDarkTheme()
+    is MainActivityUiState.Success -> when (uiState.userPreferences.theme) {
+        com.mitch.appname.util.AppTheme.Dark -> true
+        com.mitch.appname.util.AppTheme.Light -> false
     }
 }

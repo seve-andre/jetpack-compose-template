@@ -26,6 +26,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        resourceConfigurations.addAll(listOf("en", "it"))
     }
     buildTypes {
         getByName("release") {
@@ -138,7 +139,10 @@ dependencies {
     implementation(Dependencies.AndroidX.Lifecycle.runtimeCompose)
     implementation(Dependencies.Compose.coil)
     implementation(Dependencies.evaIcons)
-    implementation(Dependencies.splashscreen)
+
+    // AndroidX
+    implementation(Dependencies.AndroidX.splashscreen)
+    implementation(Dependencies.AndroidX.appCompat)
 
     // Navigation
     implementation(Dependencies.Navigation.compose)

@@ -4,12 +4,7 @@ option java_package = "com.mitch.appname";
 option java_multiple_files = true;
 
 message ProtoUserPreferences {
-  ProtoAppLanguage language = 1;
-  ProtoAppTheme theme = 2;
-
-  enum ProtoAppLanguage {
-    ENGLISH = 0;
-  }
+  ProtoAppTheme theme = 1;
 
   enum ProtoAppTheme {
     LIGHT = 0;
