@@ -3,6 +3,8 @@ package com.mitch.appname
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,32 +14,85 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mitch.appname.ui.NavGraphs
 import com.mitch.appname.ui.theme.AppTheme
 import com.mitch.appname.ui.util.rememberAppState
 import com.mitch.appname.util.network.NetworkMonitor
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+/* TODO: add:
+    - splashscreen
+    - set theme according to datastore
+    - (maybe) per-app language
+    - tests
+    - update README
+ */
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    // if not needed, also remove permission from manifest
     @Inject
     lateinit var networkMonitor: NetworkMonitor
+
+    val viewModel: MainActivityViewModel by viewModels()
 
     @OptIn(
         ExperimentalMaterial3Api::class,
         ExperimentalLifecycleComposeApi::class
     )
     override fun onCreate(savedInstanceState: Bundle?) {
+        // must be called before super.onCreate()
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+
+        var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
+
+        // Update the uiState
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState
+                    .onEach {
+                        uiState = it
+                    }
+                    .collect()
+            }
+        }
+
+        splashScreen.setKeepOnScreenCondition {
+            when (uiState) {
+                MainActivityUiState.Loading -> true
+                is MainActivityUiState.Success -> false
+            }
+        }
+
         setContent {
+            val systemUiController = rememberSystemUiController()
+            val darkTheme = isSystemInDarkTheme()
+
+            DisposableEffect(systemUiController, darkTheme) {
+                systemUiController.systemBarsDarkContentEnabled = !darkTheme
+                onDispose {}
+            }
+
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
