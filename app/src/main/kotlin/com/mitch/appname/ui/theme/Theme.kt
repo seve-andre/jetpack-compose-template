@@ -13,9 +13,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme()
-private val LightColorScheme = lightColorScheme(
-    primary = Color.Red
-)
+private val LightColorScheme = lightColorScheme()
 
 @Composable
 fun AppTheme(
