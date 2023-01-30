@@ -5,6 +5,8 @@ import com.mitch.appname.util.AppTheme
 import kotlinx.coroutines.flow.Flow
 
 interface UserPreferencesRepo {
+    val userPreferencesData: Flow<UserPreferences>
+
     suspend fun setLanguage(language: AppLanguage)
     suspend fun setTheme(theme: AppTheme)
     fun getLanguage(): Flow<AppLanguage>

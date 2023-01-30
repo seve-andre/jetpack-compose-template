@@ -11,6 +11,8 @@ import javax.inject.Inject
 class UserPreferencesDataSource @Inject constructor(
     private val userPreferences: DataStore<ProtoUserPreferences>
 ) {
+    val userPreferencesData = userPreferences.data
+
     suspend fun setProtoLanguage(language: ProtoAppLanguage) {
         userPreferences.updateData {
             it.toBuilder().setLanguage(language).build()
