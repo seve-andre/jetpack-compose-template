@@ -6,8 +6,9 @@ import com.google.protobuf.InvalidProtocolBufferException
 import com.mitch.appname.ProtoUserPreferences
 import java.io.InputStream
 import java.io.OutputStream
+import javax.inject.Inject
 
-object ProtoUserPreferencesSerializer : Serializer<ProtoUserPreferences> {
+class ProtoUserPreferencesSerializer @Inject constructor() : Serializer<ProtoUserPreferences> {
     override val defaultValue: ProtoUserPreferences = ProtoUserPreferences.getDefaultInstance()
 
     override suspend fun readFrom(input: InputStream): ProtoUserPreferences =
