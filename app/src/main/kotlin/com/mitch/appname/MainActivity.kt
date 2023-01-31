@@ -15,7 +15,6 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +26,6 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mitch.appname.ui.NavGraphs
 import com.mitch.appname.ui.theme.AppTheme
 import com.mitch.appname.ui.util.rememberAppState
@@ -40,8 +38,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /* TODO: add:
-    - set theme according to datastore
-    - (maybe) per-app language
     - tests
     - update README
  */
@@ -49,18 +45,21 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    // if not needed, also remove permission from manifest
+    // if not needed, also remove permission from AndroidManifest.xml
     @Inject
     lateinit var networkMonitor: NetworkMonitor
 
-    val viewModel: MainActivityViewModel by viewModels()
+    private val viewModel: MainActivityViewModel by viewModels()
 
     @OptIn(
         ExperimentalMaterial3Api::class,
         ExperimentalLifecycleComposeApi::class
     )
     override fun onCreate(savedInstanceState: Bundle?) {
-        // must be called before super.onCreate()
+        /* Must be called before super.onCreate()
+         *
+         * Splashscreen look in res/values/themes.xml
+         */
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
@@ -85,16 +84,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContent {
-            val systemUiController = rememberSystemUiController()
-            val isThemeDark = shouldUseDarkTheme(uiState)
-
-            DisposableEffect(systemUiController, isThemeDark) {
-                systemUiController.systemBarsDarkContentEnabled = !isThemeDark
-                onDispose {}
-            }
-
             AppTheme(
-                darkTheme = isThemeDark
+                darkTheme = shouldUseDarkTheme(uiState)
             ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),

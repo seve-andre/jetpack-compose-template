@@ -31,9 +31,14 @@ fun AppTheme(
             ?: throw Exception("Not in an activity - unable to get Window reference")
 
         SideEffect {
+            // status bar color
             currentWindow.statusBarColor = colorScheme.background.toArgb()
-            currentWindow.navigationBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(currentWindow, view).isAppearanceLightStatusBars =
+                !darkTheme
+
+            // navigation bar color
+            currentWindow.navigationBarColor = colorScheme.background.toArgb()
+            WindowCompat.getInsetsController(currentWindow, view).isAppearanceLightNavigationBars =
                 !darkTheme
         }
     }

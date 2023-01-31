@@ -8,6 +8,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+/**
+ * [UserPreferencesRepoImpl] is the actual [UserPreferencesRepo] implementation that makes use of
+ * [UserPreferencesDataSource] to retrieve/set Datastore preferences, using a local mapper
+ *
+ * @property userPreferencesDataSource the mediator between Datastore and Repository
+ */
 class UserPreferencesRepoImpl @Inject constructor(
     private val userPreferencesDataSource: UserPreferencesDataSource
 ) : UserPreferencesRepo {

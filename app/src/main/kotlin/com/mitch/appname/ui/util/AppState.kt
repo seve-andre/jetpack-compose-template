@@ -31,6 +31,7 @@ fun rememberAppState(
     }
 }
 
+// Controls app state. Stable is used to if any of the values is changed the Composables are recomposed
 @Stable
 class AppState(
     val navController: NavHostController,
@@ -43,7 +44,7 @@ class AppState(
     )
 ) {
     /**
-     * App's current destination if set, otherwise starting destination.
+     * App's current [Destination] if set, otherwise starting destination.
      *
      * Starting destination: search for `@RootNavGraph(start = true)`
      */
@@ -57,6 +58,9 @@ class AppState(
     val prevDestination: Destination?
         @Composable get() = navController.previousBackStackEntry?.appDestination()
 
+    /**
+     * Manages app connectivity status
+     */
     val isOffline = networkMonitor.isOnline
         .map(Boolean::not)
         .stateIn(

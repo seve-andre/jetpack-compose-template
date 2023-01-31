@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
  *
  * If a mechanism like this is not used, snackbar get added to the Scaffolds "queue", and will
  * show one after another. I don't like that.
- *
  */
 class SnackbarController(
     private val snackbarHostState: SnackbarHostState,

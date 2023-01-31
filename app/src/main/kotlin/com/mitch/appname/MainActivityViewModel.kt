@@ -14,6 +14,11 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(
     userPreferencesRepo: UserPreferencesRepo
 ) : ViewModel() {
+
+    /**
+     * Initial [MainActivity] ui state is set to [MainActivityUiState.Loading] and mapped to
+     * [MainActivityUiState.Success] once the [UserPreferences] data is retrieved
+     */
     val uiState = userPreferencesRepo.userPreferencesData.map {
         MainActivityUiState.Success(it)
     }.stateIn(

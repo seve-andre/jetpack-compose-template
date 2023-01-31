@@ -2,7 +2,7 @@ package com.mitch.appname.data.local.db
 
 import androidx.room.RoomDatabase
 
-// uncomment
+// see at https://developer.android.com/training/data-storage/room#database
 /*@Database(
     // put entities inside the []
     entities = [],

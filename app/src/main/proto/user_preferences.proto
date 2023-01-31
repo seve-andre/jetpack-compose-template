@@ -7,6 +7,7 @@ message ProtoUserPreferences {
   ProtoAppTheme theme = 1;
 
   enum ProtoAppTheme {
+    // initial value of theme is set to system default
     FOLLOW_SYSTEM = 0;
     LIGHT = 1;
     DARK = 2;
