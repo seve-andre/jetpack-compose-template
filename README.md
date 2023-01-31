@@ -6,6 +6,11 @@
 
 # Android Jetpack Compose template
 Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20template-%23347d39)](https://github.com/seve-andre/compose-template/generate) to create your own repo
+## :warning: Warning
+The template consists of 2 branches:
+- [main](https://github.com/seve-andre/compose-template/tree/main): uses Material3 since it's the latest design system
+- [material2](https://github.com/seve-andre/compose-template/tree/material2): uses Material2, older but still strong
+
 ## What to update
 - root project name in `setting.gradle.kts`
 - package name (now *com.mitch.appname*)
@@ -48,8 +53,3 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
 - [AppState](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/util/AppState.kt): [see inspo](https://github.com/android/nowinandroid/blob/607c24e7f7399942e278af663ea4ad350e5bbc3a/app/src/main/java/com/google/samples/apps/nowinandroid/ui/NiaAppState.kt)
 - [NetworkMonitor](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/network/NetworkMonitor.kt): [see inspo](https://github.com/android/nowinandroid/blob/9371d0d4b80ffea0105a2376d057243eb68af0fa/core/data/src/main/java/com/google/samples/apps/nowinandroid/core/data/util/NetworkMonitor.kt)
 - [ConnectivityManagerNetworkMonitor](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/network/ConnectivityManagerNetworkMonitor.kt): [see inspo](https://github.com/android/nowinandroid/blob/11fbf53f12898b6ee7c55dda69716fa3600e7317/core/data/src/main/java/com/google/samples/apps/nowinandroid/core/data/util/ConnectivityManagerNetworkMonitor.kt)
-
-## :warning: Warning
-The template consists of 2 branches:
-- [main](https://github.com/seve-andre/compose-template/tree/main): uses Material3 since it's the latest design system
-- [material2](https://github.com/seve-andre/compose-template/tree/material2): uses Material2, older but still strong
