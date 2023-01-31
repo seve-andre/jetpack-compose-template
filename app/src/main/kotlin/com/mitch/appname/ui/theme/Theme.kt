@@ -16,10 +16,10 @@ private val LightColorScheme = lightColorScheme()
 
 @Composable
 fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    isThemeDark: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (darkTheme) {
+    val colorScheme = if (isThemeDark) {
         DarkColorScheme
     } else {
         LightColorScheme
@@ -34,12 +34,12 @@ fun AppTheme(
             // status bar color
             currentWindow.statusBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(currentWindow, view).isAppearanceLightStatusBars =
-                !darkTheme
+                !isThemeDark
 
             // navigation bar color
             currentWindow.navigationBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(currentWindow, view).isAppearanceLightNavigationBars =
-                !darkTheme
+                !isThemeDark
         }
     }
 
