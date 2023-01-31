@@ -19,7 +19,10 @@ The template consists of 2 branches:
 - `detekt.yml` rules (in app/config/detekt)
 - dependencies, their versions, plugins, android configuration (appId, minSdk, targetSdk, compileSdk) in `buildSrc`
 - `java_package` option in `user_preferences.proto`
-- languages supported by the app in `res/xml/locales_config.xml`, in app `build.gradle.kts` (android defaultConfig resourceConfigurations) and in `util/AppLanguage.kt`; they should all match
+- languages supported by the app in:
+  - `res/xml/locales_config.xml`
+  - in app `build.gradle.kts` (android &#8594; defaultConfig &#8594; resourceConfigurations) and in `util/AppLanguage.kt`; they should all match
+  - **NOTE**: you should also create the `res/values-*language code*` folder contaning `strings.xml`
 
 ## What does it use?
 ### Dependencies
