@@ -13,12 +13,14 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
 - `AppName.kt` to your app full name (should match android.name in AndroidManifest.xml)
 - `detekt.yml` rules (in app/config/detekt)
 - dependencies, their versions, plugins, android configuration (appId, minSdk, targetSdk, compileSdk) in `buildSrc`
+- `java_package` option in `user_preferences.proto`
+- languages supported by the app in `res/xml/locales_config.xml`, in app `build.gradle.kts` (android defaultConfig resourceConfigurations) and in `util/AppLanguage.kt`; they should all match
 
 ## What does it use?
 ### Dependencies
 - [Kotlin](https://kotlinlang.org/) as main language
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) as modern toolkit for native UI
-- [Material components for Jetpack Compose](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#top-level-functions) to build UI faster
+- [Material components for Jetpack Compose](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#top-level-functions) to build UI faster
 - [Room](https://developer.android.com/training/data-storage/room) as local persistent DB
 - [Retrofit+OkHttp](https://square.github.io/retrofit/): for api calls
 - [Datastore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAjwkYGVBhArEiwA4sZLuMMCRUnWZzzy-AwDePYTUTn3gO6-rrT8jGo7D-H2vztegIJ-zEsb8hoCtI8QAvD_BwE&gclsrc=aw.ds) to cache user info, instead of SharedPreferences since it's ~~deprecated~~
@@ -28,6 +30,11 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
   - [Placeholder](https://google.github.io/accompanist/placeholder/) to create a skeleton loader effect when loading a screen
 - [Detekt](https://detekt.dev/) for static code analysis and formatting
 - [Timber](https://github.com/JakeWharton/timber) for logging
+- [Eva icons](https://github.com/DevSrSouza/compose-icons/blob/master/eva-icons/DOCUMENTATION.md) for the icons to use throughout the whole app
+- [Coil](https://coil-kt.github.io/coil/compose/) for image loading backed by Kotlin coroutines
+- [Splashscreen API](https://developer.android.com/develop/ui/views/launch/splash-screen) to display a splashscreen at app startup
+- [Per-app language preferences](https://developer.android.com/guide/topics/resources/app-languages) to change the app language inside the app or in the system settings
+- [Compose Destinations](https://composedestinations.rafaelcosta.xyz/) for easier app navigation
 
 ### Gradle and buildSrc
 - Kotlin DSL: instead of Groovy to make a 100% Kotlin-based template
@@ -36,6 +43,8 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
 ## Inspo
 - general structure: [see inspo](https://github.com/PizzaMarinara/yaat)
 - buildSrc: [see inspo](https://github.com/PizzaMarinara/yaat)
-- [DependencyHandler extensions](https://github.com/nridwan/android_compose_buildsrc/blob/main/src/main/kotlin/Libraries.kt): [see inspo](https://github.com/nridwan/android_compose_buildsrc)
 - [SnackbarController](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/SnackbarController.kt): [see inspo](https://github.com/mitchtabian/MVVMRecipeApp/blob/managing-snackbar-with-scaffold/app/src/main/java/com/codingwithmitch/mvvmrecipeapp/presentation/components/util/SnackbarController.kt)
-- [Resource](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/Resource.kt): [see inspo](https://github.com/philipplackner/StockMarketApp/blob/final/app/src/main/java/com/plcoding/stockmarketapp/util/Resource.kt)
+- [Result](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/util/Result.kt): [see inspo](https://github.com/android/nowinandroid/blob/607c24e7f7399942e278af663ea4ad350e5bbc3a/core/common/src/main/java/com/google/samples/apps/nowinandroid/core/result/Result.kt)
+- [AppState](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/util/AppState.kt): [see inspo](https://github.com/android/nowinandroid/blob/607c24e7f7399942e278af663ea4ad350e5bbc3a/app/src/main/java/com/google/samples/apps/nowinandroid/ui/NiaAppState.kt)
+- [NetworkMonitor](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/network/NetworkMonitor.kt): [see inspo](https://github.com/android/nowinandroid/blob/9371d0d4b80ffea0105a2376d057243eb68af0fa/core/data/src/main/java/com/google/samples/apps/nowinandroid/core/data/util/NetworkMonitor.kt)
+- [ConnectivityManagerNetworkMonitor](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/network/ConnectivityManagerNetworkMonitor.kt): [see inspo](https://github.com/android/nowinandroid/blob/11fbf53f12898b6ee7c55dda69716fa3600e7317/core/data/src/main/java/com/google/samples/apps/nowinandroid/core/data/util/ConnectivityManagerNetworkMonitor.kt)
