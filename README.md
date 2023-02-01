@@ -14,6 +14,7 @@ The template consists of 2 branches:
 ## What to update
 - root project name in `setting.gradle.kts`
 - package name (now *com.mitch.appname*)
+- `applicationId` in `buildSrc/AppConfig.kt`
 - `AndroidManifest.xml` (in app/src/main)
 - `AppName.kt` to your app full name (should match android.name in AndroidManifest.xml)
 - `detekt.yml` rules (in app/config/detekt)
