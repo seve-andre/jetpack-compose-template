@@ -25,6 +25,7 @@ The template consists of 2 branches:
   - `res/xml/locales_config.xml`
   - in app `build.gradle.kts` (android &#8594; defaultConfig &#8594; resourceConfigurations) and in `util/AppLanguage.kt`; they should all match
   - **NOTE**: you should also create the `res/values-*language code*` folder contaning `strings.xml`
+- run `./gradlew kspDebugKotlin` to generate all the Destinations
 
 ## What does it use?
 ### Dependencies
