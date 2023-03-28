@@ -31,7 +31,7 @@ fun rememberAppState(
     }
 }
 
-// Controls app state. Stable is used to if any of the values is changed the Composables are recomposed
+// Controls app state. Stable -> if any of the values is changed, the Composables are recomposed
 @Stable
 class AppState(
     val navController: NavHostController,
