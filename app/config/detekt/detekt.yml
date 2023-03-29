@@ -597,7 +597,8 @@ style:
     maxLineLength: 120
     excludePackageStatements: true
     excludeImportStatements: true
-    excludeCommentStatements: false
+    # if contains URLs
+    excludeCommentStatements: true
   MayBeConst:
     active: true
   ModifierOrder:
