@@ -1,6 +1,7 @@
 package com.mitch.appname.ui.theme
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -28,7 +29,7 @@ fun AppTheme(
     val view = LocalView.current
     if (!view.isInEditMode) {
         val currentWindow = (view.context as? Activity)?.window
-            ?: throw Exception("Not in an activity - unable to get Window reference")
+            ?: throw ActivityNotFoundException("Not in an activity - unable to get Window reference")
 
         SideEffect {
             // status bar color
