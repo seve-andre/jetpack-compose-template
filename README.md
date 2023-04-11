@@ -28,7 +28,7 @@ The template consists of 2 branches:
     > [here](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-13.0.0_r41/core/res/res/values/locale_config.xml) is a list of all the supported language tags as of Android 13
 - `AppDatabase.kt` in `data/local/db` to your app name followed by "Database"
 - `appname.db` and `providesAppDatabase()` in `di/DatabaseModule.kt`
-- run `./gradlew kspDebugKotlin` to generate the destinations and the `NavGraphs` file
+- `Make Project` to generate all the files needed to run the app
 
 ## What does it use?
 ### Dependencies
