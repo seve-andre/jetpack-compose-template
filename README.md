@@ -26,9 +26,9 @@ The template consists of 2 branches:
   - in app `build.gradle.kts` (android &#8594; defaultConfig &#8594; resourceConfigurations) and in `util/AppLanguage.kt`; they should all match
   - **NOTE**: you should also create the `res/values-*language tag*` folder contaning `strings.xml`
     > [here](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-13.0.0_r41/core/res/res/values/locale_config.xml) is a list of all the supported language tags as of Android 13
-- run `./gradlew kspDebugKotlin` to generate all the Destinations
 - `AppDatabase.kt` in `data/local/db` to your app name followed by "Database"
 - `appname.db` and `providesAppDatabase()` in `di/DatabaseModule.kt`
+- run `./gradlew kspDebugKotlin` to generate the destinations and the `NavGraphs` file
 
 ## What does it use?
 ### Dependencies
