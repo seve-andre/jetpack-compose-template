@@ -7,5 +7,5 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 @RootNavGraph(start = true)
 @Destination
 @Composable
-fun MainScreen() {
+fun HomeScreen() {
 }
