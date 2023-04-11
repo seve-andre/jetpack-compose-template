@@ -12,6 +12,7 @@ plugins {
     id(Plugins.detekt).version(Versions.detekt)
     id(Plugins.proto) version Versions.protobufPlugin
 }
+
 android {
     namespace = AppConfig.applicationId
 
