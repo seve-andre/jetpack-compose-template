@@ -29,6 +29,7 @@ The template consists of 2 branches:
 - `AppDatabase.kt` in `data/local/db` to your app name followed by "Database"
 - `appname.db` and `providesAppDatabase()` in `di/DatabaseModule.kt`
 - `Make Project` to generate all the files needed to run the app
+- remove `ignoreFailures = true` inside the detekt block in the app `build.gradle.kts` file and fix the errors
 
 ## What does it use?
 ### Dependencies
