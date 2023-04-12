@@ -28,8 +28,9 @@ The template consists of 2 branches:
     > [here](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-13.0.0_r41/core/res/res/values/locale_config.xml) is a list of all the supported language tags as of Android 13
 - `AppDatabase.kt` in `data/local/db` to your app name followed by "Database"
 - `appname.db` and `providesAppDatabase()` in `di/DatabaseModule.kt`
-- `Make Project` to generate all the files needed to run the app
 - remove `ignoreFailures = true` inside the detekt block in the app `build.gradle.kts` file and fix the errors
+- `Make Project` to generate all the files needed to run the app
+- run the app and you should see the splashscreen followed by the blank home screen
 
 ## What does it use?
 ### Dependencies
