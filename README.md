@@ -30,9 +30,9 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
 - [Per-app language preferences](https://developer.android.com/guide/topics/resources/app-languages) to change the app language inside the app or in the system settings
 - [Compose Destinations](https://composedestinations.rafaelcosta.xyz/) for easier app navigation
 
-### Gradle and buildSrc
-- Kotlin DSL: instead of Groovy to make a 100% Kotlin-based template
-- buildSrc: it includes all `Versions`, `Dependencies`, `Plugins` and `AppConfig` for better gradle dependencies management
+## What does it offer?
+- :black_circle: dark theme support
+- :uk: :it: in-app language picker
 
 ## Inspo
 - general structure: [see inspo](https://github.com/PizzaMarinara/yaat)
