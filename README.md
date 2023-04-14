@@ -18,6 +18,7 @@ The template consists of 2 branches:
 - app name in `res/values/strings.xml`
 - `AndroidManifest.xml` (in app/src/main)
 - `AppName.kt` to your app full name (should match android.name in AndroidManifest.xml)
+- `AppTheme` to your app name followed by "Theme" in `ui/theme/Theme.kt`
 - `detekt.yml` rules (in app/config/detekt)
 - dependencies, their versions, plugins, android configuration (appId, minSdk, targetSdk, compileSdk) in `buildSrc`
 - `java_package` option in `user_preferences.proto`
