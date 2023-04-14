@@ -11,7 +11,6 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
 - [here](https://github.com/seve-andre/android-jetpack-compose-template/wiki#instructions) you can find the detailed instructions on how to convert the template to your app
 
 ## What does it use?
-### Dependencies
 - [Kotlin](https://kotlinlang.org/) as main language
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) as modern toolkit for native UI
 - [Material components for Jetpack Compose](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#top-level-functions) to build UI faster
