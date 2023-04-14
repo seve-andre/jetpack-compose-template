@@ -10,21 +10,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Surface
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mitch.appname.ui.NavGraphs
 import com.mitch.appname.ui.theme.AppTheme
 import com.mitch.appname.ui.util.rememberAppState
@@ -80,8 +85,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContent {
+            val systemUiController = rememberSystemUiController()
+            val isThemeDark = shouldUseDarkTheme(uiState)
+
+            // if no tonal elevation -> use: MaterialTheme.colorScheme.background
+            // or whatever the navigation bar containerColor is set to
+            val navigationBarColor =
+                MaterialTheme.colorScheme.surfaceColorAtElevation(NavigationBarDefaults.Elevation)
+            val statusBarColor = MaterialTheme.colorScheme.background
+
+            // Update the dark content of the system bars to match the theme
+            DisposableEffect(systemUiController, isThemeDark) {
+                systemUiController.setNavigationBarColor(
+                    color = navigationBarColor,
+                    darkIcons = !isThemeDark
+                )
+                systemUiController.setStatusBarColor(
+                    color = statusBarColor,
+                    darkIcons = !isThemeDark
+                )
+                onDispose {}
+            }
+
             AppTheme(
-                isThemeDark = shouldUseDarkTheme(uiState)
+                isThemeDark = isThemeDark
             ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
