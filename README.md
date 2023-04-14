@@ -11,7 +11,7 @@ The template consists of 2 branches:
 - [main](https://github.com/seve-andre/compose-template/tree/main): uses Material3 since it's the latest design system
 - [material2](https://github.com/seve-andre/compose-template/tree/material2): uses Material2, older but still strong
 
-## What to update
+## Instructions
 - root project name in `setting.gradle.kts`
 - package name (now *com.mitch.appname*)
 - `applicationId` in `buildSrc/AppConfig.kt`
