@@ -14,7 +14,7 @@ The template consists of 2 branches:
 ## Instructions
 Assuming:
 1. domain name = `com.mitch`
-2. app name = `todo`
+2. app name = `Todo`
 
 ### What to update
 - in [settings.gradle.kts](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/settings.gradle.kts):
@@ -46,7 +46,7 @@ Assuming:
     option java_package = "com.mitch.todo";
   ```
 
-- rename [AppName.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/AppName.kt) to `TodoApp.kt`
+- rename [AppName.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/AppName.kt) to `TodoApplication.kt`
 
 - in [AndroidManifest.xml](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/AndroidManifest.xml):
   ```xml
@@ -54,7 +54,7 @@ Assuming:
     android:name=".AppName"
     
     <!-- AFTER -->
-    android:name=".TodoApp"
+    android:name=".TodoApplication"
   ```
 
 - in [Theme.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/theme/Theme.kt):
@@ -96,12 +96,16 @@ Assuming:
 - app supported languages in:
   - [locales_config.xml](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/res/xml/locales_config.xml):
 
-  - [build.gradle.kts](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/build.gradle.kts) (you should change [this line](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/build.gradle.kts#L30))
+  - [build.gradle.kts](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/build.gradle.kts)
+    - change the language tags in `resourceConfigurations.addAll(listOf("en", "it"))`
   
   - [AppLanguage.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/AppLanguage.kt)
   
-  - **NOTE**: you must also create the `res/values-*language tag*` folder containing the `strings.xml` file for each language
-    > [here](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-13.0.0_r41/core/res/res/values/locale_config.xml) is a list of all the supported language tags as of Android 13
+  > :warning: all the language tags should match in the 3 points above
+  
+  > :warning: you must also create the `res/values-*language tag*` folder containing the `strings.xml` file for each language
+  
+  > :100: [here](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-13.0.0_r41/core/res/res/values/locale_config.xml) is a list of all the supported language tags as of Android 13
 
 - rename [AppDatabase.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/data/local/db/AppDatabase.kt) to `TodoDatabase.kt` and its abstract class:
   ```kotlin
@@ -115,6 +119,7 @@ Assuming:
   ```
 
 - `appname.db` and `providesAppDatabase()` in `di/DatabaseModule.kt`
+
 - in [DatabaseModule.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/di/DatabaseModule.kt):
   ```kotlin
     // BEFORE
@@ -138,11 +143,12 @@ Assuming:
   ```
 
 - to change formatting rules, edit [detekt.yml](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/config/detekt/detekt.yml)
+
 - to change dependencies, their versions, plugins and android configuration, edit the files in [this folder](https://github.com/seve-andre/android-jetpack-compose-template/tree/main/buildSrc/src/main/kotlin)
 
 ### Next steps
-- in [build.gradle.kts](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/build.gradle.kts) remove `ignoreFailures = true` and fix the errors
 - `Make Project` to generate all the files needed to run the app
+- in [build.gradle.kts](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/build.gradle.kts) remove `ignoreFailures = true` and fix the errors
 - run the app and you should see the Splashscreen followed by the blank [HomeScreen](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/HomeScreen.kt)
 
 ## What does it use?
