@@ -12,26 +12,138 @@ The template consists of 2 branches:
 - [material2](https://github.com/seve-andre/compose-template/tree/material2): uses Material2, older but still strong
 
 ## Instructions
-- root project name in `setting.gradle.kts`
-- package name (now *com.mitch.appname*)
-- `applicationId` in `buildSrc/AppConfig.kt`
-- app name in `res/values/strings.xml`
-- `AndroidManifest.xml` (in app/src/main)
-- `AppName.kt` to your app full name (should match android.name in AndroidManifest.xml)
-- `AppTheme` to your app name followed by "Theme" in `ui/theme/Theme.kt`
-- `detekt.yml` rules (in app/config/detekt)
-- dependencies, their versions, plugins, android configuration (appId, minSdk, targetSdk, compileSdk) in `buildSrc`
-- `java_package` option in `user_preferences.proto`
-- languages supported by the app in:
-  - `res/xml/locales_config.xml`
-  - in app `build.gradle.kts` (android &#8594; defaultConfig &#8594; resourceConfigurations) and in `util/AppLanguage.kt`; they should all match
-  - **NOTE**: you should also create the `res/values-*language tag*` folder contaning `strings.xml`
+Assuming:
+1. domain name = `com.mitch`
+2. app name = `todo`
+
+### What to update
+- in [settings.gradle.kts](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/settings.gradle.kts):
+  ```gradle.kts
+    // BEFORE
+    rootProject.name = "appname"
+    
+    // AFTER
+    rootProject.name = "todo"
+  ```
+
+- package name from `com.mitch.appname` to `com.mitch.todo` [see how](https://stackoverflow.com/a/29092698/15696479)
+
+- in [AppConfig.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/buildSrc/src/main/kotlin/AppConfig.kt):
+  ```kotlin
+    // BEFORE
+    const val applicationId = "com.mitch.appname"
+    
+    // AFTER
+    const val applicationId = "com.mitch.todo"
+  ```
+
+- in [user_preferences.proto](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/proto/user_preferences.proto):
+  ```proto
+    // BEFORE
+    option java_package = "com.mitch.appname";
+    
+    // AFTER
+    option java_package = "com.mitch.todo";
+  ```
+
+- rename [AppName.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/AppName.kt) to `TodoApp.kt`
+
+- in [AndroidManifest.xml](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/AndroidManifest.xml):
+  ```xml
+    <!-- BEFORE -->
+    android:name=".AppName"
+    
+    <!-- AFTER -->
+    android:name=".TodoApp"
+  ```
+
+- in [Theme.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/theme/Theme.kt):
+  ```kotlin
+    // BEFORE
+    fun AppTheme()
+    
+    // AFTER
+    fun TodoTheme()
+  ```
+- rename [AppLanguage.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/AppLanguage.kt) to `TodoLanguage.kt` and its sealed class:
+  ```kotlin
+    // BEFORE
+    sealed class AppLanguage()
+    
+    // AFTER
+    sealed class TodoLanguage()
+  ```
+
+- rename [AppTheme.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/AppTheme.kt) to `TodoTheme.kt` and its sealed class:
+  ```kotlin
+    // BEFORE
+    sealed class AppTheme()
+    
+    // AFTER
+    sealed class TodoTheme()
+  ```
+
+- in [strings.xml](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/res/values/strings.xml):
+  ```xml
+    <!-- BEFORE -->
+    <string name="app_name">template</string>
+    
+    <!-- AFTER -->
+    <string name="app_name">Todo</string>
+  ```
+  > :warning: do this for every strings.xml file (i.e. for every app supported language)
+
+- app supported languages in:
+  - [locales_config.xml](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/res/xml/locales_config.xml):
+
+  - [build.gradle.kts](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/build.gradle.kts) (you should change [this line](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/build.gradle.kts#L30))
+  
+  - [AppLanguage.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/AppLanguage.kt)
+  
+  - **NOTE**: you must also create the `res/values-*language tag*` folder containing the `strings.xml` file for each language
     > [here](https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-13.0.0_r41/core/res/res/values/locale_config.xml) is a list of all the supported language tags as of Android 13
-- `AppDatabase.kt` in `data/local/db` to your app name followed by "Database"
+
+- rename [AppDatabase.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/data/local/db/AppDatabase.kt) to `TodoDatabase.kt` and its abstract class:
+  ```kotlin
+    // BEFORE
+    abstract class AppDatabase : RoomDatabase() {
+    }
+    
+    // AFTER
+    abstract class TodoDatabase : RoomDatabase() {
+    }
+  ```
+
 - `appname.db` and `providesAppDatabase()` in `di/DatabaseModule.kt`
-- remove `ignoreFailures = true` inside the detekt block in the app `build.gradle.kts` file and fix the errors
+- in [DatabaseModule.kt](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/di/DatabaseModule.kt):
+  ```kotlin
+    // BEFORE
+    fun providesAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            "appname.db"
+        ).build()
+    }
+    
+    // AFTER
+    fun providesTodoDatabase(@ApplicationContext appContext: Context): TodoDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            TodoDatabase::class.java,
+            "todo.db"
+        ).build()
+    }
+  
+  ```
+
+- to change formatting rules, edit [detekt.yml](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/config/detekt/detekt.yml)
+- to change dependencies, their versions, plugins and android configuration, edit the files in [this folder](https://github.com/seve-andre/android-jetpack-compose-template/tree/main/buildSrc/src/main/kotlin)
+
+### Next steps
+- in [build.gradle.kts](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/build.gradle.kts) remove `ignoreFailures = true` and fix the errors
 - `Make Project` to generate all the files needed to run the app
-- run the app and you should see the splashscreen followed by the blank home screen
+- run the app and you should see the Splashscreen followed by the blank [HomeScreen](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/HomeScreen.kt)
 
 ## What does it use?
 ### Dependencies
