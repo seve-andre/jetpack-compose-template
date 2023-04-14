@@ -94,10 +94,11 @@ class MainActivity : AppCompatActivity() {
             val systemUiController = rememberSystemUiController()
             val isThemeDark = shouldUseDarkTheme(uiState)
 
-            // if no tonal elevation -> use: MaterialTheme.colorScheme.background
-            // or whatever the navigation bar containerColor is set to
+            // if no tonal elevation/no navigation bar: MaterialTheme.colorScheme.background
+            // if custom color is used: assign the custom color to navigationBarColor
             val navigationBarColor =
                 MaterialTheme.colorScheme.surfaceColorAtElevation(NavigationBarDefaults.Elevation)
+
             val statusBarColor = MaterialTheme.colorScheme.background
 
             // Update the dark content of the system bars to match the theme
