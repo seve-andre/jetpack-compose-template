@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
                                 .consumeWindowInsets(padding)
                                 .windowInsetsPadding(
                                     WindowInsets.safeDrawing.only(
-                                        WindowInsetsSides.Horizontal,
+                                        WindowInsetsSides.Horizontal
                                     )
                                 )
                         ) {
