@@ -20,16 +20,15 @@ object Dependencies {
     object Compose {
         const val activity = "androidx.activity:activity-compose:1.6.1"
         const val runtime = "androidx.compose.runtime:runtime:${Versions.compose}"
-        const val material2 = "androidx.compose.material:material:${Versions.compose}"
-        const val material3 = "androidx.compose.material3:material3:1.0.1"
-        const val material3WindowSize = "androidx.compose.material3:material3-window-size-class:1.0.1"
+        const val material3 = "androidx.compose.material3:material3:${Versions.material3}"
+        const val material3WindowSize =
+            "androidx.compose.material3:material3-window-size-class:${Versions.material3}"
         const val coil = "io.coil-kt:coil-compose:2.2.2"
         const val foundation = "androidx.compose.foundation:foundation:${Versions.compose}"
         const val layout = "androidx.compose.foundation:foundation-layout:${Versions.compose}"
         const val tooling = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
         const val animation = "androidx.compose.animation:animation:${Versions.compose}"
-        const val iconsExtended =
-            "androidx.compose.material:material-icons-extended:${Versions.compose}"
+//        const val iconsExtended = "androidx.compose.material:material-icons-extended:${Versions.compose}"
         const val uiTest = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
     }
 
@@ -84,7 +83,7 @@ object Dependencies {
             const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
 
             // collectAsStateWithLifecycle()
-            const val runtimeCompose = "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03"
+            const val runtimeCompose = "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
         }
     }
 

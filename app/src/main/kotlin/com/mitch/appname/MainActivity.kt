@@ -22,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -51,10 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
 
-    @OptIn(
-        ExperimentalMaterial3Api::class,
-        ExperimentalLifecycleComposeApi::class
-    )
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         /* Must be called before super.onCreate()
          *
@@ -98,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                         if (isOffline) {
                             appState.snackbarHostState.showSnackbar(
                                 message = "not connected!",
-                                duration = SnackbarDuration.Indefinite,
+                                duration = SnackbarDuration.Indefinite
                             )
                         }
                     }
