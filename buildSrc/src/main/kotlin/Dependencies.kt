@@ -26,7 +26,13 @@ object Dependencies {
         const val coil = "io.coil-kt:coil-compose:2.2.2"
         const val foundation = "androidx.compose.foundation:foundation:${Versions.compose}"
         const val layout = "androidx.compose.foundation:foundation-layout:${Versions.compose}"
-        const val tooling = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+
+        // debugImplementation
+        const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+
+        // implementation
+        const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+
         const val animation = "androidx.compose.animation:animation:${Versions.compose}"
 //        const val iconsExtended = "androidx.compose.material:material-icons-extended:${Versions.compose}"
         const val uiTest = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
