@@ -3,7 +3,7 @@ object Versions {
     const val kotlin = "1.8.0"
     const val compose = "1.4.0"
     const val material3 = "1.0.1"
-    const val accompanist = "0.27.0"
+    const val accompanist = "0.30.0"
     const val navigation = "1.7.25-beta"
     const val room = "2.4.3"
     const val retrofit = "2.9.0"
