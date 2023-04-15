@@ -18,20 +18,20 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
 - [Retrofit+OkHttp](https://square.github.io/retrofit/): for api calls
 - [Datastore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAjwkYGVBhArEiwA4sZLuMMCRUnWZzzy-AwDePYTUTn3gO6-rrT8jGo7D-H2vztegIJ-zEsb8hoCtI8QAvD_BwE&gclsrc=aw.ds) to cache user info, instead of SharedPreferences since it's ~~deprecated~~
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
-- [Accompanist](https://google.github.io/accompanist/) to use components not included in Compose
+- [Accompanist](https://google.github.io/accompanist/) a group of libraries that aim to supplement Jetpack Compose with features that are commonly required by developers but not yet available
   - [System UI Controller](https://google.github.io/accompanist/systemuicontroller/) to change status and navigation bar colors
   - [Placeholder](https://google.github.io/accompanist/placeholder/) to create a skeleton loader effect when loading a screen
 - [Detekt](https://detekt.dev/) for static code analysis and formatting
 - [Timber](https://github.com/JakeWharton/timber) for logging
 - [Eva icons](https://github.com/DevSrSouza/compose-icons/blob/master/eva-icons/DOCUMENTATION.md) for the icons to use throughout the whole app
 - [Coil](https://coil-kt.github.io/coil/compose/) for image loading backed by Kotlin coroutines
-- [Splashscreen API](https://developer.android.com/develop/ui/views/launch/splash-screen) to display a splashscreen at app startup
-- [Per-app language preferences](https://developer.android.com/guide/topics/resources/app-languages) to change the app language inside the app or in the system settings
+- [Splashscreen API](https://developer.android.com/develop/ui/views/launch/splash-screen) to display a splashscreen at app launch
+- [Per-app language preferences](https://developer.android.com/guide/topics/resources/app-languages) to use a language inside the app that is different from the system language
 - [Compose Destinations](https://composedestinations.rafaelcosta.xyz/) for easier app navigation
 
 ## What does it offer?
 - :black_circle: dark theme support
-- :uk: :it: in-app language picker
+- :uk: :it: in-app language preference
 
 ## Inspo
 - general structure: [see inspo](https://github.com/PizzaMarinara/yaat)
