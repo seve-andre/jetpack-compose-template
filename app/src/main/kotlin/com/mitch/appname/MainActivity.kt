@@ -21,7 +21,6 @@ import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -117,7 +116,6 @@ class MainActivity : AppCompatActivity() {
             AppTheme(
                 isThemeDark = isThemeDark
             ) {
-
                 val appState = rememberAppState(networkMonitor)
                 val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
@@ -131,8 +129,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    snackbarHost = { SnackbarHost(appState.snackbarHostState) }
+                    snackbarHost = { SnackbarHost(appState.snackbarHostState) },
+                    contentWindowInsets = WindowInsets(0, 0, 0, 0)
                 ) { padding ->
                     Box(
                         modifier = Modifier
