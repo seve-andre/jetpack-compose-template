@@ -117,42 +117,38 @@ class MainActivity : AppCompatActivity() {
             AppTheme(
                 isThemeDark = isThemeDark
             ) {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val appState = rememberAppState(networkMonitor)
-                    val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
-                    LaunchedEffect(isOffline) {
-                        if (isOffline) {
-                            appState.snackbarHostState.showSnackbar(
-                                message = "not connected!",
-                                duration = SnackbarDuration.Indefinite
-                            )
-                        }
+                val appState = rememberAppState(networkMonitor)
+                val isOffline by appState.isOffline.collectAsStateWithLifecycle()
+
+                LaunchedEffect(isOffline) {
+                    if (isOffline) {
+                        appState.snackbarHostState.showSnackbar(
+                            message = "not connected!",
+                            duration = SnackbarDuration.Indefinite
+                        )
                     }
+                }
 
-                    Scaffold(
-                        modifier = Modifier.fillMaxSize(),
-                        snackbarHost = { SnackbarHost(appState.snackbarHostState) }
-                    ) { padding ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(padding)
-                                .consumeWindowInsets(padding)
-                                .windowInsetsPadding(
-                                    WindowInsets.safeDrawing.only(
-                                        WindowInsetsSides.Horizontal
-                                    )
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    snackbarHost = { SnackbarHost(appState.snackbarHostState) }
+                ) { padding ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(padding)
+                            .consumeWindowInsets(padding)
+                            .windowInsetsPadding(
+                                WindowInsets.safeDrawing.only(
+                                    WindowInsetsSides.Horizontal
                                 )
-                        ) {
-                            DestinationsNavHost(
-                                navGraph = NavGraphs.root,
-                                navController = appState.navController
                             )
-                        }
+                    ) {
+                        DestinationsNavHost(
+                            navGraph = NavGraphs.root,
+                            navController = appState.navController
+                        )
                     }
                 }
             }
