@@ -4,18 +4,18 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(Dependencies.androidGradlePlugin)
-        classpath(Dependencies.Kotlin.gradlePlugin)
-        classpath(Dependencies.Hilt.gradlePlugin)
+        classpath(libs.android.gradlePlugin)
+        classpath(libs.kotlin.gradlePlugin)
     }
 }
 
-allprojects {
-    repositories {
-        mavenCentral()
-        google()
-        maven("https://jitpack.io")
-    }
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.protobuf) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.detekt) apply false
 }
 
 tasks.register("clean", Delete::class) {

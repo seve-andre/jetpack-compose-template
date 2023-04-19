@@ -3,26 +3,28 @@ import com.google.protobuf.gradle.generateProtoTasks
 import com.google.protobuf.gradle.protobuf
 import com.google.protobuf.gradle.protoc
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(Plugins.androidApp)
-    id(Plugins.kotlinAndroid)
-    id(Plugins.kotlinKapt)
-    id(Plugins.ksp) version Versions.ksp
-    id(Plugins.hilt)
-    id(Plugins.detekt).version(Versions.detekt)
-    id(Plugins.proto) version Versions.protobufPlugin
+    alias(libs.plugins.android.application)
+    kotlin("android")
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.protobuf)
+    kotlin("kapt")
 }
 
 android {
-    namespace = AppConfig.applicationId
+    val packageName = "com.mitch.appname"
+    namespace = packageName
 
-    compileSdk = AppConfig.compileSdkVersion
+    compileSdk = 33
     defaultConfig {
-        applicationId = AppConfig.applicationId
-        minSdk = AppConfig.minSdkVersion
-        targetSdk = AppConfig.targetSdkVersion
-        versionCode = ReleaseConfig.appVersionCode
-        versionName = ReleaseConfig.appVersionName
+        applicationId = packageName
+        minSdk = 21
+        targetSdk = 33
+        versionCode = 1
+        versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -50,7 +52,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
     packagingOptions {
         resources.excludes.add("/META-INF/AL2.0")
@@ -93,7 +95,7 @@ detekt {
 
 protobuf {
     protoc {
-        artifact = Dependencies.Datastore.protoCompiler
+        artifact = libs.protobuf.protoc.get().toString()
     }
     generateProtoTasks {
         all().forEach { task ->
@@ -121,61 +123,59 @@ tasks.getByPath("preBuild").dependsOn("detekt")
 
 dependencies {
     // Kotlin
-    implementation(Dependencies.Kotlin.stdlib)
-    implementation(Dependencies.Kotlin.Coroutines.android)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.android)
 
     // UI (Compose + Accompanist + Icons + ...)
-    implementation(Dependencies.Compose.activity)
-    implementation(Dependencies.Compose.runtime)
-    implementation(Dependencies.Compose.foundation)
-    implementation(Dependencies.Compose.layout)
-    debugImplementation(Dependencies.Compose.tooling)
-    implementation(Dependencies.Compose.toolingPreview)
-    implementation(Dependencies.Compose.animation)
-    implementation(Dependencies.Compose.material3)
-    implementation(Dependencies.Compose.material3WindowSize)
-    implementation(Dependencies.Accompanist.systemUiController)
-    implementation(Dependencies.Accompanist.placeholder)
-    implementation(Dependencies.AndroidX.Lifecycle.viewModelCompose)
-    implementation(Dependencies.AndroidX.Lifecycle.runtimeKtx)
-    implementation(Dependencies.AndroidX.Lifecycle.runtimeCompose)
-    implementation(Dependencies.Compose.coil)
-    implementation(Dependencies.evaIcons)
-
-    // AndroidX
-    implementation(Dependencies.AndroidX.splashscreen)
-    implementation(Dependencies.AndroidX.appCompat)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.foundation.layout)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.animation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.placeholder)
+    implementation(libs.androidx.lifecycle.viewModelCompose)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.compose)
+    implementation(libs.evaIcons)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.appcompat)
 
     // Navigation
-    implementation(Dependencies.Navigation.compose)
-    ksp(Dependencies.Navigation.ksp)
+    implementation(libs.composeDestinations.core)
+    ksp(libs.composeDestinations.ksp)
 
     // Dependency Injection
-    implementation(Dependencies.Hilt.android)
-    kapt(Dependencies.Hilt.compiler)
-    implementation(Dependencies.Hilt.navigationCompose)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Room
-    implementation(Dependencies.Room.runtime)
-    kapt(Dependencies.Room.compiler)
-    implementation(Dependencies.Room.ktx)
+    kapt(libs.room.compiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
 
     // Datastore (previously SharedPreferences)
-    implementation(Dependencies.Datastore.proto)
-    implementation(Dependencies.Datastore.kotlinLite)
+    implementation(libs.androidx.datastore.proto)
+    implementation(libs.protobuf.kotlin.lite)
 
     // Logging
-    implementation(Dependencies.timber)
+    implementation(libs.timber)
 
     // Tests
-    testImplementation(Dependencies.Tests.junit)
-    androidTestImplementation(Dependencies.Tests.androidJUnit)
-    androidTestImplementation(Dependencies.Tests.espressoCore)
-    androidTestImplementation(Dependencies.Tests.composeJUnit)
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext)
+    androidTestImplementation(libs.androidx.compose.ui.test)
 
     // Desugaring - https://developer.android.com/studio/write/java8-support-table
-    coreLibraryDesugaring(Dependencies.jdkDesugar)
+    coreLibraryDesugaring(libs.android.desugarJdkLibs)
 
     // Formatting
-    detektPlugins(Dependencies.detektFormatting)
+    detektPlugins(libs.detekt.formatting)
 }
