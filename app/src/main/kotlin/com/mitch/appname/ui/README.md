@@ -6,5 +6,3 @@ Includes:
 - Screen
 - State
 - ViewModel
-- Event
-- Item
