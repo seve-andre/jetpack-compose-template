@@ -16,7 +16,7 @@ import com.google.accompanist.placeholder.material3.shimmer
  * @return [Modifier] with the [placeholder] effect applied
  */
 fun Modifier.simpleSkeleton(
-    visible: Boolean
+    visible: Boolean = true
 ): Modifier = then(
     placeholder(visible = visible)
 )
@@ -30,7 +30,7 @@ fun Modifier.simpleSkeleton(
  * @return [Modifier] with the fade [placeholder] effect applied
  */
 fun Modifier.fadeSkeleton(
-    visible: Boolean
+    visible: Boolean = true
 ): Modifier = composed {
     placeholder(
         visible = visible,
@@ -47,7 +47,7 @@ fun Modifier.fadeSkeleton(
  * @return [Modifier] with the shimmer [placeholder] effect applied
  */
 fun Modifier.shimmerSkeleton(
-    visible: Boolean
+    visible: Boolean = true
 ): Modifier = composed {
     placeholder(
         visible = visible,
