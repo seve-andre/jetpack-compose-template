@@ -34,8 +34,7 @@ Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20templa
 - :uk: :it: in-app language preference
 
 ## Inspo
-- general structure: [see inspo](https://github.com/PizzaMarinara/yaat)
-- buildSrc: [see inspo](https://github.com/PizzaMarinara/yaat)
+- [version catalog](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/gradle/libs.versions.toml): [see inspo](https://developer.android.com/build/migrate-to-catalogs)
 - [SnackbarController](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/SnackbarController.kt): [see inspo](https://github.com/mitchtabian/MVVMRecipeApp/blob/managing-snackbar-with-scaffold/app/src/main/java/com/codingwithmitch/mvvmrecipeapp/presentation/components/util/SnackbarController.kt)
 - [Result](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/util/Result.kt): [see inspo](https://github.com/android/nowinandroid/blob/607c24e7f7399942e278af663ea4ad350e5bbc3a/core/common/src/main/java/com/google/samples/apps/nowinandroid/core/result/Result.kt)
 - [AppState](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/util/AppState.kt): [see inspo](https://github.com/android/nowinandroid/blob/607c24e7f7399942e278af663ea4ad350e5bbc3a/app/src/main/java/com/google/samples/apps/nowinandroid/ui/NiaAppState.kt)
