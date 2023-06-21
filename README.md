@@ -1,8 +1,8 @@
-<p align="center">
+<div align="center">
   <a href="https://developer.android.com/jetpack/compose">
     <img src="https://tabris.com/wp-content/uploads/2021/06/jetpack-compose-icon_RGB.png" alt="Logo" width="200" height="200">
   </a>
-</p>
+</div>
 
 # Android Jetpack Compose template
 Click on [![Use this template](https://img.shields.io/badge/-Use%20this%20template-%23347d39)](https://github.com/seve-andre/compose-template/generate) to create your own repo
