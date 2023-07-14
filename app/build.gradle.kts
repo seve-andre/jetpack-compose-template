@@ -167,12 +167,12 @@ dependencies {
     // Logging
     implementation(libs.timber)
 
-    // Retrofit + OkHttp
+    // API calls
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.okhttp.logging)
 
-    // Tests
+    // Testing
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.ext)

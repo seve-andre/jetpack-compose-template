@@ -1,6 +1,9 @@
 [versions]
+# Kotlin
 kotlin = "1.8.0"
 kotlinxCoroutines = "1.6.0"
+
+# UI
 accompanist = "0.30.0"
 androidxActivity = "1.7.0"
 androidxCompose = "1.4.1"
@@ -11,28 +14,51 @@ coil = "2.3.0"
 eva = "1.0.0"
 androidxCoreSplashscreen = "1.0.0"
 androidxAppcompat = "1.6.0"
+
+# Navigation
 composeDestinations = "1.7.25-beta"
+
+# Dependency Injection
 hilt = "2.44"
 androidxHiltNavigationCompose = "1.0.0"
+
+# Room
 room = "2.5.1"
+
+# Datastore
 protobuf = "3.21.9"
 protobufPlugin = "0.8.19"
 androidxDataStore = "1.0.0"
+
+# Logging
 timber = "5.0.1"
+
+# Testing
 junit4 = "4.13.2"
 androidxEspresso = "3.5.0"
 androidxTestExt = "1.1.4"
+
+# Desugaring
 androidDesugarJdkLibs = "1.2.2"
+
+# Formatting
 detekt = "1.21.0"
+
+
 androidGradlePlugin = "7.4.1"
 ksp = "1.8.0-1.0.9"
+
+# API calls
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "0.8.0"
 okhttp = "4.10.0"
 
 [libraries]
+# Kotlin
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+
+# UI
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "androidxCompose" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxCompose" }
@@ -54,27 +80,43 @@ coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "
 evaIcons = { group = "br.com.devsrsouza.compose.icons.android", name = "eva-icons", version.ref = "eva" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
+
+# Navigation
 composeDestinations-core = { group = "io.github.raamcosta.compose-destinations", name = "core", version.ref = "composeDestinations" }
 composeDestinations-ksp = { group = "io.github.raamcosta.compose-destinations", name = "ksp", version.ref = "composeDestinations" }
+
+# Dependency Injection
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
-
 # hiltViewModel()
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
 
+# Room
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+
+# Datastore
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 androidx-datastore-proto = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
+
+# Logging
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+
+# Testing
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxCompose" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
 androidx-test-ext = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExt" }
+
+# Desugaring
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+
+# Formatting
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+
+# API calls
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationJson" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
