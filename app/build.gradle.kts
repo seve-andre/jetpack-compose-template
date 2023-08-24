@@ -1,12 +1,12 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application)
-    kotlin("android")
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.detekt)
     alias(libs.plugins.protobuf)
-    kotlin("kapt")
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -123,9 +123,12 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     // UI (Compose + Accompanist + Icons + ...)
+    implementation(platform(libs.compose.bom))
     implementation(libs.activity.compose)
     implementation(libs.compose.runtime)
     implementation(libs.compose.foundation)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.animation)
@@ -169,9 +172,12 @@ dependencies {
 
     // Testing
     testImplementation(libs.junit4)
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.test.espresso.core)
     androidTestImplementation(libs.test.ext.junit)
-    androidTestImplementation(libs.compose.ui.test)
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.compose.ui.test.manifest)
+    debugImplementation(libs.compose.ui.test.manifest)
 
     // Desugaring - https://developer.android.com/studio/write/java8-support-table
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
