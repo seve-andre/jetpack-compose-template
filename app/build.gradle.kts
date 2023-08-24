@@ -47,11 +47,12 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
-    packagingOptions {
-        resources.excludes.add("/META-INF/AL2.0")
-        resources.excludes.add("/META-INF/LGPL2.1")
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
     applicationVariants.all {
         kotlin.sourceSets {
@@ -95,10 +96,10 @@ protobuf {
     generateProtoTasks {
         all().forEach { task ->
             task.builtins {
-                val java by registering {
+                register("java") {
                     option("lite")
                 }
-                val kotlin by registering {
+                register("kotlin") {
                     option("lite")
                 }
             }
@@ -122,41 +123,40 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     // UI (Compose + Accompanist + Icons + ...)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.foundation.layout)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.animation)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.activity.compose)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.foundation)
+    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.animation)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.material3.windowSizeClass)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.placeholder)
-    implementation(libs.androidx.lifecycle.viewModelCompose)
-    implementation(libs.androidx.lifecycle.runtimeCompose)
-    implementation(libs.coil.kt)
-    implementation(libs.coil.kt.compose)
-    implementation(libs.evaIcons)
-    implementation(libs.androidx.core.splashscreen)
-    implementation(libs.androidx.appcompat)
+    implementation(libs.lifecycle.viewModelCompose)
+    implementation(libs.lifecycle.runtimeCompose)
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    implementation(libs.icons.eva)
+    implementation(libs.core.splashscreen)
+    implementation(libs.appcompat)
 
     // Navigation
-    implementation(libs.composeDestinations.core)
-    ksp(libs.composeDestinations.ksp)
+    implementation(libs.compose.destinations.core)
+    ksp(libs.compose.destinations.ksp)
 
     // Dependency Injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.hilt.navigation.compose)
 
     // Room
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
 
     // Datastore (previously SharedPreferences)
-    implementation(libs.androidx.datastore.proto)
+    implementation(libs.datastore.proto)
     implementation(libs.protobuf.kotlin.lite)
 
     // Logging
@@ -169,9 +169,9 @@ dependencies {
 
     // Testing
     testImplementation(libs.junit4)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(libs.androidx.test.ext)
-    androidTestImplementation(libs.androidx.compose.ui.test)
+    androidTestImplementation(libs.test.espresso.core)
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.compose.ui.test)
 
     // Desugaring - https://developer.android.com/studio/write/java8-support-table
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
