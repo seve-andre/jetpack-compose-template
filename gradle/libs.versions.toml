@@ -1,33 +1,33 @@
 [versions]
 # Kotlin
-kotlin = "1.8.0"
-kotlinxCoroutines = "1.6.0"
+kotlin = "1.9.0"
+kotlinxCoroutines = "1.6.4"
 
 # UI
 accompanist = "0.30.0"
-androidxActivity = "1.7.0"
-androidxCompose = "1.4.1"
+androidxActivity = "1.7.2"
+androidxCompose = "1.5.0"
 androidxComposeCompiler = "1.4.1"
-androidxComposeMaterial3 = "1.0.1"
-androidxLifecycle = "2.5.1"
+androidxComposeMaterial3 = "1.1.1"
+androidxLifecycle = "2.6.1"
 coil = "2.3.0"
 eva = "1.0.0"
-androidxCoreSplashscreen = "1.0.0"
-androidxAppcompat = "1.6.0"
+androidxCoreSplashscreen = "1.0.1"
+androidxAppcompat = "1.6.1"
 
 # Navigation
-composeDestinations = "1.7.25-beta"
+composeDestinations = "1.9.51"
 
 # Dependency Injection
-hilt = "2.44"
+hilt = "2.47"
 androidxHiltNavigationCompose = "1.0.0"
 
 # Room
-room = "2.5.1"
+room = "2.5.2"
 
 # Datastore
-protobuf = "3.21.9"
-protobufPlugin = "0.8.19"
+protobuf = "3.24.0"
+protobufPlugin = "0.9.0"
 androidxDataStore = "1.0.0"
 
 # Logging
@@ -35,18 +35,18 @@ timber = "5.0.1"
 
 # Testing
 junit4 = "4.13.2"
-androidxEspresso = "3.5.0"
-androidxTestExt = "1.1.4"
+androidxEspresso = "3.5.1"
+androidxTestExt = "1.1.5"
 
 # Desugaring
-androidDesugarJdkLibs = "1.2.2"
+androidDesugarJdkLibs = "2.0.3"
 
 # Formatting
 detekt = "1.21.0"
 
 
-androidGradlePlugin = "7.4.1"
-ksp = "1.8.0-1.0.9"
+androidGradlePlugin = "8.1.1"
+ksp = "1.9.0-1.0.11"
 
 # API calls
 retrofit = "2.9.0"
