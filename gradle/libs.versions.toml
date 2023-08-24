@@ -48,13 +48,16 @@ detekt = "1.23.1"
 # Linting
 compose-lints = "1.2.0"
 
-android-gradle-plugin = "8.1.1"
-ksp = "1.9.0-1.0.11"
-
 # API calls
 retrofit = "2.9.0"
 retrofit-kotlinx-serialization-json = "0.8.0"
 okhttp = "4.10.0"
+
+# Plugins
+android-gradle-plugin = "8.1.1"
+ksp = "1.9.0-1.0.11"
+gradle-versions = "0.47.0"
+version-catalog-update = "0.8.1"
 
 [libraries]
 # Kotlin
@@ -143,3 +146,5 @@ kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
+version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }
