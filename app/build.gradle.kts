@@ -13,7 +13,7 @@ android {
     val packageName = "com.mitch.appname"
     namespace = packageName
 
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = packageName
         minSdk = 21
