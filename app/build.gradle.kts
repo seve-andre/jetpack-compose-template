@@ -183,5 +183,8 @@ dependencies {
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
 
     // Formatting
-    detektPlugins(libs.detekt.formatting)
+    detektPlugins(libs.formatting.detekt)
+
+    // Linting
+    lintChecks(libs.linting.composeLints)
 }

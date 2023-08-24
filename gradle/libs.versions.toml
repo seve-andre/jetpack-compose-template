@@ -45,6 +45,8 @@ desugar-jdk-libs = "2.0.3"
 # Formatting
 detekt = "1.23.1"
 
+# Linting
+compose-lints = "1.2.0"
 
 android-gradle-plugin = "8.1.1"
 ksp = "1.9.0-1.0.11"
@@ -119,7 +121,10 @@ test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref 
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 
 # Formatting
-detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+formatting-detekt = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+
+# Linting
+linting-composeLints = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "compose-lints" }
 
 # API calls
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }

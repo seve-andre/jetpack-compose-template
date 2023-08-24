@@ -1,7 +1,6 @@
 package com.mitch.appname
 
 import android.app.Application
-import com.ramcosta.composedestinations.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -12,8 +11,8 @@ class AppName : Application() {
         super.onCreate()
 
         // BuildConfig will be created after first run of the app
-        if (BuildConfig.DEBUG) {
+        /*if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-        }
+        }*/
     }
 }
