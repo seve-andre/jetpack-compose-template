@@ -136,7 +136,6 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.windowSizeClass)
     implementation(libs.accompanist.systemuicontroller)
-    implementation(libs.accompanist.placeholder)
     implementation(libs.lifecycle.viewModelCompose)
     implementation(libs.lifecycle.runtimeCompose)
     implementation(libs.coil)

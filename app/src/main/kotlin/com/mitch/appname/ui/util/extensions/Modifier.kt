@@ -2,10 +2,10 @@ package com.mitch.appname.ui.util.extensions
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material3.fade
-import com.google.accompanist.placeholder.material3.placeholder
-import com.google.accompanist.placeholder.material3.shimmer
+import com.mitch.appname.ui.util.extensions.placeholder.PlaceholderHighlight
+import com.mitch.appname.ui.util.extensions.placeholder.highlights.fade
+import com.mitch.appname.ui.util.extensions.placeholder.highlights.shimmer
+import com.mitch.appname.ui.util.extensions.placeholder.placeholder
 
 /**
  * Basic skeleton loader/placeholder effect
