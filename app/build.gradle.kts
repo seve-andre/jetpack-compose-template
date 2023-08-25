@@ -80,7 +80,7 @@ kapt {
 detekt {
     buildUponDefaultConfig = true
     allRules = false
-    config = files("$projectDir/config/detekt/detekt.yml")
+    config.setFrom("$projectDir/config/detekt/detekt.yml")
 
     // REMOVE once edited RepositoryModule and AppDatabase
     ignoreFailures = true
