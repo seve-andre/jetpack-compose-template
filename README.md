@@ -12,6 +12,9 @@ To create you own repo, click on:
 ## :warning: How to turn the template into my app?
 [Here](https://github.com/seve-andre/android-jetpack-compose-template/wiki#instructions) you can find the detailed instructions on how to convert the template to your app
 
+> [!WARNING]
+> Testing github new alerts feature
+
 ## What does it use?
 - [Kotlin](https://kotlinlang.org/) as main language
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) as modern toolkit for native UI
