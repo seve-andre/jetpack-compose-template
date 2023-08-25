@@ -15,7 +15,7 @@ To create you own repo, click on:
 ## What does it use?
 - [Kotlin](https://kotlinlang.org/) as main language
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) as modern toolkit for native UI
-- [Material components for Jetpack Compose](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#top-level-functions) to build UI faster
+- [Material 3 components for Jetpack Compose](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#top-level-functions) to build UI faster
 - [Room](https://developer.android.com/training/data-storage/room) as local persistent DB
 - [Retrofit+OkHttp](https://square.github.io/retrofit/): for api calls
 - [Datastore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAjwkYGVBhArEiwA4sZLuMMCRUnWZzzy-AwDePYTUTn3gO6-rrT8jGo7D-H2vztegIJ-zEsb8hoCtI8QAvD_BwE&gclsrc=aw.ds) to cache user info, instead of SharedPreferences since it's ~~deprecated~~
