@@ -18,7 +18,7 @@ To create you own repo, click on:
 - [Material 3 components for Jetpack Compose](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#top-level-functions) to build UI faster
 - [Room](https://developer.android.com/training/data-storage/room) as local persistent DB
 - [Retrofit+OkHttp](https://square.github.io/retrofit/): for api calls
-- [Datastore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAjwkYGVBhArEiwA4sZLuMMCRUnWZzzy-AwDePYTUTn3gO6-rrT8jGo7D-H2vztegIJ-zEsb8hoCtI8QAvD_BwE&gclsrc=aw.ds) to cache user info, instead of SharedPreferences since it's ~~deprecated~~
+- [Proto Datastore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAjwkYGVBhArEiwA4sZLuMMCRUnWZzzy-AwDePYTUTn3gO6-rrT8jGo7D-H2vztegIJ-zEsb8hoCtI8QAvD_BwE&gclsrc=aw.ds) as typesafe data storage solution with protocol buffers support
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
 - [Accompanist](https://google.github.io/accompanist/) a group of libraries that aim to supplement Jetpack Compose with features that are commonly required by developers but not yet available
   - [System UI Controller](https://google.github.io/accompanist/systemuicontroller/) to change status and navigation bar colors
