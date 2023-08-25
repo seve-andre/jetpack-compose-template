@@ -22,7 +22,6 @@ To create you own repo, click on:
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
 - [Accompanist](https://google.github.io/accompanist/) a group of libraries that aim to supplement Jetpack Compose with features that are commonly required by developers but not yet available
   - [System UI Controller](https://google.github.io/accompanist/systemuicontroller/) to change status and navigation bar colors
-  - [Placeholder](https://google.github.io/accompanist/placeholder/) to create a skeleton loader effect when loading a screen
 - [Detekt](https://detekt.dev/) for static code analysis and formatting
 - [Timber](https://github.com/JakeWharton/timber) for logging
 - [Eva icons](https://github.com/DevSrSouza/compose-icons/blob/master/eva-icons/DOCUMENTATION.md) for the icons to use throughout the whole app
