@@ -13,8 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Template.Splash"
-        tools:targetApi="33"
-        android:localeConfig="@xml/locales_config">
+        tools:targetApi="33">
         <activity
             android:name=".MainActivity"
             android:exported="true"

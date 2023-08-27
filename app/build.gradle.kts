@@ -23,7 +23,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        resourceConfigurations.addAll(listOf("en", "it"))
+
+        androidResources {
+            generateLocaleConfig = true
+        }
     }
     buildTypes {
         getByName("release") {
