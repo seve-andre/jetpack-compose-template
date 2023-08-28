@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.junit5) apply false
 
     alias(libs.plugins.gradle.versions)
     alias(libs.plugins.version.catalog.update)

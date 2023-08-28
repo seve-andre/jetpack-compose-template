@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.detekt)
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.junit5)
     alias(libs.plugins.kapt)
 }
 
@@ -181,6 +182,10 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
     androidTestImplementation(libs.compose.ui.test.manifest)
     debugImplementation(libs.compose.ui.test.manifest)
+    testImplementation(libs.junit5)
+    testRuntimeOnly(libs.junit5.engine)
+    testImplementation(libs.junit5.params)
+    testImplementation(libs.assertk)
 
     // Desugaring - https://developer.android.com/studio/write/java8-support-table
     coreLibraryDesugaring(libs.android.desugarJdkLibs)

@@ -38,6 +38,8 @@ timber = "5.0.1"
 junit4 = "4.13.2"
 espresso-core = "3.5.1"
 test-ext-junit = "1.1.5"
+junit5 = "5.9.3"
+assertk = "0.26.1"
 
 # Desugaring
 desugar-jdk-libs = "2.0.3"
@@ -58,6 +60,7 @@ android-gradle-plugin = "8.1.1"
 ksp = "1.9.0-1.0.11"
 gradle-versions = "0.47.0"
 version-catalog-update = "0.8.1"
+junit5-plugin = "1.9.3.0"
 
 [libraries]
 # Kotlin
@@ -119,6 +122,10 @@ compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "test-ext-junit" }
+junit5 = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit5" }
+junit5-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit5" }
+junit5-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit5" }
+assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
 
 # Desugaring
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
@@ -144,3 +151,4 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }
+junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
