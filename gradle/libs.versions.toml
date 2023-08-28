@@ -81,10 +81,13 @@ compose-animation = { group = "androidx.compose.animation", name = "animation" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "compose-material3" }
 compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "compose-material3" }
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+lifecycle-viewModel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 
 # collectAsStateWithLifecycle()
 lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+
+# SavedStateHandle
+lifecycle-viewModel-savedstate = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }
 
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
