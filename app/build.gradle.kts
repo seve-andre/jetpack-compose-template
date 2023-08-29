@@ -192,7 +192,4 @@ dependencies {
     // Formatting + Linting
     detektPlugins(libs.detekt)
     lintChecks(libs.linting.composeLints)
-
-    // Linting
-    lintChecks(libs.linting.composeLints)
 }
