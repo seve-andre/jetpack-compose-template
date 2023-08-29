@@ -2,6 +2,4 @@
 <resources>
     <!-- status bar -->
     <color name="neutral10_material3">#1C1B1F</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
 </resources>
