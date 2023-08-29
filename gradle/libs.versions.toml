@@ -44,10 +44,8 @@ assertk = "0.26.1"
 # Desugaring
 desugar-jdk-libs = "2.0.3"
 
-# Formatting
+# Formatting + Linting
 detekt = "1.23.1"
-
-# Linting
 compose-lints = "1.2.0"
 
 # API calls
@@ -133,10 +131,8 @@ assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref 
 # Desugaring
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 
-# Formatting
-formatting-detekt = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
-
-# Linting
+# Formatting + Linting
+detekt = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 linting-composeLints = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "compose-lints" }
 
 # API calls

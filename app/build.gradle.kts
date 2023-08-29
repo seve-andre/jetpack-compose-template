@@ -189,8 +189,9 @@ dependencies {
     // Desugaring - https://developer.android.com/studio/write/java8-support-table
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
 
-    // Formatting
-    detektPlugins(libs.formatting.detekt)
+    // Formatting + Linting
+    detektPlugins(libs.detekt)
+    lintChecks(libs.linting.composeLints)
 
     // Linting
     lintChecks(libs.linting.composeLints)
