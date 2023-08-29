@@ -15,3 +15,5 @@ plugins {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+
+apply("${project.rootDir}/buildscripts/toml-updater-config.gradle")
