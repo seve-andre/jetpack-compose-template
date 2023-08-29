@@ -48,10 +48,6 @@ test-rules = "1.5.0"
 test-runner = "1.5.2"
 uiAutomator = "2.2.0"
 
-# Performance
-metrics = "1.0.0-alpha04"
-benchmark-macro-junit4 = "1.1.1"
-
 # Desugaring
 desugar-jdk-libs = "2.0.3"
 
@@ -148,10 +144,6 @@ test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref 
 test-rules = { group = "androidx.test", name = "rules", version.ref = "test-rules" }
 test-runner = { group = "androidx.test", name = "runner", version.ref = "test-runner" }
 test-uiAutomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiAutomator" }
-
-# Performance
-metrics = { group = "androidx.metrics", name = "metrics-performance", version.ref = "metrics" }
-benchmark-macro-junit4 = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "benchmark-macro-junit4" }
 
 # Desugaring
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
