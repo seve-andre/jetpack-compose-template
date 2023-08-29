@@ -123,6 +123,7 @@ dependencies {
     // Kotlin
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.android)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     // UI (Compose + Accompanist + Icons + ...)
     implementation(platform(libs.compose.bom))
@@ -138,6 +139,7 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.windowSizeClass)
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.testharness)
     implementation(libs.lifecycle.viewModel.compose)
     implementation(libs.lifecycle.viewModel.savedstate)
     implementation(libs.lifecycle.runtimeCompose)
@@ -153,8 +155,10 @@ dependencies {
 
     // Dependency Injection
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
 
     // Room
     ksp(libs.room.compiler)
@@ -174,17 +178,21 @@ dependencies {
     implementation(libs.okhttp.logging)
 
     // Testing
+    // Unit
     testImplementation(libs.junit4)
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.test.espresso.core)
-    androidTestImplementation(libs.test.ext.junit)
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(libs.compose.ui.test.manifest)
     testImplementation(libs.junit5)
     testRuntimeOnly(libs.junit5.engine)
     testImplementation(libs.junit5.params)
     testImplementation(libs.assertk)
+    testImplementation(libs.turbine)
+    // Instrumented
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.test.core)
+    androidTestImplementation(libs.test.espresso.core)
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.rules)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.uiAutomator)
 
     // Desugaring - https://developer.android.com/studio/write/java8-support-table
     coreLibraryDesugaring(libs.android.desugarJdkLibs)

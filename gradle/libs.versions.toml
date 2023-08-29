@@ -1,7 +1,7 @@
 [versions]
 # Kotlin
 kotlin = "1.9.0"
-kotlinx-coroutines-android = "1.7.3"
+kotlinx-coroutines = "1.7.3"
 
 # UI
 compose-bom = "2023.08.00"
@@ -35,11 +35,18 @@ dataStore = "1.0.0"
 timber = "5.0.1"
 
 # Testing
+## Unit
 junit4 = "4.13.2"
-espresso-core = "3.5.1"
-test-ext-junit = "1.1.5"
 junit5 = "5.9.3"
 assertk = "0.26.1"
+turbine = "1.0.0"
+## Instrumented
+test-core = "1.5.0"
+espresso-core = "3.5.1"
+test-ext-junit = "1.1.5"
+test-rules = "1.5.0"
+test-runner = "1.5.2"
+uiAutomator = "2.2.0"
 
 # Desugaring
 desugar-jdk-libs = "2.0.3"
@@ -63,7 +70,8 @@ junit5-plugin = "1.9.3.0"
 [libraries]
 # Kotlin
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
-kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 
 # UI
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
@@ -79,6 +87,7 @@ compose-animation = { group = "androidx.compose.animation", name = "animation" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "compose-material3" }
 compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "compose-material3" }
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-testharness = { group = "com.google.accompanist", name = "accompanist-testharness", version.ref = "accompanist" }
 lifecycle-viewModel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 
 # collectAsStateWithLifecycle()
@@ -99,7 +108,8 @@ compose-destinations-ksp = { group = "io.github.raamcosta.compose-destinations",
 
 # Dependency Injection
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 
 # hiltViewModel()
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
@@ -118,22 +128,29 @@ datastore-proto = { group = "androidx.datastore", name = "datastore", version.re
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 # Testing
+## Unit
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
-test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "test-ext-junit" }
 junit5 = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit5" }
 junit5-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit5" }
 junit5-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit5" }
 assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+## Instrumented
+compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+test-core = { group = "androidx.test", name = "core-ktx", version.ref = "test-core" }
+test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "test-ext-junit" }
+test-rules = { group = "androidx.test", name = "rules", version.ref = "test-rules" }
+test-runner = { group = "androidx.test", name = "runner", version.ref = "test-runner" }
+test-uiAutomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiAutomator" }
 
 # Desugaring
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 
 # Formatting + Linting
 detekt = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
-linting-composeLints = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "compose-lints" }
+linting-composeLints = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "compose-lints" }
 
 # API calls
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
