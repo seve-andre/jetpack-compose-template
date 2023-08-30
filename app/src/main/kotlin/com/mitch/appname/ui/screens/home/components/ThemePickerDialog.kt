@@ -23,10 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.mitch.appname.R
 import com.mitch.appname.util.AppTheme
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
-import compose.icons.evaicons.outline.Flag
+import compose.icons.evaicons.outline.ColorPalette
 
 @Composable
 fun ThemePickerDialog(
@@ -38,9 +39,9 @@ fun ThemePickerDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        icon = { Icon(EvaIcons.Outline.Flag, contentDescription = null) },
+        icon = { Icon(EvaIcons.Outline.ColorPalette, contentDescription = null) },
         title = {
-            Text(text = "Change theme")
+            Text(text = stringResource(id = R.string.change_theme))
         },
         text = {
             Column(modifier = Modifier.padding(16.dp)) {
@@ -76,7 +77,7 @@ fun ThemePickerDialog(
             TextButton(
                 onClick = onDismiss
             ) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         },
         confirmButton = {
@@ -87,7 +88,7 @@ fun ThemePickerDialog(
                 },
                 enabled = tempTheme != selectedTheme
             ) {
-                Text("Confirm")
+                Text(stringResource(R.string.save))
             }
         }
     )

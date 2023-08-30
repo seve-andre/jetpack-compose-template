@@ -4,4 +4,8 @@
     <string name="system_default">Predefinito di sistema</string>
     <string name="light_theme">Chiaro</string>
     <string name="dark_theme">Scuro</string>
+    <string name="change_language">Cambia lingua</string>
+    <string name="change_theme">Cambia tema</string>
+    <string name="cancel">Annulla</string>
+    <string name="save">Salva</string>
 </resources>

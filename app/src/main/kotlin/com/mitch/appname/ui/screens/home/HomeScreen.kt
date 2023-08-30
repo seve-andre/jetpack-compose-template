@@ -11,8 +11,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mitch.appname.R
 import com.mitch.appname.ui.screens.home.components.LanguagePickerDialog
 import com.mitch.appname.ui.screens.home.components.ThemePickerDialog
 import com.mitch.appname.util.AppTheme
@@ -53,11 +55,11 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(onClick = { setActiveDialog(ActiveDialog.Language) }) {
-            Text(text = "Change language")
+            Text(text = stringResource(id = R.string.change_language))
         }
 
         Button(onClick = { setActiveDialog(ActiveDialog.Theme) }) {
-            Text(text = "Change theme")
+            Text(text = stringResource(R.string.change_theme))
         }
 
         when (activeDialog) {

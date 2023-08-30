@@ -20,8 +20,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import com.mitch.appname.R
 import com.mitch.appname.util.AppLanguage
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
@@ -40,7 +42,7 @@ fun LanguagePickerDialog(
         onDismissRequest = onDismiss,
         icon = { Icon(EvaIcons.Outline.Globe, contentDescription = null) },
         title = {
-            Text(text = "Change language")
+            Text(text = stringResource(R.string.change_language))
         },
         text = {
             Column(Modifier.selectableGroup()) {
@@ -75,7 +77,7 @@ fun LanguagePickerDialog(
             TextButton(
                 onClick = onDismiss
             ) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         },
         confirmButton = {
@@ -86,7 +88,7 @@ fun LanguagePickerDialog(
                 },
                 enabled = tempLocale != selectedLocale
             ) {
-                Text("Confirm")
+                Text(stringResource(R.string.save))
             }
         }
     )
