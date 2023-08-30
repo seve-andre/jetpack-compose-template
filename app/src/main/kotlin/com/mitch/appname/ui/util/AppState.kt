@@ -7,11 +7,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.mitch.appname.ui.NavGraphs
-import com.mitch.appname.ui.appCurrentDestinationAsState
-import com.mitch.appname.ui.appDestination
-import com.mitch.appname.ui.destinations.Destination
-import com.mitch.appname.ui.startAppDestination
+import com.mitch.appname.navigation.NavGraphs
+import com.mitch.appname.navigation.appCurrentDestinationAsState
+import com.mitch.appname.navigation.appDestination
+import com.mitch.appname.navigation.destinations.Destination
+import com.mitch.appname.navigation.startAppDestination
 import com.mitch.appname.util.SnackbarController
 import com.mitch.appname.util.network.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope

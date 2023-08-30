@@ -35,16 +35,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.mitch.appname.ui.NavGraphs
-import com.mitch.appname.ui.theme.AppTheme
+import com.mitch.appname.navigation.NavGraphs
+import com.mitch.appname.ui.theme.AppNameTheme
 import com.mitch.appname.ui.util.rememberAppState
+import com.mitch.appname.util.AppTheme
 import com.mitch.appname.util.network.NetworkMonitor
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -112,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                 onDispose {}
             }
 
-            AppTheme(
+            AppNameTheme(
                 isThemeDark = isThemeDark
             ) {
                 val appState = rememberAppState(networkMonitor)
@@ -159,8 +160,8 @@ private fun shouldUseDarkTheme(
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.userPreferences.theme) {
-        com.mitch.appname.util.AppTheme.Dark -> true
-        com.mitch.appname.util.AppTheme.Light -> false
-        com.mitch.appname.util.AppTheme.FollowSystem -> isSystemInDarkTheme()
+        AppTheme.DARK -> true
+        AppTheme.LIGHT -> false
+        AppTheme.FOLLOW_SYSTEM -> isSystemInDarkTheme()
     }
 }

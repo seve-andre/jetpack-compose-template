@@ -2,6 +2,8 @@ package com.mitch.appname.di
 
 import com.mitch.appname.data.local.datastore.user.preferences.UserPreferencesRepo
 import com.mitch.appname.data.local.datastore.user.preferences.UserPreferencesRepoImpl
+import com.mitch.appname.data.repo.AppLanguageRepoImpl
+import com.mitch.appname.domain.repo.AppLanguageRepo
 import com.mitch.appname.util.network.ConnectivityManagerNetworkMonitor
 import com.mitch.appname.util.network.NetworkMonitor
 import dagger.Binds
@@ -17,12 +19,18 @@ abstract class DataModule {
     @Binds
     @Singleton
     abstract fun bindsNetworkMonitor(
-        connectivityManagerNetworkMonitor: ConnectivityManagerNetworkMonitor
+        networkMonitor: ConnectivityManagerNetworkMonitor
     ): NetworkMonitor
 
     @Binds
     @Singleton
-    abstract fun bindsUserPreferencesDataSource(
+    abstract fun bindsUserPreferencesRepo(
         userPreferencesRepo: UserPreferencesRepoImpl
     ): UserPreferencesRepo
+
+    @Binds
+    @Singleton
+    abstract fun bindsAppLanguageRepo(
+        appLanguageRepo: AppLanguageRepoImpl
+    ): AppLanguageRepo
 }

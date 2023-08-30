@@ -29,6 +29,6 @@ class MainActivityViewModel @Inject constructor(
 }
 
 sealed class MainActivityUiState {
-    object Loading : MainActivityUiState()
+    data object Loading : MainActivityUiState()
     data class Success(val userPreferences: UserPreferences) : MainActivityUiState()
 }

@@ -1,11 +1,12 @@
 package com.mitch.appname.util
 
-/*
- * Modify also:
- * - app build.gradle.kts android defaultConfig resourceConfigurations
- * - res/xml/locales_config.xml
- */
-sealed class AppLanguage(val languageTag: String) {
-    object English : AppLanguage("en")
-    object Italian : AppLanguage("it")
+import java.util.Locale
+
+enum class AppLanguage(private val languageTag: String) {
+    ENGLISH("en"),
+    ITALIAN("it");
+
+    fun toLocale(): Locale {
+        return Locale.forLanguageTag(this.languageTag)
+    }
 }
