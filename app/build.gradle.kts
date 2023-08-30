@@ -9,8 +9,9 @@ plugins {
     alias(libs.plugins.kapt)
 }
 
+val packageName = "com.mitch.appname"
+
 android {
-    val packageName = "com.mitch.appname"
     namespace = packageName
 
     compileSdk = 34
@@ -80,7 +81,7 @@ kapt {
 }
 
 ksp {
-    arg("compose-destinations.codeGenPackageName", "com.mitch.appname.navigation")
+    arg("compose-destinations.codeGenPackageName", "$packageName.navigation")
 }
 
 detekt {
