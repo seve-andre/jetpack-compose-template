@@ -34,7 +34,20 @@ To create you own repo, click on:
 - :black_circle: dark theme support
 - :uk: :it: in-app language preference
 
-## Inspo
+## Screenshots
+<details>
+  <summary><strong>Light/dark theme</strong></summary>
+  <img src="./screenshots/home-light.png" alt="Light theme home screen screenshot" title="Home light" height="500" />
+  <img src="./screenshots/home-dark.png" alt="Dark theme home screen screenshot" title="Home dark" height="500" />
+</details>
+
+<details>
+  <summary><strong>Language and theme pickers</strong></summary>
+  <img src="./screenshots/language-picker.png" alt="Language picker screenshot" title="Language picker" height="500" />
+  <img src="./screenshots/theme-picker.png" alt="Theme picker screenshot" title="Theme picker" height="500" />
+</details>
+
+### Inspo
 - [version catalog](https://github.com/seve-andre/android-jetpack-compose-template/blob/main/gradle/libs.versions.toml): [see inspo](https://developer.android.com/build/migrate-to-catalogs)
 - [SnackbarController](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/SnackbarController.kt): [see inspo](https://github.com/mitchtabian/MVVMRecipeApp/blob/managing-snackbar-with-scaffold/app/src/main/java/com/codingwithmitch/mvvmrecipeapp/presentation/components/util/SnackbarController.kt)
 - [Result](https://github.com/seve-andre/compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/ui/util/Result.kt): [see inspo](https://github.com/android/nowinandroid/blob/607c24e7f7399942e278af663ea4ad350e5bbc3a/core/common/src/main/java/com/google/samples/apps/nowinandroid/core/result/Result.kt)
