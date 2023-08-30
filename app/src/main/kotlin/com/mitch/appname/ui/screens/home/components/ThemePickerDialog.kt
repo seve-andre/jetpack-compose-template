@@ -20,14 +20,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
 import com.mitch.appname.util.AppTheme
-import compose.icons.EvaIcons
-import compose.icons.evaicons.Outline
-import compose.icons.evaicons.outline.ColorPalette
 
 @Composable
 fun ThemePickerDialog(
@@ -39,7 +37,7 @@ fun ThemePickerDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        icon = { Icon(EvaIcons.Outline.ColorPalette, contentDescription = null) },
+        icon = { Icon(painterResource(id = R.drawable.palette), contentDescription = null) },
         title = {
             Text(text = stringResource(id = R.string.change_theme))
         },
