@@ -15,14 +15,10 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +30,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mitch.appname.navigation.NavGraphs
 import com.mitch.appname.ui.theme.AppNameTheme
 import com.mitch.appname.ui.util.rememberAppState
@@ -90,28 +85,7 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
-            val systemUiController = rememberSystemUiController()
             val isThemeDark = shouldUseDarkTheme(uiState)
-
-            // if no tonal elevation/no navigation bar: MaterialTheme.colorScheme.background
-            // if custom color is used: assign the custom color to navigationBarColor
-            val navigationBarColor =
-                MaterialTheme.colorScheme.surfaceColorAtElevation(NavigationBarDefaults.Elevation)
-
-            val statusBarColor = MaterialTheme.colorScheme.background
-
-            // Update the dark content of the system bars to match the theme
-            DisposableEffect(systemUiController, isThemeDark) {
-                systemUiController.setNavigationBarColor(
-                    color = navigationBarColor,
-                    darkIcons = !isThemeDark
-                )
-                systemUiController.setStatusBarColor(
-                    color = statusBarColor,
-                    darkIcons = !isThemeDark
-                )
-                onDispose {}
-            }
 
             AppNameTheme(
                 isThemeDark = isThemeDark
