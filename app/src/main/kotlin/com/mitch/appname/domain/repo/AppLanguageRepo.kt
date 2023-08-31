@@ -6,5 +6,4 @@ import java.util.Locale
 interface AppLanguageRepo {
     suspend fun setLocale(locale: Locale)
     fun getLocale(): Flow<Locale>
-    fun getAvailableLocales(): List<Locale>
 }
