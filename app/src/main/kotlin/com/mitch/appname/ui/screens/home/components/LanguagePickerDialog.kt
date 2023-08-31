@@ -45,7 +45,7 @@ fun LanguagePickerDialog(
         text = {
             Column(Modifier.selectableGroup()) {
                 AppLanguage.values().forEach { language ->
-                    val languageLocale = language.toLocale()
+                    val languageLocale = language.locale
                     Row(
                         Modifier
                             .fillMaxWidth()
