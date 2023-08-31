@@ -2,8 +2,8 @@ package com.mitch.appname
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mitch.appname.data.local.datastore.user.preferences.UserPreferences
-import com.mitch.appname.data.local.datastore.user.preferences.UserPreferencesRepo
+import com.mitch.appname.domain.model.UserPreferences
+import com.mitch.appname.domain.repo.UserPreferencesRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map

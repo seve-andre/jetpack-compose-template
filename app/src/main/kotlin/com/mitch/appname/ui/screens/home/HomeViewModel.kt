@@ -2,8 +2,8 @@ package com.mitch.appname.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mitch.appname.data.local.datastore.user.preferences.UserPreferencesRepo
 import com.mitch.appname.domain.repo.AppLanguageRepo
+import com.mitch.appname.domain.repo.UserPreferencesRepo
 import com.mitch.appname.util.AppTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted

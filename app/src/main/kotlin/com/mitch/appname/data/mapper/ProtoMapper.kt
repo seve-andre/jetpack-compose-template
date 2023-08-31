@@ -2,7 +2,7 @@ package com.mitch.appname.data.mapper
 
 import com.mitch.appname.ProtoUserPreferences
 import com.mitch.appname.ProtoUserPreferences.ProtoAppTheme
-import com.mitch.appname.data.local.datastore.user.preferences.UserPreferences
+import com.mitch.appname.domain.model.UserPreferences
 import com.mitch.appname.util.AppTheme
 
 fun ProtoUserPreferences.toLocalUserPreferences(): UserPreferences {

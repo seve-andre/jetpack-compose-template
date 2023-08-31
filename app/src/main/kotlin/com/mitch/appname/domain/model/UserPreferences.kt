@@ -1,4 +1,4 @@
-package com.mitch.appname.data.local.datastore.user.preferences
+package com.mitch.appname.domain.model
 
 import com.mitch.appname.ProtoUserPreferences
 import com.mitch.appname.util.AppTheme

@@ -3,6 +3,7 @@ package com.mitch.appname.data.local.datastore.user.preferences
 import androidx.datastore.core.DataStore
 import com.mitch.appname.ProtoUserPreferences
 import com.mitch.appname.ProtoUserPreferences.ProtoAppTheme
+import com.mitch.appname.domain.repo.UserPreferencesRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
