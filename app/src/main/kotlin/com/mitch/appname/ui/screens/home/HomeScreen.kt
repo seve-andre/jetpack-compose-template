@@ -22,7 +22,6 @@ import com.mitch.appname.util.AppLanguage
 import com.mitch.appname.util.AppTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
-import timber.log.Timber
 
 @RootNavGraph(start = true)
 @Destination
@@ -31,8 +30,6 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    Timber.d("HomeUiState: $uiState")
 
     HomeScreen(
         uiState = uiState,
