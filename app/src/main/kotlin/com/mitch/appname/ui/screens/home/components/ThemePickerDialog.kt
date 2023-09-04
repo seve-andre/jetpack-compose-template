@@ -1,5 +1,6 @@
 package com.mitch.appname.ui.screens.home.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
+import com.mitch.appname.ui.theme.custom.LocalPadding
 import com.mitch.appname.util.AppTheme
 
 @Composable
@@ -33,6 +35,8 @@ fun ThemePickerDialog(
     onDismiss: () -> Unit,
     onConfirm: (AppTheme) -> Unit
 ) {
+    val padding = LocalPadding.current
+
     var tempTheme by remember { mutableStateOf(selectedTheme) }
 
     AlertDialog(
@@ -42,31 +46,29 @@ fun ThemePickerDialog(
             Text(text = stringResource(id = R.string.change_theme))
         },
         text = {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Column(Modifier.selectableGroup()) {
-                    AppTheme.values().forEach { theme ->
-                        Row(
-                            Modifier
-                                .fillMaxWidth()
-                                .height(56.dp)
-                                .selectable(
-                                    selected = (theme == tempTheme),
-                                    onClick = { tempTheme = theme },
-                                    role = Role.RadioButton
-                                )
-                                .padding(horizontal = 16.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
+            Column(Modifier.selectableGroup()) {
+                AppTheme.values().forEach { theme ->
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(56.dp)
+                            .selectable(
                                 selected = (theme == tempTheme),
-                                onClick = null // null recommended for accessibility with screenreaders
+                                onClick = { tempTheme = theme },
+                                role = Role.RadioButton
                             )
-                            Text(
-                                text = stringResource(id = theme.translationId),
-                                style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier.padding(start = 16.dp)
-                            )
-                        }
+                            .padding(horizontal = padding.medium),
+                        horizontalArrangement = Arrangement.spacedBy(padding.medium),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = (theme == tempTheme),
+                            onClick = null // null recommended for accessibility with screenreaders
+                        )
+                        Text(
+                            text = stringResource(id = theme.translationId),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 }
             }
