@@ -31,7 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.appname.navigation.NavGraphs
-import com.mitch.appname.ui.theme.AppNameTheme
+import com.mitch.appname.ui.theme.AppMaterialTheme
 import com.mitch.appname.ui.util.rememberAppState
 import com.mitch.appname.util.AppTheme
 import com.mitch.appname.util.network.NetworkMonitor
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val isThemeDark = shouldUseDarkTheme(uiState)
 
-            AppNameTheme(
+            AppMaterialTheme(
                 isThemeDark = isThemeDark
             ) {
                 val appState = rememberAppState(networkMonitor)

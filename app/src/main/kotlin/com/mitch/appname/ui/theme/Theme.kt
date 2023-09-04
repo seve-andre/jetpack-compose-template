@@ -12,7 +12,7 @@ val DarkColorScheme = darkColorScheme()
 val LightColorScheme = lightColorScheme()
 
 @Composable
-fun AppNameTheme(
+fun AppMaterialTheme(
     isThemeDark: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
