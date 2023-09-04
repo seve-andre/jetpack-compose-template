@@ -16,7 +16,7 @@ enum class AppLanguage(
             return values().firstOrNull { it.locale == locale } ?: default()
         }
 
-        fun default(): AppLanguage {
+        private fun default(): AppLanguage {
             return ENGLISH
         }
     }

@@ -8,11 +8,5 @@ enum class AppTheme(
 ) {
     FOLLOW_SYSTEM(R.string.system_default),
     LIGHT(R.string.light_theme),
-    DARK(R.string.dark_theme);
-
-    companion object {
-        fun default(): AppTheme {
-            return FOLLOW_SYSTEM
-        }
-    }
+    DARK(R.string.dark_theme)
 }

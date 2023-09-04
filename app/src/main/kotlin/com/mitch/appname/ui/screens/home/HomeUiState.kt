@@ -1,7 +1,7 @@
 package com.mitch.appname.ui.screens.home
 
+import com.mitch.appname.util.AppLanguage
 import com.mitch.appname.util.AppTheme
-import java.util.Locale
 
 sealed interface HomeUiState {
     data object Loading : HomeUiState
@@ -11,7 +11,7 @@ sealed interface HomeUiState {
     ) : HomeUiState
 
     data class Success(
-        val language: Locale,
+        val language: AppLanguage,
         val theme: AppTheme
     ) : HomeUiState
 }

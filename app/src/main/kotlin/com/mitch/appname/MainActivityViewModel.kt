@@ -23,8 +23,8 @@ class MainActivityViewModel @Inject constructor(
         MainActivityUiState.Success(it)
     }.stateIn(
         scope = viewModelScope,
-        initialValue = MainActivityUiState.Loading,
-        started = SharingStarted.WhileSubscribed(5_000)
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = MainActivityUiState.Loading
     )
 }
 

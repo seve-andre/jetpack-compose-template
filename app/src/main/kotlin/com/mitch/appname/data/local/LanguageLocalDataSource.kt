@@ -1,14 +1,10 @@
 package com.mitch.appname.data.local
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 import java.util.Locale
 import javax.inject.Inject
 
@@ -21,11 +17,12 @@ class LanguageLocalDataSource @Inject constructor(
         )
     }
 
-    fun getLocale() = callbackFlow {
+    /*fun getLocale() = callbackFlow {
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent) {
                 if (intent.action == Intent.ACTION_LOCALE_CHANGED) {
                     val locale = AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault()
+                    Timber.d("LanguageLocalDataSource locale: $locale")
                     trySend(locale)
                 }
             }
@@ -35,5 +32,10 @@ class LanguageLocalDataSource @Inject constructor(
         awaitClose {
             context.unregisterReceiver(receiver)
         }
+    }*/
+
+    fun getLocale() = flow {
+        emit(AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault())
     }
 }
+1
