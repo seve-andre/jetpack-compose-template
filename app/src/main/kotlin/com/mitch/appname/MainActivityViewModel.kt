@@ -2,8 +2,8 @@ package com.mitch.appname
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mitch.appname.domain.model.UserPreferences
-import com.mitch.appname.domain.repo.UserPreferencesRepo
+import com.mitch.appname.domain.repo.UserSettingsRepository
+import com.mitch.appname.util.AppTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -12,14 +12,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    userPreferencesRepo: UserPreferencesRepo
+    userSettingsRepository: UserSettingsRepository
 ) : ViewModel() {
 
     /**
      * Initial [MainActivity] ui state is set to [MainActivityUiState.Loading] and mapped to
-     * [MainActivityUiState.Success] once the [UserPreferences] data is retrieved
+     * [MainActivityUiState.Success] once the [AppTheme] data is retrieved
      */
-    val uiState = userPreferencesRepo.userPreferencesData.map {
+    val uiState = userSettingsRepository.getTheme().map {
         MainActivityUiState.Success(it)
     }.stateIn(
         scope = viewModelScope,
@@ -30,5 +30,5 @@ class MainActivityViewModel @Inject constructor(
 
 sealed class MainActivityUiState {
     data object Loading : MainActivityUiState()
-    data class Success(val userPreferences: UserPreferences) : MainActivityUiState()
+    data class Success(val theme: AppTheme) : MainActivityUiState()
 }

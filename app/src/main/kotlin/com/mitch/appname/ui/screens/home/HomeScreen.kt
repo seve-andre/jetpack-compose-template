@@ -17,10 +17,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.appname.R
 import com.mitch.appname.ui.screens.home.components.LanguagePickerDialog
 import com.mitch.appname.ui.screens.home.components.ThemePickerDialog
+import com.mitch.appname.util.AppLanguage
 import com.mitch.appname.util.AppTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
-import java.util.Locale
 
 @RootNavGraph(start = true)
 @Destination
@@ -29,13 +29,13 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val theme by viewModel.theme.collectAsStateWithLifecycle()
-    val locale by viewModel.locale.collectAsStateWithLifecycle()
+    val language by viewModel.language.collectAsStateWithLifecycle()
 
     HomeScreen(
         theme = theme,
         onChangeTheme = viewModel::updateTheme,
-        locale = locale,
-        onChangeLanguage = viewModel::updateLocale
+        language = language,
+        onChangeLanguage = viewModel::updateLanguage
     )
 }
 
@@ -43,8 +43,8 @@ fun HomeRoute(
 fun HomeScreen(
     theme: AppTheme,
     onChangeTheme: (AppTheme) -> Unit,
-    locale: Locale,
-    onChangeLanguage: (Locale) -> Unit,
+    language: AppLanguage,
+    onChangeLanguage: (AppLanguage) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val (activeDialog, setActiveDialog) = remember { mutableStateOf<ActiveDialog>(ActiveDialog.None) }
@@ -67,7 +67,7 @@ fun HomeScreen(
 
             ActiveDialog.Language -> {
                 LanguagePickerDialog(
-                    selectedLocale = locale,
+                    selectedLanguage = language,
                     onDismiss = { setActiveDialog(ActiveDialog.None) },
                     onConfirm = onChangeLanguage
                 )

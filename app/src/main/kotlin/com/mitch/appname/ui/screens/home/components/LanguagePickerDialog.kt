@@ -1,10 +1,13 @@
 package com.mitch.appname.ui.screens.home.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.AlertDialog
@@ -25,48 +28,58 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
+import com.mitch.appname.ui.theme.custom.padding
 import com.mitch.appname.util.AppLanguage
-import java.util.Locale
 
 @Composable
 fun LanguagePickerDialog(
-    selectedLocale: Locale,
+    selectedLanguage: AppLanguage,
     onDismiss: () -> Unit,
-    onConfirm: (Locale) -> Unit
+    onConfirm: (AppLanguage) -> Unit
 ) {
-    var tempLocale by remember { mutableStateOf(selectedLocale) }
+    var tempLanguage by remember { mutableStateOf(selectedLanguage) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        icon = { Icon(painterResource(id = R.drawable.languages), contentDescription = null) },
+        icon = { Icon(painterResource(R.drawable.languages), contentDescription = null) },
         title = {
             Text(text = stringResource(R.string.change_language))
         },
         text = {
             Column(Modifier.selectableGroup()) {
                 AppLanguage.values().forEach { language ->
-                    val languageLocale = language.locale
                     Row(
                         Modifier
                             .fillMaxWidth()
                             .height(56.dp)
                             .selectable(
-                                selected = (languageLocale == tempLocale),
-                                onClick = { tempLocale = languageLocale },
+                                selected = (language == tempLanguage),
+                                onClick = { tempLanguage = language },
                                 role = Role.RadioButton
                             )
-                            .padding(horizontal = 16.dp),
+                            .padding(horizontal = padding.medium),
+                        horizontalArrangement = Arrangement.spacedBy(padding.medium),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = (languageLocale == tempLocale),
-                            onClick = null // null recommended for accessibility with screenreaders
+                            selected = (language == tempLanguage),
+                            onClick = null
                         )
-                        Text(
-                            text = languageLocale.displayLanguage,
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(start = 16.dp)
-                        )
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(padding.small),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            // TODO: add description to flag
+                            Image(
+                                painter = painterResource(language.flagId),
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = language.locale.displayLanguage,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
                     }
                 }
             }
@@ -81,10 +94,10 @@ fun LanguagePickerDialog(
         confirmButton = {
             TextButton(
                 onClick = {
-                    onConfirm(tempLocale)
+                    onConfirm(tempLanguage)
                     onDismiss()
                 },
-                enabled = tempLocale != selectedLocale
+                enabled = tempLanguage != selectedLanguage
             ) {
                 Text(stringResource(R.string.save))
             }
