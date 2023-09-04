@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.flow
 import java.util.Locale
 import javax.inject.Inject
+import kotlinx.coroutines.flow.flow
 
 class LanguageLocalDataSource @Inject constructor(
     @ApplicationContext private val context: Context
@@ -38,4 +38,3 @@ class LanguageLocalDataSource @Inject constructor(
         emit(AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault())
     }
 }
-1
