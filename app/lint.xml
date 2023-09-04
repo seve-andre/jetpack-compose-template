@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<issue id="ComposeCompositionLocalUsage">
+    <option name="allowed-composition-locals" value="LocalPadding" />
+</issue>
