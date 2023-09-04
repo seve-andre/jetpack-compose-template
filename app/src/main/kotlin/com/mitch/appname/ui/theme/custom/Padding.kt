@@ -1,10 +1,16 @@
 package com.mitch.appname.ui.theme.custom
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-// example: Modifier.padding(padding.small)
-val padding = Padding()
+val LocalPadding = compositionLocalOf { Padding() }
+val padding: Padding
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalPadding.current
 
 data class Padding(
     val zero: Dp = 0.dp,

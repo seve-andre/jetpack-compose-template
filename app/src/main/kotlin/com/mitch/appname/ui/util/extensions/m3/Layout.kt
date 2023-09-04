@@ -3,15 +3,19 @@ package com.mitch.appname.ui.util.extensions.m3
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.mitch.appname.ui.theme.custom.padding
+import com.mitch.appname.ui.theme.custom.LocalPadding
 
 // padding
 
 // https://m3.material.io/foundations/layout/applying-layout/compact#4b2b6814-c64a-4bc0-a07d-6652a91737e6
 val WindowWidthSizeClass.compactPadding: PaddingValues
-    get() = PaddingValues(padding.medium)
+    @Composable
+    @ReadOnlyComposable
+    get() = PaddingValues(LocalPadding.current.medium)
 
 // https://m3.material.io/foundations/layout/applying-layout/medium#4899a0c6-bc71-4e86-8095-39e5d517db6a
 val WindowWidthSizeClass.mediumPadding: PaddingValues

@@ -13,11 +13,7 @@ enum class AppLanguage(
 
     companion object {
         fun fromLocale(locale: Locale): AppLanguage {
-            return values().firstOrNull { it.locale == locale } ?: default()
-        }
-
-        private fun default(): AppLanguage {
-            return ENGLISH
+            return values().firstOrNull { it.locale == locale } ?: ENGLISH
         }
     }
 }

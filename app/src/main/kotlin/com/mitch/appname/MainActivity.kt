@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,15 +33,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.appname.navigation.NavGraphs
 import com.mitch.appname.ui.theme.AppMaterialTheme
+import com.mitch.appname.ui.theme.custom.LocalPadding
+import com.mitch.appname.ui.theme.custom.padding
 import com.mitch.appname.ui.util.rememberAppState
 import com.mitch.appname.util.AppTheme
 import com.mitch.appname.util.network.NetworkMonitor
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -87,40 +90,42 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val isThemeDark = shouldUseDarkTheme(uiState)
 
-            AppMaterialTheme(
-                isThemeDark = isThemeDark
-            ) {
-                val appState = rememberAppState(networkMonitor)
-                val isOffline by appState.isOffline.collectAsStateWithLifecycle()
+            CompositionLocalProvider(LocalPadding provides padding) {
+                AppMaterialTheme(
+                    isThemeDark = isThemeDark
+                ) {
+                    val appState = rememberAppState(networkMonitor)
+                    val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
-                LaunchedEffect(isOffline) {
-                    if (isOffline) {
-                        appState.snackbarHostState.showSnackbar(
-                            message = "not connected!",
-                            duration = SnackbarDuration.Indefinite
-                        )
-                    }
-                }
-
-                Scaffold(
-                    snackbarHost = { SnackbarHost(appState.snackbarHostState) },
-                    contentWindowInsets = WindowInsets(0, 0, 0, 0)
-                ) { padding ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(padding)
-                            .consumeWindowInsets(padding)
-                            .windowInsetsPadding(
-                                WindowInsets.safeDrawing.only(
-                                    WindowInsetsSides.Horizontal
-                                )
+                    LaunchedEffect(isOffline) {
+                        if (isOffline) {
+                            appState.snackbarHostState.showSnackbar(
+                                message = "not connected!",
+                                duration = SnackbarDuration.Indefinite
                             )
-                    ) {
-                        DestinationsNavHost(
-                            navGraph = NavGraphs.root,
-                            navController = appState.navController
-                        )
+                        }
+                    }
+
+                    Scaffold(
+                        snackbarHost = { SnackbarHost(appState.snackbarHostState) },
+                        contentWindowInsets = WindowInsets(0, 0, 0, 0)
+                    ) { padding ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(padding)
+                                .consumeWindowInsets(padding)
+                                .windowInsetsPadding(
+                                    WindowInsets.safeDrawing.only(
+                                        WindowInsetsSides.Horizontal
+                                    )
+                                )
+                        ) {
+                            DestinationsNavHost(
+                                navGraph = NavGraphs.root,
+                                navController = appState.navController
+                            )
+                        }
                     }
                 }
             }

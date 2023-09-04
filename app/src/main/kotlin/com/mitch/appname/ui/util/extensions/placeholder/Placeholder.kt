@@ -43,13 +43,7 @@ fun PlaceholderDefaults.color(
     contentAlpha: Float = 0.1f,
 ): Color = contentColor.copy(contentAlpha).compositeOver(backgroundColor)
 
-/**
- * Contains default values used by [Modifier.placeholder] and [PlaceholderHighlight].
- */
 object PlaceholderDefaults {
-    /**
-     * The default [InfiniteRepeatableSpec] to use for [fade].
-     */
     val fadeAnimationSpec: InfiniteRepeatableSpec<Float> by lazy {
         infiniteRepeatable(
             animation = tween(delayMillis = 200, durationMillis = 600),
@@ -57,9 +51,6 @@ object PlaceholderDefaults {
         )
     }
 
-    /**
-     * The default [InfiniteRepeatableSpec] to use for [shimmer].
-     */
     val shimmerAnimationSpec: InfiniteRepeatableSpec<Float> by lazy {
         infiniteRepeatable(
             animation = tween(durationMillis = 1700, delayMillis = 200),
@@ -68,34 +59,6 @@ object PlaceholderDefaults {
     }
 }
 
-/**
- * Draws some skeleton UI which is typically used whilst content is 'loading'.
- *
- * A version of this modifier which uses appropriate values for Material themed apps is available
- * in the 'Placeholder Material' library.
- *
- * You can provide a [PlaceholderHighlight] which runs an highlight animation on the placeholder.
- * The [shimmer] and [fade] implementations are provided for easy usage.
- *
- * A cross-fade transition will be applied to the content and placeholder UI when the [visible]
- * value changes. The transition can be customized via the [contentFadeTransitionSpec] and
- * [placeholderFadeTransitionSpec] parameters.
- *
- * You can find more information on the pattern at the Material Theming
- * [Placeholder UI](https://material.io/design/communication/launch-screen.html#placeholder-ui)
- * guidelines.
- *
- * @sample com.google.accompanist.sample.placeholder.DocSample_Foundation_Placeholder
- *
- * @param visible whether the placeholder should be visible or not.
- * @param color the color used to draw the placeholder UI.
- * @param shape desired shape of the placeholder. Defaults to [RectangleShape].
- * @param highlight optional highlight animation.
- * @param placeholderFadeTransitionSpec The transition spec to use when fading the placeholder
- * on/off screen. The boolean parameter defined for the transition is [visible].
- * @param contentFadeTransitionSpec The transition spec to use when fading the content
- * on/off screen. The boolean parameter defined for the transition is [visible].
- */
 fun Modifier.placeholder(
     visible: Boolean,
     color: Color = Color.Unspecified,
@@ -132,11 +95,11 @@ fun Modifier.placeholder(
     // Run the optional animation spec and update the progress if the placeholder is visible
     val animationSpec = highlight?.animationSpec
     if (animationSpec != null && (visible || placeholderAlpha >= 0.01f)) {
-        val infiniteTransition = rememberInfiniteTransition()
+        val infiniteTransition = rememberInfiniteTransition(label = "")
         highlightProgress = infiniteTransition.animateFloat(
             initialValue = 0f,
             targetValue = 1f,
-            animationSpec = animationSpec,
+            animationSpec = animationSpec, label = "",
         ).value
     }
 
