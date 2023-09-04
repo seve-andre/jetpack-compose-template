@@ -1,11 +1,11 @@
-package com.mitch.appname.data.repo
+package com.mitch.appname.data.repository
 
 import com.mitch.appname.data.local.LanguageLocalDataSource
 import com.mitch.appname.data.local.datastore.user.preferences.UserPreferencesLocalDataSource
 import com.mitch.appname.data.mapper.toAppLanguage
 import com.mitch.appname.data.mapper.toLocal
 import com.mitch.appname.data.mapper.toProto
-import com.mitch.appname.domain.repo.UserSettingsRepository
+import com.mitch.appname.domain.repository.UserSettingsRepository
 import com.mitch.appname.util.AppLanguage
 import com.mitch.appname.util.AppTheme
 import kotlinx.coroutines.flow.Flow

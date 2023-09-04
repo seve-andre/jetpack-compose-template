@@ -1,4 +1,4 @@
-package com.mitch.appname.domain.repo
+package com.mitch.appname.domain.repository
 
 import com.mitch.appname.util.AppLanguage
 import com.mitch.appname.util.AppTheme

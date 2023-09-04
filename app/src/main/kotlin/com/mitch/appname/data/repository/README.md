@@ -1,0 +1,1 @@
+# Put repo implementations here - interfaces are inside domain/repository - [see example](https://github.com/philipplackner/StockMarketApp/blob/final/app/src/main/java/com/plcoding/stockmarketapp/data/repository/StockRepositoryImpl.kt)
