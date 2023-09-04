@@ -28,7 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
-import com.mitch.appname.ui.theme.custom.LocalPadding
+import com.mitch.appname.ui.theme.custom.padding
 import com.mitch.appname.util.AppLanguage
 
 @Composable
@@ -37,8 +37,6 @@ fun LanguagePickerDialog(
     onDismiss: () -> Unit,
     onConfirm: (AppLanguage) -> Unit
 ) {
-    val padding = LocalPadding.current
-
     var tempLanguage by remember { mutableStateOf(selectedLanguage) }
 
     AlertDialog(

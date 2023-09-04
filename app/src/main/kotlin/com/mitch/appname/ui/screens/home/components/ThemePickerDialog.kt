@@ -26,7 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
-import com.mitch.appname.ui.theme.custom.LocalPadding
+import com.mitch.appname.ui.theme.custom.padding
 import com.mitch.appname.util.AppTheme
 
 @Composable
@@ -35,8 +35,6 @@ fun ThemePickerDialog(
     onDismiss: () -> Unit,
     onConfirm: (AppTheme) -> Unit
 ) {
-    val padding = LocalPadding.current
-
     var tempTheme by remember { mutableStateOf(selectedTheme) }
 
     AlertDialog(
