@@ -148,7 +148,7 @@ fun BasicClosableDialogPreview() {
 
 @Preview
 @Composable
-fun ClosableDialogWithHeroIconPreview() {
+private fun ClosableDialogWithHeroIconPreview() {
     ClosableDialog(
         onDismiss = { },
         icon = {
