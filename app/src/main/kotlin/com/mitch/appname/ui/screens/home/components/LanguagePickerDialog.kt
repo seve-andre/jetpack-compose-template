@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -75,8 +76,11 @@ fun LanguagePickerDialog(
                             Image(
                                 painter = painterResource(language.flagId),
                                 contentDescription = null,
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier
+                                    .size(20.dp)
+                                    .testTag(language.flagId.toString())
                             )
+                            Timber.d("displayLanguage: ${language.locale.displayLanguage}")
                             Text(
                                 text = language.locale.displayLanguage,
                                 style = MaterialTheme.typography.bodyLarge

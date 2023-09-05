@@ -136,8 +136,8 @@ junit5-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", ve
 assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 ## Instrumented
-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+composeTest-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+composeTest-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 test-core = { group = "androidx.test", name = "core-ktx", version.ref = "test-core" }
 test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 test-ext-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "test-ext-junit" }

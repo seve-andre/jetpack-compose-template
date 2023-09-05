@@ -191,6 +191,8 @@ dependencies {
     testImplementation(libs.turbine)
     // Instrumented
     androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.composeTest.junit4)
+    debugImplementation(libs.composeTest.manifest)
     androidTestImplementation(libs.test.core)
     androidTestImplementation(libs.test.espresso.core)
     androidTestImplementation(libs.test.ext.junit)
