@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.appname.R
@@ -104,4 +105,24 @@ sealed interface ActiveDialog {
     data object None : ActiveDialog
     data object Language : ActiveDialog
     data object Theme : ActiveDialog
+}
+
+@Preview
+@Composable
+private fun HomeScreenLoadingPreview() {
+    HomeScreen(
+        uiState = HomeUiState.Loading,
+        onChangeTheme = { },
+        onChangeLanguage = { }
+    )
+}
+
+@Preview
+@Composable
+private fun HomeScreenContentPreview() {
+    HomeScreen(
+        uiState = HomeUiState.Success(language = AppLanguage.ENGLISH, theme = AppTheme.LIGHT),
+        onChangeTheme = { },
+        onChangeLanguage = { }
+    )
 }
