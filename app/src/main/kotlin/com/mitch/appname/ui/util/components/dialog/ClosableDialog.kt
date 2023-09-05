@@ -14,7 +14,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.AlertDialogDefaults.textContentColor
 import androidx.compose.material3.AlertDialogDefaults.titleContentColor
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -22,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -134,12 +134,12 @@ fun BasicClosableDialogPreview() {
             Text(text = "A dialog is a type of modal window that appears")
         },
         confirmButton = {
-            Button(onClick = { }) {
+            TextButton(onClick = { }) {
                 Text(text = "Confirm")
             }
         },
         dismissButton = {
-            Button(onClick = { }) {
+            TextButton(onClick = { }) {
                 Text(text = "Dismiss")
             }
         }
@@ -164,12 +164,12 @@ fun ClosableDialogWithHeroIconPreview() {
             Text(text = "A dialog is a type of modal window that appears")
         },
         confirmButton = {
-            Button(onClick = { }) {
+            TextButton(onClick = { }) {
                 Text(text = "Confirm")
             }
         },
         dismissButton = {
-            Button(onClick = { }) {
+            TextButton(onClick = { }) {
                 Text(text = "Dismiss")
             }
         }
