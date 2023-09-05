@@ -72,7 +72,6 @@ fun LanguagePickerDialog(
                             horizontalArrangement = Arrangement.spacedBy(padding.small),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // TODO: add description to flag
                             Image(
                                 painter = painterResource(language.flagId),
                                 contentDescription = null,
