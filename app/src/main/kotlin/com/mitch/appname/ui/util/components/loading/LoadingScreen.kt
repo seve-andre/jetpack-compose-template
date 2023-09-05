@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.testTag
 const val LoadingTag = "loading indicator"
 
 @Composable
-fun AppLoadingIndicator(
+fun LoadingScreen(
     modifier: Modifier = Modifier
 ) {
     Column(

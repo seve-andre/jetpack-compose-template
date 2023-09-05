@@ -80,7 +80,6 @@ fun LanguagePickerDialog(
                                     .size(20.dp)
                                     .testTag(language.flagId.toString())
                             )
-                            Timber.d("displayLanguage: ${language.locale.displayLanguage}")
                             Text(
                                 text = language.locale.displayLanguage,
                                 style = MaterialTheme.typography.bodyLarge

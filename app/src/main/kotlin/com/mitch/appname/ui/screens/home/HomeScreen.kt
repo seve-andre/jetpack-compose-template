@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,6 +18,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.appname.R
 import com.mitch.appname.ui.screens.home.components.LanguagePickerDialog
 import com.mitch.appname.ui.screens.home.components.ThemePickerDialog
+import com.mitch.appname.ui.util.components.loading.LoadingScreen
 import com.mitch.appname.util.AppLanguage
 import com.mitch.appname.util.AppTheme
 import com.ramcosta.composedestinations.annotation.Destination
@@ -47,13 +47,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
-        HomeUiState.Loading -> Column(
-            modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CircularProgressIndicator()
-        }
+        HomeUiState.Loading -> LoadingScreen()
 
         is HomeUiState.Success -> {
             val (activeDialog, setActiveDialog) = remember {
