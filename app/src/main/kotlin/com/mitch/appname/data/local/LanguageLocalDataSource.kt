@@ -7,9 +7,10 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import java.util.Locale
 import javax.inject.Inject
 
@@ -22,31 +23,22 @@ class LanguageLocalDataSource @Inject constructor(
         )
     }
 
-    fun getLocale(): Flow<Locale> {
-        val localeState = MutableStateFlow(
-            AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault()
-        )
-
+    fun getLocale(): Flow<Locale> = callbackFlow {
         val localeChangedReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent) {
                 if (intent.action == Intent.ACTION_LOCALE_CHANGED) {
                     val newLocale =
                         AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault()
-                    newLocale?.let {
-                        localeState.value = it
-                    }
+                    trySend(newLocale)
                 }
             }
         }
         context.registerReceiver(localeChangedReceiver, IntentFilter(Intent.ACTION_LOCALE_CHANGED))
 
-        return flow {
-            emit(localeState.value)
+        trySend(AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault())
 
-            // Continuously emit values as they change
-            localeState.collect {
-                emit(it)
-            }
+        awaitClose {
+            context.unregisterReceiver(localeChangedReceiver)
         }
-    }
+    }.distinctUntilChanged()
 }
