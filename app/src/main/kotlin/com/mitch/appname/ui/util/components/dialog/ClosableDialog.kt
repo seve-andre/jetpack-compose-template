@@ -124,7 +124,7 @@ fun ClosableDialog(
 
 @Preview
 @Composable
-fun ClosableDialogPreview() {
+fun BasicClosableDialogPreview() {
     ClosableDialog(
         onDismiss = { },
         title = {
@@ -144,7 +144,11 @@ fun ClosableDialogPreview() {
             }
         }
     )
+}
 
+@Preview
+@Composable
+fun ClosableDialogWithHeroIconPreview() {
     ClosableDialog(
         onDismiss = { },
         icon = {
