@@ -48,7 +48,13 @@ class HomeScreenTest {
             )
         }
 
-        composeTestRule.onNodeWithText(getString(R.string.change_language))
-        composeTestRule.onNodeWithText(getString(R.string.change_theme))
+        // assert both "change language" and "change theme" buttons are displayed
+        composeTestRule
+            .onNodeWithText(getString(R.string.change_language))
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithText(getString(R.string.change_theme))
+            .assertIsDisplayed()
     }
 }
