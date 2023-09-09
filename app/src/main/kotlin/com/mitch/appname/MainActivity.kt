@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                     LaunchedEffect(isOffline) {
                         if (isOffline) {
                             appState.snackbarHostState.showSnackbar(
-                                message = "not connected!",
+                                message = getString(R.string.not_connected),
                                 duration = SnackbarDuration.Indefinite
                             )
                         }
