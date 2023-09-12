@@ -9,7 +9,7 @@ To create you own repo, click on:
 
 [![Use this template](https://user-images.githubusercontent.com/38083522/226207439-1195c8c4-e3e2-4db0-8f39-7277b08872be.png)](https://github.com/seve-andre/compose-template/generate)
 
-> [!WARNING]
+> [!IMPORTANT]
 > [Here](https://github.com/seve-andre/android-jetpack-compose-template/wiki#instructions) you can find detailed instructions on how to turn the template into your own app
 
 ## What does it use?
