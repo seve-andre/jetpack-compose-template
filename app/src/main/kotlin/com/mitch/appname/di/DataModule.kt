@@ -15,13 +15,11 @@ import javax.inject.Singleton
 abstract class DataModule {
 
     @Binds
-    @Singleton
     abstract fun bindsNetworkMonitor(
         networkMonitor: ConnectivityManagerNetworkMonitor
     ): NetworkMonitor
 
     @Binds
-    @Singleton
     abstract fun bindsUserSettingsRepository(
         userSettingsRepositoryImpl: UserSettingsRepositoryImpl
     ): UserSettingsRepository
