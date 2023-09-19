@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.screens.home.components
+package com.mitch.appname.ui.screen.home.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

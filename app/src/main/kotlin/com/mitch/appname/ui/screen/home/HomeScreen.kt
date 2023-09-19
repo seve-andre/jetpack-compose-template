@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.screens.home
+package com.mitch.appname.ui.screen.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.appname.R
-import com.mitch.appname.ui.screens.home.components.LanguagePickerDialog
-import com.mitch.appname.ui.screens.home.components.ThemePickerDialog
+import com.mitch.appname.ui.screen.home.components.LanguagePickerDialog
+import com.mitch.appname.ui.screen.home.components.ThemePickerDialog
 import com.mitch.appname.ui.util.components.loading.LoadingScreen
 import com.mitch.appname.util.AppLanguage
 import com.mitch.appname.util.AppTheme
