@@ -16,12 +16,17 @@ import androidx.compose.material3.AlertDialogDefaults.textContentColor
 import androidx.compose.material3.AlertDialogDefaults.titleContentColor
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -41,8 +46,8 @@ fun ClosableDialog(
     onDismiss: () -> Unit,
     title: @Composable () -> Unit,
     body: @Composable () -> Unit,
-    dismissButton: @Composable () -> Unit,
-    confirmButton: @Composable () -> Unit,
+    dismissButton: (@Composable () -> Unit)? = null,
+    confirmButton: (@Composable () -> Unit)? = null,
     icon: (@Composable () -> Unit)? = null
 ) {
     AlertDialog(
@@ -63,7 +68,22 @@ fun ClosableDialog(
                         .padding(bottom = padding.small)
                         .align(Alignment.End)
                 ) {
-                    Icon(imageVector = EvaIcons.Outline.Close, contentDescription = "Close dialog")
+                    TooltipBox(
+                        positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                        tooltip = {
+                            PlainTooltip {
+                                Text("Close dialog")
+                            }
+                        },
+                        state = rememberTooltipState()
+                    ) {
+                        IconButton(onClick = onDismiss) {
+                            Icon(
+                                imageVector = EvaIcons.Outline.Close,
+                                contentDescription = "Close dialog"
+                            )
+                        }
+                    }
                 }
 
                 icon?.let {
@@ -109,13 +129,15 @@ fun ClosableDialog(
                     }
                 }
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    dismissButton()
-                    Spacer(Modifier.width(10.dp))
-                    confirmButton()
+                if (dismissButton != null && confirmButton != null) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        dismissButton()
+                        Spacer(Modifier.width(10.dp))
+                        confirmButton()
+                    }
                 }
             }
         }
