@@ -466,10 +466,6 @@ potential-bugs:
 
 style:
   active: true
-  BracesOnIfStatements:
-    active: true
-  BracesOnWhenStatements:
-    active: true
   CanBeNonNullable:
     active: false
   CascadingCallWrapping:
