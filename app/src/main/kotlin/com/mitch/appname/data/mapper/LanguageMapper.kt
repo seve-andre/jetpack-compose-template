@@ -4,5 +4,8 @@ import com.mitch.appname.util.AppLanguage
 import java.util.Locale
 
 fun Locale.toAppLanguage(): AppLanguage {
-    return AppLanguage.fromLocale(this)
+    // removes country code and variants if present
+    val localeLanguageOnly = Locale.forLanguageTag(this.language)
+
+    return AppLanguage.fromLocale(localeLanguageOnly)
 }
