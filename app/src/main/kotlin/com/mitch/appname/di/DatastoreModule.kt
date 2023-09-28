@@ -11,6 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
@@ -19,6 +20,7 @@ import kotlinx.coroutines.SupervisorJob
 object DatastoreModule {
 
     @Provides
+    @Singleton
     fun providesUserPreferencesDatastore(
         @ApplicationContext context: Context,
         protoUserPreferencesSerializer: ProtoUserPreferencesSerializer,
