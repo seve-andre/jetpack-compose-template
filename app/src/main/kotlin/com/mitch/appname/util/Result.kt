@@ -1,8 +1,8 @@
-package com.mitch.appname.ui.util
+package com.mitch.appname.util
 
-import com.mitch.appname.ui.util.Result.Error
-import com.mitch.appname.ui.util.Result.Loading
-import com.mitch.appname.ui.util.Result.Success
+import com.mitch.appname.util.Result.Error
+import com.mitch.appname.util.Result.Loading
+import com.mitch.appname.util.Result.Success
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
