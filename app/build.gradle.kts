@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.detekt)
     alias(libs.plugins.protobuf)
     alias(libs.plugins.junit5)
-    alias(libs.plugins.kapt)
 }
 
 val packageName = "com.mitch.appname"
@@ -68,10 +67,6 @@ kotlin {
             kotlin.srcDir("build/generated/ksp/release/kotlin")
         }
     }
-}
-
-kapt {
-    correctErrorTypes = true
 }
 
 ksp {
@@ -153,7 +148,7 @@ dependencies {
 
     // Dependency Injection
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
     androidTestImplementation(libs.hilt.android.testing)
     kaptAndroidTest(libs.hilt.android.compiler)
