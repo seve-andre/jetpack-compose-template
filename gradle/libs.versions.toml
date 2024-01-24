@@ -6,7 +6,7 @@ kotlinx-coroutines = "1.7.3"
 # UI
 compose-bom = "2023.09.00"
 accompanist = "0.33.0-alpha"
-activity-compose = "1.7.2"
+activity-compose = "1.8.2"
 compose = "1.5.0"
 compose-compiler = "1.5.2"
 compose-material3 = "1.2.0-alpha07"
@@ -86,7 +86,6 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 compose-animation = { group = "androidx.compose.animation", name = "animation" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "compose-material3" }
 compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "compose-material3" }
-accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-testharness = { group = "com.google.accompanist", name = "accompanist-testharness", version.ref = "accompanist" }
 lifecycle-viewModel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 

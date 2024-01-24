@@ -131,7 +131,6 @@ dependencies {
     implementation(libs.compose.animation)
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.windowSizeClass)
-    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.testharness)
     implementation(libs.lifecycle.viewModel.compose)
     implementation(libs.lifecycle.viewModel.savedstate)
