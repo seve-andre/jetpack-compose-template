@@ -168,9 +168,9 @@ private fun shouldUseDarkTheme(
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.theme) {
-        AppTheme.DARK -> true
-        AppTheme.LIGHT -> false
-        AppTheme.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+        AppTheme.Dark -> true
+        AppTheme.Light -> false
+        AppTheme.FollowSystem -> isSystemInDarkTheme()
     }
 }
 
@@ -180,7 +180,7 @@ private fun shouldFollowSystemTheme(
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.theme) {
-        AppTheme.FOLLOW_SYSTEM -> isSystemInDarkTheme()
+        AppTheme.FollowSystem -> isSystemInDarkTheme()
         else -> false
     }
 }

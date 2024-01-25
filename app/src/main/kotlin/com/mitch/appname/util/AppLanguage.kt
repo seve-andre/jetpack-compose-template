@@ -8,8 +8,8 @@ enum class AppLanguage(
     val locale: Locale,
     @DrawableRes val flagId: Int
 ) {
-    ENGLISH(locale = Locale.ENGLISH, flagId = R.drawable.english_flag),
-    ITALIAN(locale = Locale.ITALIAN, flagId = R.drawable.italian_flag);
+    English(locale = Locale.ENGLISH, flagId = R.drawable.english_flag),
+    Italian(locale = Locale.ITALIAN, flagId = R.drawable.italian_flag);
 
     companion object {
         fun fromLocale(locale: Locale): AppLanguage {
@@ -17,7 +17,7 @@ enum class AppLanguage(
         }
 
         fun default(): AppLanguage {
-            return ENGLISH
+            return English
         }
     }
 }

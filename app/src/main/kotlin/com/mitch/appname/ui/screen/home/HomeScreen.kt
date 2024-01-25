@@ -115,7 +115,7 @@ private fun HomeScreenLoadingPreview() {
 @Composable
 private fun HomeScreenContentPreview() {
     HomeScreen(
-        uiState = HomeUiState.Success(language = AppLanguage.ENGLISH, theme = AppTheme.LIGHT),
+        uiState = HomeUiState.Success(language = AppLanguage.English, theme = AppTheme.Light),
         onChangeTheme = { },
         onChangeLanguage = { }
     )

@@ -40,8 +40,8 @@ class HomeScreenTest {
         composeTestRule.setContent {
             HomeScreen(
                 uiState = HomeUiState.Success(
-                    language = AppLanguage.ENGLISH,
-                    theme = AppTheme.FOLLOW_SYSTEM
+                    language = AppLanguage.English,
+                    theme = AppTheme.FollowSystem
                 ),
                 onChangeLanguage = { },
                 onChangeTheme = { }
