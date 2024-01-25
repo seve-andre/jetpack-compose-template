@@ -1,30 +1,30 @@
 [versions]
 # Kotlin
-kotlin = "1.9.0"
+kotlin = "1.9.10" # check also ksp
 kotlinx-coroutines = "1.7.3"
 
 # UI
-compose-bom = "2023.09.00"
+compose-bom = "2024.01.00"
 accompanist = "0.33.0-alpha"
 activity-compose = "1.8.2"
 compose = "1.5.0"
-compose-compiler = "1.5.2"
-compose-material3 = "1.2.0-alpha07"
-androidx-lifecycle = "2.6.2"
-coil = "2.3.0"
+compose-compiler = "1.5.3"
+compose-material3 = "1.2.0-beta02"
+androidx-lifecycle = "2.7.0"
+coil = "2.4.0"
 eva = "1.0.0"
 core-splashscreen = "1.0.1"
 appcompat = "1.6.1"
 
 # Navigation
-compose-destinations = "1.9.51"
+compose-destinations = "1.9.62" # check compose version
 
 # Dependency Injection
-hilt = "2.48"
-hilt-navigation-compose = "1.0.0"
+hilt = "2.49"
+hilt-navigation-compose = "1.1.0"
 
 # Room
-room = "2.5.2"
+room = "2.6.1"
 
 # Datastore
 protobuf = "3.24.0"
@@ -49,7 +49,7 @@ test-runner = "1.5.2"
 uiAutomator = "2.2.0"
 
 # Desugaring
-desugar-jdk-libs = "2.0.3"
+desugar-jdk-libs = "2.0.4"
 
 # Formatting + Linting
 detekt = "1.23.1"
@@ -58,11 +58,11 @@ compose-lints = "1.2.0"
 # API calls
 retrofit = "2.9.0"
 retrofit-kotlinx-serialization-json = "0.8.0"
-okhttp = "4.10.0"
+okhttp = "4.11.0"
 
 # Plugins
-android-gradle-plugin = "8.1.1"
-ksp = "1.9.0-1.0.11"
+android-gradle-plugin = "8.1.2"
+ksp = "1.9.10-1.0.13" # check kotlin version
 gradle-versions = "0.47.0"
 version-catalog-update = "0.8.1"
 junit5-plugin = "1.9.3.0"
