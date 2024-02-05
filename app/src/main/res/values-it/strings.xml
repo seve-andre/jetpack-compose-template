@@ -9,4 +9,5 @@
     <string name="cancel">Annulla</string>
     <string name="save">Salva</string>
     <string name="not_connected">Nessuna connessione a internet!</string>
+    <string name="dismiss_snackbar_message">Chiudi messaggio</string>
 </resources>

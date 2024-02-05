@@ -9,4 +9,5 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="not_connected">You\'re not connected to the internet!</string>
+    <string name="dismiss_snackbar_message">Dismiss message</string>
 </resources>
