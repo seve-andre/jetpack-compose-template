@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.util.components.snackbar
+package com.mitch.appname.ui.designsystem.components.snackbars
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import com.mitch.appname.ui.theme.custom.padding
+import com.mitch.appname.ui.designsystem.theme.custom.padding
 
 @Composable
 fun AppSnackbar(

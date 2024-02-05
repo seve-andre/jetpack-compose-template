@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mitch.appname.navigation.NavGraphs
@@ -63,8 +65,15 @@ class AppState(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = false
         )
+}
 
-    fun goBack() {
-        navController.navigateUp()
+/**
+ * If the lifecycle is not resumed it means this NavBackStackEntry already processed a nav event.
+ *
+ * This is used to de-duplicate navigation events.
+ */
+fun NavController.navigateToPreviousScreen() {
+    if (this.currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
+        this.popBackStack()
     }
 }

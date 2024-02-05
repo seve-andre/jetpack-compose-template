@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.util.components.loading
+package com.mitch.appname.ui.designsystem.components.loading
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

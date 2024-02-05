@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.util.components.snackbar
+package com.mitch.appname.ui.designsystem.components.snackbars
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDefaults
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.mitch.appname.ui.designsystem.AppIcons
-import com.mitch.appname.ui.theme.custom.extendedColorScheme
+import com.mitch.appname.ui.designsystem.theme.custom.extendedColorScheme
 
 data class AppSnackbarVisuals(
     override val message: String,

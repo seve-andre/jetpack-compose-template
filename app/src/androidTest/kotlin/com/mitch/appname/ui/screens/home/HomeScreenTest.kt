@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.screen.home
+package com.mitch.appname.ui.screens.home
 
 import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
@@ -7,7 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.mitch.appname.R
-import com.mitch.appname.ui.util.components.loading.LoadingTag
+import com.mitch.appname.ui.designsystem.components.loading.LoadingTag
 import com.mitch.appname.util.AppLanguage
 import com.mitch.appname.util.AppTheme
 import org.junit.Rule

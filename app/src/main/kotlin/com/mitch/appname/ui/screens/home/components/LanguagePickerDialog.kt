@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.screen.home.components
+package com.mitch.appname.ui.screens.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
-import com.mitch.appname.ui.theme.custom.padding
+import com.mitch.appname.ui.designsystem.theme.custom.padding
 import com.mitch.appname.util.AppLanguage
 
 @Composable

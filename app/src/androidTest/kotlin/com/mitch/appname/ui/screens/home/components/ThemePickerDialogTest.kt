@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.screen.home.components
+package com.mitch.appname.ui.screens.home.components
 
 import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes

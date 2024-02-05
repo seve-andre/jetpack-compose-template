@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.screen.home
+package com.mitch.appname.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

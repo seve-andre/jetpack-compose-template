@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.theme.custom
+package com.mitch.appname.ui.designsystem.theme.custom
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable

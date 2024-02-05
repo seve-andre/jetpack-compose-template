@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.mitch.appname.ui.theme.custom.LocalPadding
+import com.mitch.appname.ui.designsystem.theme.custom.LocalPadding
 
 /**
  * [Card] left/right padding according to Material3

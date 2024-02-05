@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.screen.home
+package com.mitch.appname.ui.screens.home
 
 import com.mitch.appname.util.AppLanguage
 import com.mitch.appname.util.AppTheme
