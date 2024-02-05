@@ -2,5 +2,6 @@
 <lint>
     <issue id="ComposeCompositionLocalUsage">
         <option name="allowed-composition-locals" value="LocalPadding" />
+        <option name="allowed-composition-locals" value="LocalExtendedColorScheme" />
     </issue>
 </lint>
