@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.designsystem.theme
+package com.mitch.appname.ui.designsystem
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

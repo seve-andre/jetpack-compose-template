@@ -50,9 +50,9 @@ fun LanguagePickerDialog(
         },
         text = {
             Column(Modifier.selectableGroup()) {
-                AppLanguage.values().forEach { language ->
+                AppLanguage.entries.forEach { language ->
                     Row(
-                        Modifier
+                        modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
                             .clip(RoundedCornerShape(16.dp))
@@ -74,7 +74,7 @@ fun LanguagePickerDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Image(
-                                painter = painterResource(language.flagId),
+                                painter = painterResource(id = language.flagId),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(20.dp)

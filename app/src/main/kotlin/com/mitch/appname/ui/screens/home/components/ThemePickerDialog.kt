@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
+import com.mitch.appname.ui.designsystem.AppIcons
 import com.mitch.appname.ui.designsystem.theme.custom.padding
 import com.mitch.appname.util.AppTheme
 
@@ -47,9 +49,9 @@ fun ThemePickerDialog(
         },
         text = {
             Column(Modifier.selectableGroup()) {
-                AppTheme.values().forEach { theme ->
+                AppTheme.entries.forEach { theme ->
                     Row(
-                        Modifier
+                        modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
                             .clip(RoundedCornerShape(16.dp))
@@ -64,12 +66,26 @@ fun ThemePickerDialog(
                     ) {
                         RadioButton(
                             selected = (theme == tempTheme),
-                            onClick = null // null recommended for accessibility with screenreaders
+                            onClick = null // null recommended for accessibility with screen readers
                         )
-                        Text(
-                            text = stringResource(id = theme.translationId),
-                            style = MaterialTheme.typography.bodyLarge
-                        )
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(padding.small),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = when (theme) {
+                                    AppTheme.FollowSystem -> AppIcons.FollowSystem
+                                    AppTheme.Light -> AppIcons.LightMode
+                                    AppTheme.Dark -> AppIcons.DarkMode
+                                },
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Text(
+                                text = stringResource(id = theme.translationId),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
                     }
                 }
             }
