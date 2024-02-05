@@ -12,7 +12,6 @@ import com.mitch.appname.navigation.appCurrentDestinationAsState
 import com.mitch.appname.navigation.appDestination
 import com.mitch.appname.navigation.destinations.Destination
 import com.mitch.appname.navigation.startAppDestination
-import com.mitch.appname.util.SnackbarController
 import com.mitch.appname.util.network.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -37,11 +36,7 @@ class AppState(
     val navController: NavHostController,
     val snackbarHostState: SnackbarHostState,
     coroutineScope: CoroutineScope,
-    networkMonitor: NetworkMonitor,
-    val snackbarController: SnackbarController = SnackbarController(
-        snackbarHostState,
-        coroutineScope
-    )
+    networkMonitor: NetworkMonitor
 ) {
     /**
      * App's current [Destination] if set, otherwise starting destination.

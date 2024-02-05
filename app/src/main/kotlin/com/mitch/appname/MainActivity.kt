@@ -16,13 +16,29 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -31,6 +47,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,6 +57,10 @@ import com.mitch.appname.navigation.NavGraphs
 import com.mitch.appname.ui.theme.AppMaterialTheme
 import com.mitch.appname.ui.theme.custom.LocalPadding
 import com.mitch.appname.ui.theme.custom.padding
+import com.mitch.appname.ui.util.components.snackbar.AppSnackbar
+import com.mitch.appname.ui.util.components.snackbar.AppSnackbarDefaults
+import com.mitch.appname.ui.util.components.snackbar.AppSnackbarType
+import com.mitch.appname.ui.util.components.snackbar.AppSnackbarVisuals
 import com.mitch.appname.ui.util.rememberAppState
 import com.mitch.appname.util.AppTheme
 import com.mitch.appname.util.network.NetworkMonitor
@@ -59,6 +80,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         /* Must be called before super.onCreate()
          *
@@ -135,8 +157,86 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
+                    val dismissSnackbarState = rememberSwipeToDismissBoxState(
+                        confirmValueChange = { value ->
+                            if (value != SwipeToDismissBoxValue.Settled) {
+                                appState.snackbarHostState.currentSnackbarData?.dismiss()
+                                true
+                            } else {
+                                false
+                            }
+                        }
+                    )
+
+                    LaunchedEffect(dismissSnackbarState.currentValue) {
+                        if (dismissSnackbarState.currentValue != SwipeToDismissBoxValue.Settled) {
+                            dismissSnackbarState.reset()
+                        }
+                    }
+
                     Scaffold(
-                        snackbarHost = { SnackbarHost(appState.snackbarHostState) },
+                        snackbarHost = {
+                            SwipeToDismissBox(
+                                state = dismissSnackbarState,
+                                backgroundContent = { },
+                                content = {
+                                    SnackbarHost(
+                                        hostState = appState.snackbarHostState,
+                                        modifier = Modifier
+                                            .navigationBarsPadding()
+                                            .imePadding()
+                                            .padding(horizontal = padding.medium)
+                                    ) { snackbarData ->
+                                        val customVisuals =
+                                            snackbarData.visuals as AppSnackbarVisuals
+
+                                        val colors = when (customVisuals.type) {
+                                            AppSnackbarType.Default -> AppSnackbarDefaults.defaultSnackbarColors()
+                                            AppSnackbarType.Success -> AppSnackbarDefaults.successSnackbarColors()
+                                            AppSnackbarType.Warning -> AppSnackbarDefaults.warningSnackbarColors()
+                                            AppSnackbarType.Error -> AppSnackbarDefaults.errorSnackbarColors()
+                                        }
+
+                                        AppSnackbar(
+                                            colors = colors,
+                                            icon = customVisuals.imageVector,
+                                            message = customVisuals.message,
+                                            action = customVisuals.actionLabel?.let {
+                                                {
+                                                    TextButton(
+                                                        onClick = snackbarData::performAction,
+                                                        colors = ButtonDefaults.textButtonColors(
+                                                            contentColor = colors.actionColor
+                                                        )
+                                                    ) {
+                                                        Text(text = customVisuals.actionLabel)
+                                                    }
+                                                }
+                                            },
+                                            dismissAction = if (customVisuals.duration == SnackbarDuration.Indefinite) {
+                                                {
+                                                    IconButton(
+                                                        onClick = snackbarData::dismiss,
+                                                        colors = IconButtonDefaults.iconButtonColors(
+                                                            contentColor = MaterialTheme.colorScheme.inverseOnSurface
+                                                        )
+                                                    ) {
+                                                        Icon(
+                                                            imageVector = Icons.Default.Close,
+                                                            contentDescription = stringResource(
+                                                                id = R.string.dismiss_snackbar_message
+                                                            )
+                                                        )
+                                                    }
+                                                }
+                                            } else {
+                                                null
+                                            }
+                                        )
+                                    }
+                                }
+                            )
+                        },
                         contentWindowInsets = WindowInsets(0, 0, 0, 0)
                     ) { padding ->
                         Box(
@@ -150,9 +250,18 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 )
                         ) {
+                            val onShowSnackbar: suspend (AppSnackbarVisuals) -> SnackbarResult = {
+                                appState.snackbarHostState.showSnackbar(it)
+                            }
+
                             DestinationsNavHost(
                                 navGraph = NavGraphs.root,
-                                navController = appState.navController
+                                navController = appState.navController,
+
+                                // to provide snackbar lambda to invoke in "@Composable"s
+                                /*dependenciesContainerBuilder = {
+                                    dependency(HomeRouteDestination) { onShowSnackbar }
+                                }*/
                             )
                         }
                     }
