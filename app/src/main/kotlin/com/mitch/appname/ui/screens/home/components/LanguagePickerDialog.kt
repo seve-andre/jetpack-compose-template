@@ -1,5 +1,6 @@
 package com.mitch.appname.ui.screens.home.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
 import com.mitch.appname.ui.designsystem.theme.custom.padding
 import com.mitch.appname.util.AppLanguage
+import okhttp3.internal.toImmutableList
 
 @Composable
 fun LanguagePickerDialog(
@@ -42,6 +44,11 @@ fun LanguagePickerDialog(
 ) {
     var tempLanguage by remember { mutableStateOf(selectedLanguage) }
 
+    val items = listOf(
+        LanguagePickerItem.English,
+        LanguagePickerItem.Italian
+    ).toImmutableList()
+
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = { Icon(painterResource(R.drawable.languages), contentDescription = null) },
@@ -50,15 +57,15 @@ fun LanguagePickerDialog(
         },
         text = {
             Column(Modifier.selectableGroup()) {
-                AppLanguage.entries.forEach { language ->
+                items.forEach { item ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
                             .clip(RoundedCornerShape(16.dp))
                             .selectable(
-                                selected = (language == tempLanguage),
-                                onClick = { tempLanguage = language },
+                                selected = (item.language == tempLanguage),
+                                onClick = { tempLanguage = item.language },
                                 role = Role.RadioButton
                             )
                             .padding(horizontal = padding.medium),
@@ -66,7 +73,7 @@ fun LanguagePickerDialog(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = (language == tempLanguage),
+                            selected = (item.language == tempLanguage),
                             onClick = null
                         )
                         Row(
@@ -74,14 +81,14 @@ fun LanguagePickerDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Image(
-                                painter = painterResource(id = language.flagId),
+                                painter = painterResource(id = item.flagId),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(20.dp)
-                                    .testTag(language.flagId.toString())
+                                    .testTag(item.flagId.toString())
                             )
                             Text(
-                                text = language.locale.displayLanguage,
+                                text = item.language.locale.displayLanguage,
                                 style = MaterialTheme.typography.bodyLarge
                             )
                         }
@@ -107,5 +114,20 @@ fun LanguagePickerDialog(
                 Text(stringResource(R.string.save))
             }
         }
+    )
+}
+
+sealed class LanguagePickerItem(
+    val language: AppLanguage,
+    @DrawableRes val flagId: Int
+) {
+    data object English : LanguagePickerItem(
+        language = AppLanguage.English,
+        flagId = R.drawable.english_flag
+    )
+
+    data object Italian : LanguagePickerItem(
+        language = AppLanguage.Italian,
+        flagId = R.drawable.italian_flag
     )
 }

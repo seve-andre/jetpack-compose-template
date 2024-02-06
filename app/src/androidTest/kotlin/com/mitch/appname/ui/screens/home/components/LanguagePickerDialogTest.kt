@@ -9,6 +9,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.mitch.appname.util.AppLanguage
+import okhttp3.internal.toImmutableList
 import org.junit.Rule
 import org.junit.Test
 
@@ -16,6 +17,11 @@ class LanguagePickerDialogTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+
+    private val languagePickerItems = listOf(
+        LanguagePickerItem.English,
+        LanguagePickerItem.Italian
+    ).toImmutableList()
 
     @Test
     fun showsAllLanguageOptionsAreDisplayed() {
@@ -28,12 +34,12 @@ class LanguagePickerDialogTest {
         }
 
         // all languages and their flags are displayed
-        AppLanguage.values().forEach { language ->
-            composeTestRule.onNodeWithText(language.locale.displayLanguage).assertIsDisplayed()
+        languagePickerItems.forEach { item ->
+            composeTestRule.onNodeWithText(item.language.locale.displayLanguage).assertIsDisplayed()
 
             composeTestRule
                 .onNodeWithTag(
-                    testTag = language.flagId.toString(),
+                    testTag = item.flagId.toString(),
                     useUnmergedTree = true
                 )
                 .assertIsDisplayed()
@@ -55,21 +61,21 @@ class LanguagePickerDialogTest {
             )
         }
 
-        val newOption = AppLanguage.values().filter { it != AppLanguage.default() }[0]
+        val newOption = LanguagePickerItem.Italian
 
         // click on new one
         composeTestRule
-            .onNodeWithText(newOption.locale.displayLanguage)
+            .onNodeWithText(newOption.language.locale.displayLanguage)
             .performClick()
 
         // old one is not selected
         composeTestRule
-            .onNodeWithText(AppLanguage.default().locale.displayLanguage)
+            .onNodeWithText(LanguagePickerItem.English.language.locale.displayLanguage)
             .assertIsNotSelected()
 
         // but new one is
         composeTestRule
-            .onNodeWithText(newOption.locale.displayLanguage)
+            .onNodeWithText(newOption.language.locale.displayLanguage)
             .assertIsSelected()
     }
 }

@@ -1,5 +1,6 @@
 package com.mitch.appname.ui.screens.home.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -32,6 +34,7 @@ import com.mitch.appname.R
 import com.mitch.appname.ui.designsystem.AppIcons
 import com.mitch.appname.ui.designsystem.theme.custom.padding
 import com.mitch.appname.util.AppTheme
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun ThemePickerDialog(
@@ -41,6 +44,12 @@ fun ThemePickerDialog(
 ) {
     var tempTheme by remember { mutableStateOf(selectedTheme) }
 
+    val items = listOf(
+        ThemePickerItem.FollowSystem,
+        ThemePickerItem.Light,
+        ThemePickerItem.Dark
+    ).toImmutableList()
+
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = { Icon(painterResource(id = R.drawable.palette), contentDescription = null) },
@@ -49,15 +58,15 @@ fun ThemePickerDialog(
         },
         text = {
             Column(Modifier.selectableGroup()) {
-                AppTheme.entries.forEach { theme ->
+                items.forEach { item ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
                             .clip(RoundedCornerShape(16.dp))
                             .selectable(
-                                selected = (theme == tempTheme),
-                                onClick = { tempTheme = theme },
+                                selected = (item.theme == tempTheme),
+                                onClick = { tempTheme = item.theme },
                                 role = Role.RadioButton
                             )
                             .padding(horizontal = padding.medium),
@@ -65,7 +74,7 @@ fun ThemePickerDialog(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = (theme == tempTheme),
+                            selected = (item.theme == tempTheme),
                             onClick = null // null recommended for accessibility with screen readers
                         )
                         Row(
@@ -73,16 +82,12 @@ fun ThemePickerDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                imageVector = when (theme) {
-                                    AppTheme.FollowSystem -> AppIcons.FollowSystem
-                                    AppTheme.Light -> AppIcons.LightMode
-                                    AppTheme.Dark -> AppIcons.DarkMode
-                                },
+                                imageVector = item.icon,
                                 contentDescription = null,
                                 modifier = Modifier.size(20.dp)
                             )
                             Text(
-                                text = stringResource(id = theme.translationId),
+                                text = stringResource(id = item.titleId),
                                 style = MaterialTheme.typography.bodyLarge
                             )
                         }
@@ -108,5 +113,29 @@ fun ThemePickerDialog(
                 Text(stringResource(R.string.save))
             }
         }
+    )
+}
+
+sealed class ThemePickerItem(
+    val theme: AppTheme,
+    val icon: ImageVector,
+    @StringRes val titleId: Int
+) {
+    data object FollowSystem : ThemePickerItem(
+        theme = AppTheme.FollowSystem,
+        icon = AppIcons.FollowSystem,
+        titleId = R.string.system_default
+    )
+
+    data object Light : ThemePickerItem(
+        theme = AppTheme.Light,
+        icon = AppIcons.LightMode,
+        titleId = R.string.light_theme
+    )
+
+    data object Dark : ThemePickerItem(
+        theme = AppTheme.Dark,
+        icon = AppIcons.DarkMode,
+        titleId = R.string.dark_theme
     )
 }

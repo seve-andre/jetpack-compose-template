@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.mitch.appname.util.AppTheme
+import okhttp3.internal.toImmutableList
 import org.junit.Rule
 import org.junit.Test
 
@@ -18,6 +19,12 @@ class ThemePickerDialogTest {
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     private fun getString(@StringRes id: Int) = composeTestRule.activity.resources.getString(id)
+
+    private val themePickerItems = listOf(
+        ThemePickerItem.FollowSystem,
+        ThemePickerItem.Light,
+        ThemePickerItem.Dark
+    ).toImmutableList()
 
     @Test
     fun showsAllThemeOptionsAreDisplayed() {
@@ -30,13 +37,13 @@ class ThemePickerDialogTest {
         }
 
         // all themes are displayed
-        AppTheme.values().forEach { theme ->
-            composeTestRule.onNodeWithText(getString(theme.translationId)).assertIsDisplayed()
+        themePickerItems.forEach { item ->
+            composeTestRule.onNodeWithText(getString(item.titleId)).assertIsDisplayed()
         }
 
         // default theme is selected
         composeTestRule
-            .onNodeWithText(getString(AppTheme.default().translationId))
+            .onNodeWithText(getString(ThemePickerItem.FollowSystem.titleId))
             .assertIsSelected()
     }
 
@@ -50,21 +57,21 @@ class ThemePickerDialogTest {
             )
         }
 
-        val newOption = AppTheme.values().filter { it != AppTheme.default() }[0]
+        val newOption = ThemePickerItem.Dark
 
         // click on new one
         composeTestRule
-            .onNodeWithText(getString(newOption.translationId))
+            .onNodeWithText(getString(newOption.titleId))
             .performClick()
 
         // old one is not selected
         composeTestRule
-            .onNodeWithText(getString(AppTheme.default().translationId))
+            .onNodeWithText(getString(ThemePickerItem.FollowSystem.titleId))
             .assertIsNotSelected()
 
         // but new one is
         composeTestRule
-            .onNodeWithText(getString(newOption.translationId))
+            .onNodeWithText(getString(newOption.titleId))
             .assertIsSelected()
     }
 }

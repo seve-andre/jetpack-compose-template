@@ -1,6 +1,7 @@
 [versions]
 # Kotlin
 kotlin = "1.9.10" # check also ksp
+kotlinx-immutableCollections = "0.3.7"
 kotlinx-coroutines = "1.7.3"
 
 # UI
@@ -70,6 +71,7 @@ junit5-plugin = "1.9.3.0"
 [libraries]
 # Kotlin
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlinx-immutableCollections = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-immutableCollections" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 
