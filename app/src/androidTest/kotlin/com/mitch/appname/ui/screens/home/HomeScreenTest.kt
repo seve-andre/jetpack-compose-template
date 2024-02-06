@@ -7,9 +7,9 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.mitch.appname.R
+import com.mitch.appname.domain.models.AppLanguage
+import com.mitch.appname.domain.models.AppTheme
 import com.mitch.appname.ui.designsystem.components.loading.LoadingTag
-import com.mitch.appname.util.AppLanguage
-import com.mitch.appname.util.AppTheme
 import org.junit.Rule
 import org.junit.Test
 

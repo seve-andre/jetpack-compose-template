@@ -1,7 +1,7 @@
 package com.mitch.appname.ui.screens.home
 
-import com.mitch.appname.util.AppLanguage
-import com.mitch.appname.util.AppTheme
+import com.mitch.appname.domain.models.AppLanguage
+import com.mitch.appname.domain.models.AppTheme
 
 sealed interface HomeUiState {
     data object Loading : HomeUiState

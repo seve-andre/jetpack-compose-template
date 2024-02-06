@@ -2,8 +2,8 @@ package com.mitch.appname
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mitch.appname.domain.models.AppTheme
 import com.mitch.appname.domain.repository.UserSettingsRepository
-import com.mitch.appname.util.AppTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map

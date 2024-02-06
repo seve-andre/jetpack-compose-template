@@ -1,4 +1,4 @@
-package com.mitch.appname.util
+package com.mitch.appname.domain.models
 
 import java.util.Locale
 

@@ -1,6 +1,6 @@
 package com.mitch.appname.data.mapper
 
-import com.mitch.appname.util.AppLanguage
+import com.mitch.appname.domain.models.AppLanguage
 import java.util.Locale
 
 fun Locale.toAppLanguage(): AppLanguage {

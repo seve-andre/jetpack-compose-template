@@ -16,11 +16,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.appname.R
+import com.mitch.appname.domain.models.AppLanguage
+import com.mitch.appname.domain.models.AppTheme
 import com.mitch.appname.ui.designsystem.components.loading.LoadingScreen
 import com.mitch.appname.ui.screens.home.components.LanguagePickerDialog
 import com.mitch.appname.ui.screens.home.components.ThemePickerDialog
-import com.mitch.appname.util.AppLanguage
-import com.mitch.appname.util.AppTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 

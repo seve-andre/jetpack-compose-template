@@ -1,7 +1,7 @@
 package com.mitch.appname.domain.repository
 
-import com.mitch.appname.util.AppLanguage
-import com.mitch.appname.util.AppTheme
+import com.mitch.appname.domain.models.AppLanguage
+import com.mitch.appname.domain.models.AppTheme
 import kotlinx.coroutines.flow.Flow
 
 interface UserSettingsRepository {

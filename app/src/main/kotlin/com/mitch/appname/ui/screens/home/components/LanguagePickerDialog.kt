@@ -32,9 +32,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
+import com.mitch.appname.domain.models.AppLanguage
 import com.mitch.appname.ui.designsystem.AppIcons
 import com.mitch.appname.ui.designsystem.theme.custom.padding
-import com.mitch.appname.util.AppLanguage
 import okhttp3.internal.toImmutableList
 
 @Composable

@@ -53,6 +53,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.mitch.appname.domain.models.AppTheme
 import com.mitch.appname.navigation.NavGraphs
 import com.mitch.appname.ui.designsystem.AppMaterialTheme
 import com.mitch.appname.ui.designsystem.components.snackbars.AppSnackbar
@@ -62,7 +63,6 @@ import com.mitch.appname.ui.designsystem.components.snackbars.AppSnackbarVisuals
 import com.mitch.appname.ui.designsystem.theme.custom.LocalPadding
 import com.mitch.appname.ui.designsystem.theme.custom.padding
 import com.mitch.appname.ui.util.rememberAppState
-import com.mitch.appname.util.AppTheme
 import com.mitch.appname.util.network.NetworkMonitor
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint

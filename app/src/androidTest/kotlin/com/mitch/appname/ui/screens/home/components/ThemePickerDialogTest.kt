@@ -8,7 +8,7 @@ import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.mitch.appname.util.AppTheme
+import com.mitch.appname.domain.models.AppTheme
 import okhttp3.internal.toImmutableList
 import org.junit.Rule
 import org.junit.Test

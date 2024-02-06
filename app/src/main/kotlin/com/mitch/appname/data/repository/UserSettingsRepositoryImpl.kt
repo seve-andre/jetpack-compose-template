@@ -5,9 +5,9 @@ import com.mitch.appname.data.local.datastore.user.preferences.UserPreferencesLo
 import com.mitch.appname.data.mapper.toAppLanguage
 import com.mitch.appname.data.mapper.toLocal
 import com.mitch.appname.data.mapper.toProto
+import com.mitch.appname.domain.models.AppLanguage
+import com.mitch.appname.domain.models.AppTheme
 import com.mitch.appname.domain.repository.UserSettingsRepository
-import com.mitch.appname.util.AppLanguage
-import com.mitch.appname.util.AppTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
