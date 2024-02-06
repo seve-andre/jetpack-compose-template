@@ -1,5 +1,6 @@
 package com.mitch.appname
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -46,11 +47,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.appname.domain.models.AppTheme
 import com.mitch.appname.navigation.NavGraphs
+import com.mitch.appname.ui.AppState
 import com.mitch.appname.ui.designsystem.AppMaterialTheme
 import com.mitch.appname.ui.designsystem.components.snackbars.AppSnackbar
 import com.mitch.appname.ui.designsystem.components.snackbars.AppSnackbarDefaults
@@ -83,6 +84,10 @@ class MainActivity : AppCompatActivity() {
          * Splashscreen look in res/values/themes.xml
          */
         val splashScreen = installSplashScreen()
+        // Turn off the decor fitting system windows, which allows us to handle insets,
+        // including IME animations, and go edge-to-edge
+        // This also sets up the initial system bar style based on the platform theme
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
@@ -105,129 +110,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Turn off the decor fitting system windows, which allows us to handle insets,
-        // including IME animations, and go edge-to-edge
-        // This also sets up the initial system bar style based on the platform theme
-        enableEdgeToEdge()
 
         setContent {
             val isThemeDark = shouldUseDarkTheme(uiState)
-
-            // Update the edge to edge configuration to match the theme
-            // This is the same parameters as the default enableEdgeToEdge call, but we manually
-            // resolve whether or not to show dark theme using uiState, since it can be different
-            // than the configuration's dark theme value based on the user preference.
-            DisposableEffect(isThemeDark) {
-                enableEdgeToEdge(
-                    statusBarStyle = SystemBarStyle.auto(
-                        android.graphics.Color.TRANSPARENT,
-                        android.graphics.Color.TRANSPARENT,
-                    ) { isThemeDark },
-                    navigationBarStyle = SystemBarStyle.auto(
-                        lightScrim,
-                        darkScrim,
-                    ) { isThemeDark },
-                )
-                onDispose { }
-            }
+            UpdateSystemBarsEffect(isThemeDark)
 
             CompositionLocalProvider(LocalPadding provides padding) {
                 AppMaterialTheme(
                     isThemeDark = isThemeDark
                 ) {
                     val appState = rememberAppState(networkMonitor)
-                    val isOffline by appState.isOffline.collectAsStateWithLifecycle()
-
-                    LaunchedEffect(isOffline) {
-                        if (isOffline) {
-                            appState.snackbarHostState.showSnackbar(
-                                message = getString(R.string.not_connected),
-                                duration = SnackbarDuration.Indefinite
-                            )
-                        }
-                    }
-
-                    val dismissSnackbarState = rememberSwipeToDismissBoxState(
-                        confirmValueChange = { value ->
-                            if (value != SwipeToDismissBoxValue.Settled) {
-                                appState.snackbarHostState.currentSnackbarData?.dismiss()
-                                true
-                            } else {
-                                false
-                            }
-                        }
-                    )
-
-                    LaunchedEffect(dismissSnackbarState.currentValue) {
-                        if (dismissSnackbarState.currentValue != SwipeToDismissBoxValue.Settled) {
-                            dismissSnackbarState.reset()
-                        }
-                    }
+                    // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
                     Scaffold(
-                        snackbarHost = {
-                            SwipeToDismissBox(
-                                state = dismissSnackbarState,
-                                backgroundContent = { },
-                                content = {
-                                    SnackbarHost(
-                                        hostState = appState.snackbarHostState,
-                                        modifier = Modifier
-                                            .navigationBarsPadding()
-                                            .imePadding()
-                                            .padding(horizontal = padding.medium)
-                                    ) { snackbarData ->
-                                        val customVisuals =
-                                            snackbarData.visuals as AppSnackbarVisuals
-
-                                        val colors = when (customVisuals.type) {
-                                            AppSnackbarType.Default -> AppSnackbarDefaults.defaultSnackbarColors()
-                                            AppSnackbarType.Success -> AppSnackbarDefaults.successSnackbarColors()
-                                            AppSnackbarType.Warning -> AppSnackbarDefaults.warningSnackbarColors()
-                                            AppSnackbarType.Error -> AppSnackbarDefaults.errorSnackbarColors()
-                                        }
-
-                                        AppSnackbar(
-                                            colors = colors,
-                                            icon = customVisuals.imageVector,
-                                            message = customVisuals.message,
-                                            action = customVisuals.actionLabel?.let {
-                                                {
-                                                    TextButton(
-                                                        onClick = snackbarData::performAction,
-                                                        colors = ButtonDefaults.textButtonColors(
-                                                            contentColor = colors.actionColor
-                                                        )
-                                                    ) {
-                                                        Text(text = customVisuals.actionLabel)
-                                                    }
-                                                }
-                                            },
-                                            dismissAction = if (customVisuals.duration == SnackbarDuration.Indefinite) {
-                                                {
-                                                    IconButton(
-                                                        onClick = snackbarData::dismiss,
-                                                        colors = IconButtonDefaults.iconButtonColors(
-                                                            contentColor = MaterialTheme.colorScheme.inverseOnSurface
-                                                        )
-                                                    ) {
-                                                        Icon(
-                                                            imageVector = Icons.Default.Close,
-                                                            contentDescription = stringResource(
-                                                                id = R.string.dismiss_snackbar_message
-                                                            )
-                                                        )
-                                                    }
-                                                }
-                                            } else {
-                                                null
-                                            }
-                                        )
-                                    }
-                                }
-                            )
-                        },
-                        contentWindowInsets = WindowInsets(0, 0, 0, 0)
+                        snackbarHost = { SwipeToDismissSnackbarHost(appState) },
+                        contentWindowInsets = WindowInsets(0)
                     ) { padding ->
                         Box(
                             modifier = Modifier
@@ -259,6 +156,111 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    @Composable
+    private fun UpdateSystemBarsEffect(isThemeDark: Boolean) {
+        // Update the edge to edge configuration to match the theme
+        // This is the same parameters as the default enableEdgeToEdge call, but we manually
+        // resolve whether or not to show dark theme using uiState, since it can be different
+        // than the configuration's dark theme value based on the user preference.
+        DisposableEffect(isThemeDark) {
+            enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.auto(
+                    Color.TRANSPARENT,
+                    Color.TRANSPARENT,
+                ) { isThemeDark },
+                navigationBarStyle = SystemBarStyle.auto(
+                    lightScrim,
+                    darkScrim,
+                ) { isThemeDark },
+            )
+            onDispose { }
+        }
+    }
+
+    @Composable
+    @OptIn(ExperimentalMaterial3Api::class)
+    private fun SwipeToDismissSnackbarHost(
+        appState: AppState
+    ) {
+        val dismissSnackbarState = rememberSwipeToDismissBoxState(
+            confirmValueChange = { value ->
+                if (value != SwipeToDismissBoxValue.Settled) {
+                    appState.snackbarHostState.currentSnackbarData?.dismiss()
+                    true
+                } else {
+                    false
+                }
+            }
+        )
+
+        LaunchedEffect(dismissSnackbarState.currentValue) {
+            if (dismissSnackbarState.currentValue != SwipeToDismissBoxValue.Settled) {
+                dismissSnackbarState.reset()
+            }
+        }
+
+        SwipeToDismissBox(
+            state = dismissSnackbarState,
+            backgroundContent = { },
+            content = {
+                SnackbarHost(
+                    hostState = appState.snackbarHostState,
+                    modifier = Modifier
+                        .navigationBarsPadding()
+                        .imePadding()
+                        .padding(horizontal = padding.medium)
+                ) { snackbarData ->
+                    val customVisuals =
+                        snackbarData.visuals as AppSnackbarVisuals
+
+                    val colors = when (customVisuals.type) {
+                        AppSnackbarType.Default -> AppSnackbarDefaults.defaultSnackbarColors()
+                        AppSnackbarType.Success -> AppSnackbarDefaults.successSnackbarColors()
+                        AppSnackbarType.Warning -> AppSnackbarDefaults.warningSnackbarColors()
+                        AppSnackbarType.Error -> AppSnackbarDefaults.errorSnackbarColors()
+                    }
+
+                    AppSnackbar(
+                        colors = colors,
+                        icon = customVisuals.imageVector,
+                        message = customVisuals.message,
+                        action = customVisuals.actionLabel?.let {
+                            {
+                                TextButton(
+                                    onClick = snackbarData::performAction,
+                                    colors = ButtonDefaults.textButtonColors(
+                                        contentColor = colors.actionColor
+                                    )
+                                ) {
+                                    Text(text = customVisuals.actionLabel)
+                                }
+                            }
+                        },
+                        dismissAction = if (customVisuals.duration == SnackbarDuration.Indefinite) {
+                            {
+                                IconButton(
+                                    onClick = snackbarData::dismiss,
+                                    colors = IconButtonDefaults.iconButtonColors(
+                                        contentColor = MaterialTheme.colorScheme.inverseOnSurface
+                                    )
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = stringResource(
+                                            id = R.string.dismiss_snackbar_message
+                                        )
+                                    )
+                                }
+                            }
+                        } else {
+                            null
+                        }
+                    )
+                }
+            }
+        )
+    }
 }
 
 @Composable
@@ -277,10 +279,10 @@ private fun shouldUseDarkTheme(
  * The default light scrim, as defined by androidx and the platform:
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
  */
-private val lightScrim = android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+private val lightScrim = Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
 
 /**
  * The default dark scrim, as defined by androidx and the platform:
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=40-44;drc=27e7d52e8604a080133e8b842db10c89b4482598
  */
-private val darkScrim = android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+private val darkScrim = Color.argb(0x80, 0x1b, 0x1b, 0x1b)
