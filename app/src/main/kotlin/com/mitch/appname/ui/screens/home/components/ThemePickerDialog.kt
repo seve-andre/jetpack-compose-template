@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -52,12 +51,17 @@ fun ThemePickerDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        icon = { Icon(painterResource(id = R.drawable.palette), contentDescription = null) },
+        icon = {
+            Icon(
+                imageVector = AppIcons.Outlined.Palette,
+                contentDescription = null
+            )
+        },
         title = {
             Text(text = stringResource(id = R.string.change_theme))
         },
         text = {
-            Column(Modifier.selectableGroup()) {
+            Column(modifier = Modifier.selectableGroup()) {
                 items.forEach { item ->
                     Row(
                         modifier = Modifier
@@ -123,19 +127,19 @@ sealed class ThemePickerItem(
 ) {
     data object FollowSystem : ThemePickerItem(
         theme = AppTheme.FollowSystem,
-        icon = AppIcons.FollowSystem,
+        icon = AppIcons.Outlined.FollowSystem,
         titleId = R.string.system_default
     )
 
     data object Light : ThemePickerItem(
         theme = AppTheme.Light,
-        icon = AppIcons.LightMode,
+        icon = AppIcons.Outlined.LightMode,
         titleId = R.string.light_theme
     )
 
     data object Dark : ThemePickerItem(
         theme = AppTheme.Dark,
-        icon = AppIcons.DarkMode,
+        icon = AppIcons.Outlined.DarkMode,
         titleId = R.string.dark_theme
     )
 }

@@ -31,11 +31,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.mitch.appname.R
+import com.mitch.appname.ui.designsystem.AppIcons
 import com.mitch.appname.ui.designsystem.theme.custom.padding
 import compose.icons.EvaIcons
 import compose.icons.evaicons.Outline
@@ -180,7 +179,7 @@ private fun ClosableDialogWithHeroIconPreview() {
         onDismiss = { },
         icon = {
             Icon(
-                painterResource(R.drawable.languages),
+                imageVector = AppIcons.Outlined.Translate,
                 contentDescription = null
             )
         },

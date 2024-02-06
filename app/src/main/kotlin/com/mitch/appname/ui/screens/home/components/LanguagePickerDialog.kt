@@ -32,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.appname.R
+import com.mitch.appname.ui.designsystem.AppIcons
 import com.mitch.appname.ui.designsystem.theme.custom.padding
 import com.mitch.appname.util.AppLanguage
 import okhttp3.internal.toImmutableList
@@ -51,12 +52,17 @@ fun LanguagePickerDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        icon = { Icon(painterResource(R.drawable.languages), contentDescription = null) },
+        icon = {
+            Icon(
+                imageVector = AppIcons.Outlined.Translate,
+                contentDescription = null
+            )
+        },
         title = {
-            Text(text = stringResource(R.string.change_language))
+            Text(text = stringResource(id = R.string.change_language))
         },
         text = {
-            Column(Modifier.selectableGroup()) {
+            Column(modifier = Modifier.selectableGroup()) {
                 items.forEach { item ->
                     Row(
                         modifier = Modifier
@@ -100,7 +106,7 @@ fun LanguagePickerDialog(
             TextButton(
                 onClick = onDismiss
             ) {
-                Text(stringResource(R.string.cancel))
+                Text(text = stringResource(id = R.string.cancel))
             }
         },
         confirmButton = {
@@ -111,7 +117,7 @@ fun LanguagePickerDialog(
                 },
                 enabled = tempLanguage != selectedLanguage
             ) {
-                Text(stringResource(R.string.save))
+                Text(text = stringResource(id = R.string.save))
             }
         }
     )

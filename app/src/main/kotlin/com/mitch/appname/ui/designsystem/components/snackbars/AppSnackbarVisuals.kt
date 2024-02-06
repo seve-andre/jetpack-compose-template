@@ -18,9 +18,9 @@ data class AppSnackbarVisuals(
     val type: AppSnackbarType = AppSnackbarType.Default,
     val imageVector: ImageVector? = when (type) {
         AppSnackbarType.Default -> null
-        AppSnackbarType.Success -> AppIcons.Success
-        AppSnackbarType.Warning -> AppIcons.Warning
-        AppSnackbarType.Error -> AppIcons.Error
+        AppSnackbarType.Success -> AppIcons.Filled.Success
+        AppSnackbarType.Warning -> AppIcons.Filled.Warning
+        AppSnackbarType.Error -> AppIcons.Filled.Error
     }
 ) : SnackbarVisuals
 

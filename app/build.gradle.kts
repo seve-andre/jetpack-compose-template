@@ -138,6 +138,8 @@ dependencies {
     implementation(libs.lifecycle.runtimeCompose)
     implementation(libs.coil)
     implementation(libs.coil.compose)
+    implementation(libs.icons.material.core)
+    implementation(libs.icons.material.extended)
     implementation(libs.icons.eva)
     implementation(libs.core.splashscreen)
     implementation(libs.appcompat)
