@@ -62,10 +62,8 @@ retrofit-kotlinx-serialization-json = "0.8.0"
 okhttp = "4.11.0"
 
 # Plugins
-android-gradle-plugin = "8.1.2"
+android-gradle-plugin = "8.2.2"
 ksp = "1.9.10-1.0.13" # check kotlin version
-gradle-versions = "0.47.0"
-version-catalog-update = "0.8.1"
 junit5-plugin = "1.9.3.0"
 
 [libraries]
@@ -167,7 +165,5 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
-version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
 android-test = { id = "com.android.test", version.ref = "android-gradle-plugin" }

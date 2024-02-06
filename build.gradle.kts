@@ -7,13 +7,4 @@ plugins {
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.junit5) apply false
     alias(libs.plugins.android.test) apply false
-
-    alias(libs.plugins.gradle.versions)
-    alias(libs.plugins.version.catalog.update)
 }
-
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
-}
-
-apply("${project.rootDir}/buildscripts/toml-updater-config.gradle")
