@@ -62,7 +62,7 @@ import com.mitch.appname.ui.designsystem.components.snackbars.AppSnackbarType
 import com.mitch.appname.ui.designsystem.components.snackbars.AppSnackbarVisuals
 import com.mitch.appname.ui.designsystem.theme.custom.LocalPadding
 import com.mitch.appname.ui.designsystem.theme.custom.padding
-import com.mitch.appname.ui.util.rememberAppState
+import com.mitch.appname.ui.rememberAppState
 import com.mitch.appname.util.network.NetworkMonitor
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.mitch.appname.ui.util
+package com.mitch.appname.ui
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
