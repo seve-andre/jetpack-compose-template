@@ -1,3 +1,6 @@
+import org.gradle.configurationcache.extensions.capitalized
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -102,6 +105,18 @@ protobuf {
     }
 }
 
+// workaround for ksp "error.NonExistentClass" https://github.com/google/dagger/issues/4158#issuecomment-1825440083
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        afterEvaluate {
+            val capName = variant.name.capitalized()
+            tasks.getByName<KotlinCompile>("ksp${capName}Kotlin") {
+                setSource(tasks.getByName("generate${capName}Proto").outputs)
+            }
+        }
+    }
+}
+
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     reports {
         html.required.set(true) // observe findings in your browser with structure and code snippets
@@ -132,7 +147,6 @@ dependencies {
     implementation(libs.compose.animation)
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.windowSizeClass)
-    implementation(libs.accompanist.testharness)
     implementation(libs.lifecycle.viewModel.compose)
     implementation(libs.lifecycle.viewModel.savedstate)
     implementation(libs.lifecycle.runtimeCompose)

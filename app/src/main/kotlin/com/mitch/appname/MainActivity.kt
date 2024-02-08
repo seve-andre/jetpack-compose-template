@@ -83,9 +83,8 @@ class MainActivity : AppCompatActivity() {
          * Splashscreen look in res/values/themes.xml
          */
         val splashScreen = installSplashScreen()
-        // Turn off the decor fitting system windows, which allows us to handle insets,
-        // including IME animations, and go edge-to-edge
-        // This also sets up the initial system bar style based on the platform theme
+
+        // use the entire display to draw
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
@@ -109,15 +108,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         setContent {
             val isThemeDark = shouldUseDarkTheme(uiState)
             UpdateSystemBarsEffect(isThemeDark)
 
             CompositionLocalProvider(LocalPadding provides padding) {
-                AppMaterialTheme(
-                    isThemeDark = isThemeDark
-                ) {
+                AppMaterialTheme(isThemeDark = isThemeDark) {
                     val appState = rememberAppState(networkMonitor)
                     // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
