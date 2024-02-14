@@ -83,9 +83,8 @@ class MainActivity : AppCompatActivity() {
          * Splashscreen look in res/values/themes.xml
          */
         val splashScreen = installSplashScreen()
-        // Turn off the decor fitting system windows, which allows us to handle insets,
-        // including IME animations, and go edge-to-edge
-        // This also sets up the initial system bar style based on the platform theme
+
+        // use the entire display to draw
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
@@ -109,15 +108,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         setContent {
             val isThemeDark = shouldUseDarkTheme(uiState)
             UpdateSystemBarsEffect(isThemeDark)
 
             CompositionLocalProvider(LocalPadding provides padding) {
-                AppMaterialTheme(
-                    isThemeDark = isThemeDark
-                ) {
+                AppMaterialTheme(isThemeDark = isThemeDark) {
                     val appState = rememberAppState(networkMonitor)
                     // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
@@ -158,10 +154,6 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     private fun UpdateSystemBarsEffect(isThemeDark: Boolean) {
-        // Update the edge to edge configuration to match the theme
-        // This is the same parameters as the default enableEdgeToEdge call, but we manually
-        // resolve whether or not to show dark theme using uiState, since it can be different
-        // than the configuration's dark theme value based on the user preference.
         DisposableEffect(isThemeDark) {
             enableEdgeToEdge(
                 statusBarStyle = SystemBarStyle.auto(
@@ -176,90 +168,90 @@ class MainActivity : AppCompatActivity() {
             onDispose { }
         }
     }
+}
 
-    @Composable
-    @OptIn(ExperimentalMaterial3Api::class)
-    private fun SwipeToDismissSnackbarHost(
-        appState: AppState
-    ) {
-        val dismissSnackbarState = rememberSwipeToDismissBoxState(
-            confirmValueChange = { value ->
-                if (value != SwipeToDismissBoxValue.Settled) {
-                    appState.snackbarHostState.currentSnackbarData?.dismiss()
-                    true
-                } else {
-                    false
-                }
-            }
-        )
-
-        LaunchedEffect(dismissSnackbarState.currentValue) {
-            if (dismissSnackbarState.currentValue != SwipeToDismissBoxValue.Settled) {
-                dismissSnackbarState.reset()
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun SwipeToDismissSnackbarHost(
+    appState: AppState
+) {
+    val dismissSnackbarState = rememberSwipeToDismissBoxState(
+        confirmValueChange = { value ->
+            if (value != SwipeToDismissBoxValue.Settled) {
+                appState.snackbarHostState.currentSnackbarData?.dismiss()
+                true
+            } else {
+                false
             }
         }
+    )
 
-        SwipeToDismissBox(
-            state = dismissSnackbarState,
-            backgroundContent = { },
-            content = {
-                SnackbarHost(
-                    hostState = appState.snackbarHostState,
-                    modifier = Modifier
-                        .navigationBarsPadding()
-                        .imePadding()
-                        .padding(horizontal = padding.medium)
-                ) { snackbarData ->
-                    val customVisuals =
-                        snackbarData.visuals as AppSnackbarVisuals
-
-                    val colors = when (customVisuals.type) {
-                        AppSnackbarType.Default -> AppSnackbarDefaults.defaultSnackbarColors()
-                        AppSnackbarType.Success -> AppSnackbarDefaults.successSnackbarColors()
-                        AppSnackbarType.Warning -> AppSnackbarDefaults.warningSnackbarColors()
-                        AppSnackbarType.Error -> AppSnackbarDefaults.errorSnackbarColors()
-                    }
-
-                    AppSnackbar(
-                        colors = colors,
-                        icon = customVisuals.imageVector,
-                        message = customVisuals.message,
-                        action = customVisuals.actionLabel?.let {
-                            {
-                                TextButton(
-                                    onClick = snackbarData::performAction,
-                                    colors = ButtonDefaults.textButtonColors(
-                                        contentColor = colors.actionColor
-                                    )
-                                ) {
-                                    Text(text = customVisuals.actionLabel)
-                                }
-                            }
-                        },
-                        dismissAction = if (customVisuals.duration == SnackbarDuration.Indefinite) {
-                            {
-                                IconButton(
-                                    onClick = snackbarData::dismiss,
-                                    colors = IconButtonDefaults.iconButtonColors(
-                                        contentColor = MaterialTheme.colorScheme.inverseOnSurface
-                                    )
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Close,
-                                        contentDescription = stringResource(
-                                            id = R.string.dismiss_snackbar_message
-                                        )
-                                    )
-                                }
-                            }
-                        } else {
-                            null
-                        }
-                    )
-                }
-            }
-        )
+    LaunchedEffect(dismissSnackbarState.currentValue) {
+        if (dismissSnackbarState.currentValue != SwipeToDismissBoxValue.Settled) {
+            dismissSnackbarState.reset()
+        }
     }
+
+    SwipeToDismissBox(
+        state = dismissSnackbarState,
+        backgroundContent = { },
+        content = {
+            SnackbarHost(
+                hostState = appState.snackbarHostState,
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .imePadding()
+                    .padding(horizontal = padding.medium)
+            ) { snackbarData ->
+                val customVisuals =
+                    snackbarData.visuals as AppSnackbarVisuals
+
+                val colors = when (customVisuals.type) {
+                    AppSnackbarType.Default -> AppSnackbarDefaults.defaultSnackbarColors()
+                    AppSnackbarType.Success -> AppSnackbarDefaults.successSnackbarColors()
+                    AppSnackbarType.Warning -> AppSnackbarDefaults.warningSnackbarColors()
+                    AppSnackbarType.Error -> AppSnackbarDefaults.errorSnackbarColors()
+                }
+
+                AppSnackbar(
+                    colors = colors,
+                    icon = customVisuals.imageVector,
+                    message = customVisuals.message,
+                    action = customVisuals.actionLabel?.let {
+                        {
+                            TextButton(
+                                onClick = snackbarData::performAction,
+                                colors = ButtonDefaults.textButtonColors(
+                                    contentColor = colors.actionColor
+                                )
+                            ) {
+                                Text(text = customVisuals.actionLabel)
+                            }
+                        }
+                    },
+                    dismissAction = if (customVisuals.duration == SnackbarDuration.Indefinite) {
+                        {
+                            IconButton(
+                                onClick = snackbarData::dismiss,
+                                colors = IconButtonDefaults.iconButtonColors(
+                                    contentColor = MaterialTheme.colorScheme.inverseOnSurface
+                                )
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = stringResource(
+                                        id = R.string.dismiss_snackbar_message
+                                    )
+                                )
+                            }
+                        }
+                    } else {
+                        null
+                    }
+                )
+            }
+        }
+    )
 }
 
 @Composable

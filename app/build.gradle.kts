@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.detekt)
-    alias(libs.plugins.protobuf)
     alias(libs.plugins.junit5)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 val packageName = "com.mitch.appname"
@@ -84,24 +84,6 @@ detekt {
     autoCorrect = true
 }
 
-protobuf {
-    protoc {
-        artifact = libs.protobuf.protoc.get().toString()
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                register("java") {
-                    option("lite")
-                }
-                register("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
-}
-
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     reports {
         html.required.set(true) // observe findings in your browser with structure and code snippets
@@ -116,6 +98,8 @@ dependencies {
     // Kotlin
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.immutableCollections)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.protobuf)
     implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)
 
@@ -132,7 +116,6 @@ dependencies {
     implementation(libs.compose.animation)
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.windowSizeClass)
-    implementation(libs.accompanist.testharness)
     implementation(libs.lifecycle.viewModel.compose)
     implementation(libs.lifecycle.viewModel.savedstate)
     implementation(libs.lifecycle.runtimeCompose)
@@ -161,8 +144,7 @@ dependencies {
     implementation(libs.room.ktx)
 
     // Datastore (previously SharedPreferences)
-    implementation(libs.datastore.proto)
-    implementation(libs.protobuf.kotlin.lite)
+    implementation(libs.datastore.core)
 
     // Logging
     implementation(libs.timber)

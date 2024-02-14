@@ -3,8 +3,6 @@ package com.mitch.appname.data.repository
 import com.mitch.appname.data.local.LanguageLocalDataSource
 import com.mitch.appname.data.local.datastore.user.preferences.UserPreferencesLocalDataSource
 import com.mitch.appname.data.mapper.toAppLanguage
-import com.mitch.appname.data.mapper.toLocal
-import com.mitch.appname.data.mapper.toProto
 import com.mitch.appname.domain.models.AppLanguage
 import com.mitch.appname.domain.models.AppTheme
 import com.mitch.appname.domain.repository.UserSettingsRepository
@@ -18,11 +16,11 @@ class UserSettingsRepositoryImpl @Inject constructor(
 ) : UserSettingsRepository {
 
     override fun getTheme(): Flow<AppTheme> {
-        return userPreferencesLocalDataSource.getProtoTheme().map { it.toLocal() }
+        return userPreferencesLocalDataSource.getTheme().map { it }
     }
 
     override suspend fun setTheme(theme: AppTheme) {
-        userPreferencesLocalDataSource.setProtoTheme(theme.toProto())
+        userPreferencesLocalDataSource.setTheme(theme)
     }
 
     override fun getLanguage(): Flow<AppLanguage> {
