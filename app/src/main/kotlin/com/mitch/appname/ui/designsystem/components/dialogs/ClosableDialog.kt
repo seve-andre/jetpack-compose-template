@@ -150,7 +150,7 @@ fun ClosableDialog(
 
 @Preview
 @Composable
-fun BasicClosableDialogPreview() {
+private fun BasicClosableDialogPreview() {
     ClosableDialog(
         onDismiss = { },
         title = {
