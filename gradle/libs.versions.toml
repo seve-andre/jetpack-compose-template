@@ -16,6 +16,7 @@ coil = "2.5.0"
 eva = "1.0.0"
 core-splashscreen = "1.0.1"
 appcompat = "1.6.1"
+eygraber-placeholder-m3 = "1.0.7"
 
 # Navigation
 compose-destinations = "1.9.62" # check compose version
@@ -102,6 +103,7 @@ icons-material-extended = { group = "androidx.compose.material", name = "materia
 icons-eva = { group = "br.com.devsrsouza.compose.icons.android", name = "eva-icons", version.ref = "eva" }
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+skeletonLoader = { group = "com.eygraber", name = "compose-placeholder-material3", version.ref = "eygraber-placeholder-m3" }
 
 # Navigation
 compose-destinations-core = { group = "io.github.raamcosta.compose-destinations", name = "core", version.ref = "compose-destinations" }
