@@ -3,6 +3,8 @@ package com.mitch.appname.data.local.datastore.user.preferences
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.mitch.appname.domain.models.UserPreferences
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromByteArray
@@ -18,13 +20,17 @@ class UserPreferencesSerializer @Inject constructor() : Serializer<UserPreferenc
 
     override suspend fun readFrom(input: InputStream): UserPreferences {
         return try {
-            ProtoBuf.decodeFromByteArray<UserPreferences>(bytes = input.readBytes())
+            withContext(Dispatchers.IO) {
+                ProtoBuf.decodeFromByteArray<UserPreferences>(bytes = input.readBytes())
+            }
         } catch (exception: SerializationException) {
             throw CorruptionException("Cannot read proto. $exception")
         }
     }
 
     override suspend fun writeTo(t: UserPreferences, output: OutputStream) {
-        output.write(ProtoBuf.encodeToByteArray(t))
+        withContext(Dispatchers.IO) {
+            output.write(ProtoBuf.encodeToByteArray(t))
+        }
     }
 }
