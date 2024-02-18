@@ -75,13 +75,14 @@ ksp {
 
 detekt {
     buildUponDefaultConfig = true
-    allRules = false
     config.setFrom("$projectDir/config/detekt/detekt.yml")
 
     // REMOVE once edited RepositoryModule and AppDatabase
     ignoreFailures = true
 
     autoCorrect = true
+
+    baseline = file("$projectDir/config/detekt/baseline.xml")
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
@@ -91,8 +92,6 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
         md.required.set(true) // simple Markdown format
     }
 }
-
-tasks.getByPath("preBuild").dependsOn("detekt")
 
 dependencies {
     // Kotlin
@@ -179,5 +178,6 @@ dependencies {
 
     // Formatting + Linting
     detektPlugins(libs.detekt)
+    detektPlugins(libs.linting.composeDetekt)
     lintChecks(libs.linting.composeLints)
 }
