@@ -25,7 +25,7 @@ fun rememberAppState(
     networkMonitor: NetworkMonitor,
     navController: NavHostController = rememberNavController(),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    coroutineScope: CoroutineScope = rememberCoroutineScope()
 ): AppState {
     return remember(navController, snackbarHostState, coroutineScope, networkMonitor) {
         AppState(navController, snackbarHostState, coroutineScope, networkMonitor)
