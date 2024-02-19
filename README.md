@@ -31,8 +31,11 @@ To create you own repo, click on:
 - [Compose Destinations](https://composedestinations.rafaelcosta.xyz/) for easier app navigation
 
 ## What does it offer?
-- :black_circle: dark theme support
-- :uk: :it: in-app language preference
+- ⚫ dark theme support
+- 🇬🇧 🇮🇹 in-app language preference
+- 🔒 encrypted datastore
+- 🔭 linting and formatting on PR
+- 🔧 custom snackbars
 
 ## Screenshots
 <details>
