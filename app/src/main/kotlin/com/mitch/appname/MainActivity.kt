@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 
                             DestinationsNavHost(
                                 navGraph = NavGraphs.root,
-                                navController = appState.navController,
+                                navController = appState.navController
 
                                 // to provide snackbar lambda to invoke in "@Composable"s
                                 /*dependenciesContainerBuilder = {
@@ -158,12 +158,12 @@ class MainActivity : AppCompatActivity() {
             enableEdgeToEdge(
                 statusBarStyle = SystemBarStyle.auto(
                     Color.TRANSPARENT,
-                    Color.TRANSPARENT,
+                    Color.TRANSPARENT
                 ) { isThemeDark },
                 navigationBarStyle = SystemBarStyle.auto(
                     lightScrim,
-                    darkScrim,
-                ) { isThemeDark },
+                    darkScrim
+                ) { isThemeDark }
             )
             onDispose { }
         }
@@ -256,7 +256,7 @@ private fun SwipeToDismissSnackbarHost(
 
 @Composable
 private fun shouldUseDarkTheme(
-    uiState: MainActivityUiState,
+    uiState: MainActivityUiState
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.theme) {
