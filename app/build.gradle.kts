@@ -16,7 +16,7 @@ android {
     compileSdk = 34
     defaultConfig {
         applicationId = packageName
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
@@ -121,6 +121,7 @@ dependencies {
     implementation(libs.core.splashscreen)
     implementation(libs.appcompat)
     implementation(libs.skeletonLoader)
+    implementation(libs.security.cryptoKtx)
 
     // Navigation
     implementation(libs.compose.destinations.core)
@@ -140,6 +141,7 @@ dependencies {
 
     // Datastore (previously SharedPreferences)
     implementation(libs.datastore.core)
+    implementation(libs.encryptedDatastore)
 
     // Logging
     implementation(libs.timber)
