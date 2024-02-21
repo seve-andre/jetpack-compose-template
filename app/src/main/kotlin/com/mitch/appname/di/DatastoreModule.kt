@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
-import com.mitch.appname.data.local.datastore.user.preferences.UserPreferencesSerializer
+import com.mitch.appname.data.userprefs.UserPreferencesSerializer
 import com.mitch.appname.domain.models.UserPreferences
 import dagger.Module
 import dagger.Provides
