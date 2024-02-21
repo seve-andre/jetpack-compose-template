@@ -74,15 +74,10 @@ ksp {
 }
 
 detekt {
-    buildUponDefaultConfig = true
-    config.setFrom("$projectDir/config/detekt/detekt.yml")
-
-    // REMOVE once edited RepositoryModule and AppDatabase
-    ignoreFailures = true
-
+    config.setFrom("$rootDir/config/detekt/detekt.yml")
+    baseline = file("$rootDir/config/detekt/baseline.xml")
     autoCorrect = true
-
-    baseline = file("$projectDir/config/detekt/baseline.xml")
+    buildUponDefaultConfig = true
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
@@ -177,7 +172,7 @@ dependencies {
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
 
     // Formatting + Linting
-    detektPlugins(libs.detekt)
+    detektPlugins(libs.detekt.formatting)
     detektPlugins(libs.linting.composeDetekt)
     lintChecks(libs.linting.composeLints)
 }

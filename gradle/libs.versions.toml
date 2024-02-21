@@ -151,7 +151,7 @@ test-uiAutomator = { group = "androidx.test.uiautomator", name = "uiautomator", 
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 
 # Formatting + Linting
-detekt = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 linting-composeDetekt = { group = "io.nlopez.compose.rules", name = "detekt", version.ref = "nlopez-composeRules" }
 linting-composeLints = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "compose-lints" }
 
