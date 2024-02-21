@@ -4,6 +4,5 @@ It's responsible for encapsulating complex business logic, or simple business lo
 Does NOT depend on other layers.
 
 Contains:
-- Entities
+- Models
 - Use cases
-- Repo interfaces

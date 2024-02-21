@@ -8,5 +8,5 @@
     <string name="change_theme">Change theme</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <string name="dismiss_snackbar_message">Dismiss message</string>
+    <string name="dismiss_snackbar_content_description">Dismiss message</string>
 </resources>

@@ -26,7 +26,7 @@ compose-destinations = "1.9.62" # check compose version
 hilt = "2.49"
 hilt-navigation-compose = "1.1.0"
 
-# Room
+# Database
 room = "2.6.1"
 
 # Datastore
@@ -121,7 +121,7 @@ hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testi
 # hiltViewModel()
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 
-# Room
+# Database
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

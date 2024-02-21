@@ -1,7 +1,7 @@
 package com.mitch.appname.di
 
-import com.mitch.appname.data.repository.UserSettingsRepositoryImpl
-import com.mitch.appname.domain.repository.UserSettingsRepository
+import com.mitch.appname.data.settings.UserSettingsRepositoryImpl
+import com.mitch.appname.data.settings.UserSettingsRepository
 import com.mitch.appname.util.network.ConnectivityManagerNetworkMonitor
 import com.mitch.appname.util.network.NetworkMonitor
 import dagger.Binds
