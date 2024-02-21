@@ -1,4 +1,4 @@
-package com.mitch.appname.data.mapper
+package com.mitch.appname.data.language
 
 import com.mitch.appname.domain.models.AppLanguage
 import java.util.Locale

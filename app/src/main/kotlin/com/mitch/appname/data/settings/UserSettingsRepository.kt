@@ -1,4 +1,4 @@
-package com.mitch.appname.domain.repository
+package com.mitch.appname.data.settings
 
 import com.mitch.appname.domain.models.AppLanguage
 import com.mitch.appname.domain.models.AppTheme

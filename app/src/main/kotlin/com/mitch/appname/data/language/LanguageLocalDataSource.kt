@@ -1,4 +1,4 @@
-package com.mitch.appname.data.local
+package com.mitch.appname.data.language
 
 import android.content.BroadcastReceiver
 import android.content.Context

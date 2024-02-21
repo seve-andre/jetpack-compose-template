@@ -1,4 +1,4 @@
-package com.mitch.appname.data.local.datastore.user.preferences
+package com.mitch.appname.data.userprefs
 
 import androidx.datastore.core.DataStore
 import com.mitch.appname.domain.models.AppTheme

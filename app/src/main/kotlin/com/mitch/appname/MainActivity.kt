@@ -240,7 +240,7 @@ private fun SwipeToDismissSnackbarHost(
                                 Icon(
                                     imageVector = Icons.Default.Close,
                                     contentDescription = stringResource(
-                                        id = R.string.dismiss_snackbar_message
+                                        id = R.string.dismiss_snackbar_content_description
                                     )
                                 )
                             }
