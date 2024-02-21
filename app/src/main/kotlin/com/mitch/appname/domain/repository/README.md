@@ -1,1 +1,0 @@
-# Just repo interface here (implementation is in: data/repository) - [see example](https://github.com/philipplackner/StockMarketApp/blob/final/app/src/main/java/com/plcoding/stockmarketapp/domain/repository/StockRepository.kt)
