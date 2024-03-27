@@ -1,7 +1,6 @@
 package com.mitch.appname.ui.screens.home.components
 
 import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -9,7 +8,8 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.mitch.appname.domain.models.AppLanguage
-import okhttp3.internal.toImmutableList
+import com.mitch.appname.ui.util.AppNameAndroidComposeTestRule
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -18,13 +18,8 @@ class LanguagePickerDialogTest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
-    private val languagePickerItems = listOf(
-        LanguagePickerItem.English,
-        LanguagePickerItem.Italian
-    ).toImmutableList()
-
-    @Test
-    fun showsAllLanguageOptionsAreDisplayed() {
+    @Before
+    fun setUp() {
         composeTestRule.setContent {
             LanguagePickerDialog(
                 selectedLanguage = AppLanguage.default(),
@@ -32,50 +27,63 @@ class LanguagePickerDialogTest {
                 onConfirm = { }
             )
         }
+    }
 
-        // all languages and their flags are displayed
-        languagePickerItems.forEach { item ->
-            composeTestRule.onNodeWithText(item.language.locale.displayLanguage).assertIsDisplayed()
-
-            composeTestRule
-                .onNodeWithTag(
-                    testTag = item.flagId.toString(),
-                    useUnmergedTree = true
-                )
-                .assertIsDisplayed()
+    @Test
+    fun allLanguageOptionsExist() {
+        with(LanguagePickerRobot(composeTestRule)) {
+            assertLanguageExists(AppLanguage.English)
+            assertLanguageExists(AppLanguage.Italian)
+            assertLanguageIsSelected(AppLanguage.default())
         }
-
-        // default language is selected
-        composeTestRule
-            .onNodeWithText(AppLanguage.default().locale.displayLanguage)
-            .assertIsSelected()
     }
 
     @Test
     fun whenNewSelected_displaysCorrectOption() {
-        composeTestRule.setContent {
-            LanguagePickerDialog(
-                selectedLanguage = AppLanguage.default(),
-                onDismiss = { },
-                onConfirm = { }
-            )
+        with(LanguagePickerRobot(composeTestRule)) {
+            assertLanguageIsSelected(AppLanguage.default())
+            selectLanguage(AppLanguage.Italian)
+            assertLanguageIsSelected(AppLanguage.Italian)
+
+            if (AppLanguage.default() != AppLanguage.Italian) {
+                assertLanguageIsNotSelected(AppLanguage.default())
+            }
         }
+    }
+}
 
-        val newOption = LanguagePickerItem.Italian
+class LanguagePickerRobot(private val composeTestRule: AppNameAndroidComposeTestRule) {
+    private val languagePickerItems = listOf(LanguagePickerItem.English, LanguagePickerItem.Italian)
 
-        // click on new one
+    fun selectLanguage(language: AppLanguage) {
         composeTestRule
-            .onNodeWithText(newOption.language.locale.displayLanguage)
+            .onNodeWithText(language.locale.displayLanguage)
             .performClick()
+    }
 
-        // old one is not selected
+    fun assertLanguageExists(language: AppLanguage) {
+        val item = languagePickerItems.first { it.language == language }
         composeTestRule
-            .onNodeWithText(LanguagePickerItem.English.language.locale.displayLanguage)
-            .assertIsNotSelected()
+            .onNodeWithText(item.language.locale.displayLanguage)
+            .assertExists()
 
-        // but new one is
         composeTestRule
-            .onNodeWithText(newOption.language.locale.displayLanguage)
+            .onNodeWithTag(
+                testTag = item.flagId.toString(),
+                useUnmergedTree = true
+            )
+            .assertExists()
+    }
+
+    fun assertLanguageIsSelected(language: AppLanguage) {
+        composeTestRule
+            .onNodeWithText(language.locale.displayLanguage)
             .assertIsSelected()
+    }
+
+    fun assertLanguageIsNotSelected(language: AppLanguage) {
+        composeTestRule
+            .onNodeWithText(language.locale.displayLanguage)
+            .assertIsNotSelected()
     }
 }

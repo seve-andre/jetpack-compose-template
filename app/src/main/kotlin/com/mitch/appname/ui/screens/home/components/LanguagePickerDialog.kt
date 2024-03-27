@@ -35,7 +35,7 @@ import com.mitch.appname.R
 import com.mitch.appname.domain.models.AppLanguage
 import com.mitch.appname.ui.designsystem.AppIcons
 import com.mitch.appname.ui.designsystem.theme.custom.padding
-import okhttp3.internal.toImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun LanguagePickerDialog(
