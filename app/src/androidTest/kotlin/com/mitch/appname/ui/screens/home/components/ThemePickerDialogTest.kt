@@ -58,48 +58,52 @@ class ThemePickerRobot(private val composeTestRule: AppNameAndroidComposeTestRul
 
     fun selectTheme(theme: AppTheme) {
         val item = themePickerItems.singleOrNull { it.theme == theme }
-
-        item?.let {
-            composeTestRule
-                .onNodeWithText(composeTestRule.stringResource(id = it.titleId))
-                .performClick()
+        requireNotNull(item) {
+            "item from theme $theme is null; check that items DO NOT have the same theme"
         }
+
+        composeTestRule
+            .onNodeWithText(composeTestRule.stringResource(id = item.titleId))
+            .performClick()
     }
 
     fun assertThemeExists(theme: AppTheme) {
         val item = themePickerItems.singleOrNull { it.theme == theme }
-
-        item?.let {
-            composeTestRule
-                .onNodeWithText(composeTestRule.stringResource(id = it.titleId))
-                .assertExists()
-
-            composeTestRule
-                .onNodeWithTag(
-                    testTag = it.icon.toString(),
-                    useUnmergedTree = true
-                )
-                .assertExists()
+        requireNotNull(item) {
+            "item from theme $theme is null; check that items DO NOT have the same theme"
         }
+
+        composeTestRule
+            .onNodeWithText(composeTestRule.stringResource(id = item.titleId))
+            .assertExists()
+
+        composeTestRule
+            .onNodeWithTag(
+                testTag = item.icon.toString(),
+                useUnmergedTree = true
+            )
+            .assertExists()
     }
 
     fun assertThemeIsSelected(theme: AppTheme) {
         val item = themePickerItems.singleOrNull { it.theme == theme }
-
-        item?.let {
-            composeTestRule
-                .onNodeWithText(composeTestRule.stringResource(id = it.titleId))
-                .assertIsSelected()
+        requireNotNull(item) {
+            "item from theme $theme is null; check that items DO NOT have the same theme"
         }
+
+        composeTestRule
+            .onNodeWithText(composeTestRule.stringResource(id = item.titleId))
+            .assertIsSelected()
     }
 
     fun assertThemeIsNotSelected(theme: AppTheme) {
         val item = themePickerItems.singleOrNull { it.theme == theme }
-
-        item?.let {
-            composeTestRule
-                .onNodeWithText(composeTestRule.stringResource(id = it.titleId))
-                .assertIsNotSelected()
+        requireNotNull(item) {
+            "item from theme $theme is null; check that items DO NOT have the same theme"
         }
+
+        composeTestRule
+            .onNodeWithText(composeTestRule.stringResource(id = item.titleId))
+            .assertIsNotSelected()
     }
 }

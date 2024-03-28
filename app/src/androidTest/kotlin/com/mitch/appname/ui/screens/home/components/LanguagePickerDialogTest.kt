@@ -62,7 +62,11 @@ class LanguagePickerRobot(private val composeTestRule: AppNameAndroidComposeTest
     }
 
     fun assertLanguageExists(language: AppLanguage) {
-        val item = languagePickerItems.first { it.language == language }
+        val item = languagePickerItems.singleOrNull { it.language == language }
+        requireNotNull(item) {
+            "item from language $language is null; check that items DO NOT have the same language"
+        }
+
         composeTestRule
             .onNodeWithText(item.language.locale.displayLanguage)
             .assertExists()
