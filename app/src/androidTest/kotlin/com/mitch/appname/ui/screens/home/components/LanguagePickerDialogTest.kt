@@ -9,6 +9,8 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.mitch.appname.domain.models.AppLanguage
 import com.mitch.appname.ui.util.AppNameAndroidComposeTestRule
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -17,6 +19,20 @@ class LanguagePickerDialogTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
+
+    private val correctItemsRobot = LanguagePickerRobot(
+        composeTestRule,
+        listOf(LanguagePickerItem.English, LanguagePickerItem.Italian).toImmutableList()
+    )
+
+    private val wrongItemsRobot = LanguagePickerRobot(
+        composeTestRule,
+        listOf(
+            LanguagePickerItem.English,
+            LanguagePickerItem.English,
+            LanguagePickerItem.Italian
+        ).toImmutableList()
+    )
 
     @Before
     fun setUp() {
@@ -31,7 +47,7 @@ class LanguagePickerDialogTest {
 
     @Test
     fun allLanguageOptionsExist() {
-        with(LanguagePickerRobot(composeTestRule)) {
+        with(correctItemsRobot) {
             assertLanguageExists(AppLanguage.English)
             assertLanguageExists(AppLanguage.Italian)
             assertLanguageIsSelected(AppLanguage.default())
@@ -40,7 +56,20 @@ class LanguagePickerDialogTest {
 
     @Test
     fun whenNewSelected_displaysCorrectOption() {
-        with(LanguagePickerRobot(composeTestRule)) {
+        with(correctItemsRobot) {
+            assertLanguageIsSelected(AppLanguage.default())
+            selectLanguage(AppLanguage.Italian)
+            assertLanguageIsSelected(AppLanguage.Italian)
+
+            if (AppLanguage.default() != AppLanguage.Italian) {
+                assertLanguageIsNotSelected(AppLanguage.default())
+            }
+        }
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun whenItemsAreWrong_throwsError() {
+        with(wrongItemsRobot) {
             assertLanguageIsSelected(AppLanguage.default())
             selectLanguage(AppLanguage.Italian)
             assertLanguageIsSelected(AppLanguage.Italian)
@@ -52,8 +81,10 @@ class LanguagePickerDialogTest {
     }
 }
 
-class LanguagePickerRobot(private val composeTestRule: AppNameAndroidComposeTestRule) {
-    private val languagePickerItems = listOf(LanguagePickerItem.English, LanguagePickerItem.Italian)
+class LanguagePickerRobot(
+    private val composeTestRule: AppNameAndroidComposeTestRule,
+    private val items: ImmutableList<LanguagePickerItem>
+) {
 
     fun selectLanguage(language: AppLanguage) {
         composeTestRule
@@ -62,7 +93,7 @@ class LanguagePickerRobot(private val composeTestRule: AppNameAndroidComposeTest
     }
 
     fun assertLanguageExists(language: AppLanguage) {
-        val item = languagePickerItems.singleOrNull { it.language == language }
+        val item = items.singleOrNull { it.language == language }
         requireNotNull(item) {
             "item from language $language is null; check that items DO NOT have the same language"
         }
