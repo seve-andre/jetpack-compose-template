@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="NightAdjusted.Theme.Template" parent="Theme.AppCompat.DayNight.NoActionBar" />
+    <style name="NightAdjusted.Theme.Template" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+    </style>
 
     <!-- The final theme we use -->
     <style name="Theme.Template" parent="NightAdjusted.Theme.Template" />
