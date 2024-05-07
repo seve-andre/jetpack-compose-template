@@ -16,7 +16,7 @@ android {
     compileSdk = 34
     defaultConfig {
         applicationId = packageName
-        minSdk = 23
+        minSdk = 21
         targetSdk = 34
         versionCode = 1
         versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
