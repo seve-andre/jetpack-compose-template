@@ -127,7 +127,6 @@ dependencies {
     implementation(libs.core.splashscreen)
     implementation(libs.appcompat)
     implementation(libs.skeletonLoader)
-    implementation(libs.security.cryptoKtx)
 
     // Navigation
     implementation(libs.compose.destinations.core)
