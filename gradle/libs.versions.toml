@@ -18,7 +18,6 @@ eva = "1.0.0"
 core-splashscreen = "1.0.1"
 appcompat = "1.6.1"
 eygraber-placeholder-m3 = "1.0.7"
-security-cryptoKtx = "1.1.0-alpha06"
 
 # Navigation
 compose-destinations = "1.9.62" # check compose version
@@ -108,7 +107,6 @@ icons-eva = { group = "br.com.devsrsouza.compose.icons.android", name = "eva-ico
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 skeletonLoader = { group = "com.eygraber", name = "compose-placeholder-material3", version.ref = "eygraber-placeholder-m3" }
-security-cryptoKtx = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "security-cryptoKtx" }
 
 # Navigation
 compose-destinations-core = { group = "io.github.raamcosta.compose-destinations", name = "core", version.ref = "compose-destinations" }
@@ -129,7 +127,7 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 
 # Datastore
 datastore-core = { group = "androidx.datastore", name = "datastore", version.ref = "datastore" }
-encryptedDatastore = { group = "io.github.osipxd", name = "security-crypto-datastore", version.ref = "encryptedDatastore" }
+encryptedDatastore = { group = "io.github.osipxd", name = "encrypted-datastore", version.ref = "encryptedDatastore" }
 
 # Logging
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
