@@ -3,7 +3,7 @@
 kotlin = "1.9.21" # check also ksp
 kotlinx-immutableCollections = "0.3.7"
 kotlinx-datetime = "0.5.0"
-kotlinx-serialization-protobuf = "1.6.2"
+kotlinx-serialization = "1.6.2"
 kotlinx-coroutines = "1.7.3"
 
 # UI
@@ -20,7 +20,7 @@ appcompat = "1.6.1"
 eygraber-placeholder-m3 = "1.0.7"
 
 # Navigation
-compose-destinations = "1.9.62" # check compose version
+compose-navigation = "2.8.0-alpha08"
 
 # Dependency Injection
 hilt = "2.49"
@@ -75,7 +75,8 @@ secrets = "2.0.1"
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlinx-immutableCollections = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-immutableCollections" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
-kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinx-serialization-protobuf" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinx-serialization" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 
@@ -110,8 +111,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 skeletonLoader = { group = "com.eygraber", name = "compose-placeholder-material3", version.ref = "eygraber-placeholder-m3" }
 
 # Navigation
-compose-destinations-core = { group = "io.github.raamcosta.compose-destinations", name = "core", version.ref = "compose-destinations" }
-compose-destinations-ksp = { group = "io.github.raamcosta.compose-destinations", name = "ksp", version.ref = "compose-destinations" }
+compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "compose-navigation" }
 
 # Dependency Injection
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }

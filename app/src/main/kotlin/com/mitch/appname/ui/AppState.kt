@@ -5,15 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.mitch.appname.navigation.NavGraphs
-import com.mitch.appname.navigation.appCurrentDestinationAsState
-import com.mitch.appname.navigation.appDestination
-import com.mitch.appname.navigation.destinations.Destination
-import com.mitch.appname.navigation.startAppDestination
 import com.mitch.appname.util.network.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -45,15 +40,8 @@ class AppState(
      *
      * Starting destination: search for `@RootNavGraph(start = true)`
      */
-    val currentDestination: Destination
-        @Composable get() = navController.appCurrentDestinationAsState().value
-            ?: NavGraphs.root.startAppDestination
-
-    /**
-     * App's previous destination if set, otherwise null
-     */
-    val prevDestination: Destination?
-        @Composable get() = navController.previousBackStackEntry?.appDestination()
+    val currentDestination: NavDestination?
+        @Composable get() = navController.currentBackStackEntryAsState().value?.destination
 
     /**
      * Manages app connectivity status
@@ -65,15 +53,4 @@ class AppState(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = false
         )
-}
-
-/**
- * If the lifecycle is not resumed it means this NavBackStackEntry already processed a nav event.
- *
- * This is used to de-duplicate navigation events.
- */
-fun NavController.navigateToPreviousScreen() {
-    if (this.currentBackStackEntry?.lifecycle?.currentState == Lifecycle.State.RESUMED) {
-        this.popBackStack()
-    }
 }
