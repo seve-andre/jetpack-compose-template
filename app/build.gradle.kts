@@ -100,10 +100,6 @@ kotlin {
     }
 }
 
-ksp {
-    arg("compose-destinations.codeGenPackageName", "$packageName.navigation")
-}
-
 detekt {
     config.setFrom("$rootDir/config/detekt/detekt.yml")
     baseline = file("$rootDir/config/detekt/baseline.xml")
@@ -128,6 +124,7 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.immutableCollections)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.serialization.protobuf)
     implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)
@@ -158,8 +155,7 @@ dependencies {
     implementation(libs.skeletonLoader)
 
     // Navigation
-    implementation(libs.compose.destinations.core)
-    ksp(libs.compose.destinations.ksp)
+    implementation(libs.compose.navigation)
 
     // Dependency Injection
     implementation(libs.hilt.android)

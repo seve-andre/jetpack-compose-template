@@ -21,11 +21,7 @@ import com.mitch.appname.domain.models.AppTheme
 import com.mitch.appname.ui.designsystem.components.loading.LoadingScreen
 import com.mitch.appname.ui.screens.home.components.LanguagePickerDialog
 import com.mitch.appname.ui.screens.home.components.ThemePickerDialog
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.annotation.RootNavGraph
 
-@RootNavGraph(start = true)
-@Destination
 @Composable
 fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
