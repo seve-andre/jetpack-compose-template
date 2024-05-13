@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">template</string>
+    <string name="app_name">Template</string>
     <string name="system_default">Predefinito di sistema</string>
     <string name="light_theme">Chiaro</string>
     <string name="dark_theme">Scuro</string>
