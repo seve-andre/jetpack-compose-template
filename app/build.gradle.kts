@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.detekt)
     alias(libs.plugins.junit5)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.secrets)
 }
 
 val packageName = "com.mitch.appname"
@@ -92,6 +93,10 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
         xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins
         md.required.set(true) // simple Markdown format
     }
+}
+
+secrets {
+    propertiesFileName = "secrets.properties"
 }
 
 dependencies {

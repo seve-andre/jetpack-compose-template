@@ -68,6 +68,7 @@ android-gradle-plugin = "8.2.2"
 ksp = "1.9.21-1.0.16" # check kotlin version
 junit5-plugin = "1.10.0.0"
 kotlinx-serialization-plugin = "1.9.21"
+secrets = "2.0.1"
 
 [libraries]
 # Kotlin
@@ -172,3 +173,4 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
 android-test = { id = "com.android.test", version.ref = "android-gradle-plugin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinx-serialization-plugin" }
+secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
