@@ -1,8 +1,8 @@
 package com.mitch.appname.data.settings
 
 import com.mitch.appname.data.language.LanguageLocalDataSource
-import com.mitch.appname.data.userprefs.UserPreferencesLocalDataSource
 import com.mitch.appname.data.language.toAppLanguage
+import com.mitch.appname.data.userprefs.UserPreferencesLocalDataSource
 import com.mitch.appname.domain.models.AppLanguage
 import com.mitch.appname.domain.models.AppTheme
 import kotlinx.coroutines.flow.Flow
