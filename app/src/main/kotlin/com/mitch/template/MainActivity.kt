@@ -49,7 +49,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.template.domain.models.TemplateTheme
-import com.mitch.template.ui.TemplateState
+import com.mitch.template.ui.TemplateAppState
 import com.mitch.template.ui.designsystem.TemplateMaterialTheme
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbar
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarDefaults
@@ -60,7 +60,7 @@ import com.mitch.template.ui.designsystem.theme.custom.padding
 import com.mitch.template.ui.navigation.TemplateNavHost
 import com.mitch.template.ui.navigation.TemplateNavigation
 import com.mitch.template.ui.navigation.TemplateStartDestination
-import com.mitch.template.ui.rememberTemplateState
+import com.mitch.template.ui.rememberTemplateAppState
 import com.mitch.template.util.network.NetworkMonitor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
 
             CompositionLocalProvider(LocalPadding provides padding) {
                 TemplateMaterialTheme(isThemeDark = isThemeDark) {
-                    val appState = rememberTemplateState(networkMonitor)
+                    val appState = rememberTemplateAppState(networkMonitor)
                     // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
                     Scaffold(
@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun SwipeToDismissSnackbarHost(
-    appState: TemplateState
+    appState: TemplateAppState
 ) {
     val dismissSnackbarState = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->
