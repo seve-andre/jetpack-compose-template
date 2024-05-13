@@ -1,6 +1,5 @@
 package com.mitch.appname.core.db
 
-import androidx.room.Database
 import androidx.room.RoomDatabase
 
 // see at https://developer.android.com/training/data-storage/room#database

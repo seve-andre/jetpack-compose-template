@@ -1,10 +1,8 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues>
-    <ID>CompositionLocalAllowlist:ExtendedColorScheme.kt$LocalExtendedColorScheme</ID>
-    <ID>CompositionLocalAllowlist:Padding.kt$LocalPadding</ID>
-  </ManuallySuppressedIssues>
-  <CurrentIssues>
-    <ID>UnusedPrivateProperty:MainActivity.kt$MainActivity$val onShowSnackbar: suspend (AppSnackbarVisuals) -> SnackbarResult = { appState.snackbarHostState.showSnackbar(it) }</ID>
-  </CurrentIssues>
+    <ManuallySuppressedIssues>
+        <ID>CompositionLocalAllowlist:ExtendedColorScheme.kt$LocalExtendedColorScheme</ID>
+        <ID>CompositionLocalAllowlist:Padding.kt$LocalPadding</ID>
+        <ID>UnusedParameter:AppNavHost.kt$onShowSnackbar: suspend (AppSnackbarVisuals) -&gt; SnackbarResult</ID>
+    </ManuallySuppressedIssues>
 </SmellBaseline>
