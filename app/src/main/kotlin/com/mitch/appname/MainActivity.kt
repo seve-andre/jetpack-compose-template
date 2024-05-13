@@ -30,7 +30,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
@@ -50,7 +49,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.appname.domain.models.AppTheme
-import com.mitch.appname.navigation.NavGraphs
 import com.mitch.appname.ui.AppState
 import com.mitch.appname.ui.designsystem.AppMaterialTheme
 import com.mitch.appname.ui.designsystem.components.snackbars.AppSnackbar
@@ -59,9 +57,11 @@ import com.mitch.appname.ui.designsystem.components.snackbars.AppSnackbarType
 import com.mitch.appname.ui.designsystem.components.snackbars.AppSnackbarVisuals
 import com.mitch.appname.ui.designsystem.theme.custom.LocalPadding
 import com.mitch.appname.ui.designsystem.theme.custom.padding
+import com.mitch.appname.ui.navigation.AppNavHost
+import com.mitch.appname.ui.navigation.AppNavigation
+import com.mitch.appname.ui.navigation.AppStartDestination
 import com.mitch.appname.ui.rememberAppState
 import com.mitch.appname.util.network.NetworkMonitor
-import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -132,18 +132,10 @@ class MainActivity : AppCompatActivity() {
                                     )
                                 )
                         ) {
-                            val onShowSnackbar: suspend (AppSnackbarVisuals) -> SnackbarResult = {
-                                appState.snackbarHostState.showSnackbar(it)
-                            }
-
-                            DestinationsNavHost(
-                                navGraph = NavGraphs.root,
-                                navController = appState.navController
-
-                                // to provide snackbar lambda to invoke in "@Composable"s
-                                /*dependenciesContainerBuilder = {
-                                    dependency(HomeRouteDestination) { onShowSnackbar }
-                                }*/
+                            AppNavHost(
+                                navController = appState.navController,
+                                startDestination = AppStartDestination.Screen(AppNavigation.Screen.Home),
+                                onShowSnackbar = { appState.snackbarHostState.showSnackbar(it) }
                             )
                         }
                     }
