@@ -3,11 +3,11 @@
   <ManuallySuppressedIssues>
     <ID>CompositionLocalAllowlist:ExtendedColorScheme.kt$LocalExtendedColorScheme</ID>
     <ID>CompositionLocalAllowlist:Padding.kt$LocalPadding</ID>
-    <ID>UnusedParameter:AppNavHost.kt$onShowSnackbar: suspend (AppSnackbarVisuals) -&gt; SnackbarResult</ID>
+    <ID>UnusedParameter:TemplateNavHost.kt$onShowSnackbar: suspend (AppSnackbarVisuals) -&gt; SnackbarResult</ID>
   </ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>CompositionLocalAllowlist:ExtendedColorScheme.kt$LocalExtendedColorScheme</ID>
     <ID>CompositionLocalAllowlist:Padding.kt$LocalPadding</ID>
-    <ID>UnusedParameter:AppNavHost.kt$onShowSnackbar: suspend (AppSnackbarVisuals) -&gt; SnackbarResult</ID>
+    <ID>UnusedParameter:TemplateNavHost.kt$onShowSnackbar: suspend (TemplateSnackbarVisuals) -&gt; SnackbarResult</ID>
   </CurrentIssues>
 </SmellBaseline>
