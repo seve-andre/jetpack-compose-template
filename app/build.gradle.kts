@@ -9,17 +9,17 @@ plugins {
     alias(libs.plugins.secrets)
 }
 
-val packageName = "com.mitch.appname"
+val packageName = "com.mitch.template"
 
-enum class AppFlavorDimension {
+enum class TemplateFlavorDimension {
     Version;
 
     val dimensionName = this.name.replaceFirstChar { it.lowercase() }
 }
 
-enum class AppFlavor(val dimension: AppFlavorDimension, val applicationIdSuffix: String? = null) {
-    Demo(dimension = AppFlavorDimension.Version),
-    Prod(dimension = AppFlavorDimension.Version);
+enum class TemplateFlavor(val dimension: TemplateFlavorDimension, val applicationIdSuffix: String? = null) {
+    Demo(dimension = TemplateFlavorDimension.Version),
+    Prod(dimension = TemplateFlavorDimension.Version);
 
     val flavorName = this.name.replaceFirstChar { it.lowercase() }
 }
@@ -54,9 +54,9 @@ android {
             )
         }
     }
-    flavorDimensions += AppFlavorDimension.values().map { it.dimensionName }
+    flavorDimensions += TemplateFlavorDimension.values().map { it.dimensionName }
     productFlavors {
-        AppFlavor.values().forEach { flavor ->
+        TemplateFlavor.values().forEach { flavor ->
             create(flavor.flavorName) {
                 dimension = flavor.dimension.dimensionName
                 if (flavor.applicationIdSuffix != null) {
