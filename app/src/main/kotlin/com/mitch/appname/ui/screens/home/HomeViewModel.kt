@@ -2,9 +2,9 @@ package com.mitch.appname.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mitch.appname.data.settings.UserSettingsRepository
 import com.mitch.appname.domain.models.AppLanguage
 import com.mitch.appname.domain.models.AppTheme
-import com.mitch.appname.data.settings.UserSettingsRepository
 import com.mitch.appname.util.Result
 import com.mitch.appname.util.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
