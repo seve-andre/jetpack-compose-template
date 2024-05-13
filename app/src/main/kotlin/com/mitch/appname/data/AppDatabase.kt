@@ -1,4 +1,4 @@
-package com.mitch.appname.core.db
+package com.mitch.appname.data
 
 import androidx.room.RoomDatabase
 
