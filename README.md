@@ -66,6 +66,19 @@ To create you own repo, click on:
 - [NetworkMonitor](https://github.com/seve-andre/jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/network/NetworkMonitor.kt): [see inspo](https://github.com/android/nowinandroid/blob/9371d0d4b80ffea0105a2376d057243eb68af0fa/core/data/src/main/java/com/google/samples/apps/nowinandroid/core/data/util/NetworkMonitor.kt)
 - [ConnectivityManagerNetworkMonitor](https://github.com/seve-andre/jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/appname/util/network/ConnectivityManagerNetworkMonitor.kt): [see inspo](https://github.com/android/nowinandroid/blob/11fbf53f12898b6ee7c55dda69716fa3600e7317/core/data/src/main/java/com/google/samples/apps/nowinandroid/core/data/util/ConnectivityManagerNetworkMonitor.kt)
 
+### Useful features
+
+If you wanna implement some of the following things (not included by this template), consider
+searching
+in [Now in Android repo](https://github.com/android/nowinandroid) first:
+
+- [TimeZone](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid%20timezone&type=code)
+- [Analytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+analytics+language%3AKotlin&type=code&l=Kotlin) (
+  based on app product flavor)
+- [Notifications](https://firebase.google.com/docs/cloud-messaging)
+- [Crashlytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+crashlytics&type=code)
+
 > [!NOTE]
 > Feel free to contribute or reach out to me
-> at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
+>
+at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
