@@ -11,6 +11,19 @@ plugins {
 
 val packageName = "com.mitch.appname"
 
+enum class AppFlavorDimension {
+    Version;
+
+    val dimensionName = this.name.replaceFirstChar { it.lowercase() }
+}
+
+enum class AppFlavor(val dimension: AppFlavorDimension, val applicationIdSuffix: String? = null) {
+    Demo(dimension = AppFlavorDimension.Version),
+    Prod(dimension = AppFlavorDimension.Version);
+
+    val flavorName = this.name.replaceFirstChar { it.lowercase() }
+}
+
 android {
     namespace = packageName
 
@@ -39,6 +52,17 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+    flavorDimensions += AppFlavorDimension.values().map { it.dimensionName }
+    productFlavors {
+        AppFlavor.values().forEach { flavor ->
+            create(flavor.flavorName) {
+                dimension = flavor.dimension.dimensionName
+                if (flavor.applicationIdSuffix != null) {
+                    applicationIdSuffix = flavor.applicationIdSuffix
+                }
+            }
         }
     }
     compileOptions {
