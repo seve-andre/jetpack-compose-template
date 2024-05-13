@@ -16,20 +16,20 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 @Composable
-fun rememberTemplateState(
+fun rememberTemplateAppState(
     networkMonitor: NetworkMonitor,
     navController: NavHostController = rememberNavController(),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     coroutineScope: CoroutineScope = rememberCoroutineScope()
-): TemplateState {
+): TemplateAppState {
     return remember(navController, snackbarHostState, coroutineScope, networkMonitor) {
-        TemplateState(navController, snackbarHostState, coroutineScope, networkMonitor)
+        TemplateAppState(navController, snackbarHostState, coroutineScope, networkMonitor)
     }
 }
 
 // Controls app state. Stable -> if any of the values is changed, the Composables are recomposed
 @Stable
-class TemplateState(
+class TemplateAppState(
     val navController: NavHostController,
     val snackbarHostState: SnackbarHostState,
     coroutineScope: CoroutineScope,
