@@ -155,7 +155,7 @@ complexity:
     ignorePrivate: false
     ignoreOverridden: false
     # compose
-    ignoreAnnotatedFunctions: ['Preview']
+    ignoreAnnotatedFunctions: [ 'Preview' ]
 
 coroutines:
   active: true
@@ -518,8 +518,10 @@ style:
       - reason: 'include an issue link at the beginning preceded by a space'
         value: 'BUG:(?! https://github\.com/company/repo/issues/\d+).*'
   ForbiddenImport:
-    active: false
-    imports: [ ]
+    active: true
+    imports:
+      - reason: "Use: com.mitch.template.ui.designSystem.TemplateDesignSystem - not using project-defined Design System helper"
+        value: "androidx.compose.material3.MaterialTheme"
     forbiddenPatterns: ''
   ForbiddenSuppress:
     active: false

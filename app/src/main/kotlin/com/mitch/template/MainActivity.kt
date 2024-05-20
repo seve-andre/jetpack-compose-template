@@ -26,7 +26,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -50,6 +49,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.template.domain.models.TemplateTheme
 import com.mitch.template.ui.TemplateAppState
+import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateMaterialTheme
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbar
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarDefaults
@@ -226,7 +226,7 @@ private fun SwipeToDismissSnackbarHost(
                             IconButton(
                                 onClick = snackbarData::dismiss,
                                 colors = IconButtonDefaults.iconButtonColors(
-                                    contentColor = MaterialTheme.colorScheme.inverseOnSurface
+                                    contentColor = TemplateDesignSystem.colorScheme.inverseOnSurface
                                 )
                             ) {
                                 Icon(
