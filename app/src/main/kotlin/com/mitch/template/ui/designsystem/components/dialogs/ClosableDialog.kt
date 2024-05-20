@@ -18,7 +18,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Surface
@@ -34,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.theme.custom.padding
 import compose.icons.EvaIcons
@@ -61,7 +61,7 @@ fun ClosableDialog(
             modifier = Modifier
                 .wrapContentWidth()
                 .wrapContentHeight(),
-            shape = MaterialTheme.shapes.large,
+            shape = TemplateDesignSystem.shapes.large,
             tonalElevation = AlertDialogDefaults.TonalElevation
         ) {
             Column(
@@ -101,7 +101,7 @@ fun ClosableDialog(
                 }
 
                 CompositionLocalProvider(LocalContentColor provides titleContentColor) {
-                    val textStyle = MaterialTheme.typography.headlineSmall
+                    val textStyle = TemplateDesignSystem.typography.headlineSmall
                     ProvideTextStyle(textStyle) {
                         Box(
                             modifier = Modifier
@@ -120,7 +120,7 @@ fun ClosableDialog(
                 }
 
                 CompositionLocalProvider(LocalContentColor provides textContentColor) {
-                    val textStyle = MaterialTheme.typography.bodyMedium
+                    val textStyle = TemplateDesignSystem.typography.bodyMedium
                     ProvideTextStyle(textStyle) {
                         Row(
                             modifier = Modifier

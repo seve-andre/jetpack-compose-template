@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 val DarkColorScheme = darkColorScheme()
 val LightColorScheme = lightColorScheme()
 
+typealias TemplateDesignSystem = MaterialTheme
+
 @Composable
 fun TemplateMaterialTheme(
     isThemeDark: Boolean = isSystemInDarkTheme(),
