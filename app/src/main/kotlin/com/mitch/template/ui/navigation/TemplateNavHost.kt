@@ -2,8 +2,6 @@ package com.mitch.template.ui.navigation
 
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -45,9 +43,7 @@ fun NavController.navigateTo(
     navOptions: NavOptions? = null,
     navigatorExtras: Navigator.Extras? = null
 ) {
-    if (this.currentBackStackEntry.lifecycleIsResumed()) {
-        this.navigate(screen, navOptions, navigatorExtras)
-    }
+    this.navigate(screen, navOptions, navigatorExtras)
 }
 
 fun NavController.navigateTo(
@@ -55,26 +51,5 @@ fun NavController.navigateTo(
     navOptions: NavOptions? = null,
     navigatorExtras: Navigator.Extras? = null
 ) {
-    if (this.currentBackStackEntry.lifecycleIsResumed()) {
-        this.navigate(graph, navOptions, navigatorExtras)
-    }
-}
-
-/**
- * If the lifecycle is not resumed it means this NavBackStackEntry already processed a nav event.
- *
- * This is used to de-duplicate navigation events.
- */
-fun NavController.navigateToPreviousScreen() {
-    if (this.currentBackStackEntry.lifecycleIsResumed()) {
-        this.popBackStack()
-    }
-}
-
-/**
- * Sometimes clicking twice on a button causes navigating twice to the same destination, 'cause of animations.
- * Consider wrapping each navigate call with this.
- */
-fun NavBackStackEntry?.lifecycleIsResumed(): Boolean {
-    return this?.lifecycle?.currentState == Lifecycle.State.RESUMED
+    this.navigate(graph, navOptions, navigatorExtras)
 }
