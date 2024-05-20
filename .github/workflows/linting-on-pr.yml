@@ -9,13 +9,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get changed files
-        id: changed-files
+      - name: Get all changed kotlin files
+        id: changed-kotlin-files
         uses: tj-actions/changed-files@v42
         with:
           separator: ","
+          # Avoid using single or double quotes for multiline patterns
+          files: |
+            **.kt
+            **.kts
 
       - name: "detekt"
+        if: steps.changed-kotlin-files.outputs.test_any_changed == 'true'
         uses: natiginfo/action-detekt-all@1.23.5
         with:
-          args: -p ./config/detekt/detekt-compose-0.3.11-all.jar,./config/detekt/detekt-formatting-1.23.5.jar -c ./config/detekt/detekt.yml -b ./config/detekt/baseline.xml -ac --build-upon-default-config -ex "**/build/**,**/resources/**" -i ${{ steps.changed-files.outputs.all_changed_files }}
+          args: -p ./config/detekt/detekt-compose-0.3.11-all.jar,./config/detekt/detekt-formatting-1.23.5.jar -c ./config/detekt/detekt.yml -b ./config/detekt/baseline.xml -ac --build-upon-default-config -ex "**/build/**,**/resources/**" -i ${{ steps.changed-kotlin-files.outputs.all_changed_files }}
