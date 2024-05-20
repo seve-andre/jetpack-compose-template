@@ -152,7 +152,6 @@ dependencies {
     implementation(libs.icons.eva)
     implementation(libs.core.splashscreen)
     implementation(libs.appcompat)
-    implementation(libs.skeletonLoader)
 
     // Navigation
     implementation(libs.compose.navigation)
