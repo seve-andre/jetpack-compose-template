@@ -1,12 +1,12 @@
 package com.mitch.template.ui.designsystem.components.snackbars
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.theme.custom.extendedColorScheme
 
@@ -57,9 +57,9 @@ object TemplateSnackbarDefaults {
 
     @Composable
     fun successSnackbarColors(
-        containerColor: Color = MaterialTheme.extendedColorScheme.success,
-        messageColor: Color = MaterialTheme.extendedColorScheme.onSuccess,
-        actionColor: Color = MaterialTheme.extendedColorScheme.onSuccess,
+        containerColor: Color = TemplateDesignSystem.extendedColorScheme.success,
+        messageColor: Color = TemplateDesignSystem.extendedColorScheme.onSuccess,
+        actionColor: Color = TemplateDesignSystem.extendedColorScheme.onSuccess,
         iconColor: Color = actionColor
     ): TemplateSnackbarColors {
         return TemplateSnackbarColors(
@@ -72,9 +72,9 @@ object TemplateSnackbarDefaults {
 
     @Composable
     fun warningSnackbarColors(
-        containerColor: Color = MaterialTheme.extendedColorScheme.warning,
-        messageColor: Color = MaterialTheme.extendedColorScheme.onWarning,
-        actionColor: Color = MaterialTheme.extendedColorScheme.onWarning,
+        containerColor: Color = TemplateDesignSystem.extendedColorScheme.warning,
+        messageColor: Color = TemplateDesignSystem.extendedColorScheme.onWarning,
+        actionColor: Color = TemplateDesignSystem.extendedColorScheme.onWarning,
         iconColor: Color = actionColor
     ): TemplateSnackbarColors {
         return TemplateSnackbarColors(
@@ -87,9 +87,9 @@ object TemplateSnackbarDefaults {
 
     @Composable
     fun errorSnackbarColors(
-        containerColor: Color = MaterialTheme.colorScheme.errorContainer,
-        messageColor: Color = MaterialTheme.colorScheme.onErrorContainer,
-        actionColor: Color = MaterialTheme.colorScheme.onErrorContainer,
+        containerColor: Color = TemplateDesignSystem.colorScheme.errorContainer,
+        messageColor: Color = TemplateDesignSystem.colorScheme.onErrorContainer,
+        actionColor: Color = TemplateDesignSystem.colorScheme.onErrorContainer,
         iconColor: Color = actionColor
     ): TemplateSnackbarColors {
         return TemplateSnackbarColors(

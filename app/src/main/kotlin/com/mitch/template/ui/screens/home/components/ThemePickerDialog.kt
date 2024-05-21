@@ -13,7 +13,6 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -32,6 +31,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.mitch.template.R
 import com.mitch.template.domain.models.TemplateTheme
+import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.theme.custom.padding
 import kotlinx.collections.immutable.toImmutableList
@@ -95,7 +95,7 @@ fun ThemePickerDialog(
                             )
                             Text(
                                 text = stringResource(id = item.titleId),
-                                style = MaterialTheme.typography.bodyLarge
+                                style = TemplateDesignSystem.typography.bodyLarge
                             )
                         }
                     }
