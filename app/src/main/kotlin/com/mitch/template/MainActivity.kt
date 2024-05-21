@@ -57,8 +57,8 @@ import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarT
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarVisuals
 import com.mitch.template.ui.designsystem.theme.custom.LocalPadding
 import com.mitch.template.ui.designsystem.theme.custom.padding
+import com.mitch.template.ui.navigation.TemplateDestinations
 import com.mitch.template.ui.navigation.TemplateNavHost
-import com.mitch.template.ui.navigation.TemplateNavigation
 import com.mitch.template.ui.navigation.TemplateStartDestination
 import com.mitch.template.ui.rememberTemplateAppState
 import com.mitch.template.util.network.NetworkMonitor
@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             TemplateNavHost(
                                 navController = appState.navController,
-                                startDestination = TemplateStartDestination.Screen(TemplateNavigation.Screen.Home),
+                                startDestination = TemplateStartDestination.Screen(TemplateDestinations.Screen.Home),
                                 onShowSnackbar = { appState.snackbarHostState.showSnackbar(it) }
                             )
                         }
