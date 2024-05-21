@@ -9,8 +9,8 @@ import androidx.navigation.Navigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarVisuals
-import com.mitch.template.ui.navigation.TemplateNavigation.Graph
-import com.mitch.template.ui.navigation.TemplateNavigation.Screen
+import com.mitch.template.ui.navigation.TemplateDestinations.Graph
+import com.mitch.template.ui.navigation.TemplateDestinations.Screen
 import com.mitch.template.ui.screens.home.HomeRoute
 
 @Composable
@@ -31,8 +31,8 @@ fun TemplateNavHost(
 }
 
 sealed interface TemplateStartDestination {
-    data class Screen(val screen: TemplateNavigation.Screen) : TemplateStartDestination
-    data class Graph(val graph: TemplateNavigation.Graph) : TemplateStartDestination
+    data class Screen(val screen: TemplateDestinations.Screen) : TemplateStartDestination
+    data class Graph(val graph: TemplateDestinations.Graph) : TemplateStartDestination
 }
 
 /**

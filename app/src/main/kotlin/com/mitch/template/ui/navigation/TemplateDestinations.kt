@@ -2,7 +2,7 @@ package com.mitch.template.ui.navigation
 
 import kotlinx.serialization.Serializable
 
-object TemplateNavigation {
+object TemplateDestinations {
 
     sealed interface Screen {
         @Serializable
