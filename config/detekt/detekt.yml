@@ -520,7 +520,7 @@ style:
   ForbiddenImport:
     active: true
     imports:
-      - reason: "Use: com.mitch.template.ui.designSystem.TemplateDesignSystem - not using project-defined Design System helper"
+      - reason: "Use: com.mitch.template.ui.designsystem.TemplateDesignSystem - not using project-defined Design System helper"
         value: "androidx.compose.material3.MaterialTheme"
     excludes: [ '**/main/kotlin/com/mitch/template/ui/designsystem/TemplateMaterialTheme.kt' ]
     forbiddenPatterns: ''
