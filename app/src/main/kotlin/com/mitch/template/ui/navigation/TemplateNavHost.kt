@@ -35,9 +35,6 @@ sealed interface TemplateStartDestination {
     data class Graph(val graph: TemplateDestinations.Graph) : TemplateStartDestination
 }
 
-/**
- * Consider using this wrapper to avoid navigating to the same destination twice.
- */
 fun NavController.navigateTo(
     screen: Screen,
     navOptions: NavOptions? = null,
