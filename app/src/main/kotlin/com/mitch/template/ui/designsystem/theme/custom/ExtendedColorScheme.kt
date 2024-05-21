@@ -1,10 +1,10 @@
 package com.mitch.template.ui.designsystem.theme.custom
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import com.mitch.template.ui.designsystem.TemplateDesignSystem
 
 @Immutable
 data class ExtendedColorScheme(
@@ -29,6 +29,6 @@ val DarkExtendedColorScheme = ExtendedColorScheme(
 )
 
 val LocalExtendedColorScheme = staticCompositionLocalOf { LightExtendedColorScheme }
-val MaterialTheme.extendedColorScheme: ExtendedColorScheme
+val TemplateDesignSystem.extendedColorScheme: ExtendedColorScheme
     @Composable
     get() = LocalExtendedColorScheme.current
