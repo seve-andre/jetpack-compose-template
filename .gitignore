@@ -317,3 +317,6 @@ fabric.properties
 ### AndroidStudio Patch ###
 
 !/gradle/wrapper/gradle-wrapper.jar
+
+# Kotlin 2.0
+.kotlin/
