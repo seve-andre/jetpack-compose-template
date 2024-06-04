@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.application)
@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.junit5)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.secrets)
+    alias(libs.plugins.compose.compiler)
 }
 
 val packageName = "com.mitch.template"
@@ -19,7 +20,10 @@ enum class TemplateFlavorDimension {
     val dimensionName = this.name.replaceFirstChar { it.lowercase() }
 }
 
-enum class TemplateFlavor(val dimension: TemplateFlavorDimension, val applicationIdSuffix: String? = null) {
+enum class TemplateFlavor(
+    val dimension: TemplateFlavorDimension,
+    val applicationIdSuffix: String? = null
+) {
     Demo(dimension = TemplateFlavorDimension.Version),
     Prod(dimension = TemplateFlavorDimension.Version);
 
@@ -76,9 +80,6 @@ android {
         compose = true
         buildConfig = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -92,60 +93,17 @@ android {
 }
 
 kotlin {
-    sourceSets {
-        debug {
-            kotlin.srcDir("build/generated/ksp/debug/kotlin")
-        }
-        release {
-            kotlin.srcDir("build/generated/ksp/release/kotlin")
-        }
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions {
-        freeCompilerArgs += buildComposeMetricsParameters()
-        freeCompilerArgs += stabilityConfiguration()
-        freeCompilerArgs += strongSkippingConfiguration()
-    }
+composeCompiler {
+    enableStrongSkippingMode = true
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    stabilityConfigurationFile =
+        rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
 }
-
-private fun Project.buildComposeMetricsParameters(): List<String> {
-    val metricParameters = mutableListOf<String>()
-    val enableMetricsProvider = project.providers.gradleProperty("enableComposeCompilerMetrics")
-    val relativePath = projectDir.relativeTo(rootDir)
-    val buildDir = layout.buildDirectory.get().asFile
-    val enableMetrics = (enableMetricsProvider.orNull == "true")
-    if (enableMetrics) {
-        val metricsFolder = buildDir.resolve("compose-metrics").resolve(relativePath)
-        metricParameters.add("-P")
-        metricParameters.add(
-            "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" + metricsFolder.absolutePath,
-        )
-    }
-
-    val enableReportsProvider = project.providers.gradleProperty("enableComposeCompilerReports")
-    val enableReports = (enableReportsProvider.orNull == "true")
-    if (enableReports) {
-        val reportsFolder = buildDir.resolve("compose-reports").resolve(relativePath)
-        metricParameters.add("-P")
-        metricParameters.add(
-            "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" + reportsFolder.absolutePath
-        )
-    }
-
-    return metricParameters.toList()
-}
-
-private fun Project.stabilityConfiguration() = listOf(
-    "-P",
-    "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=${project.rootDir.absolutePath}/compose_compiler_config.conf",
-)
-
-private fun Project.strongSkippingConfiguration() = listOf(
-    "-P",
-    "plugin:androidx.compose.compiler.plugins.kotlin:experimentalStrongSkipping=true",
-)
 
 detekt {
     config.setFrom("$rootDir/config/detekt/detekt.yml")

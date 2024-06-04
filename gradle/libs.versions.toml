@@ -1,15 +1,14 @@
 [versions]
 # Kotlin
-kotlin = "1.9.22" # check also ksp
+kotlin = "2.0.0" # check also ksp
 kotlinx-immutableCollections = "0.3.7"
 kotlinx-datetime = "0.5.0"
-kotlinx-serialization = "1.6.3"
+kotlinx-serialization = "1.7.0-RC"
 kotlinx-coroutines = "1.8.0"
 
 # UI
-compose-bom = "2024.02.02"
+compose-bom = "2024.05.00"
 activity-compose = "1.8.2"
-compose-compiler = "1.5.8"
 androidx-lifecycle = "2.8.0"
 coil = "2.5.0"
 eva = "1.0.0"
@@ -61,10 +60,9 @@ retrofit-kotlinx-serialization-json = "1.0.0"
 okhttp = "4.12.0"
 
 # Plugins
-android-gradle-plugin = "8.2.2"
-ksp = "1.9.22-1.0.18" # check kotlin version
+android-gradle-plugin = "8.4.0"
+ksp = "2.0.0-1.0.21" # check kotlin version
 junit5-plugin = "1.10.0.0"
-kotlinx-serialization-plugin = "1.9.22"
 secrets = "2.0.1"
 
 [libraries]
@@ -162,11 +160,12 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
 android-test = { id = "com.android.test", version.ref = "android-gradle-plugin" }
-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinx-serialization-plugin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
