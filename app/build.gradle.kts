@@ -163,10 +163,10 @@ dependencies {
 
     // Dependency Injection
     implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     androidTestImplementation(libs.hilt.android.testing)
-    kspAndroidTest(libs.hilt.android.compiler)
+    kspAndroidTest(libs.hilt.compiler)
 
     // Database
     ksp(libs.room.compiler)
