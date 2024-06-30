@@ -91,12 +91,6 @@ fun HomeScreen(
     }
 }
 
-sealed interface ActiveDialog {
-    data object None : ActiveDialog
-    data object Language : ActiveDialog
-    data object Theme : ActiveDialog
-}
-
 @Preview
 @Composable
 private fun HomeScreenLoadingPreview() {
@@ -105,13 +99,18 @@ private fun HomeScreenLoadingPreview() {
         onChangeTheme = { },
         onChangeLanguage = { }
     )
+enum class ActiveDialog {
+    None, Language, Theme
 }
 
 @Preview
 @Composable
 private fun HomeScreenContentPreview() {
     HomeScreen(
-        uiState = HomeUiState.Success(language = TemplateLanguage.English, theme = TemplateTheme.Light),
+        uiState = HomeUiState.Success(
+            language = TemplateLanguage.English,
+            theme = TemplateTheme.Light
+        ),
         onChangeTheme = { },
         onChangeLanguage = { }
     )
