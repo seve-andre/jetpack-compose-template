@@ -91,14 +91,6 @@ fun HomeScreen(
     }
 }
 
-@Preview
-@Composable
-private fun HomeScreenLoadingPreview() {
-    HomeScreen(
-        uiState = HomeUiState.Loading,
-        onChangeTheme = { },
-        onChangeLanguage = { }
-    )
 enum class ActiveDialog {
     None, Language, Theme
 }
