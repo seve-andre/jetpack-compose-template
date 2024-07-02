@@ -19,8 +19,6 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -50,6 +48,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.template.domain.models.TemplateTheme
 import com.mitch.template.ui.TemplateAppState
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
+import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.TemplateMaterialTheme
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbar
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarDefaults
@@ -230,7 +229,7 @@ private fun SwipeToDismissSnackbarHost(
                                 )
                             ) {
                                 Icon(
-                                    imageVector = Icons.Default.Close,
+                                    imageVector = TemplateIcons.Outlined.Close,
                                     contentDescription = stringResource(
                                         id = R.string.dismiss_snackbar_content_description
                                     )

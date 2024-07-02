@@ -3,11 +3,6 @@ package com.mitch.template.ui.designsystem.components.snackbars
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -22,6 +17,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
+import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.theme.custom.padding
 
 @Composable
@@ -93,7 +89,7 @@ private fun TemplateSnackbarDefaultIndefinitePreview() {
                 )
             ) {
                 Icon(
-                    imageVector = Icons.Default.Close,
+                    imageVector = TemplateIcons.Outlined.Close,
                     contentDescription = "Dismiss snackbar"
                 )
             }
@@ -106,9 +102,8 @@ private fun TemplateSnackbarDefaultIndefinitePreview() {
 private fun TemplateSnackbarSuccessPreview() {
     TemplateSnackbar(
         message = "Success",
-        action = null,
         colors = TemplateSnackbarDefaults.successSnackbarColors(),
-        icon = Icons.Rounded.CheckCircle
+        icon = TemplateIcons.Filled.Success
     )
 }
 
@@ -117,9 +112,8 @@ private fun TemplateSnackbarSuccessPreview() {
 private fun TemplateSnackbarWarningPreview() {
     TemplateSnackbar(
         message = "Warning",
-        action = null,
         colors = TemplateSnackbarDefaults.warningSnackbarColors(),
-        icon = Icons.Rounded.Warning
+        icon = TemplateIcons.Filled.Warning
     )
 }
 
@@ -128,8 +122,7 @@ private fun TemplateSnackbarWarningPreview() {
 private fun TemplateSnackbarErrorPreview() {
     TemplateSnackbar(
         message = "Error",
-        action = null,
         colors = TemplateSnackbarDefaults.errorSnackbarColors(),
-        icon = Icons.Rounded.Close
+        icon = TemplateIcons.Filled.Error
     )
 }
