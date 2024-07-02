@@ -6,6 +6,7 @@ import com.mitch.template.data.settings.UserSettingsRepository
 import com.mitch.template.domain.models.TemplateTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class MainActivityViewModel @Inject constructor(
      * Initial [MainActivity] ui state is set to [MainActivityUiState.Loading] and mapped to
      * [MainActivityUiState.Success] once the [TemplateTheme] data is retrieved
      */
-    val uiState = userSettingsRepository.getTheme().map {
+    val uiState: StateFlow<MainActivityUiState> = userSettingsRepository.getTheme().map {
         MainActivityUiState.Success(it)
     }.stateIn(
         scope = viewModelScope,

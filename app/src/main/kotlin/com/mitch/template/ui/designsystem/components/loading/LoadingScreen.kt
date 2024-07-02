@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 
-const val LoadingTag = "loading indicator"
+const val LoadingTag: String = "loading indicator"
 
 @Composable
 fun LoadingScreen(
