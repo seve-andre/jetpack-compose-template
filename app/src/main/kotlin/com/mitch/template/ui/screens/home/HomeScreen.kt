@@ -18,6 +18,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.template.R
 import com.mitch.template.domain.models.TemplateLanguage
 import com.mitch.template.domain.models.TemplateTheme
+import com.mitch.template.ui.designsystem.TemplateMaterialTheme
 import com.mitch.template.ui.designsystem.components.loading.LoadingScreen
 import com.mitch.template.ui.screens.home.components.LanguagePickerDialog
 import com.mitch.template.ui.screens.home.components.ThemePickerDialog
@@ -46,9 +47,20 @@ fun HomeScreen(
         HomeUiState.Loading -> LoadingScreen()
 
         is HomeUiState.Success -> {
-            val (activeDialog, setActiveDialog) = remember {
-                mutableStateOf<ActiveDialog>(
-                    ActiveDialog.None
+            val (activeDialog, setActiveDialog) = remember { mutableStateOf(ActiveDialog.None) }
+            when (activeDialog) {
+                ActiveDialog.None -> Unit
+
+                ActiveDialog.Language -> LanguagePickerDialog(
+                    selectedLanguage = uiState.language,
+                    onDismiss = { setActiveDialog(ActiveDialog.None) },
+                    onConfirm = onChangeLanguage
+                )
+
+                ActiveDialog.Theme -> ThemePickerDialog(
+                    selectedTheme = uiState.theme,
+                    onDismiss = { setActiveDialog(ActiveDialog.None) },
+                    onConfirm = onChangeTheme
                 )
             }
 
@@ -64,26 +76,6 @@ fun HomeScreen(
                 Button(onClick = { setActiveDialog(ActiveDialog.Theme) }) {
                     Text(text = stringResource(R.string.change_theme))
                 }
-
-                when (activeDialog) {
-                    ActiveDialog.None -> Unit
-
-                    ActiveDialog.Language -> {
-                        LanguagePickerDialog(
-                            selectedLanguage = uiState.language,
-                            onDismiss = { setActiveDialog(ActiveDialog.None) },
-                            onConfirm = onChangeLanguage
-                        )
-                    }
-
-                    ActiveDialog.Theme -> {
-                        ThemePickerDialog(
-                            selectedTheme = uiState.theme,
-                            onDismiss = { setActiveDialog(ActiveDialog.None) },
-                            onConfirm = onChangeTheme
-                        )
-                    }
-                }
             }
         }
 
@@ -98,12 +90,14 @@ enum class ActiveDialog {
 @Preview
 @Composable
 private fun HomeScreenContentPreview() {
-    HomeScreen(
-        uiState = HomeUiState.Success(
-            language = TemplateLanguage.English,
-            theme = TemplateTheme.Light
-        ),
-        onChangeTheme = { },
-        onChangeLanguage = { }
-    )
+    TemplateMaterialTheme {
+        HomeScreen(
+            uiState = HomeUiState.Success(
+                language = TemplateLanguage.English,
+                theme = TemplateTheme.Light
+            ),
+            onChangeTheme = { },
+            onChangeLanguage = { }
+        )
+    }
 }
