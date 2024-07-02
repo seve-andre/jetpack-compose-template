@@ -1,5 +1,6 @@
 package com.mitch.template.ui.screens.home.components
 
+import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,11 +29,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mitch.template.R
 import com.mitch.template.domain.models.TemplateTheme
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
+import com.mitch.template.ui.designsystem.TemplateMaterialTheme
 import com.mitch.template.ui.designsystem.theme.custom.padding
 import kotlinx.collections.immutable.toImmutableList
 
@@ -63,14 +66,15 @@ fun ThemePickerDialog(
         },
         text = {
             Column(modifier = Modifier.selectableGroup()) {
-                items.forEach { item ->
+                for (item in items) {
+                    val isSelected = item.theme == tempTheme
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
                             .clip(RoundedCornerShape(16.dp))
                             .selectable(
-                                selected = (item.theme == tempTheme),
+                                selected = isSelected,
                                 onClick = { tempTheme = item.theme },
                                 role = Role.RadioButton
                             )
@@ -79,7 +83,7 @@ fun ThemePickerDialog(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = (item.theme == tempTheme),
+                            selected = isSelected,
                             onClick = null // null recommended for accessibility with screen readers
                         )
                         Row(
@@ -121,6 +125,22 @@ fun ThemePickerDialog(
             }
         }
     )
+}
+
+@Preview
+@Composable
+private fun ThemePickerDialogLightPreview() {
+    TemplateMaterialTheme {
+        ThemePickerDialog(selectedTheme = TemplateTheme.Light, onDismiss = { }, onConfirm = { })
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun ThemePickerDialogDarkPreview() {
+    TemplateMaterialTheme {
+        ThemePickerDialog(selectedTheme = TemplateTheme.Dark, onDismiss = { }, onConfirm = { })
+    }
 }
 
 sealed class ThemePickerItem(

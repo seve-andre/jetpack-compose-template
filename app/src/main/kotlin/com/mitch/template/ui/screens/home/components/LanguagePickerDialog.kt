@@ -29,11 +29,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mitch.template.R
 import com.mitch.template.domain.models.TemplateLanguage
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
+import com.mitch.template.ui.designsystem.TemplateMaterialTheme
 import com.mitch.template.ui.designsystem.theme.custom.padding
 import kotlinx.collections.immutable.toImmutableList
 
@@ -63,14 +65,15 @@ fun LanguagePickerDialog(
         },
         text = {
             Column(modifier = Modifier.selectableGroup()) {
-                items.forEach { item ->
+                for (item in items) {
+                    val isSelected = item.language == tempLanguage
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
                             .clip(RoundedCornerShape(16.dp))
                             .selectable(
-                                selected = (item.language == tempLanguage),
+                                selected = isSelected,
                                 onClick = { tempLanguage = item.language },
                                 role = Role.RadioButton
                             )
@@ -79,7 +82,7 @@ fun LanguagePickerDialog(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = (item.language == tempLanguage),
+                            selected = isSelected,
                             onClick = null
                         )
                         Row(
@@ -121,6 +124,18 @@ fun LanguagePickerDialog(
             }
         }
     )
+}
+
+@Preview
+@Composable
+private fun LanguagePickerDialogPreview() {
+    TemplateMaterialTheme {
+        LanguagePickerDialog(
+            selectedLanguage = TemplateLanguage.English,
+            onDismiss = { },
+            onConfirm = { }
+        )
+    }
 }
 
 sealed class LanguagePickerItem(
