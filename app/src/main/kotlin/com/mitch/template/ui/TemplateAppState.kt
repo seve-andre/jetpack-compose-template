@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.mitch.template.util.network.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
@@ -36,7 +37,7 @@ class TemplateAppState(
     networkMonitor: NetworkMonitor
 ) {
     /**
-     * App's current [Destination] if set, otherwise starting destination.
+     * App's current [NavDestination] if set, otherwise starting destination.
      *
      * Starting destination: search for `@RootNavGraph(start = true)`
      */
@@ -46,7 +47,7 @@ class TemplateAppState(
     /**
      * Manages app connectivity status
      */
-    val isOffline = networkMonitor.isOnline
+    val isOffline: StateFlow<Boolean> = networkMonitor.isOnline
         .map(Boolean::not)
         .stateIn(
             scope = coroutineScope,

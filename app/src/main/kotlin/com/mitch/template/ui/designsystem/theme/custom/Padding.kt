@@ -1,12 +1,13 @@
 package com.mitch.template.ui.designsystem.theme.custom
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-val LocalPadding = compositionLocalOf { Padding() }
+val LocalPadding: ProvidableCompositionLocal<Padding> = compositionLocalOf { Padding() }
 val padding: Padding
     @Composable
     @ReadOnlyComposable

@@ -9,6 +9,7 @@ import com.mitch.template.util.Result
 import com.mitch.template.util.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -20,7 +21,7 @@ class HomeViewModel @Inject constructor(
     private val userSettingsRepository: UserSettingsRepository
 ) : ViewModel() {
 
-    val uiState = combine(
+    val uiState: StateFlow<HomeUiState> = combine(
         userSettingsRepository.getLanguage(),
         userSettingsRepository.getTheme(),
         ::Pair
