@@ -3,8 +3,8 @@ package com.mitch.template.ui.screens.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mitch.template.data.settings.UserSettingsRepository
-import com.mitch.template.domain.models.TemplateLanguage
-import com.mitch.template.domain.models.TemplateTheme
+import com.mitch.template.domain.models.TemplateLanguageConfig
+import com.mitch.template.domain.models.TemplateThemeConfig
 import com.mitch.template.util.Result
 import com.mitch.template.util.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -46,13 +46,13 @@ class HomeViewModel @Inject constructor(
             initialValue = HomeUiState.Loading
         )
 
-    fun updateTheme(theme: TemplateTheme) {
+    fun updateTheme(theme: TemplateThemeConfig) {
         viewModelScope.launch {
             userSettingsRepository.setTheme(theme)
         }
     }
 
-    fun updateLanguage(language: TemplateLanguage) {
+    fun updateLanguage(language: TemplateLanguageConfig) {
         viewModelScope.launch {
             userSettingsRepository.setLanguage(language)
         }

@@ -13,7 +13,7 @@ val LightColorScheme: ColorScheme = lightColorScheme()
 typealias TemplateDesignSystem = MaterialTheme
 
 @Composable
-fun TemplateMaterialTheme(
+fun TemplateTheme(
     isThemeDark: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
