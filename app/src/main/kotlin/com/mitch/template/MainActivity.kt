@@ -45,11 +45,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.mitch.template.domain.models.TemplateTheme
+import com.mitch.template.domain.models.TemplateThemeConfig
 import com.mitch.template.ui.TemplateAppState
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
-import com.mitch.template.ui.designsystem.TemplateMaterialTheme
+import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbar
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarDefaults
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarType
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             UpdateSystemBarsEffect(isThemeDark)
 
             CompositionLocalProvider(LocalPadding provides padding) {
-                TemplateMaterialTheme(isThemeDark = isThemeDark) {
+                TemplateTheme(isThemeDark = isThemeDark) {
                     val appState = rememberTemplateAppState(networkMonitor)
                     // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
@@ -253,9 +253,9 @@ private fun shouldUseDarkTheme(
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.theme) {
-        TemplateTheme.Dark -> true
-        TemplateTheme.Light -> false
-        TemplateTheme.FollowSystem -> isSystemInDarkTheme()
+        TemplateThemeConfig.Dark -> true
+        TemplateThemeConfig.Light -> false
+        TemplateThemeConfig.FollowSystem -> isSystemInDarkTheme()
     }
 }
 

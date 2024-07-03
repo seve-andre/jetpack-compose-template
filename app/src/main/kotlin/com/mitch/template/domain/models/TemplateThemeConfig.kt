@@ -1,13 +1,11 @@
 package com.mitch.template.domain.models
 
-enum class TemplateTheme {
+enum class TemplateThemeConfig {
     FollowSystem,
     Light,
     Dark;
 
     companion object {
-        fun default(): TemplateTheme {
-            return FollowSystem
-        }
+        val Default: TemplateThemeConfig = FollowSystem
     }
 }

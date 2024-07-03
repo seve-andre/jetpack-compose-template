@@ -3,7 +3,7 @@ package com.mitch.template
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mitch.template.data.settings.UserSettingsRepository
-import com.mitch.template.domain.models.TemplateTheme
+import com.mitch.template.domain.models.TemplateThemeConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +18,7 @@ class MainActivityViewModel @Inject constructor(
 
     /**
      * Initial [MainActivity] ui state is set to [MainActivityUiState.Loading] and mapped to
-     * [MainActivityUiState.Success] once the [TemplateTheme] data is retrieved
+     * [MainActivityUiState.Success] once the [TemplateThemeConfig] data is retrieved
      */
     val uiState: StateFlow<MainActivityUiState> = userSettingsRepository.getTheme().map {
         MainActivityUiState.Success(it)
@@ -31,5 +31,5 @@ class MainActivityViewModel @Inject constructor(
 
 sealed class MainActivityUiState {
     data object Loading : MainActivityUiState()
-    data class Success(val theme: TemplateTheme) : MainActivityUiState()
+    data class Success(val theme: TemplateThemeConfig) : MainActivityUiState()
 }

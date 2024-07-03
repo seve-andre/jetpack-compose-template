@@ -1,11 +1,11 @@
 package com.mitch.template.data.language
 
-import com.mitch.template.domain.models.TemplateLanguage
+import com.mitch.template.domain.models.TemplateLanguageConfig
 import java.util.Locale
 
-fun Locale.toDomainLanguage(): TemplateLanguage {
+fun Locale.toDomainLanguage(): TemplateLanguageConfig {
     // removes country code and variants if present
     val localeLanguageOnly = Locale.forLanguageTag(this.language)
 
-    return TemplateLanguage.fromLocale(localeLanguageOnly)
+    return TemplateLanguageConfig.fromLocale(localeLanguageOnly)
 }

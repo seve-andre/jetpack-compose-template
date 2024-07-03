@@ -32,18 +32,18 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mitch.template.R
-import com.mitch.template.domain.models.TemplateTheme
+import com.mitch.template.domain.models.TemplateThemeConfig
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
-import com.mitch.template.ui.designsystem.TemplateMaterialTheme
+import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.theme.custom.padding
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun ThemePickerDialog(
-    selectedTheme: TemplateTheme,
+    selectedTheme: TemplateThemeConfig,
     onDismiss: () -> Unit,
-    onConfirm: (TemplateTheme) -> Unit
+    onConfirm: (TemplateThemeConfig) -> Unit
 ) {
     var tempTheme by remember { mutableStateOf(selectedTheme) }
 
@@ -130,38 +130,44 @@ fun ThemePickerDialog(
 @Preview
 @Composable
 private fun ThemePickerDialogLightPreview() {
-    TemplateMaterialTheme {
-        ThemePickerDialog(selectedTheme = TemplateTheme.Light, onDismiss = { }, onConfirm = { })
+    TemplateTheme {
+        ThemePickerDialog(
+            selectedTheme = TemplateThemeConfig.Light,
+            onDismiss = { },
+            onConfirm = { })
     }
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun ThemePickerDialogDarkPreview() {
-    TemplateMaterialTheme {
-        ThemePickerDialog(selectedTheme = TemplateTheme.Dark, onDismiss = { }, onConfirm = { })
+    TemplateTheme {
+        ThemePickerDialog(
+            selectedTheme = TemplateThemeConfig.Dark,
+            onDismiss = { },
+            onConfirm = { })
     }
 }
 
 sealed class ThemePickerItem(
-    val theme: TemplateTheme,
+    val theme: TemplateThemeConfig,
     val icon: ImageVector,
     @StringRes val titleId: Int
 ) {
     data object FollowSystem : ThemePickerItem(
-        theme = TemplateTheme.FollowSystem,
+        theme = TemplateThemeConfig.FollowSystem,
         icon = TemplateIcons.Outlined.FollowSystem,
         titleId = R.string.system_default
     )
 
     data object Light : ThemePickerItem(
-        theme = TemplateTheme.Light,
+        theme = TemplateThemeConfig.Light,
         icon = TemplateIcons.Outlined.LightMode,
         titleId = R.string.light_theme
     )
 
     data object Dark : ThemePickerItem(
-        theme = TemplateTheme.Dark,
+        theme = TemplateThemeConfig.Dark,
         icon = TemplateIcons.Outlined.DarkMode,
         titleId = R.string.dark_theme
     )

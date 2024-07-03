@@ -16,9 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.template.R
-import com.mitch.template.domain.models.TemplateLanguage
-import com.mitch.template.domain.models.TemplateTheme
-import com.mitch.template.ui.designsystem.TemplateMaterialTheme
+import com.mitch.template.domain.models.TemplateLanguageConfig
+import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.components.loading.LoadingScreen
 import com.mitch.template.ui.screens.home.components.LanguagePickerDialog
 import com.mitch.template.ui.screens.home.components.ThemePickerDialog
@@ -39,8 +39,8 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
-    onChangeTheme: (TemplateTheme) -> Unit,
-    onChangeLanguage: (TemplateLanguage) -> Unit,
+    onChangeTheme: (TemplateThemeConfig) -> Unit,
+    onChangeLanguage: (TemplateLanguageConfig) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
@@ -83,18 +83,18 @@ fun HomeScreen(
     }
 }
 
-enum class ActiveDialog {
+private enum class ActiveDialog {
     None, Language, Theme
 }
 
 @Preview
 @Composable
 private fun HomeScreenContentPreview() {
-    TemplateMaterialTheme {
+    TemplateTheme {
         HomeScreen(
             uiState = HomeUiState.Success(
-                language = TemplateLanguage.English,
-                theme = TemplateTheme.Light
+                language = TemplateLanguageConfig.English,
+                theme = TemplateThemeConfig.Light
             ),
             onChangeTheme = { },
             onChangeLanguage = { }

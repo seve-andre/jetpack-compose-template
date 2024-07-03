@@ -1,7 +1,7 @@
 package com.mitch.template.ui.screens.home
 
-import com.mitch.template.domain.models.TemplateLanguage
-import com.mitch.template.domain.models.TemplateTheme
+import com.mitch.template.domain.models.TemplateLanguageConfig
+import com.mitch.template.domain.models.TemplateThemeConfig
 
 sealed interface HomeUiState {
     data object Loading : HomeUiState
@@ -11,7 +11,7 @@ sealed interface HomeUiState {
     ) : HomeUiState
 
     data class Success(
-        val language: TemplateLanguage,
-        val theme: TemplateTheme
+        val language: TemplateLanguageConfig,
+        val theme: TemplateThemeConfig
     ) : HomeUiState
 }
