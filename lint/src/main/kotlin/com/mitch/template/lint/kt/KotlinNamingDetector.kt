@@ -8,6 +8,7 @@ import com.android.tools.lint.detector.api.Issue
 import com.android.tools.lint.detector.api.JavaContext
 import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
+import com.mitch.template.lint.util.Priorities
 import com.mitch.template.lint.util.isCompanionObjectMember
 import com.mitch.template.lint.util.isObjectLiteralMember
 import com.mitch.template.lint.util.isObjectMember
@@ -92,7 +93,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
             explanation = "Compose API guidelines suggest using PascalCase for enum constants, " +
                 "instead of CAPITALS_AND_UNDERSCORES",
             category = Category.CUSTOM_LINT_CHECKS,
-            priority = 8,
+            priority = Priorities.High,
             severity = Severity.ERROR,
             implementation = Implementation(
                 KotlinNamingDetector::class.java,
@@ -107,7 +108,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
             explanation = "Compose API guidelines suggest using PascalCase for top-level properties, " +
                 "members of an object or a companion object, instead of camelCase",
             category = Category.CUSTOM_LINT_CHECKS,
-            priority = 8,
+            priority = Priorities.High,
             severity = Severity.ERROR,
             implementation = Implementation(
                 KotlinNamingDetector::class.java,
@@ -122,7 +123,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
             explanation = "Compose API guidelines follows Kotlin suggestion for properties, " +
                 "so they should use camelCase and not PascalCase.",
             category = Category.CUSTOM_LINT_CHECKS,
-            priority = 8,
+            priority = Priorities.High,
             severity = Severity.ERROR,
             implementation = Implementation(
                 KotlinNamingDetector::class.java,
