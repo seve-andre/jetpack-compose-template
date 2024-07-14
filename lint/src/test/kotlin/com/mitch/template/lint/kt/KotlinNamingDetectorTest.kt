@@ -162,7 +162,7 @@ class KotlinNamingDetectorTest {
             .run()
             .expect(
                 """
-                src/Direction.kt:2: Error: Using NORTH instead of North (PascalCase) [EnumConstantPascalCaseNaming]
+                src/Direction.kt:2: Error: Using NORTH instead of North (PascalCase) [EnumConstantName]
                     NORTH, South, East, West
                     ~~~~~~
                 1 errors, 0 warnings
