@@ -84,7 +84,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
     companion object {
         @JvmField
         val EnumConstantNameIssue: Issue = Issue.create(
-            id = "EnumConstantPascalCaseNaming",
+            id = "EnumConstantName",
             briefDescription = "Enum constants should use PascalCase",
             explanation = "Compose API guidelines suggest using PascalCase for enum constants, " +
                 "instead of CAPITALS_AND_UNDERSCORES",
