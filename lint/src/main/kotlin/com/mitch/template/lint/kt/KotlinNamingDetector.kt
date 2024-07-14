@@ -16,6 +16,9 @@ import org.jetbrains.uast.UDeclaration
 import org.jetbrains.uast.UElement
 import org.jetbrains.uast.UEnumConstant
 
+/**
+ * A detector that checks for incorrect naming conventions in Kotlin and Compose code.
+ */
 class KotlinNamingDetector : Detector(), Detector.UastScanner {
 
     override fun getApplicableUastTypes(): List<Class<out UElement>> = listOf(
