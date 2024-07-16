@@ -9,5 +9,5 @@ interface NetworkMonitor {
     /**
      * Exposes if app connectivity status is online
      */
-    val isOnline: Flow<Boolean>
+    val networkInfo: Flow<NetworkInfo>
 }
