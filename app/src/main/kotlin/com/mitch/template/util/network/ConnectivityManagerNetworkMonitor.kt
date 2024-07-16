@@ -8,68 +8,141 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest.Builder
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.produceState
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.getSystemService
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flowOn
+import timber.log.Timber
 import javax.inject.Inject
 
 class ConnectivityManagerNetworkMonitor @Inject constructor(
     @ApplicationContext private val context: Context
 ) : NetworkMonitor {
-    override val isOnline: Flow<Boolean> = callbackFlow {
+    override val networkInfo: Flow<NetworkInfo> = callbackFlow {
         val connectivityManager = context.getSystemService<ConnectivityManager>()
+        if (connectivityManager == null) {
+            channel.trySend(NetworkInfo(isOnline = false, isOnWifi = false))
+            channel.close()
+            return@callbackFlow
+        }
 
-        /**
-         * The callback's methods are invoked on changes to *any* network, not just the active
-         * network. So to check for network connectivity, one must query the active network of the
-         * ConnectivityManager.
-         */
         val callback = object : NetworkCallback() {
+            private val networks = mutableSetOf<Network>()
+
             override fun onAvailable(network: Network) {
-                channel.trySend(connectivityManager.isCurrentlyConnected())
+                networks += network
+                channel.trySend(
+                    NetworkInfo(
+                        isOnline = true,
+                        isOnWifi = connectivityManager.isOnWifi()
+                    )
+                )
+                Timber.d("onAvailable: $networks with ${connectivityManager.isOnWifi()}")
             }
 
             override fun onLost(network: Network) {
-                channel.trySend(connectivityManager.isCurrentlyConnected())
+                networks -= network
+                channel.trySend(
+                    NetworkInfo(
+                        isOnline = networks.isNotEmpty(),
+                        isOnWifi = connectivityManager.isOnWifi()
+                    )
+                )
+                Timber.d("onLost: $networks with ${connectivityManager.isOnWifi()}")
             }
 
             override fun onCapabilitiesChanged(
                 network: Network,
                 networkCapabilities: NetworkCapabilities
             ) {
-                channel.trySend(connectivityManager.isCurrentlyConnected())
+                channel.trySend(
+                    NetworkInfo(
+                        isOnline = networks.isNotEmpty(),
+                        isOnWifi = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                            || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+                    )
+                )
+                Timber.d("onCapabilitiesChanged for network $network")
             }
         }
 
-        connectivityManager?.registerNetworkCallback(
-            Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .build(),
-            callback
+        val request = Builder()
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+            .addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET)
+            .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+            .build()
+        connectivityManager.registerNetworkCallback(request, callback)
+
+        channel.trySend(
+            NetworkInfo(
+                isOnline = connectivityManager.isCurrentlyConnected(),
+                isOnWifi = connectivityManager.isOnWifi()
+            )
         )
 
-        channel.trySend(connectivityManager.isCurrentlyConnected())
-
         awaitClose {
-            connectivityManager?.unregisterNetworkCallback(callback)
+            connectivityManager.unregisterNetworkCallback(callback)
         }
     }
+        .flowOn(Dispatchers.IO)
         .conflate()
 
     @Suppress("DEPRECATION")
-    private fun ConnectivityManager?.isCurrentlyConnected() = when (this) {
-        null -> false
-        else -> when {
-            VERSION.SDK_INT >= VERSION_CODES.M ->
-                activeNetwork
-                    ?.let(::getNetworkCapabilities)
-                    ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                    ?: false
+    private fun ConnectivityManager.isCurrentlyConnected() = when {
+        VERSION.SDK_INT >= VERSION_CODES.M -> activeNetwork
+            ?.let(::getNetworkCapabilities)
+            ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
 
-            else -> activeNetworkInfo?.isConnected ?: false
+        else -> activeNetworkInfo?.isConnected
+    } ?: false
+
+    @Suppress("DEPRECATION")
+    private fun ConnectivityManager.isOnWifi() = when {
+        VERSION.SDK_INT >= VERSION_CODES.M -> {
+            val networkCapabilities = activeNetwork?.let(::getNetworkCapabilities)
+
+            when {
+                networkCapabilities == null -> false
+
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                    || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+
+                else -> false
+            }
+        }
+
+        else -> {
+            when {
+                activeNetworkInfo == null -> false
+
+                activeNetworkInfo!!.type == ConnectivityManager.TYPE_WIFI
+                    || activeNetworkInfo!!.type == ConnectivityManager.TYPE_ETHERNET -> true
+
+                else -> false
+            }
         }
     }
 }
+
+@Composable
+fun networkInfoState(): State<NetworkInfo> {
+    val context = LocalContext.current
+
+    return produceState(initialValue = NetworkInfo(isOnline = false, isOnWifi = false)) {
+        ConnectivityManagerNetworkMonitor(context).networkInfo.collect { value = it }
+    }
+}
+
+data class NetworkInfo(
+    val isOnline: Boolean,
+    val isOnWifi: Boolean
+)
