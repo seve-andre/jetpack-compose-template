@@ -16,10 +16,10 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    object Object {
-                        const val myConstant = 5
-                    }
-                    """
+                    |object Object {
+                    |    const val myConstant = 5
+                    |}
+                    """.trimMargin()
                 ).indented()
             )
             .run()
@@ -41,12 +41,12 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    class CompanionObject {
-                        companion object {
-                            const val myConstant = 5
-                        }
-                    }
-                    """
+                    |class CompanionObject {
+                    |    companion object {
+                    |        const val myConstant = 5
+                    |    }
+                    |}
+                    """.trimMargin()
                 ).indented()
             )
             .run()
@@ -68,10 +68,10 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    class Class {
-                        val myConstant = 5
-                    }
-                    """
+                    |class Class {
+                    |    val myConstant = 5
+                    |}
+                    """.trimMargin()
                 ).indented()
             )
             .run()
@@ -86,16 +86,16 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    interface Logger {
-                        fun log(value: String)
-                    }
-                    val MyLogger = object : Logger {
-                        override fun log(value: String) {
-                            val toLog = "myValue"
-                            println(toLog)
-                        }
-                    }
-                    """
+                    |interface Logger {
+                    |    fun log(value: String)
+                    |}
+                    |val MyLogger = object : Logger {
+                    |    override fun log(value: String) {
+                    |        val toLog = "myValue"
+                    |        println(toLog)
+                    |    }
+                    |}
+                    """.trimMargin()
                 ).indented()
             )
             .run()
@@ -110,12 +110,12 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    val HelloWorld = object {
-                        val hello = "Hello"
-                        val world = "World"
-                        override fun toString() = "${'$'}hello ${'$'}world"
-                    }
-                    """
+                    |val HelloWorld = object {
+                    |    val hello = "Hello"
+                    |    val world = "World"
+                    |    override fun toString() = "${'$'}hello ${'$'}world"
+                    |}
+                    """.trimMargin()
                 ).indented()
             )
             .run()
@@ -130,8 +130,8 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    const val andrea = "n"
-                    """
+                    |const val andrea = "n"
+                    """.trimMargin()
                 ).indented()
             )
             .run()
@@ -153,10 +153,10 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    enum class Direction {
-                        NORTH, South, East, West
-                    }
-                    """
+                    |enum class Direction {
+                    |    NORTH, South, East, West
+                    |}
+                    """.trimMargin()
                 ).indented()
             )
             .run()
