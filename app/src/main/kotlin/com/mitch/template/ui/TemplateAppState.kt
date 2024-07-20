@@ -47,7 +47,8 @@ class TemplateAppState(
     /**
      * Manages app connectivity status
      */
-    val isOffline: StateFlow<Boolean> = networkMonitor.isOnline
+    val isOffline: StateFlow<Boolean> = networkMonitor.networkInfo
+        .map { it.isOnline }
         .map(Boolean::not)
         .stateIn(
             scope = coroutineScope,
