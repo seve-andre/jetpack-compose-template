@@ -8,10 +8,12 @@ import com.android.tools.lint.detector.api.Issue
 import com.android.tools.lint.detector.api.JavaContext
 import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
+import com.mitch.template.lint.util.PascalCaseRegex
 import com.mitch.template.lint.util.Priorities
 import com.mitch.template.lint.util.isCompanionObjectMember
 import com.mitch.template.lint.util.isObjectLiteralMember
 import com.mitch.template.lint.util.isObjectMember
+import com.mitch.template.lint.util.toPascalCase
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.uast.UDeclaration
 import org.jetbrains.uast.UElement
@@ -24,7 +26,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
 
     override fun getApplicableUastTypes(): List<Class<out UElement>> = listOf(
         UEnumConstant::class.java,
-        UDeclaration::class.java,
+        UDeclaration::class.java
     )
 
     override fun createUastHandler(context: JavaContext): UElementHandler =
@@ -131,29 +133,4 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
             )
         )
     }
-}
-
-private val PascalCaseRegex = Regex("[A-Z]([a-z0-9]+(?:[A-Z][a-z0-9]+)*)?")
-private fun String.toPascalCase(): String {
-    return this
-        .splitWords()
-        .joinToString("") { it.capitalize() }
-}
-
-private fun String.toCamelCase(): String {
-    return this
-        .splitWords()
-        .mapIndexed { index, word ->
-            if (index == 0) word.lowercase() else word.capitalize()
-        }
-        .joinToString("")
-}
-
-private fun String.splitWords(): List<String> {
-    val regex = "(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)|(?<=\\w)(?=_+)|(?<=_)(?=\\w)|(?<=[a-z])(?=[A-Z])"
-    return this.split(Regex(regex)).filterNot { it == "_" }
-}
-
-private fun String.capitalize(): String {
-    return this.lowercase().replaceFirstChar { it.uppercase() }
 }
