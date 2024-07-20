@@ -19,9 +19,9 @@ import org.jetbrains.uast.UQualifiedReferenceExpression
 
 /**
  * A detector that checks for incorrect usages of Compose Material APIs over equivalents in
- * the template design system package.
+ * the template design system package/module.
  */
-class DesignSystemDetector : Detector(), Detector.UastScanner, Detector.GradleScanner {
+class DesignSystemDetector : Detector(), Detector.UastScanner {
 
     override fun getApplicableUastTypes(): List<Class<out UElement>> = listOf(
         UCallExpression::class.java,
@@ -31,8 +31,8 @@ class DesignSystemDetector : Detector(), Detector.UastScanner, Detector.GradleSc
     override fun createUastHandler(context: JavaContext): UElementHandler =
         object : UElementHandler() {
             override fun visitCallExpression(node: UCallExpression) {
-                val name = node.methodName ?: return
-                val reportable = MethodNames.firstOrNull { it.wrongName == name } ?: return
+                val methodName = node.methodIdentifier?.name
+                val reportable = MethodNames.firstOrNull { it.wrongName == methodName } ?: return
                 val fileExceptions = reportable.fix?.fileExceptions.orEmpty().map { it.name }
                 if (context.file.name in fileExceptions) return
 
@@ -85,7 +85,7 @@ class DesignSystemDetector : Detector(), Detector.UastScanner, Detector.GradleSc
         // Unfortunately :lint is a Java module and thus can't depend on the :designsystem
         // Android module, so we can't use composable function references (eg. ::Button.name)
         // instead of hardcoded names.
-        private val MethodNames = listOf(
+        val MethodNames = listOf(
             Reportable(
                 wrongName = "MaterialTheme",
                 correctName = "TemplateTheme",
@@ -98,7 +98,7 @@ class DesignSystemDetector : Detector(), Detector.UastScanner, Detector.GradleSc
                 }
             )
         )
-        private val ReceiverNames = listOf(
+        val ReceiverNames = listOf(
             Reportable(
                 wrongName = "Icons",
                 correctName = "TemplateIcons",
