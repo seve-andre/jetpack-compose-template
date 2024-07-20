@@ -46,3 +46,6 @@ captures/
 
 # Kotlin 2.0
 .kotlin
+
+# Secrets
+secrets.properties
