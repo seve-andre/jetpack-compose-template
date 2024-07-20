@@ -20,15 +20,15 @@ class DesignSystemDetectorTest {
                 ComposablePreviewStub,
                 kotlin(
                     """
-                    import androidx.compose.runtime.Composable
-                    import androidx.compose.ui.tooling.preview.Preview                    
+                    |import androidx.compose.runtime.Composable
+                    |import androidx.compose.ui.tooling.preview.Preview                    
 
-                    @Preview
-                    @Composable
-                    fun ComposablePreview() {
-                        MaterialTheme()
-                    }
-                    """.trimIndent()
+                    |@Preview
+                    |@Composable
+                    |fun ComposablePreview() {
+                    |    MaterialTheme()
+                    |}
+                    """.trimMargin()
                 )
             )
             .run()
@@ -48,12 +48,13 @@ class DesignSystemDetectorTest {
             .issues(IncorrectDesignSystemCallIssue)
             .allowMissingSdk()
             .files(
-                ObjectStubs,
+                WrongObjectStubs,
                 kotlin(
                     """
                     |fun main() {
-                        ${
-                        ReceiverNames.mapIndexed { index, reportable -> index to reportable.wrongName }
+                    ${
+                        ReceiverNames
+                            .mapIndexed { index, reportable -> index to reportable.wrongName }
                             .joinToString("\n") { (index, name) -> "|    val y$index = $name.x" }
                     }
                     |}
@@ -74,10 +75,64 @@ class DesignSystemDetectorTest {
             )
     }
 
+    @Test
+    fun `do not detect correct Methods usage`() {
+        lint()
+            .issues(IncorrectDesignSystemCallIssue)
+            .allowMissingSdk()
+            .files(
+                ComposableStub,
+                ComposablePreviewStub,
+                kotlin(
+                    """
+                    |import androidx.compose.runtime.Composable
+                    |import androidx.compose.ui.tooling.preview.Preview                    
+
+                    |@Preview
+                    |@Composable
+                    |fun ComposablePreview() {
+                    |    TemplateTheme()
+                    |}
+                    """.trimMargin()
+                )
+            )
+            .run()
+            .expectClean()
+    }
+
+    @Test
+    fun `do not detect correct Receiver usage`() {
+        lint()
+            .issues(IncorrectDesignSystemCallIssue)
+            .allowMissingSdk()
+            .files(
+                CorrectObjectStubs,
+                kotlin(
+                    """
+                    |fun main() {
+                    ${
+                        ReceiverNames
+                            .mapIndexed { index, reportable -> index to reportable.correctName }
+                            .joinToString("\n") { (index, name) -> "|    val y$index = $name.x" }
+                    }
+                    |}
+                    """.trimMargin()
+                )
+            )
+            .run()
+            .expectClean()
+    }
+
     private companion object {
-        private val ObjectStubs = kotlin(
+        private val WrongObjectStubs = kotlin(
             """
             ${ReceiverNames.joinToString("\n") { "|object ${it.wrongName} { val x = 1 }" }}    
+            """.trimMargin()
+        )
+
+        private val CorrectObjectStubs = kotlin(
+            """
+            ${ReceiverNames.joinToString("\n") { "|object ${it.correctName} { val x = 1 }" }}    
             """.trimMargin()
         )
     }
