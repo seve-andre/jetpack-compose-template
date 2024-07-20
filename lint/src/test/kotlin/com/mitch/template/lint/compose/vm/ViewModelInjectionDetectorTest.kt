@@ -35,13 +35,13 @@ class ViewModelInjectionDetectorTest(private val viewModel: String) {
                 ComposableStub,
                 kotlin(
                     """
-                    import androidx.compose.runtime.Composable
+                    |import androidx.compose.runtime.Composable
 
-                    @Composable
-                    fun HomeScreen() {
-                        val viewModel = $viewModel<MyVm>()
-                    }
-                    """.trimIndent()
+                    |@Composable
+                    |fun HomeScreen() {
+                    |    val viewModel = $viewModel<MyVm>()
+                    |}
+                    """.trimMargin()
                 )
             )
             .run()
@@ -66,13 +66,13 @@ class ViewModelInjectionDetectorTest(private val viewModel: String) {
                 ComposableStub,
                 kotlin(
                     """
-                    import androidx.compose.runtime.Composable
+                    |import androidx.compose.runtime.Composable
 
-                    @Composable
-                    fun HomeScreen() {
-                        val viewModel: MyVm = $viewModel()
-                    }
-                    """.trimIndent()
+                    |@Composable
+                    |fun HomeScreen() {
+                    |    val viewModel: MyVm = $viewModel()
+                    |}
+                    """.trimMargin()
                 )
             )
             .run()
@@ -96,13 +96,13 @@ class ViewModelInjectionDetectorTest(private val viewModel: String) {
                 ComposableStub,
                 kotlin(
                     """
-                    import androidx.compose.runtime.Composable
+                    |import androidx.compose.runtime.Composable
 
-                    @Composable
-                    fun HomeScreen(
-                        viewModel = $viewModel<MyVm>()
-                    ) { }
-                    """.trimIndent()
+                    |@Composable
+                    |fun HomeScreen(
+                    |    viewModel = $viewModel<MyVm>()
+                    |) { }
+                    """.trimMargin()
                 )
             )
             .run()
@@ -119,13 +119,13 @@ class ViewModelInjectionDetectorTest(private val viewModel: String) {
                 ComposableStub,
                 kotlin(
                     """
-                    import androidx.compose.runtime.Composable
+                    |import androidx.compose.runtime.Composable
 
-                    @Composable
-                    fun HomeScreen(
-                        viewModel: MyVm = $viewModel()
-                    ) { }
-                    """.trimIndent()
+                    |@Composable
+                    |fun HomeScreen(
+                    |    viewModel: MyVm = $viewModel()
+                    |) { }
+                    """.trimMargin()
                 )
             )
             .run()
