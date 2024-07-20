@@ -4,10 +4,12 @@ import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.client.api.Vendor
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
+import com.mitch.template.lint.designsystem.DesignSystemDetector
 import com.mitch.template.lint.kt.KotlinNamingDetector
 
 class TemplateIssueRegistry : IssueRegistry() {
     override val issues: List<Issue> = listOf(
+        DesignSystemDetector.IncorrectDesignSystemCallIssue,
         KotlinNamingDetector.EnumConstantNameIssue,
         KotlinNamingDetector.ConstantFieldNameIssue
     )
