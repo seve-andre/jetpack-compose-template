@@ -3,4 +3,6 @@
     <issue id="ComposeCompositionLocalUsage">
         <option name="allowed-composition-locals" value="LocalPadding,LocalExtendedColorScheme" />
     </issue>
+
+    <issue id="ComposableNaming" severity="error" />
 </lint>
