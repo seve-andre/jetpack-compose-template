@@ -1,4 +1,4 @@
-package com.mitch.template.lint.designsystem
+package com.mitch.template.lint.compose.designsystem
 
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.Category
