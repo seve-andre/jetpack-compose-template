@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -47,19 +48,19 @@ fun HomeScreen(
         HomeUiState.Loading -> LoadingScreen()
 
         is HomeUiState.Success -> {
-            val (activeDialog, setActiveDialog) = remember { mutableStateOf(ActiveDialog.None) }
+            var activeDialog by remember { mutableStateOf(ActiveDialog.None) }
             when (activeDialog) {
                 ActiveDialog.None -> Unit
 
                 ActiveDialog.Language -> LanguagePickerDialog(
                     selectedLanguage = uiState.language,
-                    onDismiss = { setActiveDialog(ActiveDialog.None) },
+                    onDismiss = { activeDialog = ActiveDialog.None },
                     onConfirm = onChangeLanguage
                 )
 
                 ActiveDialog.Theme -> ThemePickerDialog(
                     selectedTheme = uiState.theme,
-                    onDismiss = { setActiveDialog(ActiveDialog.None) },
+                    onDismiss = { activeDialog = ActiveDialog.None },
                     onConfirm = onChangeTheme
                 )
             }
@@ -69,11 +70,11 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(onClick = { setActiveDialog(ActiveDialog.Language) }) {
+                Button(onClick = { activeDialog = ActiveDialog.Language }) {
                     Text(text = stringResource(id = R.string.change_language))
                 }
 
-                Button(onClick = { setActiveDialog(ActiveDialog.Theme) }) {
+                Button(onClick = { activeDialog = ActiveDialog.Theme }) {
                     Text(text = stringResource(R.string.change_theme))
                 }
             }
