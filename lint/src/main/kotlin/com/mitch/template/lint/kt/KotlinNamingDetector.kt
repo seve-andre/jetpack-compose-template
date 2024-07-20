@@ -94,7 +94,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
             briefDescription = "Enum constants should use PascalCase",
             explanation = "Compose API guidelines suggest using PascalCase for enum constants, " +
                 "instead of CAPITALS_AND_UNDERSCORES",
-            category = Category.CUSTOM_LINT_CHECKS,
+            category = Category.CORRECTNESS,
             priority = Priorities.High,
             severity = Severity.ERROR,
             implementation = Implementation(
@@ -109,7 +109,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
             briefDescription = "Constants should use PascalCase",
             explanation = "Compose API guidelines suggest using PascalCase for top-level properties, " +
                 "members of an object or a companion object, instead of camelCase",
-            category = Category.CUSTOM_LINT_CHECKS,
+            category = Category.CORRECTNESS,
             priority = Priorities.High,
             severity = Severity.ERROR,
             implementation = Implementation(
@@ -124,7 +124,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
             briefDescription = "Properties should use camelCase.",
             explanation = "Compose API guidelines follows Kotlin suggestion for properties, " +
                 "so they should use camelCase and not PascalCase.",
-            category = Category.CUSTOM_LINT_CHECKS,
+            category = Category.CORRECTNESS,
             priority = Priorities.High,
             severity = Severity.ERROR,
             implementation = Implementation(

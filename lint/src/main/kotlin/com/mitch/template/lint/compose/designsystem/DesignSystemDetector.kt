@@ -73,7 +73,7 @@ class DesignSystemDetector : Detector(), Detector.UastScanner {
             This check highlights calls in code that use Compose Material composables 
             instead of equivalents from the template design system package
             """,
-            category = Category.CUSTOM_LINT_CHECKS,
+            category = Category.CORRECTNESS,
             priority = Priorities.High,
             severity = Severity.ERROR,
             implementation = Implementation(
