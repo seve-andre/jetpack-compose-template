@@ -4,14 +4,17 @@ import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.client.api.Vendor
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
-import com.mitch.template.lint.compose.designsystem.DesignSystemDetector
-import com.mitch.template.lint.kt.KotlinNamingDetector
+import com.mitch.template.lint.compose.designsystem.DesignSystemDetector.Companion.IncorrectDesignSystemCallIssue
+import com.mitch.template.lint.compose.vm.ViewModelInjectionDetector.Companion.ViewModelInjectionIssue
+import com.mitch.template.lint.kt.KotlinNamingDetector.Companion.ConstantFieldNameIssue
+import com.mitch.template.lint.kt.KotlinNamingDetector.Companion.EnumConstantNameIssue
 
 class TemplateIssueRegistry : IssueRegistry() {
     override val issues: List<Issue> = listOf(
-        DesignSystemDetector.IncorrectDesignSystemCallIssue,
-        KotlinNamingDetector.EnumConstantNameIssue,
-        KotlinNamingDetector.ConstantFieldNameIssue
+        IncorrectDesignSystemCallIssue,
+        EnumConstantNameIssue,
+        ConstantFieldNameIssue,
+        ViewModelInjectionIssue
     )
 
     override val minApi: Int = 12
