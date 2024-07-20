@@ -29,7 +29,7 @@ class DesignSystemDetectorTest {
                     |    MaterialTheme()
                     |}
                     """.trimMargin()
-                )
+                ).indented()
             )
             .run()
             .expect(
@@ -59,7 +59,7 @@ class DesignSystemDetectorTest {
                     }
                     |}
                     """.trimMargin()
-                )
+                ).indented()
             )
             .run()
             .expect(
@@ -94,7 +94,7 @@ class DesignSystemDetectorTest {
                     |    TemplateTheme()
                     |}
                     """.trimMargin()
-                )
+                ).indented()
             )
             .run()
             .expectClean()
@@ -117,7 +117,7 @@ class DesignSystemDetectorTest {
                     }
                     |}
                     """.trimMargin()
-                )
+                ).indented()
             )
             .run()
             .expectClean()

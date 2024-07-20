@@ -42,7 +42,7 @@ class ViewModelInjectionDetectorTest(private val viewModel: String) {
                     |    val viewModel = $viewModel<MyVm>()
                     |}
                     """.trimMargin()
-                )
+                ).indented()
             )
             .run()
             .expect(
@@ -73,7 +73,7 @@ class ViewModelInjectionDetectorTest(private val viewModel: String) {
                     |    val viewModel: MyVm = $viewModel()
                     |}
                     """.trimMargin()
-                )
+                ).indented()
             )
             .run()
             .expect(
@@ -103,7 +103,7 @@ class ViewModelInjectionDetectorTest(private val viewModel: String) {
                     |    viewModel = $viewModel<MyVm>()
                     |) { }
                     """.trimMargin()
-                )
+                ).indented()
             )
             .run()
             .expectClean()
@@ -126,7 +126,7 @@ class ViewModelInjectionDetectorTest(private val viewModel: String) {
                     |    viewModel: MyVm = $viewModel()
                     |) { }
                     """.trimMargin()
-                )
+                ).indented()
             )
             .run()
             .expectClean()
