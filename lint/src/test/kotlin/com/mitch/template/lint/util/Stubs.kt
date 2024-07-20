@@ -9,3 +9,10 @@ val ComposableStub: TestFile = kotlin(
     annotation class Composable
     """
 ).indented()
+
+val ComposablePreviewStub: TestFile = kotlin(
+    """
+    package androidx.compose.ui.tooling.preview
+    annotation class Preview
+    """
+).indented()
