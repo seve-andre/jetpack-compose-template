@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("java-library")
     kotlin("jvm")
+    alias(libs.plugins.android.lint)
 }
 
 java {

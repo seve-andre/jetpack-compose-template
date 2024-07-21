@@ -173,3 +173,4 @@ junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" 
 android-test = { id = "com.android.test", version.ref = "android-gradle-plugin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
+android-lint = { id = "com.android.lint", version.ref = "android-gradle-plugin" }
