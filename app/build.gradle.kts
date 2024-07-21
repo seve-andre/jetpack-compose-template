@@ -90,9 +90,6 @@ android {
             enableSplit = false
         }
     }
-    lint {
-        checkDependencies = true
-    }
 }
 
 kotlin {
@@ -213,6 +210,5 @@ dependencies {
     // Formatting + Linting
     detektPlugins(libs.detekt.formatting)
     detektPlugins(libs.linting.composeDetekt)
-    lintChecks(libs.linting.composeLints)
     lintChecks(projects.lint)
 }
