@@ -134,7 +134,8 @@ private fun ThemePickerDialogLightPreview() {
         ThemePickerDialog(
             selectedTheme = TemplateThemeConfig.Light,
             onDismiss = { },
-            onConfirm = { })
+            onConfirm = { }
+        )
     }
 }
 
@@ -145,7 +146,8 @@ private fun ThemePickerDialogDarkPreview() {
         ThemePickerDialog(
             selectedTheme = TemplateThemeConfig.Dark,
             onDismiss = { },
-            onConfirm = { })
+            onConfirm = { }
+        )
     }
 }
 

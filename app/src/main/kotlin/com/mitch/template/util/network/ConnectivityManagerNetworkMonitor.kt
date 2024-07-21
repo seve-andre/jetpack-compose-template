@@ -66,8 +66,8 @@ class ConnectivityManagerNetworkMonitor @Inject constructor(
                 channel.trySend(
                     NetworkInfo(
                         isOnline = networks.isNotEmpty(),
-                        isOnWifi = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                            || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+                        isOnWifi = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
                     )
                 )
                 Timber.d("onCapabilitiesChanged for network $network")
@@ -98,9 +98,10 @@ class ConnectivityManagerNetworkMonitor @Inject constructor(
 
     @Suppress("DEPRECATION")
     private fun ConnectivityManager.isCurrentlyConnected() = when {
-        VERSION.SDK_INT >= VERSION_CODES.M -> activeNetwork
-            ?.let(::getNetworkCapabilities)
-            ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        VERSION.SDK_INT >= VERSION_CODES.M ->
+            activeNetwork
+                ?.let(::getNetworkCapabilities)
+                ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
 
         else -> activeNetworkInfo?.isConnected
     } ?: false
@@ -113,8 +114,8 @@ class ConnectivityManagerNetworkMonitor @Inject constructor(
             when {
                 networkCapabilities == null -> false
 
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                    || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
 
                 else -> false
             }
