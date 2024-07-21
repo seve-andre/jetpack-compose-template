@@ -5,25 +5,25 @@ import com.android.tools.lint.client.api.Vendor
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
 import com.mitch.template.lint.compose.designsystem.DesignSystemDetector.Companion.IncorrectDesignSystemCallIssue
-import com.mitch.template.lint.compose.vm.ViewModelInjectionDetector.Companion.ViewModelInjectionIssue
 import com.mitch.template.lint.kt.KotlinNamingDetector.Companion.ConstantFieldNameIssue
 import com.mitch.template.lint.kt.KotlinNamingDetector.Companion.EnumConstantNameIssue
 
 class TemplateIssueRegistry : IssueRegistry() {
-    override val issues: List<Issue> = listOf(
-        IncorrectDesignSystemCallIssue,
-        EnumConstantNameIssue,
-        ConstantFieldNameIssue,
-        ViewModelInjectionIssue
-    )
+    override val issues: List<Issue> =
+        listOf(
+            IncorrectDesignSystemCallIssue,
+            EnumConstantNameIssue,
+            ConstantFieldNameIssue
+        )
 
-    override val minApi: Int = 12
+    override val minApi: Int = 14
     override val api: Int = CURRENT_API
 
     private val repoUrl = "https://github.com/seve-andre/jetpack-compose-template"
-    override val vendor: Vendor = Vendor(
-        vendorName = "Template",
-        feedbackUrl = "$repoUrl/issues",
-        contact = repoUrl
-    )
+    override val vendor: Vendor =
+        Vendor(
+            vendorName = "Template",
+            feedbackUrl = "$repoUrl/issues",
+            contact = repoUrl
+        )
 }
