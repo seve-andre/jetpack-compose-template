@@ -20,15 +20,15 @@ class DesignSystemDetectorTest {
                 ComposablePreviewStub,
                 kotlin(
                     """
-                    |import androidx.compose.runtime.Composable
-                    |import androidx.compose.ui.tooling.preview.Preview                    
+                    import androidx.compose.runtime.Composable
+                    import androidx.compose.ui.tooling.preview.Preview                    
 
-                    |@Preview
-                    |@Composable
-                    |fun ComposablePreview() {
-                    |    MaterialTheme()
-                    |}
-                    """.trimMargin()
+                    @Preview
+                    @Composable
+                    fun ComposablePreview() {
+                        MaterialTheme()
+                    }
+                    """
                 ).indented()
             )
             .run()
@@ -51,14 +51,14 @@ class DesignSystemDetectorTest {
                 WrongObjectStubs,
                 kotlin(
                     """
-                    |fun main() {
+                    fun main() {
                     ${
                         ReceiverNames
                             .mapIndexed { index, reportable -> index to reportable.wrongName }
-                            .joinToString("\n") { (index, name) -> "|    val y$index = $name.x" }
+                            .joinToString("\n") { (index, name) -> "    val y$index = $name.x" }
                     }
-                    |}
-                    """.trimMargin()
+                    }
+                    """
                 ).indented()
             )
             .run()
@@ -85,15 +85,15 @@ class DesignSystemDetectorTest {
                 ComposablePreviewStub,
                 kotlin(
                     """
-                    |import androidx.compose.runtime.Composable
-                    |import androidx.compose.ui.tooling.preview.Preview                    
+                    import androidx.compose.runtime.Composable
+                    import androidx.compose.ui.tooling.preview.Preview                    
 
-                    |@Preview
-                    |@Composable
-                    |fun ComposablePreview() {
-                    |    TemplateTheme()
-                    |}
-                    """.trimMargin()
+                    @Preview
+                    @Composable
+                    fun ComposablePreview() {
+                        TemplateTheme()
+                    }
+                    """
                 ).indented()
             )
             .run()
@@ -109,14 +109,14 @@ class DesignSystemDetectorTest {
                 CorrectObjectStubs,
                 kotlin(
                     """
-                    |fun main() {
+                    fun main() {
                     ${
                         ReceiverNames
                             .mapIndexed { index, reportable -> index to reportable.correctName }
-                            .joinToString("\n") { (index, name) -> "|    val y$index = $name.x" }
+                            .joinToString("\n") { (index, name) -> "    val y$index = $name.x" }
                     }
-                    |}
-                    """.trimMargin()
+                    }
+                    """
                 ).indented()
             )
             .run()

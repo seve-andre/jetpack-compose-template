@@ -16,10 +16,10 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    |object Object {
-                    |    const val myConstant = 5
-                    |}
-                    """.trimMargin()
+                    object Object {
+                        const val myConstant = 5
+                    }
+                    """
                 ).indented()
             )
             .run()
@@ -41,12 +41,12 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    |class CompanionObject {
-                    |    companion object {
-                    |        const val myConstant = 5
-                    |    }
-                    |}
-                    """.trimMargin()
+                    class CompanionObject {
+                        companion object {
+                            const val myConstant = 5
+                        }
+                    }
+                    """
                 ).indented()
             )
             .run()
@@ -68,10 +68,10 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    |class Class {
-                    |    val myConstant = 5
-                    |}
-                    """.trimMargin()
+                    class Class {
+                        val myConstant = 5
+                    }
+                    """
                 ).indented()
             )
             .run()
@@ -86,16 +86,16 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    |interface Logger {
-                    |    fun log(value: String)
-                    |}
-                    |val MyLogger = object : Logger {
-                    |    override fun log(value: String) {
-                    |        val toLog = "myValue"
-                    |        println(toLog)
-                    |    }
-                    |}
-                    """.trimMargin()
+                    interface Logger {
+                        fun log(value: String)
+                    }
+                    val MyLogger = object : Logger {
+                        override fun log(value: String) {
+                            val toLog = "myValue"
+                            println(toLog)
+                        }
+                    }
+                    """
                 ).indented()
             )
             .run()
@@ -110,12 +110,12 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    |val HelloWorld = object {
-                    |    val hello = "Hello"
-                    |    val world = "World"
-                    |    override fun toString() = "＄hello ＄world"
-                    |}
-                    """.trimMargin()
+                    val HelloWorld = object {
+                        val hello = "Hello"
+                        val world = "World"
+                        override fun toString() = "＄hello ＄world"
+                    }
+                    """
                 ).indented()
             )
             .run()
@@ -130,8 +130,8 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    |const val andrea = "n"
-                    """.trimMargin()
+                    const val andrea = "n"
+                    """
                 ).indented()
             )
             .run()
@@ -153,10 +153,10 @@ class KotlinNamingDetectorTest {
             .files(
                 kotlin(
                     """
-                    |enum class Direction {
-                    |    NORTH, South, East, West
-                    |}
-                    """.trimMargin()
+                    enum class Direction {
+                        NORTH, South, East, West
+                    }
+                    """
                 ).indented()
             )
             .run()
