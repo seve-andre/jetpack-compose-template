@@ -1,13 +1,13 @@
 package com.mitch.template.lint.util
 
-val PascalCaseRegex = Regex("[A-Z]([a-z0-9]+(?:[A-Z][a-z0-9]+)*)?")
+val PascalCaseRegex: Regex = Regex("[A-Z]([a-z0-9]+(?:[A-Z][a-z0-9]+)*)?")
 fun String.toPascalCase(): String {
     return this
         .splitWords()
         .joinToString("") { it.capitalize() }
 }
 
-val CamelCaseRegex = Regex("[a-z]+([0-9])?(?:[A-Z][a-z0-9]+)*")
+val CamelCaseRegex: Regex = Regex("[a-z]+([0-9])?(?:[A-Z][a-z0-9]+)*")
 fun String.toCamelCase(): String {
     return this
         .splitWords()
