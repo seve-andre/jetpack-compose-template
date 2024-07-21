@@ -58,7 +58,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
                     ConstantFieldNameIssue,
                     node,
                     context.getLocation(node),
-                    "Using $wrongName instead of $correctPropertyName (PascalCase)",
+                    "Using $wrongName instead of **$correctPropertyName** (PascalCase)",
                     fix()
                         .replace()
                         .text(wrongName)
@@ -76,7 +76,7 @@ class KotlinNamingDetector : Detector(), Detector.UastScanner {
                         EnumConstantNameIssue,
                         node,
                         context.getLocation(node),
-                        "Using $constantName instead of $correctConstantName (PascalCase)",
+                        "Using $constantName instead of **$correctConstantName** (PascalCase)",
                         fix()
                             .replace()
                             .text(constantName)
