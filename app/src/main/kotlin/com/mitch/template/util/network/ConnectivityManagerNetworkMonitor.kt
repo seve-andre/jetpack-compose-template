@@ -125,8 +125,8 @@ class ConnectivityManagerNetworkMonitor @Inject constructor(
             when {
                 activeNetworkInfo == null -> false
 
-                activeNetworkInfo!!.type == ConnectivityManager.TYPE_WIFI
-                    || activeNetworkInfo!!.type == ConnectivityManager.TYPE_ETHERNET -> true
+                activeNetworkInfo?.type == ConnectivityManager.TYPE_WIFI ||
+                    activeNetworkInfo?.type == ConnectivityManager.TYPE_ETHERNET -> true
 
                 else -> false
             }
