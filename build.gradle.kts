@@ -10,4 +10,5 @@ plugins {
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.secrets) apply false
     alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.android.lint) apply false
 }
