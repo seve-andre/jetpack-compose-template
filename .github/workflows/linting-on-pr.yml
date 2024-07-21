@@ -9,18 +9,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Get all changed kotlin files
-        id: changed-kotlin-files
-        uses: tj-actions/changed-files@v42
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
         with:
-          separator: ","
-          # Avoid using single or double quotes for multiline patterns
-          files: |
-            **.kt
-            **.kts
+          distribution: 'zulu'
+          java-version: 17
 
-      - name: "detekt"
-        if: steps.changed-kotlin-files.outputs.test_any_changed == 'true'
-        uses: natiginfo/action-detekt-all@1.23.5
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
         with:
-          args: -p ./config/detekt/detekt-compose-0.3.11-all.jar,./config/detekt/detekt-formatting-1.23.5.jar -c ./config/detekt/detekt.yml -b ./config/detekt/baseline.xml -ac --build-upon-default-config -ex "**/build/**,**/resources/**" -i ${{ steps.changed-kotlin-files.outputs.all_changed_files }}
+          validate-wrappers: true
+          gradle-home-cache-cleanup: true
+
+      - name: Run detekt
+        run: ./gradlew detektMain
+
+      - name: Run lint
+        run: ./gradlew :app:lintProdRelease :lint:lint
+
+      - name: Upload lint reports (HTML)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-reports
+          path: '**/build/reports/lint-results-*.html'
