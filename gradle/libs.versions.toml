@@ -50,9 +50,8 @@ uiAutomator = "2.2.0"
 desugar-jdk-libs = "2.0.4"
 
 # Formatting + Linting
-detekt = "1.23.5"
-nlopez-composeRules = "0.3.11"
-compose-lints = "1.3.0" # 1.3.1 does not respect `ComposeCompositionLocalUsage` allow list in lint.xml
+detekt = "1.23.6"
+nlopez-composeRules = "0.4.5"
 
 # API calls
 retrofit = "2.11.0"
@@ -151,7 +150,6 @@ android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs
 # Formatting + Linting
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 linting-composeDetekt = { group = "io.nlopez.compose.rules", name = "detekt", version.ref = "nlopez-composeRules" }
-linting-composeLints = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "compose-lints" }
 
 # API calls
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
