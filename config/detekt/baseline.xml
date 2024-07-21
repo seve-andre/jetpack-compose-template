@@ -1,13 +1,9 @@
-<?xml version="1.0" ?>
+<?xml version='1.0' encoding='UTF-8'?>
 <SmellBaseline>
   <ManuallySuppressedIssues>
-    <ID>CompositionLocalAllowlist:ExtendedColorScheme.kt$LocalExtendedColorScheme</ID>
-    <ID>CompositionLocalAllowlist:Padding.kt$LocalPadding</ID>
-    <ID>UnusedParameter:TemplateNavHost.kt$onShowSnackbar: suspend (AppSnackbarVisuals) -&gt; SnackbarResult</ID>
+    <ID>UnusedParameter:TemplateNavHost.kt$onShowSnackbar: suspend (AppSnackbarVisuals) -> SnackbarResult</ID>
   </ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>CompositionLocalAllowlist:ExtendedColorScheme.kt$LocalExtendedColorScheme</ID>
-    <ID>CompositionLocalAllowlist:Padding.kt$LocalPadding</ID>
-    <ID>UnusedParameter:TemplateNavHost.kt$onShowSnackbar: suspend (TemplateSnackbarVisuals) -&gt; SnackbarResult</ID>
+    <ID>UnusedParameter:TemplateNavHost.kt$onShowSnackbar: suspend (TemplateSnackbarVisuals) -> SnackbarResult</ID>
   </CurrentIssues>
 </SmellBaseline>
