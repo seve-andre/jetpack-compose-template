@@ -11,13 +11,11 @@ import android.os.Build.VERSION_CODES
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.produceState
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.getSystemService
 import com.mitch.template.di.Dispatcher
 import com.mitch.template.di.TemplateDispatcher.Io
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
