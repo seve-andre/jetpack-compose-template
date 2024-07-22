@@ -17,7 +17,7 @@ import kotlin.annotation.AnnotationRetention.RUNTIME
 object DispatchersModule {
     @Provides
     @Dispatcher(Io)
-    fun providesIODispatcher(): CoroutineDispatcher = Dispatchers.IO
+    fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
     @Dispatcher(Default)
