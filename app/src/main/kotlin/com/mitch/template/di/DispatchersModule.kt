@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Qualifier
 import kotlin.annotation.AnnotationRetention.RUNTIME
 
+@Suppress("InjectDispatcher")
 @Module
 @InstallIn(SingletonComponent::class)
 object DispatchersModule {
