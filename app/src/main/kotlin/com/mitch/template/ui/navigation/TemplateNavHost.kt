@@ -1,6 +1,5 @@
 package com.mitch.template.ui.navigation
 
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.compose.dropUnlessResumed
 import androidx.navigation.NavController
@@ -9,7 +8,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarVisuals
 import com.mitch.template.ui.navigation.TemplateDestinations.Graph
 import com.mitch.template.ui.navigation.TemplateDestinations.Screen
 import com.mitch.template.ui.screens.home.HomeRoute
@@ -17,8 +15,7 @@ import com.mitch.template.ui.screens.home.HomeRoute
 @Composable
 fun TemplateNavHost(
     navController: NavHostController,
-    startDestination: TemplateStartDestination,
-    onShowSnackbar: suspend (TemplateSnackbarVisuals) -> SnackbarResult
+    startDestination: TemplateStartDestination
 ) {
     NavHost(
         navController = navController,
