@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<SmellBaseline>
-  <ManuallySuppressedIssues>
-    <ID>UnusedParameter:TemplateNavHost.kt$onShowSnackbar: suspend (AppSnackbarVisuals) -> SnackbarResult</ID>
-  </ManuallySuppressedIssues>
-  <CurrentIssues>
-    <ID>UnusedParameter:TemplateNavHost.kt$onShowSnackbar: suspend (TemplateSnackbarVisuals) -> SnackbarResult</ID>
-  </CurrentIssues>
-</SmellBaseline>

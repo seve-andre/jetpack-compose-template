@@ -8,6 +8,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 val LocalPadding: ProvidableCompositionLocal<Padding> = compositionLocalOf { Padding() }
+
+@Suppress("TopLevelPropertyNaming")
 val padding: Padding
     @Composable
     @ReadOnlyComposable
