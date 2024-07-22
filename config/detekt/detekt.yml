@@ -618,7 +618,7 @@ style:
   TrailingWhitespace:
     active: false
   UnderscoresInNumericLiterals:
-    active: false
+    active: true
     acceptableLength: 4
     allowNonStandardGrouping: false
   UnnecessaryAbstractClass:
