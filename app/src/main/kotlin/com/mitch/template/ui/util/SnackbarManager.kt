@@ -1,6 +1,5 @@
 package com.mitch.template.ui.util
 
-import android.annotation.SuppressLint
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarVisuals
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
