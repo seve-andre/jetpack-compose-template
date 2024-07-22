@@ -121,6 +121,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 }
 
 secrets {
+    defaultPropertiesFileName = "secrets.defaults.properties"
     propertiesFileName = "secrets.properties"
 }
 

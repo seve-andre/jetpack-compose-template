@@ -11,10 +11,11 @@ import android.os.Build.VERSION_CODES
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.produceState
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.getSystemService
+import com.mitch.template.di.Dispatcher
+import com.mitch.template.di.TemplateDispatcher.Io
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -24,7 +25,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ConnectivityManagerNetworkMonitor @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    @Dispatcher(Io) private val ioDispatcher: CoroutineDispatcher
 ) : NetworkMonitor {
     override val networkInfo: Flow<NetworkInfo> = callbackFlow {
         val connectivityManager = context.getSystemService<ConnectivityManager>()
@@ -93,7 +95,7 @@ class ConnectivityManagerNetworkMonitor @Inject constructor(
             connectivityManager.unregisterNetworkCallback(callback)
         }
     }
-        .flowOn(Dispatchers.IO)
+        .flowOn(ioDispatcher)
         .conflate()
 
     @Suppress("DEPRECATION")
@@ -135,11 +137,9 @@ class ConnectivityManagerNetworkMonitor @Inject constructor(
 }
 
 @Composable
-fun networkInfoState(): State<NetworkInfo> {
-    val context = LocalContext.current
-
+fun NetworkMonitor.networkInfoState(): State<NetworkInfo> {
     return produceState(initialValue = NetworkInfo(isOnline = false, isOnWifi = false)) {
-        ConnectivityManagerNetworkMonitor(context).networkInfo.collect { value = it }
+        this@networkInfoState.networkInfo.collect { value = it }
     }
 }
 
