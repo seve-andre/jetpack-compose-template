@@ -66,8 +66,8 @@ If you wanna implement some of the following things (not included by this templa
 searching
 in [Now in Android repo](https://github.com/android/nowinandroid) first:
 
-- [TimeZone](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid%20timezone&type=code)
-- [Analytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+analytics+language%3AKotlin&type=code&l=Kotlin) (e.g. based on app product flavor)
+- [TimeZone](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+timezone&type=code)
+- [Analytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+analytics&type=code) (e.g. based on app product flavor)
 - [Notifications](https://firebase.google.com/docs/cloud-messaging)
 - [Crashlytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+crashlytics&type=code)
 
