@@ -135,8 +135,7 @@ class MainActivity : AppCompatActivity() {
                                 navController = appState.navController,
                                 startDestination = TemplateStartDestination.Screen(
                                     TemplateDestinations.Screen.Home
-                                ),
-                                onShowSnackbar = { appState.snackbarHostState.showSnackbar(it) }
+                                )
                             )
                         }
                     }

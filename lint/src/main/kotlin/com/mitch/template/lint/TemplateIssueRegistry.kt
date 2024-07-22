@@ -5,16 +5,9 @@ import com.android.tools.lint.client.api.Vendor
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
 import com.mitch.template.lint.compose.designsystem.DesignSystemDetector.Companion.IncorrectDesignSystemCallIssue
-import com.mitch.template.lint.kt.KotlinNamingDetector.Companion.ConstantFieldNameIssue
-import com.mitch.template.lint.kt.KotlinNamingDetector.Companion.EnumConstantNameIssue
 
 class TemplateIssueRegistry : IssueRegistry() {
-    override val issues: List<Issue> =
-        listOf(
-            IncorrectDesignSystemCallIssue,
-            EnumConstantNameIssue,
-            ConstantFieldNameIssue
-        )
+    override val issues: List<Issue> = listOf(IncorrectDesignSystemCallIssue)
 
     override val minApi: Int = 14
     override val api: Int = CURRENT_API
