@@ -31,6 +31,8 @@ val DarkExtendedColorScheme: ExtendedColorScheme = ExtendedColorScheme(
 
 val LocalExtendedColorScheme: ProvidableCompositionLocal<ExtendedColorScheme> =
     staticCompositionLocalOf { LightExtendedColorScheme }
+
+@Suppress("TopLevelPropertyNaming")
 val TemplateDesignSystem.extendedColorScheme: ExtendedColorScheme
     @Composable
     get() = LocalExtendedColorScheme.current
