@@ -176,7 +176,6 @@ dependencies {
 
     // Datastore (previously SharedPreferences)
     implementation(libs.datastore.core)
-    implementation(libs.encryptedDatastore)
 
     // Logging
     implementation(libs.timber)
