@@ -27,7 +27,6 @@ room = "2.6.1"
 
 # Datastore
 datastore = "1.1.1"
-encryptedDatastore = "1.0.0-beta01"
 
 # Logging
 timber = "5.0.1"
@@ -121,7 +120,6 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 
 # Datastore
 datastore-core = { group = "androidx.datastore", name = "datastore", version.ref = "datastore" }
-encryptedDatastore = { group = "io.github.osipxd", name = "encrypted-datastore", version.ref = "encryptedDatastore" }
 
 # Logging
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
