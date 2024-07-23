@@ -6,7 +6,6 @@ import com.mitch.template.di.Dispatcher
 import com.mitch.template.di.TemplateDispatcher.Io
 import com.mitch.template.domain.models.UserPreferences
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
@@ -26,7 +25,7 @@ class UserPreferencesSerializer @Inject constructor(
     override suspend fun readFrom(input: InputStream): UserPreferences {
         return try {
             withContext(ioDispatcher) {
-                ProtoBuf.decodeFromByteArray<UserPreferences>(bytes = )
+                ProtoBuf.decodeFromByteArray<UserPreferences>(bytes = input.use { it.readBytes() })
             }
         } catch (exception: SerializationException) {
             throw CorruptionException("Cannot read proto. $exception")
