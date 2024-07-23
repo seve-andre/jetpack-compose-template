@@ -1,43 +1,19 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
+    alias(libs.plugins.template.android.application)
+    alias(libs.plugins.template.android.application.compose)
+    alias(libs.plugins.template.android.application.flavors)
+    alias(libs.plugins.template.hilt)
     alias(libs.plugins.detekt)
-    alias(libs.plugins.junit5)
-    alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.secrets)
-    alias(libs.plugins.compose.compiler)
 }
 
 val packageName = "com.mitch.template"
 
-enum class TemplateFlavorDimension {
-    Version;
-
-    val dimensionName = this.name.replaceFirstChar { it.lowercase() }
-}
-
-enum class TemplateFlavor(
-    val dimension: TemplateFlavorDimension,
-    val applicationIdSuffix: String? = null
-) {
-    Demo(dimension = TemplateFlavorDimension.Version),
-    Prod(dimension = TemplateFlavorDimension.Version);
-
-    val flavorName = this.name.replaceFirstChar { it.lowercase() }
-}
-
 android {
     namespace = packageName
 
-    compileSdk = 34
     defaultConfig {
         applicationId = packageName
-        minSdk = 21
-        targetSdk = 34
         versionCode = 1
         versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -60,49 +36,11 @@ android {
             )
         }
     }
-    flavorDimensions += TemplateFlavorDimension.values().map { it.dimensionName }
-    productFlavors {
-        TemplateFlavor.values().forEach { flavor ->
-            create(flavor.flavorName) {
-                dimension = flavor.dimension.dimensionName
-                if (flavor.applicationIdSuffix != null) {
-                    applicationIdSuffix = flavor.applicationIdSuffix
-                }
-            }
-        }
-    }
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
     bundle {
         language {
             enableSplit = false
         }
     }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
-    }
-}
-
-composeCompiler {
-    enableStrongSkippingMode = true
-    reportsDestination = layout.buildDirectory.dir("compose_compiler")
-    stabilityConfigurationFile =
-        rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
 }
 
 detekt {
@@ -203,9 +141,6 @@ dependencies {
     androidTestImplementation(libs.test.rules)
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.uiAutomator)
-
-    // Desugaring - https://developer.android.com/studio/write/java8-support-table
-    coreLibraryDesugaring(libs.android.desugarJdkLibs)
 
     // Formatting + Linting
     detektPlugins(libs.detekt.formatting)

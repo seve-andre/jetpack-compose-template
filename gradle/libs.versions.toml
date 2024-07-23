@@ -106,6 +106,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "compose-navigation" }
 
 # Dependency Injection
+hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
@@ -159,6 +160,14 @@ lint-api = { group = "com.android.tools.lint", name = "lint-api", version.ref = 
 lint-checks = { group = "com.android.tools.lint", name = "lint-checks", version.ref = "androidTools" }
 lint-tests = { group = "com.android.tools.lint", name = "lint-tests", version.ref = "androidTools" }
 
+# Build logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
+android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
+compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -172,3 +181,16 @@ android-test = { id = "com.android.test", version.ref = "android-gradle-plugin" 
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 android-lint = { id = "com.android.lint", version.ref = "android-gradle-plugin" }
+
+# Plugins defined by this project
+template-android-application = { id = "template.android.application", version = "unspecified" }
+template-android-application-compose = { id = "template.android.application.compose", version = "unspecified" }
+template-android-application-flavors = { id = "template.android.application.flavors", version = "unspecified" }
+template-android-feature = { id = "template.android.feature", version = "unspecified" }
+template-android-library = { id = "template.android.library", version = "unspecified" }
+template-android-library-compose = { id = "template.android.library.compose", version = "unspecified" }
+template-android-lint = { id = "template.android.lint", version = "unspecified" }
+template-android-room = { id = "template.android.room", version = "unspecified" }
+template-android-test = { id = "template.android.test", version = "unspecified" }
+template-hilt = { id = "template.hilt", version = "unspecified" }
+template-jvm-library = { id = "template.jvm.library", version = "unspecified" }
