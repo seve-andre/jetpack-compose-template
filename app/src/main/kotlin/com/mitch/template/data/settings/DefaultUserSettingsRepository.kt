@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class UserSettingsRepositoryImpl @Inject constructor(
+class DefaultUserSettingsRepository @Inject constructor(
     private val userPreferencesLocalDataSource: UserPreferencesLocalDataSource,
     private val languageLocalDataSource: LanguageLocalDataSource
 ) : UserSettingsRepository {

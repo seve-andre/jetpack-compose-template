@@ -1,7 +1,7 @@
 package com.mitch.template.di
 
+import com.mitch.template.data.settings.DefaultUserSettingsRepository
 import com.mitch.template.data.settings.UserSettingsRepository
-import com.mitch.template.data.settings.UserSettingsRepositoryImpl
 import com.mitch.template.util.network.ConnectivityManagerNetworkMonitor
 import com.mitch.template.util.network.NetworkMonitor
 import dagger.Binds
@@ -20,6 +20,6 @@ abstract class BindModule {
 
     @Binds
     abstract fun bindsUserSettingsRepository(
-        userSettingsRepositoryImpl: UserSettingsRepositoryImpl
+        userSettingsRepositoryImpl: DefaultUserSettingsRepository
     ): UserSettingsRepository
 }
