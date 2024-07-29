@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Template</string>
-    <string name="system_default">Predefinito di sistema</string>
-    <string name="light_theme">Chiaro</string>
-    <string name="dark_theme">Scuro</string>
-    <string name="change_language">Cambia lingua</string>
-    <string name="change_theme">Cambia tema</string>
-    <string name="cancel">Annulla</string>
-    <string name="save">Salva</string>
-    <string name="dismiss_snackbar_content_description">Chiudi messaggio</string>
 </resources>

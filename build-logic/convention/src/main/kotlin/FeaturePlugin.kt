@@ -13,8 +13,8 @@ class FeaturePlugin : Plugin<Project> {
             }
 
             dependencies {
-                /*implementation(project(":core:ui"))
-                implementation(project(":core:designsystem"))*/
+                implementation(project(":core:ui"))
+                implementation(project(":core:designsystem"))
 
                 implementation(Libs.findLibrary("hilt-navigation-compose").get())
                 implementation(Libs.findLibrary("lifecycle-runtimeCompose").get())

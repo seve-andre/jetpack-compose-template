@@ -4,6 +4,7 @@ import com.android.build.api.dsl.CommonExtension
 import com.mitch.template.util.Libs
 import com.mitch.template.util.Sdk
 import com.mitch.template.util.coreLibraryDesugaring
+import com.mitch.template.util.implementation
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
@@ -42,6 +43,7 @@ internal fun Project.configureKotlinAndroid(
 
     dependencies {
         coreLibraryDesugaring(Libs.findLibrary("android-desugarJdkLibs").get())
+        implementation(Libs.findLibrary("timber").get())
     }
 }
 
@@ -57,6 +59,10 @@ internal fun Project.configureKotlinJvm() {
     }
 
     configureKotlin<KotlinJvmProjectExtension>()
+
+    dependencies {
+        implementation(Libs.findLibrary("kotlinx-coroutines-core").get())
+    }
 }
 
 /**

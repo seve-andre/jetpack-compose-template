@@ -20,3 +20,13 @@ rootProject.name = "template"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":lint")
+include(":core:data")
+include(":core:database")
+include(":core:datastore")
+include(":core:domain")
+include(":core:network")
+include(":core:ui")
+include(":core:util")
+
+include(":feature:home")
+include(":core:designsystem")

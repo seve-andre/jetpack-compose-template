@@ -7,7 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.core.domain.models.TemplateThemeConfig
 import com.mitch.template.ui.util.AppNameAndroidComposeTestRule
 import com.mitch.template.ui.util.stringResource
 import kotlinx.collections.immutable.ImmutableList
@@ -24,26 +24,26 @@ class ThemePickerDialogTest {
     private val correctItemsRobot = ThemePickerRobot(
         composeTestRule,
         listOf(
-            ThemePickerItem.FollowSystem,
-            ThemePickerItem.Dark,
-            ThemePickerItem.Light
+            com.mitch.template.feature.home.components.ThemePickerItem.FollowSystem,
+            com.mitch.template.feature.home.components.ThemePickerItem.Dark,
+            com.mitch.template.feature.home.components.ThemePickerItem.Light
         ).toImmutableList()
     )
 
     private val wrongItemsRobot = ThemePickerRobot(
         composeTestRule,
         listOf(
-            ThemePickerItem.FollowSystem,
-            ThemePickerItem.FollowSystem, // repeated twice -> wrong
-            ThemePickerItem.Light
+            com.mitch.template.feature.home.components.ThemePickerItem.FollowSystem,
+            com.mitch.template.feature.home.components.ThemePickerItem.FollowSystem, // repeated twice -> wrong
+            com.mitch.template.feature.home.components.ThemePickerItem.Light
         ).toImmutableList()
     )
 
     @Before
     fun setUp() {
         composeTestRule.setContent {
-            ThemePickerDialog(
-                selectedTheme = TemplateThemeConfig.Default,
+            com.mitch.template.feature.home.components.ThemePickerDialog(
+                selectedTheme = com.mitch.template.core.domain.models.TemplateThemeConfig.Default,
                 onDismiss = { },
                 onConfirm = { }
             )
@@ -53,39 +53,39 @@ class ThemePickerDialogTest {
     @Test
     fun allThemeOptionsExist() {
         with(correctItemsRobot) {
-            assertThemeExists(TemplateThemeConfig.FollowSystem)
-            assertThemeExists(TemplateThemeConfig.Light)
-            assertThemeExists(TemplateThemeConfig.Dark)
-            assertThemeIsSelected(TemplateThemeConfig.Default)
+            assertThemeExists(com.mitch.template.core.domain.models.TemplateThemeConfig.FollowSystem)
+            assertThemeExists(com.mitch.template.core.domain.models.TemplateThemeConfig.Light)
+            assertThemeExists(com.mitch.template.core.domain.models.TemplateThemeConfig.Dark)
+            assertThemeIsSelected(com.mitch.template.core.domain.models.TemplateThemeConfig.Default)
         }
     }
 
     @Test
     fun whenNewSelected_displaysCorrectOption() {
         with(correctItemsRobot) {
-            selectTheme(TemplateThemeConfig.Dark)
-            assertThemeIsNotSelected(TemplateThemeConfig.Light)
-            assertThemeIsNotSelected(TemplateThemeConfig.FollowSystem)
-            assertThemeIsSelected(TemplateThemeConfig.Dark)
+            selectTheme(com.mitch.template.core.domain.models.TemplateThemeConfig.Dark)
+            assertThemeIsNotSelected(com.mitch.template.core.domain.models.TemplateThemeConfig.Light)
+            assertThemeIsNotSelected(com.mitch.template.core.domain.models.TemplateThemeConfig.FollowSystem)
+            assertThemeIsSelected(com.mitch.template.core.domain.models.TemplateThemeConfig.Dark)
         }
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun whenItemsAreWrong_throwsError() {
         with(wrongItemsRobot) {
-            selectTheme(TemplateThemeConfig.Dark)
-            assertThemeIsNotSelected(TemplateThemeConfig.Light)
-            assertThemeIsNotSelected(TemplateThemeConfig.FollowSystem)
-            assertThemeIsSelected(TemplateThemeConfig.Dark)
+            selectTheme(com.mitch.template.core.domain.models.TemplateThemeConfig.Dark)
+            assertThemeIsNotSelected(com.mitch.template.core.domain.models.TemplateThemeConfig.Light)
+            assertThemeIsNotSelected(com.mitch.template.core.domain.models.TemplateThemeConfig.FollowSystem)
+            assertThemeIsSelected(com.mitch.template.core.domain.models.TemplateThemeConfig.Dark)
         }
     }
 }
 
 class ThemePickerRobot(
     private val composeTestRule: AppNameAndroidComposeTestRule,
-    private val items: ImmutableList<ThemePickerItem>
+    private val items: ImmutableList<com.mitch.template.feature.home.components.ThemePickerItem>
 ) {
-    fun selectTheme(theme: TemplateThemeConfig) {
+    fun selectTheme(theme: com.mitch.template.core.domain.models.TemplateThemeConfig) {
         val item = items.singleOrNull { it.theme == theme }
         requireNotNull(item) {
             "item from theme $theme is null; check that items DO NOT have the same theme"
@@ -96,7 +96,7 @@ class ThemePickerRobot(
             .performClick()
     }
 
-    fun assertThemeExists(theme: TemplateThemeConfig) {
+    fun assertThemeExists(theme: com.mitch.template.core.domain.models.TemplateThemeConfig) {
         val item = items.singleOrNull { it.theme == theme }
         requireNotNull(item) {
             "item from theme $theme is null; check that items DO NOT have the same theme"
@@ -114,7 +114,7 @@ class ThemePickerRobot(
             .assertExists()
     }
 
-    fun assertThemeIsSelected(theme: TemplateThemeConfig) {
+    fun assertThemeIsSelected(theme: com.mitch.template.core.domain.models.TemplateThemeConfig) {
         val item = items.singleOrNull { it.theme == theme }
         requireNotNull(item) {
             "item from theme $theme is null; check that items DO NOT have the same theme"
@@ -125,7 +125,7 @@ class ThemePickerRobot(
             .assertIsSelected()
     }
 
-    fun assertThemeIsNotSelected(theme: TemplateThemeConfig) {
+    fun assertThemeIsNotSelected(theme: com.mitch.template.core.domain.models.TemplateThemeConfig) {
         val item = items.singleOrNull { it.theme == theme }
         requireNotNull(item) {
             "item from theme $theme is null; check that items DO NOT have the same theme"

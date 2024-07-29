@@ -1,0 +1,8 @@
+package com.mitch.template.core.domain.models
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class UserPreferences(
+    val theme: TemplateThemeConfig = TemplateThemeConfig.FollowSystem
+)

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_home_change_language">Change Language</string>
+    <string name="feature_home_change_theme">Change theme</string>
+    <string name="feature_home_system_default_theme">System default</string>
+    <string name="feature_home_light_theme">Light</string>
+    <string name="feature_home_dark_theme">Dark</string>
+</resources>

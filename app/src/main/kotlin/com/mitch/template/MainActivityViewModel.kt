@@ -2,8 +2,8 @@ package com.mitch.template
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mitch.template.data.settings.UserSettingsRepository
-import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.core.domain.UserSettingsRepository
+import com.mitch.template.core.domain.models.TemplateThemeConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

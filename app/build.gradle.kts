@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.template.hilt)
     alias(libs.plugins.detekt)
     alias(libs.plugins.secrets)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 val packageName = "com.mitch.template"
@@ -41,6 +42,9 @@ android {
             enableSplit = false
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 detekt {
@@ -65,63 +69,22 @@ secrets {
 
 dependencies {
     // Kotlin
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.immutableCollections)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.serialization.protobuf)
     implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)
 
     // UI (Compose + Accompanist + Icons + ...)
-    implementation(platform(libs.compose.bom))
     implementation(libs.activity.compose)
-    implementation(libs.compose.runtime)
-    implementation(libs.compose.foundation)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.util)
     implementation(libs.compose.ui.graphics)
-    debugImplementation(libs.compose.ui.tooling)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.animation)
-    implementation(libs.compose.material3)
-    implementation(libs.compose.material3.windowSizeClass)
-    implementation(libs.lifecycle.viewModel.compose)
-    implementation(libs.lifecycle.viewModel.savedstate)
-    implementation(libs.lifecycle.runtimeCompose)
-    implementation(libs.coil)
-    implementation(libs.coil.compose)
-    implementation(libs.icons.material.core)
-    implementation(libs.icons.material.extended)
-    implementation(libs.icons.eva)
     implementation(libs.core.splashscreen)
     implementation(libs.appcompat)
 
     // Navigation
     implementation(libs.compose.navigation)
 
-    // Dependency Injection
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt.navigation.compose)
-    androidTestImplementation(libs.hilt.android.testing)
-    kspAndroidTest(libs.hilt.compiler)
-
-    // Database
-    ksp(libs.room.compiler)
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-
-    // Datastore (previously SharedPreferences)
-    implementation(libs.datastore.core)
-
     // Logging
     implementation(libs.timber)
-
-    // API calls
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.kotlin.serialization)
-    implementation(libs.okhttp.logging)
 
     // Testing
     // Unit
@@ -145,5 +108,16 @@ dependencies {
     // Formatting + Linting
     detektPlugins(libs.detekt.formatting)
     detektPlugins(libs.linting.composeDetekt)
-    lintChecks(projects.lint)
+//    lintChecks(projects.lint)
+
+    ksp(libs.hilt.compiler)
+
+    // Core
+    implementation(projects.core.data)
+    implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
+    implementation(projects.core.ui)
+
+    // Features
+    implementation(projects.feature.home)
 }

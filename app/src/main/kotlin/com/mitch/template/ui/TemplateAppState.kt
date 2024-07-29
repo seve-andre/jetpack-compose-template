@@ -11,8 +11,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.mitch.template.ui.util.SnackbarManager
-import com.mitch.template.util.network.NetworkMonitor
+import com.mitch.template.core.domain.NetworkMonitor
+import com.mitch.template.core.ui.SnackbarManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

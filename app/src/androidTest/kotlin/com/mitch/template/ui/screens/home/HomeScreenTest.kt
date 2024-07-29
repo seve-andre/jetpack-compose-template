@@ -7,9 +7,9 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.mitch.template.R
-import com.mitch.template.domain.models.TemplateLanguageConfig
-import com.mitch.template.domain.models.TemplateThemeConfig
-import com.mitch.template.ui.designsystem.components.loading.LoadingTag
+import com.mitch.template.core.domain.models.TemplateLanguageConfig
+import com.mitch.template.core.domain.models.TemplateThemeConfig
+import com.mitch.template.core.designsystem.components.loading.LoadingTag
 import org.junit.Rule
 import org.junit.Test
 
@@ -23,25 +23,25 @@ class HomeScreenTest {
     @Test
     fun loading_showsLoadingScreen() {
         composeTestRule.setContent {
-            HomeScreen(
-                uiState = HomeUiState.Loading,
+            com.mitch.template.feature.home.HomeScreen(
+                uiState = com.mitch.template.feature.home.HomeUiState.Loading,
                 onChangeLanguage = { },
                 onChangeTheme = { }
             )
         }
 
         composeTestRule
-            .onNodeWithTag(LoadingTag)
+            .onNodeWithTag(com.mitch.template.core.designsystem.components.loading.LoadingTag)
             .assertIsDisplayed()
     }
 
     @Test
     fun success_showsSettingsOptions() {
         composeTestRule.setContent {
-            HomeScreen(
-                uiState = HomeUiState.Success(
-                    language = TemplateLanguageConfig.English,
-                    theme = TemplateThemeConfig.FollowSystem
+            com.mitch.template.feature.home.HomeScreen(
+                uiState = com.mitch.template.feature.home.HomeUiState.Success(
+                    language = com.mitch.template.core.domain.models.TemplateLanguageConfig.English,
+                    theme = com.mitch.template.core.domain.models.TemplateThemeConfig.FollowSystem
                 ),
                 onChangeLanguage = { },
                 onChangeTheme = { }
