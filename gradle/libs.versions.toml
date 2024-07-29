@@ -1,7 +1,6 @@
 [versions]
 # Kotlin
 kotlin = "2.0.0" # check also ksp
-kotlinx-immutableCollections = "0.3.7"
 kotlinx-datetime = "0.5.0"
 kotlinx-serialization = "1.7.0-RC"
 kotlinx-coroutines = "1.8.0"
@@ -66,7 +65,6 @@ secrets = "2.0.1"
 [libraries]
 # Kotlin
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
-kotlinx-immutableCollections = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-immutableCollections" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinx-serialization" }

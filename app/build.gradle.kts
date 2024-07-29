@@ -128,7 +128,6 @@ secrets {
 dependencies {
     // Kotlin
     implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.immutableCollections)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.serialization.protobuf)
