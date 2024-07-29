@@ -8,9 +8,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.mitch.template.feature.home.HomeRoute
 import com.mitch.template.ui.navigation.TemplateDestinations.Graph
 import com.mitch.template.ui.navigation.TemplateDestinations.Screen
-import com.mitch.template.feature.home.HomeRoute
 
 @Composable
 fun TemplateNavHost(
