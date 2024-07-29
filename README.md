@@ -69,8 +69,9 @@ in [Now in Android repo](https://github.com/android/nowinandroid) first:
 
 - [TimeZone](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+timezone&type=code)
 - [Analytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+analytics&type=code) (e.g. based on app product flavor)
-- [Notifications](https://firebase.google.com/docs/cloud-messaging)
+- [Notifications](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid%20notifier&type=code)
 - [Crashlytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+crashlytics&type=code)
+- [Sync data between local database and server](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+sync+language%3AKotlin&type=code&l=Kotlin)
 
 > [!NOTE]
 > Feel free to contribute or reach out to me at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
