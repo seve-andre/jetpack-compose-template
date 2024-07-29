@@ -9,5 +9,5 @@ interface UserSettingsRepository {
     suspend fun setTheme(theme: TemplateThemeConfig)
 
     fun getLanguage(): Flow<TemplateLanguageConfig>
-    fun setLanguage(language: TemplateLanguageConfig)
+    suspend fun setLanguage(language: TemplateLanguageConfig)
 }

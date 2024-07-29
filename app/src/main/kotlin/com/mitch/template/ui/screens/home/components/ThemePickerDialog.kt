@@ -37,7 +37,6 @@ import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.theme.custom.padding
-import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun ThemePickerDialog(
@@ -51,7 +50,7 @@ fun ThemePickerDialog(
         ThemePickerItem.FollowSystem,
         ThemePickerItem.Light,
         ThemePickerItem.Dark
-    ).toImmutableList()
+    )
 
     AlertDialog(
         onDismissRequest = onDismiss,

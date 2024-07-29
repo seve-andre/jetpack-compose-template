@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.room)
     alias(libs.plugins.detekt)
     alias(libs.plugins.junit5)
     alias(libs.plugins.kotlinx.serialization)
@@ -90,6 +91,9 @@ android {
             enableSplit = false
         }
     }
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
 }
 
 kotlin {
@@ -128,7 +132,6 @@ secrets {
 dependencies {
     // Kotlin
     implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.immutableCollections)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.serialization.protobuf)
