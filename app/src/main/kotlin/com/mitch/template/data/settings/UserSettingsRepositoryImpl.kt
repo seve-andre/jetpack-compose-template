@@ -26,7 +26,7 @@ class UserSettingsRepositoryImpl @Inject constructor(
         return languageLocalDataSource.getLocale().map { it.toDomainLanguage() }
     }
 
-    override fun setLanguage(language: TemplateLanguageConfig) {
+    override suspend fun setLanguage(language: TemplateLanguageConfig) {
         languageLocalDataSource.setLocale(language.locale)
     }
 }

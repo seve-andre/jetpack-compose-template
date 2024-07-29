@@ -7,20 +7,24 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.withContext
 import java.util.Locale
 import javax.inject.Inject
 
 class LanguageLocalDataSource @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    fun setLocale(locale: Locale) {
-        AppCompatDelegate.setApplicationLocales(
-            LocaleListCompat.forLanguageTags(locale.toLanguageTag())
-        )
+    suspend fun setLocale(locale: Locale) {
+        withContext(Dispatchers.Main) {
+            AppCompatDelegate.setApplicationLocales(
+                LocaleListCompat.forLanguageTags(locale.toLanguageTag())
+            )
+        }
     }
 
     fun getLocale(): Flow<Locale> = callbackFlow {
