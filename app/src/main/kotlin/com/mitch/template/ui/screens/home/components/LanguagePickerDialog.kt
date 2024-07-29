@@ -37,7 +37,6 @@ import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.theme.custom.padding
-import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun LanguagePickerDialog(
@@ -50,7 +49,7 @@ fun LanguagePickerDialog(
     val items = listOf(
         LanguagePickerItem.English,
         LanguagePickerItem.Italian
-    ).toImmutableList()
+    )
 
     AlertDialog(
         onDismissRequest = onDismiss,
