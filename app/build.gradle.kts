@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.room)
     alias(libs.plugins.detekt)
     alias(libs.plugins.junit5)
     alias(libs.plugins.kotlinx.serialization)
@@ -89,6 +90,9 @@ android {
         language {
             enableSplit = false
         }
+    }
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 }
 
