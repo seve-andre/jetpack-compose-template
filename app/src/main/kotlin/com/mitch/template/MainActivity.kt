@@ -56,9 +56,8 @@ import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarT
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarVisuals
 import com.mitch.template.ui.designsystem.theme.custom.LocalPadding
 import com.mitch.template.ui.designsystem.theme.custom.padding
-import com.mitch.template.ui.navigation.TemplateDestinations
+import com.mitch.template.ui.navigation.TemplateDestination
 import com.mitch.template.ui.navigation.TemplateNavHost
-import com.mitch.template.ui.navigation.TemplateStartDestination
 import com.mitch.template.ui.rememberTemplateAppState
 import com.mitch.template.util.network.NetworkMonitor
 import dagger.hilt.android.AndroidEntryPoint
@@ -133,9 +132,7 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             TemplateNavHost(
                                 navController = appState.navController,
-                                startDestination = TemplateStartDestination.Screen(
-                                    TemplateDestinations.Screen.Home
-                                )
+                                startDestination = TemplateDestination.Screen.Home
                             )
                         }
                     }
