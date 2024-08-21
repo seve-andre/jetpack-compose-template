@@ -27,6 +27,8 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
@@ -43,10 +45,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.mitch.template.domain.models.TemplateThemeConfig
-import com.mitch.template.ui.TemplateAppState
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.TemplateTheme
@@ -54,16 +56,20 @@ import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbar
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarDefaults
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarType
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarVisuals
+import com.mitch.template.ui.designsystem.components.snackbars.toVisuals
 import com.mitch.template.ui.designsystem.theme.custom.LocalPadding
 import com.mitch.template.ui.designsystem.theme.custom.padding
 import com.mitch.template.ui.navigation.TemplateDestination
 import com.mitch.template.ui.navigation.TemplateNavHost
 import com.mitch.template.ui.rememberTemplateAppState
+import com.mitch.template.ui.util.SnackbarManager
 import com.mitch.template.util.network.NetworkMonitor
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -113,10 +119,29 @@ class MainActivity : AppCompatActivity() {
             CompositionLocalProvider(LocalPadding provides padding) {
                 TemplateTheme(isThemeDark = isThemeDark) {
                     val appState = rememberTemplateAppState(networkMonitor)
+                    val snackbarHostState = appState.snackbarHostState
                     // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
+                    // observe snackbars
+                    LifecycleEventEffect(Lifecycle.Event.ON_START) {
+                        lifecycleScope.launch {
+                            withContext(Dispatchers.Main.immediate) {
+                                SnackbarManager.events.collect { data ->
+                                    // uncomment if new snackbar should dismiss old one
+                                    // snackbarHostState.currentSnackbarData?.dismiss()
+
+                                    val result = snackbarHostState.showSnackbar(data.toVisuals())
+                                    when (result) {
+                                        SnackbarResult.Dismissed -> data.onDismiss?.invoke()
+                                        SnackbarResult.ActionPerformed -> data.action?.onPerformAction?.invoke()
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     Scaffold(
-                        snackbarHost = { SwipeToDismissSnackbarHost(appState) },
+                        snackbarHost = { SwipeToDismissSnackbarHost(appState.snackbarHostState) },
                         contentWindowInsets = WindowInsets(0)
                     ) { padding ->
                         Box(
@@ -161,13 +186,11 @@ class MainActivity : AppCompatActivity() {
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-private fun SwipeToDismissSnackbarHost(
-    appState: TemplateAppState
-) {
+private fun SwipeToDismissSnackbarHost(hostState: SnackbarHostState) {
     val dismissSnackbarState = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->
             if (value != SwipeToDismissBoxValue.Settled) {
-                appState.snackbarHostState.currentSnackbarData?.dismiss()
+                hostState.currentSnackbarData?.dismiss()
                 true
             } else {
                 false
@@ -186,14 +209,13 @@ private fun SwipeToDismissSnackbarHost(
         backgroundContent = { },
         content = {
             SnackbarHost(
-                hostState = appState.snackbarHostState,
+                hostState = hostState,
                 modifier = Modifier
                     .navigationBarsPadding()
                     .imePadding()
                     .padding(horizontal = padding.medium)
             ) { snackbarData ->
-                val customVisuals =
-                    snackbarData.visuals as TemplateSnackbarVisuals
+                val customVisuals = snackbarData.visuals as TemplateSnackbarVisuals
 
                 val colors = when (customVisuals.type) {
                     TemplateSnackbarType.Default -> TemplateSnackbarDefaults.defaultSnackbarColors()

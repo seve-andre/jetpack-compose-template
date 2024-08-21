@@ -10,6 +10,22 @@ import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.theme.custom.extendedColorScheme
 
+data class SnackbarEvent(
+    val message: String,
+    val action: SnackbarAction? = null,
+    val onDismiss: (() -> Unit)? = null,
+    val duration: SnackbarDuration = SnackbarDuration.Short,
+    val type: TemplateSnackbarType = TemplateSnackbarType.Default,
+    val imageVector: ImageVector? = when (type) {
+        TemplateSnackbarType.Default -> null
+        TemplateSnackbarType.Success -> TemplateIcons.Filled.Success
+        TemplateSnackbarType.Warning -> TemplateIcons.Filled.Warning
+        TemplateSnackbarType.Error -> TemplateIcons.Filled.Error
+    }
+)
+
+data class SnackbarAction(val label: String, val onPerformAction: suspend () -> Unit)
+
 data class TemplateSnackbarVisuals(
     override val message: String,
     override val actionLabel: String? = null,
@@ -23,6 +39,16 @@ data class TemplateSnackbarVisuals(
         TemplateSnackbarType.Error -> TemplateIcons.Filled.Error
     }
 ) : SnackbarVisuals
+
+fun SnackbarEvent.toVisuals(): TemplateSnackbarVisuals {
+    return TemplateSnackbarVisuals(
+        message = this.message,
+        actionLabel = this.action?.label,
+        duration = this.duration,
+        type = this.type,
+        imageVector = this.imageVector
+    )
+}
 
 enum class TemplateSnackbarType {
     Default,
