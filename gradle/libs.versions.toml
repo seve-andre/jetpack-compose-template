@@ -37,12 +37,12 @@ junit5 = "5.10.2"
 assertk = "0.28.0"
 turbine = "1.0.0"
 ## Instrumented
-test-core = "1.5.0"
-espresso-core = "3.5.1"
-test-ext-junit = "1.1.5"
-test-rules = "1.5.0"
-test-runner = "1.5.2"
-uiAutomator = "2.2.0"
+test-core = "1.6.1"
+espresso-core = "3.6.1"
+test-ext-junit = "1.2.1"
+test-rules = "1.6.1"
+test-runner = "1.6.2"
+uiAutomator = "2.3.0"
 
 # Desugaring
 desugar-jdk-libs = "2.0.4"
