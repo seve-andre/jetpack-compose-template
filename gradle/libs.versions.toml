@@ -45,7 +45,7 @@ test-runner = "1.6.2"
 uiAutomator = "2.3.0"
 
 # Desugaring
-desugar-jdk-libs = "2.0.4"
+desugar-jdk-libs = "2.1.2"
 
 # Formatting + Linting
 detekt = "1.23.6"
