@@ -49,7 +49,7 @@ desugar-jdk-libs = "2.0.4"
 
 # Formatting + Linting
 detekt = "1.23.6"
-nlopez-composeRules = "0.4.5"
+nlopez-composeRules = "0.4.11"
 
 # API calls
 retrofit = "2.11.0"
