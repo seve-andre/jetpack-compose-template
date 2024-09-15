@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -45,9 +44,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController.OnDestinationChangedListener
 import com.mitch.template.domain.models.TemplateThemeConfig
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
@@ -123,8 +123,10 @@ class MainActivity : AppCompatActivity() {
                     // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
                     // observe snackbars
-                    LifecycleEventEffect(Lifecycle.Event.ON_START) {
-                        lifecycleScope.launch {
+                    // (they persist across navigation; if this behavior is not desired, see below)
+                    val lifecycleOwner = LocalLifecycleOwner.current
+                    LaunchedEffect(lifecycleOwner.lifecycle, SnackbarManager.events) {
+                        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                             withContext(Dispatchers.Main.immediate) {
                                 SnackbarManager.events.collect { data ->
                                     // uncomment if new snackbar should dismiss old one
@@ -137,6 +139,18 @@ class MainActivity : AppCompatActivity() {
                                     }
                                 }
                             }
+                        }
+                    }
+
+                    // to dismiss snackbar on navigation changed
+                    DisposableEffect(appState.navController) {
+                        val listener = OnDestinationChangedListener { _, _, _ ->
+                            snackbarHostState.currentSnackbarData?.dismiss()
+                        }
+                        appState.navController.addOnDestinationChangedListener(listener)
+
+                        onDispose {
+                            appState.navController.removeOnDestinationChangedListener(listener)
                         }
                     }
 
@@ -185,7 +199,6 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun SwipeToDismissSnackbarHost(hostState: SnackbarHostState) {
     val dismissSnackbarState = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->

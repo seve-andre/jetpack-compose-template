@@ -10,8 +10,6 @@ import androidx.compose.ui.test.performClick
 import com.mitch.template.domain.models.TemplateThemeConfig
 import com.mitch.template.ui.util.AppNameAndroidComposeTestRule
 import com.mitch.template.ui.util.stringResource
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -27,7 +25,7 @@ class ThemePickerDialogTest {
             ThemePickerItem.FollowSystem,
             ThemePickerItem.Dark,
             ThemePickerItem.Light
-        ).toImmutableList()
+        )
     )
 
     private val wrongItemsRobot = ThemePickerRobot(
@@ -36,7 +34,7 @@ class ThemePickerDialogTest {
             ThemePickerItem.FollowSystem,
             ThemePickerItem.FollowSystem, // repeated twice -> wrong
             ThemePickerItem.Light
-        ).toImmutableList()
+        )
     )
 
     @Before
@@ -83,7 +81,7 @@ class ThemePickerDialogTest {
 
 class ThemePickerRobot(
     private val composeTestRule: AppNameAndroidComposeTestRule,
-    private val items: ImmutableList<ThemePickerItem>
+    private val items: List<ThemePickerItem>
 ) {
     fun selectTheme(theme: TemplateThemeConfig) {
         val item = items.singleOrNull { it.theme == theme }

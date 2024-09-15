@@ -9,8 +9,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.mitch.template.domain.models.TemplateLanguageConfig
 import com.mitch.template.ui.util.AppNameAndroidComposeTestRule
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -22,7 +20,7 @@ class LanguagePickerDialogTest {
 
     private val correctItemsRobot = LanguagePickerRobot(
         composeTestRule,
-        listOf(LanguagePickerItem.English, LanguagePickerItem.Italian).toImmutableList()
+        listOf(LanguagePickerItem.English, LanguagePickerItem.Italian)
     )
 
     private val wrongItemsRobot = LanguagePickerRobot(
@@ -31,7 +29,7 @@ class LanguagePickerDialogTest {
             LanguagePickerItem.English,
             LanguagePickerItem.English,
             LanguagePickerItem.Italian
-        ).toImmutableList()
+        )
     )
 
     @Before
@@ -83,7 +81,7 @@ class LanguagePickerDialogTest {
 
 class LanguagePickerRobot(
     private val composeTestRule: AppNameAndroidComposeTestRule,
-    private val items: ImmutableList<LanguagePickerItem>
+    private val items: List<LanguagePickerItem>
 ) {
 
     fun selectLanguage(language: TemplateLanguageConfig) {

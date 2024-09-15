@@ -1,4 +1,7 @@
+import com.android.build.api.dsl.ApkSigningConfig
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -14,6 +17,12 @@ plugins {
 }
 
 val packageName = "com.mitch.template"
+
+enum class TemplateBuildType(val applicationIdSuffix: String? = null) {
+    Debug(".debug"),
+    Staging(".staging"),
+    Release
+}
 
 enum class TemplateFlavorDimension {
     Version;
@@ -31,14 +40,18 @@ enum class TemplateFlavor(
     val flavorName = this.name.replaceFirstChar { it.lowercase() }
 }
 
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
 android {
     namespace = packageName
 
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         applicationId = packageName
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -50,7 +63,29 @@ android {
             generateLocaleConfig = true
         }
     }
+    signingConfigs {
+        if (!keystoreProperties.isEmpty) {
+            createSigningConfig("staging", keystoreProperties)
+            createSigningConfig("release", keystoreProperties)
+        }
+    }
     buildTypes {
+        debug {
+            isDebuggable = true
+            isMinifyEnabled = false
+            applicationIdSuffix = TemplateBuildType.Debug.applicationIdSuffix
+        }
+        create("staging") {
+            initWith(getByName("release"))
+            isDebuggable = true
+            applicationIdSuffix = TemplateBuildType.Staging.applicationIdSuffix
+            secrets.propertiesFileName = "secrets.staging.properties"
+            signingConfig = try {
+                signingConfigs.named("staging").get()
+            } catch (e: Exception) {
+                null
+            }
+        }
         release {
             isDebuggable = false
             isMinifyEnabled = true
@@ -59,6 +94,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            secrets.propertiesFileName = "secrets.release.properties"
+            signingConfig = try {
+                signingConfigs.named("release").get()
+            } catch (e: Exception) {
+                null
+            }
         }
     }
     flavorDimensions += TemplateFlavorDimension.values().map { it.dimensionName }
@@ -96,14 +137,43 @@ android {
     }
 }
 
+fun NamedDomainObjectContainer<out ApkSigningConfig>.createSigningConfig(
+    name: String,
+    properties: Properties
+) {
+    create(name) {
+        keyAlias = properties["${name}KeyAlias"] as String
+        keyPassword = properties["${name}KeyPassword"] as String
+        storeFile = file(properties["storeFile"] as String)
+        storePassword = properties["storePassword"] as String
+    }
+}
+
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_17
+        freeCompilerArgs.add(
+            // Enable experimental coroutines APIs, including Flow
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+        )
+        freeCompilerArgs.add(
+            /**
+             * Remove this args after Phase 3.
+             * https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-consistent-copy-visibility/#deprecation-timeline
+             *
+             * Deprecation timeline
+             * Phase 3. (Supposedly Kotlin 2.2 or Kotlin 2.3).
+             * The default changes.
+             * Unless ExposedCopyVisibility is used, the generated 'copy' method has the same visibility as the primary constructor.
+             * The binary signature changes. The error on the declaration is no longer reported.
+             * '-Xconsistent-data-class-copy-visibility' compiler flag and ConsistentCopyVisibility annotation are now unnecessary.
+             */
+            "-Xconsistent-data-class-copy-visibility"
+        )
     }
 }
 
 composeCompiler {
-    enableStrongSkippingMode = true
     reportsDestination = layout.buildDirectory.dir("compose_compiler")
     stabilityConfigurationFile =
         rootProject.layout.projectDirectory.file("compose_compiler_config.conf")

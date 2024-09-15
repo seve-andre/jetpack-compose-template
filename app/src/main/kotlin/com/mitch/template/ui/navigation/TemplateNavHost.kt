@@ -8,7 +8,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.mitch.template.ui.navigation.TemplateDestination.Graph
 import com.mitch.template.ui.navigation.TemplateDestination.Screen
 import com.mitch.template.ui.screens.home.HomeRoute
 
@@ -31,18 +30,9 @@ fun TemplateNavHost(
 // popping the backstack when the destination is already on top.
 @Composable
 fun NavController.navigateTo(
-    screen: Screen,
+    destination: TemplateDestination,
     navOptions: NavOptions? = null,
     navigatorExtras: Navigator.Extras? = null
 ): () -> Unit = dropUnlessResumed {
-    this.navigate(screen, navOptions, navigatorExtras)
-}
-
-@Composable
-fun NavController.navigateTo(
-    graph: Graph,
-    navOptions: NavOptions? = null,
-    navigatorExtras: Navigator.Extras? = null
-): () -> Unit = dropUnlessResumed {
-    this.navigate(graph, navOptions, navigatorExtras)
+    this.navigate(destination, navOptions, navigatorExtras)
 }
