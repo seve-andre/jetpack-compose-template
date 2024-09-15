@@ -42,7 +42,7 @@ enum class TemplateFlavor(
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
 val keystoreProperties = Properties()
-keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+if (keystorePropertiesFile.exists()) keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 android {
     namespace = packageName
@@ -64,8 +64,10 @@ android {
         }
     }
     signingConfigs {
-        createSigningConfig("staging", keystoreProperties)
-        createSigningConfig("release", keystoreProperties)
+        if (!keystoreProperties.isEmpty) {
+            createSigningConfig("staging", keystoreProperties)
+            createSigningConfig("release", keystoreProperties)
+        }
     }
     buildTypes {
         debug {
@@ -78,7 +80,11 @@ android {
             isDebuggable = true
             applicationIdSuffix = TemplateBuildType.Staging.applicationIdSuffix
             secrets.propertiesFileName = "secrets.staging.properties"
-            signingConfig = signingConfigs.named("staging").get()
+            signingConfig = try {
+                signingConfigs.named("staging").get()
+            } catch (e: Exception) {
+                null
+            }
         }
         release {
             isDebuggable = false
@@ -89,7 +95,11 @@ android {
                 "proguard-rules.pro"
             )
             secrets.propertiesFileName = "secrets.release.properties"
-            signingConfig = signingConfigs.named("release").get()
+            signingConfig = try {
+                signingConfigs.named("release").get()
+            } catch (e: Exception) {
+                null
+            }
         }
     }
     flavorDimensions += TemplateFlavorDimension.values().map { it.dimensionName }
