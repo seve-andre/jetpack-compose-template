@@ -1,4 +1,4 @@
-package com.mitch.template.ui.screens.home
+package com.mitch.template.feature.home
 
 import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
@@ -6,10 +6,10 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import com.mitch.template.R
+import com.mitch.template.core.designsystem.components.loading.LoadingTag
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
 import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.core.designsystem.components.loading.LoadingTag
+import com.mitch.template.feature.util.stringResource
 import org.junit.Rule
 import org.junit.Test
 
@@ -23,25 +23,25 @@ class HomeScreenTest {
     @Test
     fun loading_showsLoadingScreen() {
         composeTestRule.setContent {
-            com.mitch.template.feature.home.HomeScreen(
-                uiState = com.mitch.template.feature.home.HomeUiState.Loading,
+            HomeScreen(
+                uiState = HomeUiState.Loading,
                 onChangeLanguage = { },
                 onChangeTheme = { }
             )
         }
 
         composeTestRule
-            .onNodeWithTag(com.mitch.template.core.designsystem.components.loading.LoadingTag)
+            .onNodeWithTag(LoadingTag)
             .assertIsDisplayed()
     }
 
     @Test
     fun success_showsSettingsOptions() {
         composeTestRule.setContent {
-            com.mitch.template.feature.home.HomeScreen(
-                uiState = com.mitch.template.feature.home.HomeUiState.Success(
-                    language = com.mitch.template.core.domain.models.TemplateLanguageConfig.English,
-                    theme = com.mitch.template.core.domain.models.TemplateThemeConfig.FollowSystem
+            HomeScreen(
+                uiState = HomeUiState.Success(
+                    language = TemplateLanguageConfig.English,
+                    theme = TemplateThemeConfig.FollowSystem
                 ),
                 onChangeLanguage = { },
                 onChangeTheme = { }
@@ -50,11 +50,11 @@ class HomeScreenTest {
 
         // assert both "change language" and "change theme" buttons are displayed
         composeTestRule
-            .onNodeWithText(getString(R.string.change_language))
+            .onNodeWithText(composeTestRule.stringResource(R.string.feature_home_change_language))
             .assertIsDisplayed()
 
         composeTestRule
-            .onNodeWithText(getString(R.string.change_theme))
+            .onNodeWithText(composeTestRule.stringResource(R.string.feature_home_change_theme))
             .assertIsDisplayed()
     }
 }

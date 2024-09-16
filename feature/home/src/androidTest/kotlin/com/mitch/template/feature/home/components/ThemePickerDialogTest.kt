@@ -1,4 +1,4 @@
-package com.mitch.template.ui.screens.home.components
+package com.mitch.template.feature.home.components
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsNotSelected
@@ -7,9 +7,11 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.ui.util.AppNameAndroidComposeTestRule
-import com.mitch.template.ui.util.stringResource
+import com.mitch.template.feature.home.components.ThemePickerItem.Dark
+import com.mitch.template.feature.home.components.ThemePickerItem.FollowSystem
+import com.mitch.template.feature.home.components.ThemePickerItem.Light
+import com.mitch.template.feature.util.AppNameAndroidComposeTestRule
+import com.mitch.template.feature.util.stringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.junit.Before
@@ -24,25 +26,25 @@ class ThemePickerDialogTest {
     private val correctItemsRobot = ThemePickerRobot(
         composeTestRule,
         listOf(
-            com.mitch.template.feature.home.components.ThemePickerItem.FollowSystem,
-            com.mitch.template.feature.home.components.ThemePickerItem.Dark,
-            com.mitch.template.feature.home.components.ThemePickerItem.Light
+            FollowSystem,
+            Dark,
+            Light
         ).toImmutableList()
     )
 
     private val wrongItemsRobot = ThemePickerRobot(
         composeTestRule,
         listOf(
-            com.mitch.template.feature.home.components.ThemePickerItem.FollowSystem,
-            com.mitch.template.feature.home.components.ThemePickerItem.FollowSystem, // repeated twice -> wrong
-            com.mitch.template.feature.home.components.ThemePickerItem.Light
+            FollowSystem,
+            FollowSystem, // repeated twice -> wrong
+            Light
         ).toImmutableList()
     )
 
     @Before
     fun setUp() {
         composeTestRule.setContent {
-            com.mitch.template.feature.home.components.ThemePickerDialog(
+            ThemePickerDialog(
                 selectedTheme = com.mitch.template.core.domain.models.TemplateThemeConfig.Default,
                 onDismiss = { },
                 onConfirm = { }
@@ -83,7 +85,7 @@ class ThemePickerDialogTest {
 
 class ThemePickerRobot(
     private val composeTestRule: AppNameAndroidComposeTestRule,
-    private val items: ImmutableList<com.mitch.template.feature.home.components.ThemePickerItem>
+    private val items: ImmutableList<ThemePickerItem>
 ) {
     fun selectTheme(theme: com.mitch.template.core.domain.models.TemplateThemeConfig) {
         val item = items.singleOrNull { it.theme == theme }

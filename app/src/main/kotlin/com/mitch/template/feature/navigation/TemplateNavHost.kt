@@ -1,4 +1,4 @@
-package com.mitch.template.ui.navigation
+package com.mitch.template.feature.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.compose.dropUnlessResumed
@@ -9,8 +9,8 @@ import androidx.navigation.Navigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mitch.template.feature.home.HomeRoute
-import com.mitch.template.ui.navigation.TemplateDestinations.Graph
-import com.mitch.template.ui.navigation.TemplateDestinations.Screen
+import com.mitch.template.feature.navigation.TemplateDestinations.Graph
+import com.mitch.template.feature.navigation.TemplateDestinations.Screen
 
 @Composable
 fun TemplateNavHost(

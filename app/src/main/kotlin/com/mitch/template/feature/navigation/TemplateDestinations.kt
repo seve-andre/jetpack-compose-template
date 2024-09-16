@@ -1,4 +1,4 @@
-package com.mitch.template.ui.navigation
+package com.mitch.template.feature.navigation
 
 import kotlinx.serialization.Serializable
 
