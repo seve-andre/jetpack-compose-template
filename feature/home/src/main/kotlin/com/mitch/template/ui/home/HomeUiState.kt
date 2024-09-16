@@ -1,4 +1,4 @@
-package com.mitch.template.feature.home
+package com.mitch.template.ui.home
 
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
 import com.mitch.template.core.domain.models.TemplateThemeConfig

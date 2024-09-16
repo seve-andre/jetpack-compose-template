@@ -1,4 +1,4 @@
-package com.mitch.template.feature.home
+package com.mitch.template.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,11 +20,11 @@ import com.mitch.template.core.designsystem.TemplateTheme
 import com.mitch.template.core.designsystem.components.loading.LoadingScreen
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
 import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.feature.home.ActiveDialog.Language
-import com.mitch.template.feature.home.ActiveDialog.None
-import com.mitch.template.feature.home.ActiveDialog.Theme
-import com.mitch.template.feature.home.components.LanguagePickerDialog
-import com.mitch.template.feature.home.components.ThemePickerDialog
+import com.mitch.template.ui.home.ActiveDialog.Language
+import com.mitch.template.ui.home.ActiveDialog.None
+import com.mitch.template.ui.home.ActiveDialog.Theme
+import com.mitch.template.ui.home.components.LanguagePickerDialog
+import com.mitch.template.ui.home.components.ThemePickerDialog
 
 @Composable
 fun HomeRoute(

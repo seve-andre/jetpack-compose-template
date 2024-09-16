@@ -1,4 +1,4 @@
-package com.mitch.template.feature
+package com.mitch.template.ui
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult.ActionPerformed

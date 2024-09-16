@@ -1,4 +1,4 @@
-package com.mitch.template.feature.home
+package com.mitch.template.ui.home
 
 import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
@@ -9,7 +9,7 @@ import androidx.compose.ui.test.onNodeWithText
 import com.mitch.template.core.designsystem.components.loading.LoadingTag
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
 import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.feature.util.stringResource
+import com.mitch.template.ui.util.stringResource
 import org.junit.Rule
 import org.junit.Test
 

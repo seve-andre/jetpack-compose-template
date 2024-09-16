@@ -1,4 +1,4 @@
-package com.mitch.template.feature.home.components
+package com.mitch.template.ui.home.components
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsNotSelected
@@ -8,7 +8,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
-import com.mitch.template.feature.util.AppNameAndroidComposeTestRule
+import com.mitch.template.ui.util.AppNameAndroidComposeTestRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

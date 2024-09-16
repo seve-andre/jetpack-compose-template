@@ -1,4 +1,4 @@
-package com.mitch.template.feature.util
+package com.mitch.template.ui.util
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule

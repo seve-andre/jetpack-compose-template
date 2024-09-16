@@ -1,4 +1,4 @@
-package com.mitch.template.feature.home
+package com.mitch.template.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

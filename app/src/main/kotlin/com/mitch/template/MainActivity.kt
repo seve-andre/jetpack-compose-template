@@ -35,9 +35,9 @@ import com.mitch.template.core.designsystem.custom.LocalPadding
 import com.mitch.template.core.designsystem.custom.padding
 import com.mitch.template.core.domain.NetworkMonitor
 import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.feature.navigation.TemplateDestination
-import com.mitch.template.feature.navigation.TemplateNavHost
-import com.mitch.template.feature.rememberTemplateAppState
+import com.mitch.template.navigation.TemplateDestination
+import com.mitch.template.navigation.TemplateNavHost
+import com.mitch.template.ui.rememberTemplateAppState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach

@@ -1,4 +1,4 @@
-package com.mitch.template.feature.home.components
+package com.mitch.template.ui.home.components
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsNotSelected
@@ -7,11 +7,11 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.mitch.template.feature.home.components.ThemePickerItem.Dark
-import com.mitch.template.feature.home.components.ThemePickerItem.FollowSystem
-import com.mitch.template.feature.home.components.ThemePickerItem.Light
-import com.mitch.template.feature.util.AppNameAndroidComposeTestRule
-import com.mitch.template.feature.util.stringResource
+import com.mitch.template.ui.home.components.ThemePickerItem.Dark
+import com.mitch.template.ui.home.components.ThemePickerItem.FollowSystem
+import com.mitch.template.ui.home.components.ThemePickerItem.Light
+import com.mitch.template.ui.util.AppNameAndroidComposeTestRule
+import com.mitch.template.ui.util.stringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.junit.Before

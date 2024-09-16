@@ -1,7 +1,7 @@
-package com.mitch.template.feature.home.components
+package com.mitch.template.ui.home.components
 
-import android.content.res.Configuration
-import androidx.annotation.StringRes
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,8 +25,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,39 +35,38 @@ import com.mitch.template.core.designsystem.TemplateDesignSystem
 import com.mitch.template.core.designsystem.TemplateIcons
 import com.mitch.template.core.designsystem.TemplateTheme
 import com.mitch.template.core.designsystem.custom.padding
-import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.feature.home.R
+import com.mitch.template.core.domain.models.TemplateLanguageConfig
+import com.mitch.template.ui.home.R
 import com.mitch.template.core.ui.R as UiR
 
 @Composable
-fun ThemePickerDialog(
-    selectedTheme: TemplateThemeConfig,
+fun LanguagePickerDialog(
+    selectedLanguage: TemplateLanguageConfig,
     onDismiss: () -> Unit,
-    onConfirm: (TemplateThemeConfig) -> Unit
+    onConfirm: (TemplateLanguageConfig) -> Unit
 ) {
-    var tempTheme by remember { mutableStateOf(selectedTheme) }
+    var tempLanguage by remember { mutableStateOf(selectedLanguage) }
 
     val items = listOf(
-        ThemePickerItem.FollowSystem,
-        ThemePickerItem.Light,
-        ThemePickerItem.Dark
+        LanguagePickerItem.English,
+        LanguagePickerItem.Italian
     )
 
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = {
             Icon(
-                imageVector = TemplateIcons.Outlined.Palette,
+                imageVector = TemplateIcons.Outlined.Translate,
                 contentDescription = null
             )
         },
         title = {
-            Text(text = stringResource(id = R.string.feature_home_change_theme))
+            Text(text = stringResource(id = R.string.feature_home_change_language))
         },
         text = {
             Column(modifier = Modifier.selectableGroup()) {
                 for (item in items) {
-                    val isSelected = item.theme == tempTheme
+                    val isSelected = item.language == tempLanguage
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -75,7 +74,7 @@ fun ThemePickerDialog(
                             .clip(RoundedCornerShape(16.dp))
                             .selectable(
                                 selected = isSelected,
-                                onClick = { tempTheme = item.theme },
+                                onClick = { tempLanguage = item.language },
                                 role = Role.RadioButton
                             )
                             .padding(horizontal = padding.medium),
@@ -84,21 +83,21 @@ fun ThemePickerDialog(
                     ) {
                         RadioButton(
                             selected = isSelected,
-                            onClick = null // null recommended for accessibility with screen readers
+                            onClick = null
                         )
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(padding.small),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(
-                                imageVector = item.icon,
+                            Image(
+                                painter = painterResource(id = item.flagId),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(20.dp)
-                                    .testTag(item.icon.toString())
+                                    .testTag(item.flagId.toString())
                             )
                             Text(
-                                text = stringResource(id = item.titleId),
+                                text = item.language.locale.displayLanguage,
                                 style = TemplateDesignSystem.typography.bodyLarge
                             )
                         }
@@ -110,18 +109,18 @@ fun ThemePickerDialog(
             TextButton(
                 onClick = onDismiss
             ) {
-                Text(text = stringResource(UiR.string.cancel))
+                Text(text = stringResource(id = UiR.string.cancel))
             }
         },
         confirmButton = {
             TextButton(
                 onClick = {
-                    onConfirm(tempTheme)
+                    onConfirm(tempLanguage)
                     onDismiss()
                 },
-                enabled = tempTheme != selectedTheme
+                enabled = tempLanguage != selectedLanguage
             ) {
-                Text(text = stringResource(UiR.string.save))
+                Text(text = stringResource(id = UiR.string.save))
             }
         }
     )
@@ -129,48 +128,27 @@ fun ThemePickerDialog(
 
 @Preview
 @Composable
-private fun ThemePickerDialogLightPreview() {
+private fun LanguagePickerDialogPreview() {
     TemplateTheme {
-        ThemePickerDialog(
-            selectedTheme = TemplateThemeConfig.Light,
+        LanguagePickerDialog(
+            selectedLanguage = TemplateLanguageConfig.English,
             onDismiss = { },
             onConfirm = { }
         )
     }
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun ThemePickerDialogDarkPreview() {
-    TemplateTheme {
-        ThemePickerDialog(
-            selectedTheme = TemplateThemeConfig.Dark,
-            onDismiss = { },
-            onConfirm = { }
-        )
-    }
-}
-
-sealed class ThemePickerItem(
-    val theme: TemplateThemeConfig,
-    val icon: ImageVector,
-    @StringRes val titleId: Int
+sealed class LanguagePickerItem(
+    val language: TemplateLanguageConfig,
+    @DrawableRes val flagId: Int
 ) {
-    data object FollowSystem : ThemePickerItem(
-        theme = TemplateThemeConfig.FollowSystem,
-        icon = TemplateIcons.Outlined.FollowSystem,
-        titleId = R.string.feature_home_system_default_theme
+    data object English : LanguagePickerItem(
+        language = TemplateLanguageConfig.English,
+        flagId = R.drawable.english_flag
     )
 
-    data object Light : ThemePickerItem(
-        theme = TemplateThemeConfig.Light,
-        icon = TemplateIcons.Outlined.LightMode,
-        titleId = R.string.feature_home_light_theme
-    )
-
-    data object Dark : ThemePickerItem(
-        theme = TemplateThemeConfig.Dark,
-        icon = TemplateIcons.Outlined.DarkMode,
-        titleId = R.string.feature_home_dark_theme
+    data object Italian : LanguagePickerItem(
+        language = TemplateLanguageConfig.Italian,
+        flagId = R.drawable.italian_flag
     )
 }
