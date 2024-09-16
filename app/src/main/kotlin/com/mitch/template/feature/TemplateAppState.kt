@@ -42,7 +42,7 @@ class TemplateAppState(
 ) {
     init {
         coroutineScope.launch {
-            SnackbarManager.Messages.collect { currentMessages ->
+            SnackbarManager.messages.collect { currentMessages ->
                 if (currentMessages.isNotEmpty()) {
                     val message = currentMessages[0]
                     // Notify the SnackbarManager so it can remove the current message from the list

@@ -12,15 +12,15 @@ import java.util.UUID
  */
 object SnackbarManager {
 
-    private val _Messages: MutableStateFlow<List<SnackbarMessage>> = MutableStateFlow(emptyList())
-    val Messages: StateFlow<List<SnackbarMessage>> get() = _Messages.asStateFlow()
+    private val _messages: MutableStateFlow<List<SnackbarMessage>> = MutableStateFlow(emptyList())
+    val messages: StateFlow<List<SnackbarMessage>> get() = _messages.asStateFlow()
 
     fun show(
         visuals: TemplateSnackbarVisuals,
         onActionPerform: (() -> Unit)? = null,
         onDismiss: (() -> Unit)? = null
     ) {
-        _Messages.update { currentMessages ->
+        _messages.update { currentMessages ->
             currentMessages + SnackbarMessage(
                 id = UUID.randomUUID().mostSignificantBits,
                 visuals = visuals,
@@ -31,7 +31,7 @@ object SnackbarManager {
     }
 
     fun setMessageShown(messageId: Long) {
-        _Messages.update { currentMessages ->
+        _messages.update { currentMessages ->
             currentMessages.filterNot { it.id == messageId }
         }
     }
