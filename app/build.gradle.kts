@@ -1,3 +1,7 @@
+import com.android.build.api.dsl.ApkSigningConfig
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.template.android.application)
     alias(libs.plugins.template.android.compose)
@@ -9,6 +13,16 @@ plugins {
 }
 
 val packageName = "com.mitch.template"
+
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
+enum class TemplateBuildType(val applicationIdSuffix: String? = null) {
+    Debug(".debug"),
+    Staging(".staging"),
+    Release
+}
 
 android {
     namespace = packageName
@@ -26,7 +40,29 @@ android {
             generateLocaleConfig = true
         }
     }
+    signingConfigs {
+        if (!keystoreProperties.isEmpty) {
+            createSigningConfig("staging", keystoreProperties)
+            createSigningConfig("release", keystoreProperties)
+        }
+    }
     buildTypes {
+        debug {
+            isDebuggable = true
+            isMinifyEnabled = false
+            applicationIdSuffix = TemplateBuildType.Debug.applicationIdSuffix
+        }
+        create("staging") {
+            initWith(getByName("release"))
+            isDebuggable = true
+            applicationIdSuffix = TemplateBuildType.Staging.applicationIdSuffix
+            secrets.propertiesFileName = "secrets.staging.properties"
+            signingConfig = try {
+                signingConfigs.named("staging").get()
+            } catch (e: Exception) {
+                null
+            }
+        }
         release {
             isDebuggable = false
             isMinifyEnabled = true
@@ -35,6 +71,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            secrets.propertiesFileName = "secrets.release.properties"
+            signingConfig = try {
+                signingConfigs.named("release").get()
+            } catch (e: Exception) {
+                null
+            }
         }
     }
     bundle {
@@ -44,6 +86,18 @@ android {
     }
     buildFeatures {
         buildConfig = true
+    }
+}
+
+fun NamedDomainObjectContainer<out ApkSigningConfig>.createSigningConfig(
+    name: String,
+    properties: Properties
+) {
+    create(name) {
+        keyAlias = properties["${name}KeyAlias"] as String
+        keyPassword = properties["${name}KeyPassword"] as String
+        storeFile = file(properties["storeFile"] as String)
+        storePassword = properties["storePassword"] as String
     }
 }
 
