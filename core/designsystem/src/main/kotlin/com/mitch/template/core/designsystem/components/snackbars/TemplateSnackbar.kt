@@ -19,6 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.mitch.template.core.designsystem.TemplateDesignSystem
 import com.mitch.template.core.designsystem.TemplateIcons
 import com.mitch.template.core.designsystem.custom.padding
+import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarColors
+import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarDefaults
 
 @Composable
 fun TemplateSnackbar(

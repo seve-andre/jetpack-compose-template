@@ -18,30 +18,38 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import com.mitch.template.core.designsystem.TemplateTheme
 import com.mitch.template.core.designsystem.components.snackbars.DismissibleSnackbar
 import com.mitch.template.core.designsystem.custom.LocalPadding
 import com.mitch.template.core.designsystem.custom.padding
 import com.mitch.template.core.domain.NetworkMonitor
 import com.mitch.template.core.domain.models.TemplateThemeConfig
+import com.mitch.template.core.ui.SnackbarManager
 import com.mitch.template.navigation.TemplateDestination
 import com.mitch.template.navigation.TemplateNavHost
+import com.mitch.template.ui.designsystem.components.snackbars.toVisuals
 import com.mitch.template.ui.rememberTemplateAppState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -91,7 +99,40 @@ class MainActivity : AppCompatActivity() {
             CompositionLocalProvider(LocalPadding provides padding) {
                 TemplateTheme(isThemeDark = isThemeDark) {
                     val appState = rememberTemplateAppState(networkMonitor)
+                    val snackbarHostState = appState.snackbarHostState
                     // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
+
+                    // observe snackbars
+                    // (they persist across navigation; if this behavior is not desired, see below)
+                    val lifecycleOwner = LocalLifecycleOwner.current
+                    LaunchedEffect(lifecycleOwner.lifecycle, SnackbarManager.events) {
+                        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            withContext(Dispatchers.Main.immediate) {
+                                SnackbarManager.events.collect { data ->
+                                    // uncomment if new snackbar should dismiss old one
+                                    // snackbarHostState.currentSnackbarData?.dismiss()
+
+                                    val result = snackbarHostState.showSnackbar(data.toVisuals())
+                                    when (result) {
+                                        SnackbarResult.Dismissed -> data.onDismiss?.invoke()
+                                        SnackbarResult.ActionPerformed -> data.action?.onPerformAction?.invoke()
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // to dismiss snackbar on navigation changed
+                    DisposableEffect(appState.navController) {
+                        val listener = NavController.OnDestinationChangedListener { _, _, _ ->
+                            snackbarHostState.currentSnackbarData?.dismiss()
+                        }
+                        appState.navController.addOnDestinationChangedListener(listener)
+
+                        onDispose {
+                            appState.navController.removeOnDestinationChangedListener(listener)
+                        }
+                    }
 
                     Scaffold(
                         snackbarHost = { DismissibleSnackbar(appState.snackbarHostState) },

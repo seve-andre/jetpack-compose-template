@@ -1,8 +1,6 @@
 package com.mitch.template.ui
 
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult.ActionPerformed
-import androidx.compose.material3.SnackbarResult.Dismissed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -12,13 +10,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mitch.template.core.domain.NetworkMonitor
-import com.mitch.template.core.ui.SnackbarManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
 @Composable
 fun rememberTemplateAppState(
@@ -40,25 +36,6 @@ class TemplateAppState(
     coroutineScope: CoroutineScope,
     networkMonitor: NetworkMonitor
 ) {
-    init {
-        coroutineScope.launch {
-            SnackbarManager.messages.collect { currentMessages ->
-                if (currentMessages.isNotEmpty()) {
-                    val message = currentMessages[0]
-                    // Notify the SnackbarManager so it can remove the current message from the list
-                    SnackbarManager.setMessageShown(message.id)
-                    // Display the snackbar on the screen. `showSnackbar` is a function
-                    // that suspends until the snackbar disappears from the screen
-                    val result = snackbarHostState.showSnackbar(message.visuals)
-                    when (result) {
-                        Dismissed -> message.onDismiss?.invoke()
-                        ActionPerformed -> message.onActionPerform?.invoke()
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * App's current [NavDestination] if set, otherwise starting destination.
      *

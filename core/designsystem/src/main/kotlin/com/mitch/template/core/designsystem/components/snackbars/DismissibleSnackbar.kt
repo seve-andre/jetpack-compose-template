@@ -24,6 +24,9 @@ import com.mitch.template.core.designsystem.R
 import com.mitch.template.core.designsystem.TemplateDesignSystem
 import com.mitch.template.core.designsystem.TemplateIcons
 import com.mitch.template.core.designsystem.custom.padding
+import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarDefaults
+import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarType
+import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarVisuals
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
