@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.Text
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.mitch.template.core.designsystem.TemplateDesignSystem
 import com.mitch.template.core.designsystem.TemplateIcons
@@ -33,9 +35,18 @@ fun TemplateSnackbar(
     actionOnNewLine: Boolean = false,
     shape: Shape = SnackbarDefaults.shape
 ) {
+    val decoratedAction: @Composable (() -> Unit)? = action?.let {
+        {
+            ProvideTextStyle(
+                value = TextStyle(color = colors.actionColor),
+                content = action
+            )
+        }
+    }
+
     Snackbar(
         modifier = modifier,
-        action = action,
+        action = decoratedAction,
         dismissAction = dismissAction,
         actionOnNewLine = actionOnNewLine,
         shape = shape,

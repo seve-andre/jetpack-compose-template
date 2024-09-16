@@ -3,7 +3,6 @@ package com.mitch.template.core.designsystem.components.snackbars
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -74,12 +73,7 @@ fun DismissibleSnackbar(snackbarHostState: SnackbarHostState) {
                     message = customVisuals.message,
                     action = customVisuals.actionLabel?.let {
                         {
-                            TextButton(
-                                onClick = snackbarData::performAction,
-                                colors = ButtonDefaults.textButtonColors(
-                                    contentColor = colors.actionColor
-                                )
-                            ) {
+                            TextButton(onClick = snackbarData::performAction) {
                                 Text(text = customVisuals.actionLabel)
                             }
                         }
