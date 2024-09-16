@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.template.android.application)
-    alias(libs.plugins.template.android.application.compose)
+    alias(libs.plugins.template.android.compose)
     alias(libs.plugins.template.android.application.flavors)
     alias(libs.plugins.template.hilt)
     alias(libs.plugins.detekt)

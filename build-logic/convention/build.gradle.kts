@@ -37,9 +37,9 @@ tasks {
 
 gradlePlugin {
     plugins {
-        register("androidApplicationCompose") {
-            id = "template.android.application.compose"
-            implementationClass = "ApplicationComposePlugin"
+        register("androidCompose") {
+            id = "template.android.compose"
+            implementationClass = "ComposePlugin"
         }
         register("androidApplication") {
             id = "template.android.application"
@@ -52,10 +52,6 @@ gradlePlugin {
         register("androidFlavors") {
             id = "template.android.application.flavors"
             implementationClass = "ApplicationFlavorsPlugin"
-        }
-        register("androidLibraryCompose") {
-            id = "template.android.library.compose"
-            implementationClass = "LibraryComposePlugin"
         }
         register("androidLibrary") {
             id = "template.android.library"

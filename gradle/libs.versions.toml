@@ -187,11 +187,10 @@ android-lint = { id = "com.android.lint", version.ref = "android-gradle-plugin" 
 
 # Plugins defined by this project
 template-android-application = { id = "template.android.application" }
-template-android-application-compose = { id = "template.android.application.compose" }
+template-android-compose = { id = "template.android.compose" }
 template-android-application-flavors = { id = "template.android.application.flavors" }
 template-android-feature = { id = "template.android.feature" }
 template-android-library = { id = "template.android.library" }
-template-android-library-compose = { id = "template.android.library.compose" }
 template-android-lint = { id = "template.android.lint" }
 template-android-room = { id = "template.android.room" }
 template-android-test = { id = "template.android.test" }
