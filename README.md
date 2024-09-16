@@ -5,6 +5,7 @@
 </div>
 
 # Jetpack Compose Android template
+
 To create you own repo, click on:
 
 [![Use this template](https://user-images.githubusercontent.com/38083522/226207439-1195c8c4-e3e2-4db0-8f39-7277b08872be.png)](https://github.com/seve-andre/jetpack-compose-template/generate)
@@ -14,6 +15,7 @@ To create you own repo, click on:
 > detailed instructions on how to turn the template into your own app
 
 ## What does it use?
+
 - [Kotlin](https://kotlinlang.org/) as main language
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) as modern toolkit for native UI
 - [Material 3 components for Jetpack Compose](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#top-level-functions)
@@ -35,6 +37,7 @@ To create you own repo, click on:
   to use a language inside the app that is different from the system language
 
 ## What does it offer?
+
 - ⚫ dark theme support
 - 🇬🇧 🇮🇹 in-app language preference
 - 🔒 encrypted datastore
@@ -42,6 +45,7 @@ To create you own repo, click on:
 - 🔧 custom snackbars
 
 ## Screenshots
+
 <details>
   <summary><strong>Light/dark theme</strong></summary>
   <img src="./screenshots/home-light.png" alt="Light theme home screen screenshot" title="Home light" height="500" />
@@ -55,6 +59,7 @@ To create you own repo, click on:
 </details>
 
 ### Inspo
+
 - [version catalog](https://github.com/seve-andre/jetpack-compose-template/blob/main/gradle/libs.versions.toml): [see inspo](https://developer.android.com/build/migrate-to-catalogs)
 - [Result](https://github.com/seve-andre/jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/template/util/Result.kt): [see inspo](https://github.com/android/nowinandroid/blob/607c24e7f7399942e278af663ea4ad350e5bbc3a/core/common/src/main/java/com/google/samples/apps/nowinandroid/core/result/Result.kt)
 - [TemplateAppState](https://github.com/seve-andre/jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/template/ui/TemplateAppState.kt): [see inspo](https://github.com/android/nowinandroid/blob/607c24e7f7399942e278af663ea4ad350e5bbc3a/app/src/main/java/com/google/samples/apps/nowinandroid/ui/NiaAppState.kt)
@@ -63,14 +68,17 @@ To create you own repo, click on:
 - [SnackbarManager](https://github.com/seve-andre/jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/template/ui/util/SnackbarManager.kt): [see inspo](https://github.com/android/compose-samples/blob/main/Jetsnack/app/src/main/java/com/example/jetsnack/model/SnackbarManager.kt)
 
 ### Useful features
+
 If you wanna implement some of the following things (not included by this template), consider
 searching
 in [Now in Android repo](https://github.com/android/nowinandroid) first:
 
 - [TimeZone](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+timezone&type=code)
-- [Analytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+analytics&type=code) (e.g. based on app product flavor)
-- [Notifications](https://firebase.google.com/docs/cloud-messaging)
+- [Analytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+analytics&type=code) (e.g.
+  based on app product flavor)
+- [Notifications](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid%20notifier&type=code)
 - [Crashlytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+crashlytics&type=code)
 
 > [!NOTE]
-> Feel free to contribute or reach out to me at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
+> Feel free to contribute or reach out to me
+> at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
