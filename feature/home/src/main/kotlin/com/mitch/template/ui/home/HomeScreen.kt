@@ -20,6 +20,7 @@ import com.mitch.template.core.designsystem.TemplateTheme
 import com.mitch.template.core.designsystem.components.loading.LoadingScreen
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
 import com.mitch.template.core.domain.models.TemplateThemeConfig
+import com.mitch.template.feature.home.R
 import com.mitch.template.ui.home.ActiveDialog.Language
 import com.mitch.template.ui.home.ActiveDialog.None
 import com.mitch.template.ui.home.ActiveDialog.Theme

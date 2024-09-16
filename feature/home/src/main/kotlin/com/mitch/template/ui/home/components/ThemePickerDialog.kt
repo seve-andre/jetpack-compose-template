@@ -36,7 +36,7 @@ import com.mitch.template.core.designsystem.TemplateIcons
 import com.mitch.template.core.designsystem.TemplateTheme
 import com.mitch.template.core.designsystem.custom.padding
 import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.ui.home.R
+import com.mitch.template.feature.home.R
 import com.mitch.template.core.ui.R as UiR
 
 @Composable
