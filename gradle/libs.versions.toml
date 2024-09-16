@@ -1,21 +1,21 @@
 [versions]
 # Kotlin
-kotlin = "2.0.0" # check also ksp
+kotlin = "2.0.20" # kotlin and ksp should be updated together
 kotlinx-datetime = "0.5.0"
 kotlinx-serialization = "1.7.0-RC"
 kotlinx-coroutines = "1.8.0"
 
 # UI
-compose-bom = "2024.05.00"
-activity-compose = "1.8.2"
-androidx-lifecycle = "2.8.0"
+compose-bom = "2024.09.00"
+activity-compose = "1.9.2"
+androidx-lifecycle = "2.8.5"
 coil = "2.5.0"
 eva = "1.0.0"
 core-splashscreen = "1.0.1"
-appcompat = "1.6.1"
+appcompat = "1.7.0"
 
 # Navigation
-compose-navigation = "2.8.0-alpha08"
+compose-navigation = "2.8.0"
 
 # Dependency Injection
 hilt = "2.49"
@@ -35,35 +35,33 @@ timber = "5.0.1"
 junit4 = "4.13.2"
 junit5 = "5.10.2"
 assertk = "0.28.0"
-turbine = "1.0.0"
+turbine = "1.1.0"
 ## Instrumented
-test-core = "1.5.0"
-espresso-core = "3.5.1"
-test-ext-junit = "1.1.5"
-test-rules = "1.5.0"
-test-runner = "1.5.2"
-uiAutomator = "2.2.0"
+test-core = "1.6.1"
+espresso-core = "3.6.1"
+test-ext-junit = "1.2.1"
+test-rules = "1.6.1"
+test-runner = "1.6.2"
+uiAutomator = "2.3.0"
 
 # Desugaring
-desugar-jdk-libs = "2.0.4"
+desugar-jdk-libs = "2.1.2"
 
 # Formatting + Linting
 detekt = "1.23.6"
-nlopez-composeRules = "0.4.5"
+nlopez-composeRules = "0.4.11"
 
 # API calls
 retrofit = "2.11.0"
 okhttp = "4.12.0"
 
 # Plugins
-android-gradle-plugin = "8.4.0" # agp = x.y.z
-androidTools = "31.4.0" # androidTools = (agp.x + 23).(agp.y).(agp.z)
-ksp = "2.0.0-1.0.21" # check kotlin version
+# android-gradle-plugin and androidTools should be updated together
+android-gradle-plugin = "8.6.0" # agp = x.y.z
+androidTools = "31.6.0" # androidTools = (agp.x + 23).(agp.y).(agp.z)
+ksp = "2.0.20-1.0.24" # kotlin and ksp should be updated together
 junit5-plugin = "1.10.0.0"
 secrets = "2.0.1"
-coreKtx = "1.10.1"
-junit = "1.1.5"
-material = "1.10.0"
 
 [libraries]
 # Kotlin
@@ -71,7 +69,6 @@ kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", v
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-protobuf = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-protobuf", version.ref = "kotlinx-serialization" }
-kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 
@@ -80,7 +77,6 @@ activity-compose = { group = "androidx.activity", name = "activity-compose", ver
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
@@ -170,9 +166,6 @@ compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

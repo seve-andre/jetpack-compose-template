@@ -1,11 +1,8 @@
-import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
 import com.mitch.template.configureFlavors
 import com.mitch.template.configureKotlinAndroid
-import com.mitch.template.util.Libs
 import com.mitch.template.util.Sdk
 import com.mitch.template.util.androidTestImplementation
-import com.mitch.template.util.implementation
 import com.mitch.template.util.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project

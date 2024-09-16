@@ -1,8 +1,8 @@
 import androidx.room.gradle.RoomExtension
 import com.google.devtools.ksp.gradle.KspExtension
-import com.mitch.template.util.Libs
 import com.mitch.template.util.implementation
 import com.mitch.template.util.ksp
+import com.mitch.template.util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -26,9 +26,9 @@ class RoomPlugin : Plugin<Project> {
             }
 
             dependencies {
-                implementation(Libs.findLibrary("room-runtime").get())
-                implementation(Libs.findLibrary("room-ktx").get())
-                ksp(Libs.findLibrary("room-compiler").get())
+                implementation(libs.findLibrary("room-runtime").get())
+                implementation(libs.findLibrary("room-ktx").get())
+                ksp(libs.findLibrary("room-compiler").get())
             }
         }
     }

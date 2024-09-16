@@ -1,10 +1,10 @@
 package com.mitch.template
 
 import com.android.build.api.dsl.CommonExtension
-import com.mitch.template.util.Libs
 import com.mitch.template.util.androidTestImplementation
 import com.mitch.template.util.debugImplementation
 import com.mitch.template.util.implementation
+import com.mitch.template.util.libs
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.assign
@@ -24,11 +24,11 @@ internal fun Project.configureAndroidCompose(
         }
 
         dependencies {
-            val bom = Libs.findLibrary("compose-bom").get()
+            val bom = libs.findLibrary("compose-bom").get()
             implementation(platform(bom))
             androidTestImplementation(platform(bom))
-            implementation(Libs.findLibrary("compose-ui-tooling-preview").get())
-            debugImplementation(Libs.findLibrary("compose-ui-tooling").get())
+            implementation(libs.findLibrary("compose-ui-tooling-preview").get())
+            debugImplementation(libs.findLibrary("compose-ui-tooling").get())
         }
     }
 
@@ -46,7 +46,8 @@ internal fun Project.configureAndroidCompose(
             .relativeToRootProject("compose-reports")
             .let(reportsDestination::set)
 
-        stabilityConfigurationFile = rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
+        stabilityConfigurationFile =
+            rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
 
         enableStrongSkippingMode = true
     }
