@@ -35,9 +35,8 @@ import com.mitch.template.core.designsystem.custom.LocalPadding
 import com.mitch.template.core.designsystem.custom.padding
 import com.mitch.template.core.domain.NetworkMonitor
 import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.feature.navigation.TemplateDestinations.Screen.Home
+import com.mitch.template.feature.navigation.TemplateDestination
 import com.mitch.template.feature.navigation.TemplateNavHost
-import com.mitch.template.feature.navigation.TemplateStartDestination
 import com.mitch.template.feature.rememberTemplateAppState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -109,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             TemplateNavHost(
                                 navController = appState.navController,
-                                startDestination = TemplateStartDestination.Screen(Home)
+                                startDestination = TemplateDestination.Screen.Home
                             )
                         }
                     }
