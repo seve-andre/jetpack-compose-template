@@ -1,6 +1,6 @@
 package com.mitch.template.core.ui
 
-import com.mitch.template.ui.designsystem.components.snackbars.SnackbarEvent
+import com.mitch.template.core.designsystem.components.snackbars.SnackbarEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 

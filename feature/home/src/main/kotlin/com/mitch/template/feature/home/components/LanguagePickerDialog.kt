@@ -1,4 +1,4 @@
-package com.mitch.template.ui.home.components
+package com.mitch.template.feature.home.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image

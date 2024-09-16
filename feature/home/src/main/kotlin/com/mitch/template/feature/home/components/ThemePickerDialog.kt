@@ -1,4 +1,4 @@
-package com.mitch.template.ui.home.components
+package com.mitch.template.feature.home.components
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes

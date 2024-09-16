@@ -1,4 +1,4 @@
-package com.mitch.template.ui.designsystem.components.snackbars
+package com.mitch.template.core.designsystem.components.snackbars
 
 import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.SnackbarDuration

@@ -1,4 +1,4 @@
-package com.mitch.template.ui.home
+package com.mitch.template.feature.home
 
 import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
@@ -9,7 +9,6 @@ import androidx.compose.ui.test.onNodeWithText
 import com.mitch.template.core.designsystem.components.loading.LoadingTag
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
 import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.ui.util.stringResource
 import org.junit.Rule
 import org.junit.Test
 
@@ -50,11 +49,11 @@ class HomeScreenTest {
 
         // assert both "change language" and "change theme" buttons are displayed
         composeTestRule
-            .onNodeWithText(composeTestRule.stringResource(R.string.feature_home_change_language))
+            .onNodeWithText(composeTestRule.activity.getString(R.string.feature_home_change_language))
             .assertIsDisplayed()
 
         composeTestRule
-            .onNodeWithText(composeTestRule.stringResource(R.string.feature_home_change_theme))
+            .onNodeWithText(composeTestRule.activity.getString(R.string.feature_home_change_theme))
             .assertIsDisplayed()
     }
 }

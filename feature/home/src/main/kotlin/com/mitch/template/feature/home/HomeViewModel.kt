@@ -1,10 +1,14 @@
-package com.mitch.template.ui.home
+package com.mitch.template.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
 import com.mitch.template.core.domain.models.TemplateThemeConfig
+import com.mitch.template.core.util.Result
 import com.mitch.template.core.util.asResult
+import com.mitch.template.feature.home.HomeUiState.Error
+import com.mitch.template.feature.home.HomeUiState.Loading
+import com.mitch.template.feature.home.HomeUiState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +17,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.mitch.template.core.util.Result
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -27,22 +30,22 @@ class HomeViewModel @Inject constructor(
     ).asResult()
         .map { result ->
             when (result) {
-                Result.Loading -> HomeUiState.Loading
+                Result.Loading -> Loading
                 is Result.Success -> {
                     val (language, theme) = result.data
 
-                    HomeUiState.Success(
+                    Success(
                         language = language,
                         theme = theme
                     )
                 }
 
-                is Result.Error -> HomeUiState.Error()
+                is Result.Error -> Error()
             }
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = HomeUiState.Loading
+            initialValue = Loading
         )
 
     fun updateTheme(theme: TemplateThemeConfig) {

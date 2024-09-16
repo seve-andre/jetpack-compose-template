@@ -9,4 +9,5 @@ android {
 
 dependencies {
     implementation(projects.core.util)
+    androidTestImplementation(libs.bundles.compose.ui.test)
 }

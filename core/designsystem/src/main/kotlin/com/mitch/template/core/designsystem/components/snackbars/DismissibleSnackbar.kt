@@ -3,7 +3,6 @@ package com.mitch.template.core.designsystem.components.snackbars
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -23,12 +22,8 @@ import com.mitch.template.core.designsystem.R
 import com.mitch.template.core.designsystem.TemplateDesignSystem
 import com.mitch.template.core.designsystem.TemplateIcons
 import com.mitch.template.core.designsystem.custom.padding
-import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarDefaults
-import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarType
-import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarVisuals
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun DismissibleSnackbar(snackbarHostState: SnackbarHostState) {
     val dismissSnackbarState = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->

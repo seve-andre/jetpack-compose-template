@@ -1,4 +1,4 @@
-package com.mitch.template.ui.home
+package com.mitch.template.feature.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,13 +19,17 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.template.core.designsystem.TemplateTheme
 import com.mitch.template.core.designsystem.components.loading.LoadingScreen
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
+import com.mitch.template.core.domain.models.TemplateLanguageConfig.English
 import com.mitch.template.core.domain.models.TemplateThemeConfig
-import com.mitch.template.feature.home.R
-import com.mitch.template.ui.home.ActiveDialog.Language
-import com.mitch.template.ui.home.ActiveDialog.None
-import com.mitch.template.ui.home.ActiveDialog.Theme
-import com.mitch.template.ui.home.components.LanguagePickerDialog
-import com.mitch.template.ui.home.components.ThemePickerDialog
+import com.mitch.template.core.domain.models.TemplateThemeConfig.Light
+import com.mitch.template.feature.home.ActiveDialog.Language
+import com.mitch.template.feature.home.ActiveDialog.None
+import com.mitch.template.feature.home.ActiveDialog.Theme
+import com.mitch.template.feature.home.HomeUiState.Error
+import com.mitch.template.feature.home.HomeUiState.Loading
+import com.mitch.template.feature.home.HomeUiState.Success
+import com.mitch.template.feature.home.components.LanguagePickerDialog
+import com.mitch.template.feature.home.components.ThemePickerDialog
 
 @Composable
 fun HomeRoute(
@@ -48,9 +52,9 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
-        HomeUiState.Loading -> LoadingScreen()
+        Loading -> LoadingScreen()
 
-        is HomeUiState.Success -> {
+        is Success -> {
             var activeDialog by remember { mutableStateOf(None) }
             when (activeDialog) {
                 None -> Unit
@@ -83,7 +87,7 @@ fun HomeScreen(
             }
         }
 
-        is HomeUiState.Error -> Unit
+        is Error -> Unit
     }
 }
 
@@ -96,9 +100,9 @@ private enum class ActiveDialog {
 private fun HomeScreenContentPreview() {
     TemplateTheme {
         HomeScreen(
-            uiState = HomeUiState.Success(
-                language = TemplateLanguageConfig.English,
-                theme = TemplateThemeConfig.Light
+            uiState = Success(
+                language = English,
+                theme = Light
             ),
             onChangeTheme = { },
             onChangeLanguage = { }

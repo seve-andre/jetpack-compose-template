@@ -40,10 +40,10 @@ import com.mitch.template.core.designsystem.custom.padding
 import com.mitch.template.core.domain.NetworkMonitor
 import com.mitch.template.core.domain.models.TemplateThemeConfig
 import com.mitch.template.core.ui.SnackbarManager
+import com.mitch.template.core.designsystem.components.snackbars.toVisuals
+import com.mitch.template.ui.rememberTemplateAppState
 import com.mitch.template.navigation.TemplateDestination
 import com.mitch.template.navigation.TemplateNavHost
-import com.mitch.template.ui.designsystem.components.snackbars.toVisuals
-import com.mitch.template.ui.rememberTemplateAppState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect

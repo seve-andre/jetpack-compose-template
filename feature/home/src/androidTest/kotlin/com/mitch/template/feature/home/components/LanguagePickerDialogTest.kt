@@ -1,14 +1,14 @@
-package com.mitch.template.ui.home.components
+package com.mitch.template.feature.home.components
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.mitch.template.core.domain.models.TemplateLanguageConfig
-import com.mitch.template.ui.util.AppNameAndroidComposeTestRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -80,7 +80,7 @@ class LanguagePickerDialogTest {
 }
 
 class LanguagePickerRobot(
-    private val composeTestRule: AppNameAndroidComposeTestRule,
+    private val composeTestRule: AndroidComposeTestRule<*, *>,
     private val items: List<LanguagePickerItem>
 ) {
 
