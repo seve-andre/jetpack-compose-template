@@ -2,7 +2,9 @@ import androidx.room.gradle.RoomExtension
 import com.google.devtools.ksp.gradle.KspExtension
 import com.mitch.template.util.implementation
 import com.mitch.template.util.ksp
+import com.mitch.template.util.library
 import com.mitch.template.util.libs
+import com.mitch.template.util.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -11,8 +13,10 @@ import org.gradle.kotlin.dsl.dependencies
 class RoomPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply("androidx.room")
-            pluginManager.apply("com.google.devtools.ksp")
+            with(pluginManager) {
+                apply(libs.plugin("room"))
+                apply(libs.plugin("ksp"))
+            }
 
             extensions.configure<KspExtension> {
                 arg("room.generateKotlin", "true")
@@ -26,9 +30,9 @@ class RoomPlugin : Plugin<Project> {
             }
 
             dependencies {
-                implementation(libs.findLibrary("room-runtime").get())
-                implementation(libs.findLibrary("room-ktx").get())
-                ksp(libs.findLibrary("room-compiler").get())
+                implementation(libs.library("room-runtime"))
+                implementation(libs.library("room-ktx"))
+                ksp(libs.library("room-compiler"))
             }
         }
     }

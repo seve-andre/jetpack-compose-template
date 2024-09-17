@@ -3,6 +3,8 @@ import com.mitch.template.configureFlavors
 import com.mitch.template.configureKotlinAndroid
 import com.mitch.template.util.Sdk
 import com.mitch.template.util.androidTestImplementation
+import com.mitch.template.util.libs
+import com.mitch.template.util.plugin
 import com.mitch.template.util.testImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -14,9 +16,9 @@ class LibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply("com.android.library")
-                apply("org.jetbrains.kotlin.android")
-                apply("template.android.lint")
+                apply(libs.plugin("android-library"))
+                apply(libs.plugin("kotlin-android"))
+                apply(libs.plugin("template-android-lint"))
             }
 
             extensions.configure<LibraryExtension> {
