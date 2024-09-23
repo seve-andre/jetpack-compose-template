@@ -6,13 +6,12 @@ import com.mitch.template.util.libs
 import com.mitch.template.util.plugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.the
 
 class ComposePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(libs.plugin("compose-compiler"))
+            pluginManager.apply(libs.plugin("compose-compiler"))
 
             val extension: CommonExtension<*, *, *, *, *, *> = when {
                 pluginManager.hasPlugin(libs.plugin("android-application")) -> the<ApplicationExtension>()
