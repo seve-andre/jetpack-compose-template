@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaProjectCodeInsightSettings">
+    <excluded-names>
+      <name>android.app.LauncherActivity.ListItem</name>
+      <name>android.graphics.drawable.Icon</name>
+      <name>android.graphics.fonts.FontFamily</name>
+      <name>android.inputmethodservice.Keyboard.Row</name>
+
+      <!-- Alignment -->
+      <name>android.text.Layout.Alignment</name>
+      <name>android.text.style.AlignmentSpan</name>
+      <name>android.widget.GridLayout.Alignment</name>
+
+      <name>android.view.RoundedCorner</name>
+
+      <!-- Surface -->
+      <name>android.view.Surface*</name>
+      <name>android.window.SurfaceSyncGroup</name>
+      <name>android.graphics.SurfaceTexture</name>
+      <name>android.widget.inline.InlineContentView.SurfaceControlCallback</name>
+      <name>android.view.TextureView.SurfaceTextureListener</name>
+
+      <!-- Modifier -->
+      <name>java.lang.reflect.Modifier</name>
+      <name>java.nio.file.WatchEvent.Modifier</name>
+
+      <name>java.time.format.TextStyle</name>
+      <name>org.w3c.dom.*</name>
+
+      <!-- Optional: I think Compose is a much better fit for any custom Views, so hide the
+      Canvas API from the classic android view system to nudge developers to use Jetpack
+      Compose instead -->
+      <name>android.graphics.Canvas</name>
+
+      <!-- Add excludes for custom UI components (also make lint checks for them) -->
+    </excluded-names>
+  </component>
+</project>
