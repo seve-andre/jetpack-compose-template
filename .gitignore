@@ -35,6 +35,7 @@ keystore.properties
 /.idea/codeStyles/*
 !/.idea/codeStyles/Project.xml
 !/.idea/codeStyles/codeStyleConfig.xml
+!/.idea/codeInsightSettings.xml
 
 # Gradle cache
 .gradle
