@@ -10,7 +10,7 @@ compose-bom = "2024.09.03"
 activity-compose = "1.9.2"
 androidx-lifecycle = "2.8.6"
 coil = "2.7.0"
-eva = "1.0.0"
+eva = "1.1.1"
 core-splashscreen = "1.0.1"
 appcompat = "1.7.0"
 
@@ -97,7 +97,7 @@ coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 icons-material-core = { group = "androidx.compose.material", name = "material-icons-core" }
 icons-material-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
-icons-eva = { group = "br.com.devsrsouza.compose.icons.android", name = "eva-icons", version.ref = "eva" }
+icons-eva = { group = "br.com.devsrsouza.compose.icons", name = "eva-icons", version.ref = "eva" }
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
