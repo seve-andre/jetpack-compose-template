@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues>
+        <ID>InjectDispatcher:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$Default</ID>
+        <ID>InjectDispatcher:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$IO</ID>
+    </ManuallySuppressedIssues>
+</SmellBaseline>

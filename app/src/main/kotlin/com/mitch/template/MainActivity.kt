@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -63,23 +62,13 @@ import com.mitch.template.ui.navigation.TemplateDestination
 import com.mitch.template.ui.navigation.TemplateNavHost
 import com.mitch.template.ui.rememberTemplateAppState
 import com.mitch.template.ui.util.SnackbarManager
-import com.mitch.template.util.network.NetworkMonitor
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    // if not needed, also remove permission from AndroidManifest.xml
-    @Inject
-    lateinit var networkMonitor: NetworkMonitor
-
-    private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         /* Must be called before super.onCreate()
@@ -91,6 +80,8 @@ class MainActivity : AppCompatActivity() {
         // use the entire display to draw
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        val dependenciesProvider = (application as TemplateApplication).dependenciesProvider
+        val viewModel = MainActivityViewModel(dependenciesProvider.userSettingsRepository)
 
         var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
 
@@ -118,7 +109,9 @@ class MainActivity : AppCompatActivity() {
 
             CompositionLocalProvider(LocalPadding provides padding) {
                 TemplateTheme(isThemeDark = isThemeDark) {
-                    val appState = rememberTemplateAppState(networkMonitor)
+                    val appState = rememberTemplateAppState(
+                        networkMonitor = dependenciesProvider.networkMonitor
+                    )
                     val snackbarHostState = appState.snackbarHostState
                     // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
@@ -170,6 +163,7 @@ class MainActivity : AppCompatActivity() {
                                 )
                         ) {
                             TemplateNavHost(
+                                dependenciesProvider = dependenciesProvider,
                                 navController = appState.navController,
                                 startDestination = TemplateDestination.Screen.Home
                             )
