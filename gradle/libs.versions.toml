@@ -18,7 +18,7 @@ appcompat = "1.7.0"
 compose-navigation = "2.8.0"
 
 # Dependency Injection
-hilt = "2.49"
+hilt = "2.52"
 hilt-navigation-compose = "1.2.0"
 
 # Database
