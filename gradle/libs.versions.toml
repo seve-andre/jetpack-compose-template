@@ -48,8 +48,7 @@ detekt = "1.23.7"
 nlopez-composeRules = "0.4.15"
 
 # API calls
-retrofit = "2.11.0"
-okhttp = "4.12.0"
+ktor = "2.3.12"
 
 # Plugins
 # android-gradle-plugin and androidTools should be updated together
@@ -137,9 +136,15 @@ detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-form
 linting-composeDetekt = { group = "io.nlopez.compose.rules", name = "detekt", version.ref = "nlopez-composeRules" }
 
 # API calls
-retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
-retrofit-kotlin-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+
+# typesafe requests
+ktor-client-resources = { group = "io.ktor", name = "ktor-client-resources", version.ref = "ktor" }
+ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinxJson = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
 
 # Lint
 lint-api = { group = "com.android.tools.lint", name = "lint-api", version.ref = "androidTools" }
