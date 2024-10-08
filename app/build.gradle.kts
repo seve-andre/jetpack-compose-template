@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.room)
     alias(libs.plugins.detekt)
     alias(libs.plugins.junit5)
@@ -234,13 +233,6 @@ dependencies {
 
     // Navigation
     implementation(libs.compose.navigation)
-
-    // Dependency Injection
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt.navigation.compose)
-    androidTestImplementation(libs.hilt.android.testing)
-    kspAndroidTest(libs.hilt.compiler)
 
     // Database
     ksp(libs.room.compiler)

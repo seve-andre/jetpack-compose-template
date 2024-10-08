@@ -2,8 +2,6 @@ package com.mitch.template.data.userprefs
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
-import com.mitch.template.di.Dispatcher
-import com.mitch.template.di.TemplateDispatcher.Io
 import com.mitch.template.domain.models.UserPreferences
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -14,11 +12,10 @@ import kotlinx.serialization.encodeToByteArray
 import kotlinx.serialization.protobuf.ProtoBuf
 import java.io.InputStream
 import java.io.OutputStream
-import javax.inject.Inject
 
 @OptIn(ExperimentalSerializationApi::class)
-class UserPreferencesSerializer @Inject constructor(
-    @Dispatcher(Io) private val ioDispatcher: CoroutineDispatcher
+class UserPreferencesSerializer(
+    private val ioDispatcher: CoroutineDispatcher
 ) : Serializer<UserPreferences> {
     override val defaultValue: UserPreferences = UserPreferences()
 

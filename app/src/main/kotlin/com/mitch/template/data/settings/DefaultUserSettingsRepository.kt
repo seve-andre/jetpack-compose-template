@@ -7,9 +7,8 @@ import com.mitch.template.domain.models.TemplateLanguageConfig
 import com.mitch.template.domain.models.TemplateThemeConfig
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class DefaultUserSettingsRepository @Inject constructor(
+class DefaultUserSettingsRepository(
     private val userPreferencesLocalDataSource: UserPreferencesLocalDataSource,
     private val languageLocalDataSource: LanguageLocalDataSource
 ) : UserSettingsRepository {

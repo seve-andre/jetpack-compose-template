@@ -5,7 +5,6 @@ import com.mitch.template.domain.models.TemplateThemeConfig
 import com.mitch.template.domain.models.UserPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 /**
  * [UserPreferencesLocalDataSource] is the mediator between [UserPreferences] Datastore and
@@ -13,7 +12,7 @@ import javax.inject.Inject
  *
  * @property userPreferences is the actual [UserPreferences] Datastore
  */
-class UserPreferencesLocalDataSource @Inject constructor(
+class UserPreferencesLocalDataSource(
     private val userPreferences: DataStore<UserPreferences>
 ) {
     suspend fun setTheme(theme: TemplateThemeConfig) {
