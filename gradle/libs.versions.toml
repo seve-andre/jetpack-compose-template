@@ -15,7 +15,7 @@ core-splashscreen = "1.0.1"
 appcompat = "1.7.0"
 
 # Navigation
-compose-navigation = "2.8.0"
+compose-navigation = "2.8.2"
 
 # Dependency Injection
 hilt = "2.52"
