@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import androidx.room.Room
+import com.mitch.template.BuildConfig
 import com.mitch.template.data.TemplateDatabase
 import com.mitch.template.data.language.LanguageLocalDataSource
 import com.mitch.template.data.settings.DefaultUserSettingsRepository
@@ -14,6 +15,15 @@ import com.mitch.template.data.userprefs.UserPreferencesSerializer
 import com.mitch.template.domain.models.UserPreferences
 import com.mitch.template.util.network.ConnectivityManagerNetworkMonitor
 import com.mitch.template.util.network.NetworkMonitor
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.ANDROID
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.resources.Resources
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,6 +62,7 @@ class DefaultDependenciesProvider(
 
     override val jsonSerializer: Json by lazy {
         Json {
+            prettyPrint = true
             ignoreUnknownKeys = true
         }
     }
@@ -70,6 +81,22 @@ class DefaultDependenciesProvider(
             scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher)
         ) {
             context.dataStoreFile("user_preferences.pb")
+        }
+    }
+
+    override val httpClient: HttpClient by lazy {
+        HttpClient {
+            if (BuildConfig.DEBUG) {
+                install(Logging) {
+                    logger = Logger.ANDROID
+                    level = LogLevel.BODY
+                }
+            }
+            install(ContentNegotiation) {
+                json(jsonSerializer)
+            }
+            install(Resources)
+            install(Auth)
         }
     }
 }

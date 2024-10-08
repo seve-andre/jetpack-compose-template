@@ -21,7 +21,7 @@ To create you own repo, click on:
 - [Material 3 components for Jetpack Compose](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#top-level-functions)
   to build UI faster
 - [Room](https://developer.android.com/training/data-storage/room) as local persistent DB
-- [Retrofit+OkHttp](https://square.github.io/retrofit/): for api calls
+- [Ktor client](https://ktor.io/docs/client-create-new-application.html): for api calls
 - [Proto Datastore](https://developer.android.com/topic/libraries/architecture/datastore?gclid=CjwKCAjwkYGVBhArEiwA4sZLuMMCRUnWZzzy-AwDePYTUTn3gO6-rrT8jGo7D-H2vztegIJ-zEsb8hoCtI8QAvD_BwE&gclsrc=aw.ds)
   as typesafe data storage solution with protocol buffers support
 - [Detekt](https://detekt.dev/) for static code analysis and formatting
@@ -80,4 +80,5 @@ in [Now in Android repo](https://github.com/android/nowinandroid) first:
 
 > [!NOTE]
 > Feel free to contribute or reach out to me
-> at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
+>
+at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
