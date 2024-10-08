@@ -1,24 +1,24 @@
 [versions]
 # Kotlin
 kotlin = "2.0.20" # kotlin and ksp should be updated together
-kotlinx-datetime = "0.5.0"
-kotlinx-serialization = "1.7.0-RC"
-kotlinx-coroutines = "1.8.0"
+kotlinx-datetime = "0.6.1"
+kotlinx-serialization = "1.7.3"
+kotlinx-coroutines = "1.9.0"
 
 # UI
-compose-bom = "2024.09.00"
+compose-bom = "2024.09.03"
 activity-compose = "1.9.2"
-androidx-lifecycle = "2.8.5"
-coil = "2.5.0"
-eva = "1.0.0"
+androidx-lifecycle = "2.8.6"
+coil = "2.7.0"
+eva = "1.1.1"
 core-splashscreen = "1.0.1"
 appcompat = "1.7.0"
 
 # Navigation
-compose-navigation = "2.8.0"
+compose-navigation = "2.8.2"
 
 # Dependency Injection
-hilt = "2.49"
+hilt = "2.52"
 hilt-navigation-compose = "1.2.0"
 
 # Database
@@ -48,8 +48,8 @@ uiAutomator = "2.3.0"
 desugar-jdk-libs = "2.1.2"
 
 # Formatting + Linting
-detekt = "1.23.6"
-nlopez-composeRules = "0.4.11"
+detekt = "1.23.7"
+nlopez-composeRules = "0.4.15"
 
 # API calls
 retrofit = "2.11.0"
@@ -57,8 +57,8 @@ okhttp = "4.12.0"
 
 # Plugins
 # android-gradle-plugin and androidTools should be updated together
-android-gradle-plugin = "8.6.0" # agp = x.y.z
-androidTools = "31.6.0" # androidTools = (agp.x + 23).(agp.y).(agp.z)
+android-gradle-plugin = "8.7.0" # agp = x.y.z
+androidTools = "31.7.0" # androidTools = (agp.x + 23).(agp.y).(agp.z)
 ksp = "2.0.20-1.0.24" # kotlin and ksp should be updated together
 junit5-plugin = "1.10.0.0"
 secrets = "2.0.1"
@@ -97,7 +97,7 @@ coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 icons-material-core = { group = "androidx.compose.material", name = "material-icons-core" }
 icons-material-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
-icons-eva = { group = "br.com.devsrsouza.compose.icons.android", name = "eva-icons", version.ref = "eva" }
+icons-eva = { group = "br.com.devsrsouza.compose.icons", name = "eva-icons", version.ref = "eva" }
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
