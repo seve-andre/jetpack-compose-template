@@ -48,8 +48,8 @@ uiAutomator = "2.3.0"
 desugar-jdk-libs = "2.1.2"
 
 # Formatting + Linting
-detekt = "1.23.6"
-nlopez-composeRules = "0.4.11"
+detekt = "1.23.7"
+nlopez-composeRules = "0.4.15"
 
 # API calls
 retrofit = "2.11.0"
