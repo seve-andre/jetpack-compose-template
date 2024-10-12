@@ -60,13 +60,6 @@ class DefaultDependenciesProvider(
         CoroutineScope(SupervisorJob() + defaultDispatcher)
     }
 
-    override val jsonSerializer: Json by lazy {
-        Json {
-            prettyPrint = true
-            ignoreUnknownKeys = true
-        }
-    }
-
     override val database: TemplateDatabase by lazy {
         Room.databaseBuilder(
             context,
@@ -84,7 +77,14 @@ class DefaultDependenciesProvider(
         }
     }
 
-    override val httpClient: HttpClient by lazy {
+    private val jsonSerializer: Json by lazy {
+        Json {
+            prettyPrint = true
+            ignoreUnknownKeys = true
+        }
+    }
+
+    private val httpClient: HttpClient by lazy {
         HttpClient {
             if (BuildConfig.DEBUG) {
                 install(Logging) {
