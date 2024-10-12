@@ -41,6 +41,15 @@ class DefaultDependenciesProvider(
         )
     }
 
+    private val preferencesDataStore: DataStore<UserPreferences> by lazy {
+        DataStoreFactory.create(
+            serializer = UserPreferencesSerializer(ioDispatcher),
+            scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher)
+        ) {
+            context.dataStoreFile("user_preferences.pb")
+        }
+    }
+
     override val userSettingsRepository: UserSettingsRepository by lazy {
         DefaultUserSettingsRepository(
             userPreferencesLocalDataSource = UserPreferencesLocalDataSource(preferencesDataStore),
@@ -66,15 +75,6 @@ class DefaultDependenciesProvider(
             TemplateDatabase::class.java,
             "template.db"
         ).build()
-    }
-
-    override val preferencesDataStore: DataStore<UserPreferences> by lazy {
-        DataStoreFactory.create(
-            serializer = UserPreferencesSerializer(ioDispatcher),
-            scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher)
-        ) {
-            context.dataStoreFile("user_preferences.pb")
-        }
     }
 
     private val jsonSerializer: Json by lazy {
