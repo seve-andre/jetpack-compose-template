@@ -48,7 +48,7 @@ detekt = "1.23.7"
 nlopez-composeRules = "0.4.15"
 
 # API calls
-ktor = "2.3.12"
+ktor = "3.0.0"
 
 # Plugins
 # android-gradle-plugin and androidTools should be updated together
