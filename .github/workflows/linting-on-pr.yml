@@ -22,6 +22,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
