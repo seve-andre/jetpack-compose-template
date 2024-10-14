@@ -183,6 +183,7 @@ detekt {
     baseline = file("$rootDir/config/detekt/baseline.xml")
     autoCorrect = true
     buildUponDefaultConfig = true
+    parallel = true
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
@@ -191,6 +192,10 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
         xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins
         md.required.set(true) // simple Markdown format
     }
+    include("**/*.kt")
+    include("**/*.kts")
+    exclude("resources/")
+    exclude("build/")
 }
 
 secrets {

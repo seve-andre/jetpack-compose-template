@@ -41,6 +41,15 @@ class DefaultDependenciesProvider(
         )
     }
 
+    private val preferencesDataStore: DataStore<UserPreferences> by lazy {
+        DataStoreFactory.create(
+            serializer = UserPreferencesSerializer(ioDispatcher),
+            scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher)
+        ) {
+            context.dataStoreFile("user_preferences.pb")
+        }
+    }
+
     override val userSettingsRepository: UserSettingsRepository by lazy {
         DefaultUserSettingsRepository(
             userPreferencesLocalDataSource = UserPreferencesLocalDataSource(preferencesDataStore),
@@ -60,13 +69,6 @@ class DefaultDependenciesProvider(
         CoroutineScope(SupervisorJob() + defaultDispatcher)
     }
 
-    override val jsonSerializer: Json by lazy {
-        Json {
-            prettyPrint = true
-            ignoreUnknownKeys = true
-        }
-    }
-
     override val database: TemplateDatabase by lazy {
         Room.databaseBuilder(
             context,
@@ -75,16 +77,14 @@ class DefaultDependenciesProvider(
         ).build()
     }
 
-    override val preferencesDataStore: DataStore<UserPreferences> by lazy {
-        DataStoreFactory.create(
-            serializer = UserPreferencesSerializer(ioDispatcher),
-            scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher)
-        ) {
-            context.dataStoreFile("user_preferences.pb")
+    private val jsonSerializer: Json by lazy {
+        Json {
+            prettyPrint = true
+            ignoreUnknownKeys = true
         }
     }
 
-    override val httpClient: HttpClient by lazy {
+    private val httpClient: HttpClient by lazy {
         HttpClient {
             if (BuildConfig.DEBUG) {
                 install(Logging) {
