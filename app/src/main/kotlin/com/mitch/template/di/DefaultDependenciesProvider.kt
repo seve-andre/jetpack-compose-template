@@ -10,19 +10,22 @@ import com.mitch.template.data.TemplateDatabase
 import com.mitch.template.data.language.LanguageLocalDataSource
 import com.mitch.template.data.settings.DefaultUserSettingsRepository
 import com.mitch.template.data.settings.UserSettingsRepository
+import com.mitch.template.data.userprefs.ProtoUserPreferences
 import com.mitch.template.data.userprefs.UserPreferencesLocalDataSource
 import com.mitch.template.data.userprefs.UserPreferencesSerializer
-import com.mitch.template.domain.models.UserPreferences
 import com.mitch.template.util.network.ConnectivityManagerNetworkMonitor
 import com.mitch.template.util.network.NetworkMonitor
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.ANDROID
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.resources.Resources
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -41,9 +44,9 @@ class DefaultDependenciesProvider(
         )
     }
 
-    private val preferencesDataStore: DataStore<UserPreferences> by lazy {
+    private val preferencesDataStore: DataStore<ProtoUserPreferences> by lazy {
         DataStoreFactory.create(
-            serializer = UserPreferencesSerializer(ioDispatcher),
+            serializer = UserPreferencesSerializer,
             scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher)
         ) {
             context.dataStoreFile("user_preferences.pb")
@@ -97,6 +100,9 @@ class DefaultDependenciesProvider(
             }
             install(Resources)
             install(Auth)
+            defaultRequest {
+                contentType(ContentType.Application.Json)
+            }
         }
     }
 }

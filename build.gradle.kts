@@ -11,4 +11,5 @@ plugins {
     alias(libs.plugins.secrets) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.android.lint) apply false
+    alias(libs.plugins.protobuf) apply false
 }

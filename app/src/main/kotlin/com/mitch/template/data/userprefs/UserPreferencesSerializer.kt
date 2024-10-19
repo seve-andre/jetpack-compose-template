@@ -2,36 +2,30 @@ package com.mitch.template.data.userprefs
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
-import com.mitch.template.domain.models.UserPreferences
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.decodeFromByteArray
-import kotlinx.serialization.encodeToByteArray
-import kotlinx.serialization.protobuf.ProtoBuf
 import java.io.InputStream
 import java.io.OutputStream
 
-@OptIn(ExperimentalSerializationApi::class)
-class UserPreferencesSerializer(
-    private val ioDispatcher: CoroutineDispatcher
-) : Serializer<UserPreferences> {
-    override val defaultValue: UserPreferences = UserPreferences()
+/**
+ * [UserPreferencesSerializer] is used to serialize/deserialize from Proto Datastore,
+ * in particular the [ProtoUserPreferences] datastore.
+ *
+ * see more at [Proto Datastore](https://developer.android.com/topic/libraries/architecture/datastore#proto-create)
+ */
+object UserPreferencesSerializer : Serializer<ProtoUserPreferences> {
+    override val defaultValue: ProtoUserPreferences = ProtoUserPreferences.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): UserPreferences {
+    override suspend fun readFrom(input: InputStream): ProtoUserPreferences {
         return try {
-            withContext(ioDispatcher) {
-                ProtoBuf.decodeFromByteArray<UserPreferences>(bytes = input.use { it.readBytes() })
-            }
+            // readFrom is already called on the data store background thread
+            ProtoUserPreferences.parseFrom(input)
         } catch (exception: SerializationException) {
             throw CorruptionException("Cannot read proto. $exception")
         }
     }
 
-    override suspend fun writeTo(t: UserPreferences, output: OutputStream) {
-        withContext(ioDispatcher) {
-            output.write(ProtoBuf.encodeToByteArray(t))
-        }
+    override suspend fun writeTo(t: ProtoUserPreferences, output: OutputStream) {
+        // writeTo is already called on the data store background thread
+        t.writeTo(output)
     }
 }

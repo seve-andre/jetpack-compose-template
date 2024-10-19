@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.secrets)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.protobuf)
 }
 
 val packageName = "com.mitch.template"
@@ -198,6 +199,24 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     exclude("build/")
 }
 
+protobuf {
+    protoc {
+        artifact = libs.protobuf.protoc.get().toString()
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                register("java") {
+                    option("lite")
+                }
+                register("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 secrets {
     defaultPropertiesFileName = "secrets.defaults.properties"
     propertiesFileName = "secrets.properties"
@@ -208,7 +227,6 @@ dependencies {
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.serialization.protobuf)
     implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.kotlinx.coroutines.test)
 
@@ -246,6 +264,7 @@ dependencies {
 
     // Datastore (previously SharedPreferences)
     implementation(libs.datastore.core)
+    implementation(libs.protobuf.kotlin.lite)
 
     // Logging
     implementation(libs.timber)

@@ -3,6 +3,8 @@ package com.mitch.template.data.settings
 import com.mitch.template.data.language.LanguageLocalDataSource
 import com.mitch.template.data.language.toDomainLanguage
 import com.mitch.template.data.userprefs.UserPreferencesLocalDataSource
+import com.mitch.template.data.userprefs.toDomainModel
+import com.mitch.template.data.userprefs.toProtoModel
 import com.mitch.template.domain.models.TemplateLanguageConfig
 import com.mitch.template.domain.models.TemplateThemeConfig
 import kotlinx.coroutines.flow.Flow
@@ -14,11 +16,11 @@ class DefaultUserSettingsRepository(
 ) : UserSettingsRepository {
 
     override fun getTheme(): Flow<TemplateThemeConfig> {
-        return userPreferencesLocalDataSource.getTheme().map { it }
+        return userPreferencesLocalDataSource.getTheme().map { it.toDomainModel() }
     }
 
     override suspend fun setTheme(theme: TemplateThemeConfig) {
-        userPreferencesLocalDataSource.setTheme(theme)
+        userPreferencesLocalDataSource.setTheme(theme.toProtoModel())
     }
 
     override fun getLanguage(): Flow<TemplateLanguageConfig> {
