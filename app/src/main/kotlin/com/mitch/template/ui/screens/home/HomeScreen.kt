@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.template.R
 import com.mitch.template.domain.models.TemplateLanguageConfig
@@ -25,9 +24,7 @@ import com.mitch.template.ui.screens.home.components.LanguagePickerDialog
 import com.mitch.template.ui.screens.home.components.ThemePickerDialog
 
 @Composable
-fun HomeRoute(
-    viewModel: HomeViewModel = hiltViewModel()
-) {
+fun HomeRoute(viewModel: HomeViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeScreen(

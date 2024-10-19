@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.room)
     alias(libs.plugins.detekt)
     alias(libs.plugins.junit5)
@@ -184,6 +183,7 @@ detekt {
     baseline = file("$rootDir/config/detekt/baseline.xml")
     autoCorrect = true
     buildUponDefaultConfig = true
+    parallel = true
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
@@ -192,6 +192,10 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
         xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins
         md.required.set(true) // simple Markdown format
     }
+    include("**/*.kt")
+    include("**/*.kts")
+    exclude("resources/")
+    exclude("build/")
 }
 
 secrets {
@@ -235,13 +239,6 @@ dependencies {
     // Navigation
     implementation(libs.compose.navigation)
 
-    // Dependency Injection
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt.navigation.compose)
-    androidTestImplementation(libs.hilt.android.testing)
-    kspAndroidTest(libs.hilt.compiler)
-
     // Database
     ksp(libs.room.compiler)
     implementation(libs.room.runtime)
@@ -254,9 +251,13 @@ dependencies {
     implementation(libs.timber)
 
     // API calls
-    implementation(libs.retrofit.core)
-    implementation(libs.retrofit.kotlin.serialization)
-    implementation(libs.okhttp.logging)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.resources)
+    implementation(libs.ktor.client.contentNegotiation)
+    implementation(libs.ktor.serialization.kotlinxJson)
+    implementation(libs.ktor.client.auth)
 
     // Testing
     // Unit
