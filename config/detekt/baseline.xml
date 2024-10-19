@@ -3,9 +3,9 @@
   <ManuallySuppressedIssues>
     <ID>InjectDispatcher:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$Default</ID>
     <ID>InjectDispatcher:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$IO</ID>
-    <ID>UnusedPrivateProperty:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$private val httpClient: HttpClient by lazy { HttpClient { if (BuildConfig.DEBUG) { install(Logging) { logger = Logger.ANDROID level = LogLevel.BODY } } install(ContentNegotiation) { json(jsonSerializer) } install(Resources) install(Auth) } }</ID>
+    <ID>UnusedPrivateProperty:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$private val httpClient: HttpClient by lazy { HttpClient { if (BuildConfig.DEBUG) { install(Logging) { logger = Logger.ANDROID level = LogLevel.BODY } } install(ContentNegotiation) { json(jsonSerializer) } install(Resources) install(Auth) defaultRequest { contentType(ContentType.Application.Json) } } }</ID>
   </ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>UnusedPrivateProperty:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$private val httpClient: HttpClient by lazy { HttpClient { if (BuildConfig.DEBUG) { install(Logging) { logger = Logger.ANDROID level = LogLevel.BODY } } install(ContentNegotiation) { json(jsonSerializer) } install(Resources) install(Auth) } }</ID>
+    <ID>UnusedPrivateProperty:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$private val httpClient: HttpClient by lazy { HttpClient { if (BuildConfig.DEBUG) { install(Logging) { logger = Logger.ANDROID level = LogLevel.BODY } } install(ContentNegotiation) { json(jsonSerializer) } install(Resources) install(Auth) defaultRequest { contentType(ContentType.Application.Json) } } }</ID>
   </CurrentIssues>
 </SmellBaseline>
