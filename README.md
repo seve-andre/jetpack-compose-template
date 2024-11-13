@@ -79,6 +79,4 @@ in [Now in Android repo](https://github.com/android/nowinandroid) first:
 - [Sync data between local database and server](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+sync+language%3AKotlin&type=code&l=Kotlin)
 
 > [!NOTE]
-> Feel free to contribute or reach out to me
->
-at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
+> Feel free to contribute or reach out to me at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
