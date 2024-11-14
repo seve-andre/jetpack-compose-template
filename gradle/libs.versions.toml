@@ -6,10 +6,10 @@ kotlinx-serialization = "1.7.3"
 kotlinx-coroutines = "1.9.0"
 
 # UI
-compose-bom = "2024.10.00"
+compose-bom = "2024.10.01"
 activity-compose = "1.9.3"
-androidx-lifecycle = "2.8.6"
-coil = "2.7.0"
+androidx-lifecycle = "2.8.7"
+coil = "3.0.0"
 eva = "1.1.1"
 core-splashscreen = "1.0.1"
 appcompat = "1.7.0"
@@ -43,19 +43,19 @@ test-runner = "1.6.2"
 uiAutomator = "2.3.0"
 
 # Desugaring
-desugar-jdk-libs = "2.1.2"
+desugar-jdk-libs = "2.1.3"
 
 # Formatting + Linting
 detekt = "1.23.7"
-nlopez-composeRules = "0.4.15"
+nlopez-composeRules = "0.4.18"
 
 # API calls
 ktor = "3.0.0"
 
 # Plugins
 # android-gradle-plugin and androidTools should be updated together
-android-gradle-plugin = "8.7.1" # agp = x.y.z
-androidTools = "31.7.1" # androidTools = (agp.x + 23).(agp.y).(agp.z)
+android-gradle-plugin = "8.7.2" # agp = x.y.z
+androidTools = "31.7.2" # androidTools = (agp.x + 23).(agp.y).(agp.z)
 ksp = "2.0.20-1.0.25" # kotlin and ksp should be updated together
 junit5-plugin = "1.10.0.0"
 secrets = "2.0.1"
@@ -89,8 +89,8 @@ lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-run
 # SavedStateHandle
 lifecycle-viewModel-savedstate = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }
 
-coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coil = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil" }
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 icons-material-core = { group = "androidx.compose.material", name = "material-icons-core" }
 icons-material-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 icons-eva = { group = "br.com.devsrsouza.compose.icons", name = "eva-icons", version.ref = "eva" }
