@@ -6,23 +6,23 @@ kotlinx-serialization = "1.7.3"
 kotlinx-coroutines = "1.9.0"
 
 # UI
-compose-bom = "2024.10.01"
+compose-bom = "2024.11.00"
 activity-compose = "1.9.3"
 androidx-lifecycle = "2.8.7"
-coil = "3.0.0"
+coil = "3.0.3"
 eva = "1.1.1"
 core-splashscreen = "1.0.1"
 appcompat = "1.7.0"
 
 # Navigation
-compose-navigation = "2.8.3"
+compose-navigation = "2.8.4"
 
 # Database
 room = "2.6.1"
 
 # Datastore
 datastore = "1.1.1"
-protobuf = "4.28.2"
+protobuf = "4.28.3"
 protobufPlugin = "0.9.4"
 
 # Logging
@@ -31,9 +31,9 @@ timber = "5.0.1"
 # Testing
 ## Unit
 junit4 = "4.13.2"
-junit5 = "5.10.2"
-assertk = "0.28.0"
-turbine = "1.1.0"
+junit5 = "5.11.2"
+assertk = "0.28.1"
+turbine = "1.2.0"
 ## Instrumented
 test-core = "1.6.1"
 espresso-core = "3.6.1"
@@ -50,14 +50,14 @@ detekt = "1.23.7"
 nlopez-composeRules = "0.4.18"
 
 # API calls
-ktor = "3.0.0"
+ktor = "3.0.1"
 
 # Plugins
 # android-gradle-plugin and androidTools should be updated together
 android-gradle-plugin = "8.7.2" # agp = x.y.z
 androidTools = "31.7.2" # androidTools = (agp.x + 23).(agp.y).(agp.z)
 ksp = "2.0.20-1.0.25" # kotlin and ksp should be updated together
-junit5-plugin = "1.10.0.0"
+junit5-plugin = "1.11.2.0"
 secrets = "2.0.1"
 
 [libraries]
