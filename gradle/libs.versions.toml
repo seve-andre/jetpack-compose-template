@@ -1,6 +1,6 @@
 [versions]
 # Kotlin
-kotlin = "2.0.20" # kotlin and ksp should be updated together
+kotlin = "2.0.21" # kotlin and ksp should be updated together
 kotlinx-datetime = "0.6.1"
 kotlinx-serialization = "1.7.3"
 kotlinx-coroutines = "1.9.0"
@@ -56,7 +56,7 @@ ktor = "3.0.1"
 # android-gradle-plugin and androidTools should be updated together
 android-gradle-plugin = "8.7.2" # agp = x.y.z
 androidTools = "31.7.2" # androidTools = (agp.x + 23).(agp.y).(agp.z)
-ksp = "2.0.20-1.0.25" # kotlin and ksp should be updated together
+ksp = "2.0.21-1.0.28" # kotlin and ksp should be updated together
 junit5-plugin = "1.11.2.0"
 secrets = "2.0.1"
 
