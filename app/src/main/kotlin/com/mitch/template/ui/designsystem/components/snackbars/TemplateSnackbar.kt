@@ -1,9 +1,7 @@
 package com.mitch.template.ui.designsystem.components.snackbars
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -20,7 +18,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.TemplateTheme
@@ -37,44 +34,41 @@ fun TemplateSnackbar(
     actionOnNewLine: Boolean = false,
     shape: Shape = SnackbarDefaults.shape
 ) {
-    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-        Snackbar(
-            modifier = modifier,
-            action = action?.let {
-                {
-                    TextButton(
-                        onClick = action.onPerformAction,
-                        colors = ButtonDefaults.textButtonColors(
-                            contentColor = colors.actionColor
-                        )
-                    ) {
-                        Text(text = action.label)
-                    }
-                }
-            },
-            dismissAction = dismissAction,
-            actionOnNewLine = actionOnNewLine,
-            shape = shape,
-            containerColor = colors.containerColor,
-            contentColor = colors.messageColor,
-            actionContentColor = colors.actionColor
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                if (icon != null) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null
+    Snackbar(
+        modifier = modifier,
+        action = action?.let {
+            {
+                TextButton(
+                    onClick = action.onPerformAction,
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor = colors.actionColor
                     )
-                    Spacer(modifier = Modifier.width(padding.small))
+                ) {
+                    Text(text = action.label)
                 }
-                Text(text = message)
             }
+        },
+        dismissAction = dismissAction,
+        actionOnNewLine = actionOnNewLine,
+        shape = shape,
+        containerColor = colors.containerColor,
+        contentColor = colors.messageColor,
+        actionContentColor = colors.actionColor
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.width(padding.small))
+            }
+            Text(text = message)
         }
     }
 }
 
 @PreviewLightDark
-@PreviewScreenSizes
 @Composable
 private fun TemplateSnackbarDefaultPreview() {
     TemplateTheme {

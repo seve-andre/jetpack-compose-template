@@ -1,5 +1,7 @@
 package com.mitch.template.ui.designsystem.components.snackbars
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -10,6 +12,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.mitch.template.R
@@ -35,40 +38,42 @@ fun TemplateSnackbarHost(hostState: SnackbarHostState) {
             TemplateSnackbarType.Error -> TemplateSnackbarDefaults.errorSnackbarColors()
         }
 
-        TemplateSnackbar(
-            colors = colors,
-            icon = customVisuals.imageVector,
-            message = customVisuals.message,
-            action = if (
-                customVisuals.actionLabel != null
-                && customVisuals.onPerformAction != null
-            ) {
-                SnackbarAction(
-                    label = customVisuals.actionLabel,
-                    onPerformAction = customVisuals.onPerformAction
-                )
-            } else {
-                null
-            },
-            dismissAction = if (customVisuals.duration == SnackbarDuration.Indefinite) {
-                {
-                    IconButton(
-                        onClick = snackbarData::dismiss,
-                        colors = IconButtonDefaults.iconButtonColors(
-                            contentColor = TemplateDesignSystem.colorScheme.inverseOnSurface
-                        )
-                    ) {
-                        Icon(
-                            imageVector = TemplateIcons.Outlined.Close,
-                            contentDescription = stringResource(
-                                id = R.string.dismiss_snackbar_content_description
+        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            TemplateSnackbar(
+                colors = colors,
+                icon = customVisuals.imageVector,
+                message = customVisuals.message,
+                action = if (
+                    customVisuals.actionLabel != null &&
+                    customVisuals.onPerformAction != null
+                ) {
+                    SnackbarAction(
+                        label = customVisuals.actionLabel,
+                        onPerformAction = customVisuals.onPerformAction
+                    )
+                } else {
+                    null
+                },
+                dismissAction = if (customVisuals.duration == SnackbarDuration.Indefinite) {
+                    {
+                        IconButton(
+                            onClick = snackbarData::dismiss,
+                            colors = IconButtonDefaults.iconButtonColors(
+                                contentColor = TemplateDesignSystem.colorScheme.inverseOnSurface
                             )
-                        )
+                        ) {
+                            Icon(
+                                imageVector = TemplateIcons.Outlined.Close,
+                                contentDescription = stringResource(
+                                    id = R.string.dismiss_snackbar_content_description
+                                )
+                            )
+                        }
                     }
+                } else {
+                    null
                 }
-            } else {
-                null
-            }
-        )
+            )
+        }
     }
 }
