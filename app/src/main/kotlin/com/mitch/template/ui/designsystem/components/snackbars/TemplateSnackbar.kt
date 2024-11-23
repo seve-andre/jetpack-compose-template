@@ -1,8 +1,11 @@
 package com.mitch.template.ui.designsystem.components.snackbars
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -16,113 +19,135 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
+import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.theme.custom.padding
 
 @Composable
 fun TemplateSnackbar(
     colors: TemplateSnackbarColors,
-    icon: ImageVector?,
     message: String,
+    icon: ImageVector?,
+    action: SnackbarAction?,
     modifier: Modifier = Modifier,
-    action: @Composable (() -> Unit)? = null,
     dismissAction: @Composable (() -> Unit)? = null,
     actionOnNewLine: Boolean = false,
     shape: Shape = SnackbarDefaults.shape
 ) {
-    Snackbar(
-        modifier = modifier,
-        action = action,
-        dismissAction = dismissAction,
-        actionOnNewLine = actionOnNewLine,
-        shape = shape,
-        containerColor = colors.containerColor,
-        contentColor = colors.messageColor,
-        actionContentColor = colors.actionColor
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            if (icon != null) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.width(padding.small))
+    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Snackbar(
+            modifier = modifier,
+            action = action?.let {
+                {
+                    TextButton(
+                        onClick = action.onPerformAction,
+                        colors = ButtonDefaults.textButtonColors(
+                            contentColor = colors.actionColor
+                        )
+                    ) {
+                        Text(text = action.label)
+                    }
+                }
+            },
+            dismissAction = dismissAction,
+            actionOnNewLine = actionOnNewLine,
+            shape = shape,
+            containerColor = colors.containerColor,
+            contentColor = colors.messageColor,
+            actionContentColor = colors.actionColor
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (icon != null) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null
+                    )
+                    Spacer(modifier = Modifier.width(padding.small))
+                }
+                Text(text = message)
             }
-            Text(text = message)
         }
+    }
+}
+
+@PreviewLightDark
+@PreviewScreenSizes
+@Composable
+private fun TemplateSnackbarDefaultPreview() {
+    TemplateTheme {
+        TemplateSnackbar(
+            message = "Default",
+            icon = null,
+            action = SnackbarAction(label = "This is my action", onPerformAction = { }),
+            colors = TemplateSnackbarDefaults.defaultSnackbarColors()
+        )
     }
 }
 
 @Preview
 @Composable
-private fun TemplateSnackbarDefaultPreview() {
-    TemplateSnackbar(
-        message = "Default",
-        action = {
-            TextButton(onClick = { }) {
-                Text(text = "This is my action")
-            }
-        },
-        colors = TemplateSnackbarDefaults.defaultSnackbarColors(),
-        icon = null
-    )
-}
-
-@Preview
-@Composable
 private fun TemplateSnackbarDefaultIndefinitePreview() {
-    TemplateSnackbar(
-        message = "Default",
-        action = {
-            TextButton(onClick = { }) {
-                Text(text = "This is my action")
+    TemplateTheme {
+        TemplateSnackbar(
+            message = "Default",
+            icon = null,
+            action = SnackbarAction(label = "This is my action", onPerformAction = { }),
+            colors = TemplateSnackbarDefaults.defaultSnackbarColors(),
+            dismissAction = {
+                IconButton(
+                    onClick = { },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = TemplateDesignSystem.colorScheme.inverseOnSurface
+                    )
+                ) {
+                    Icon(
+                        imageVector = TemplateIcons.Outlined.Close,
+                        contentDescription = "Dismiss snackbar"
+                    )
+                }
             }
-        },
-        colors = TemplateSnackbarDefaults.defaultSnackbarColors(),
-        icon = null,
-        dismissAction = {
-            IconButton(
-                onClick = { },
-                colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = TemplateDesignSystem.colorScheme.inverseOnSurface
-                )
-            ) {
-                Icon(
-                    imageVector = TemplateIcons.Outlined.Close,
-                    contentDescription = "Dismiss snackbar"
-                )
-            }
-        }
-    )
+        )
+    }
 }
 
 @Preview
 @Composable
 private fun TemplateSnackbarSuccessPreview() {
-    TemplateSnackbar(
-        message = "Success",
-        colors = TemplateSnackbarDefaults.successSnackbarColors(),
-        icon = TemplateIcons.Filled.Success
-    )
+    TemplateTheme {
+        TemplateSnackbar(
+            message = "Success",
+            icon = TemplateIcons.Filled.Success,
+            action = null,
+            colors = TemplateSnackbarDefaults.successSnackbarColors()
+        )
+    }
 }
 
 @Preview
 @Composable
 private fun TemplateSnackbarWarningPreview() {
-    TemplateSnackbar(
-        message = "Warning",
-        colors = TemplateSnackbarDefaults.warningSnackbarColors(),
-        icon = TemplateIcons.Filled.Warning
-    )
+    TemplateTheme {
+        TemplateSnackbar(
+            message = "Warning",
+            icon = TemplateIcons.Filled.Warning,
+            action = null,
+            colors = TemplateSnackbarDefaults.warningSnackbarColors()
+        )
+    }
 }
 
 @Preview
 @Composable
 private fun TemplateSnackbarErrorPreview() {
-    TemplateSnackbar(
-        message = "Error",
-        colors = TemplateSnackbarDefaults.errorSnackbarColors(),
-        icon = TemplateIcons.Filled.Error
-    )
+    TemplateTheme {
+        TemplateSnackbar(
+            message = "Error",
+            icon = TemplateIcons.Filled.Error,
+            action = null,
+            colors = TemplateSnackbarDefaults.errorSnackbarColors()
+        )
+    }
 }

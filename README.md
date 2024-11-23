@@ -77,6 +77,7 @@ in [Now in Android repo](https://github.com/android/nowinandroid) first:
 - [Notifications](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid%20notifi&type=code)
 - [Crashlytics](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+crashlytics&type=code)
 - [Sync data between local database and server](https://github.com/search?q=repo%3Aandroid%2Fnowinandroid+sync+language%3AKotlin&type=code&l=Kotlin)
+- [Dismissable Snackbar](https://github.com/seve-andre/android-utils/blob/main/app/src/main/kotlin/com/mitch/androidutils/utils/snackbars/dismissable/SwipeToDismissSnackbarHost.kt)
 
 > [!NOTE]
 > Feel free to contribute or reach out to me at [my email](mailto:andrea.severi.dev@gmail.com?subject=[GitHub]%20Jetpack%20Compose%20Android%20Template)
