@@ -21,13 +21,14 @@ import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.theme.custom.padding
 
 @Composable
-fun TemplateSnackbarHost(hostState: SnackbarHostState) {
+fun TemplateSnackbarHost(hostState: SnackbarHostState, modifier: Modifier = Modifier) {
     SnackbarHost(
         hostState = hostState,
         modifier = Modifier
             .navigationBarsPadding()
             .imePadding()
             .padding(horizontal = padding.medium)
+            .then(modifier)
     ) { snackbarData ->
         val customVisuals = snackbarData.visuals as TemplateSnackbarVisuals
 
