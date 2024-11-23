@@ -12,61 +12,34 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController.OnDestinationChangedListener
 import com.mitch.template.domain.models.TemplateThemeConfig
-import com.mitch.template.ui.designsystem.TemplateDesignSystem
-import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.TemplateTheme
-import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbar
-import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarDefaults
-import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarType
-import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarVisuals
+import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarHost
 import com.mitch.template.ui.designsystem.components.snackbars.toVisuals
 import com.mitch.template.ui.designsystem.theme.custom.LocalPadding
 import com.mitch.template.ui.designsystem.theme.custom.padding
 import com.mitch.template.ui.navigation.TemplateDestination
 import com.mitch.template.ui.navigation.TemplateNavHost
 import com.mitch.template.ui.rememberTemplateAppState
-import com.mitch.template.ui.util.SnackbarManager
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -76,22 +49,18 @@ class MainActivity : AppCompatActivity() {
          * Splashscreen look in res/values/themes.xml
          */
         val splashScreen = installSplashScreen()
-
-        // use the entire display to draw
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+
         val dependenciesProvider = (application as TemplateApplication).dependenciesProvider
         val viewModel = MainActivityViewModel(dependenciesProvider.userSettingsRepository)
 
         var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
-
         // Update the uiState
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState
-                    .onEach {
-                        uiState = it
-                    }
+                    .onEach { uiState = it }
                     .collect()
             }
         }
@@ -112,43 +81,9 @@ class MainActivity : AppCompatActivity() {
                     val appState = rememberTemplateAppState(
                         networkMonitor = dependenciesProvider.networkMonitor
                     )
-                    val snackbarHostState = appState.snackbarHostState
-                    // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
-
-                    // observe snackbars
-                    // (they persist across navigation; if this behavior is not desired, see below)
-                    val lifecycleOwner = LocalLifecycleOwner.current
-                    LaunchedEffect(lifecycleOwner.lifecycle, SnackbarManager.events) {
-                        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            withContext(Dispatchers.Main.immediate) {
-                                SnackbarManager.events.collect { data ->
-                                    // uncomment if new snackbar should dismiss old one
-                                    // snackbarHostState.currentSnackbarData?.dismiss()
-
-                                    val result = snackbarHostState.showSnackbar(data.toVisuals())
-                                    when (result) {
-                                        SnackbarResult.Dismissed -> data.onDismiss?.invoke()
-                                        SnackbarResult.ActionPerformed -> data.action?.onPerformAction?.invoke()
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // to dismiss snackbar on navigation changed
-                    DisposableEffect(appState.navController) {
-                        val listener = OnDestinationChangedListener { _, _, _ ->
-                            snackbarHostState.currentSnackbarData?.dismiss()
-                        }
-                        appState.navController.addOnDestinationChangedListener(listener)
-
-                        onDispose {
-                            appState.navController.removeOnDestinationChangedListener(listener)
-                        }
-                    }
 
                     Scaffold(
-                        snackbarHost = { SwipeToDismissSnackbarHost(appState.snackbarHostState) },
+                        snackbarHost = { TemplateSnackbarHost(appState.snackbarHostState) },
                         contentWindowInsets = WindowInsets(0)
                     ) { padding ->
                         Box(
@@ -163,6 +98,11 @@ class MainActivity : AppCompatActivity() {
                                 )
                         ) {
                             TemplateNavHost(
+                                onShowSnackbar = { event ->
+                                    appState
+                                        .snackbarHostState
+                                        .showSnackbar(event.toVisuals())
+                                },
                                 dependenciesProvider = dependenciesProvider,
                                 navController = appState.navController,
                                 startDestination = TemplateDestination.Screen.Home
@@ -190,86 +130,6 @@ class MainActivity : AppCompatActivity() {
             onDispose { }
         }
     }
-}
-
-@Composable
-private fun SwipeToDismissSnackbarHost(hostState: SnackbarHostState) {
-    val dismissSnackbarState = rememberSwipeToDismissBoxState(
-        confirmValueChange = { value ->
-            if (value != SwipeToDismissBoxValue.Settled) {
-                hostState.currentSnackbarData?.dismiss()
-                true
-            } else {
-                false
-            }
-        }
-    )
-
-    LaunchedEffect(dismissSnackbarState.currentValue) {
-        if (dismissSnackbarState.currentValue != SwipeToDismissBoxValue.Settled) {
-            dismissSnackbarState.reset()
-        }
-    }
-
-    SwipeToDismissBox(
-        state = dismissSnackbarState,
-        backgroundContent = { },
-        content = {
-            SnackbarHost(
-                hostState = hostState,
-                modifier = Modifier
-                    .navigationBarsPadding()
-                    .imePadding()
-                    .padding(horizontal = padding.medium)
-            ) { snackbarData ->
-                val customVisuals = snackbarData.visuals as TemplateSnackbarVisuals
-
-                val colors = when (customVisuals.type) {
-                    TemplateSnackbarType.Default -> TemplateSnackbarDefaults.defaultSnackbarColors()
-                    TemplateSnackbarType.Success -> TemplateSnackbarDefaults.successSnackbarColors()
-                    TemplateSnackbarType.Warning -> TemplateSnackbarDefaults.warningSnackbarColors()
-                    TemplateSnackbarType.Error -> TemplateSnackbarDefaults.errorSnackbarColors()
-                }
-
-                TemplateSnackbar(
-                    colors = colors,
-                    icon = customVisuals.imageVector,
-                    message = customVisuals.message,
-                    action = customVisuals.actionLabel?.let {
-                        {
-                            TextButton(
-                                onClick = snackbarData::performAction,
-                                colors = ButtonDefaults.textButtonColors(
-                                    contentColor = colors.actionColor
-                                )
-                            ) {
-                                Text(text = customVisuals.actionLabel)
-                            }
-                        }
-                    },
-                    dismissAction = if (customVisuals.duration == SnackbarDuration.Indefinite) {
-                        {
-                            IconButton(
-                                onClick = snackbarData::dismiss,
-                                colors = IconButtonDefaults.iconButtonColors(
-                                    contentColor = TemplateDesignSystem.colorScheme.inverseOnSurface
-                                )
-                            ) {
-                                Icon(
-                                    imageVector = TemplateIcons.Outlined.Close,
-                                    contentDescription = stringResource(
-                                        id = R.string.dismiss_snackbar_content_description
-                                    )
-                                )
-                            }
-                        }
-                    } else {
-                        null
-                    }
-                )
-            }
-        }
-    )
 }
 
 @Composable

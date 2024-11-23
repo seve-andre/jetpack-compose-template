@@ -650,7 +650,7 @@ style:
     active: true
     allowedNames: '(_|ignored|expected|serialVersionUID)'
     # compose
-    ignoreAnnotated: [ 'Preview' ]
+    ignoreAnnotated: [ 'Preview*' ]
   UseAnyOrNoneInsteadOfFind:
     active: true
   UseArrayLiteralsInAnnotations:

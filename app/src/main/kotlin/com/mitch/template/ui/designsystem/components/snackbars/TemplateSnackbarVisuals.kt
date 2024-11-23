@@ -24,11 +24,12 @@ data class SnackbarEvent(
     }
 )
 
-data class SnackbarAction(val label: String, val onPerformAction: suspend () -> Unit)
+data class SnackbarAction(val label: String, val onPerformAction: () -> Unit)
 
 data class TemplateSnackbarVisuals(
     override val message: String,
     override val actionLabel: String? = null,
+    val onPerformAction: (() -> Unit)? = null,
     override val duration: SnackbarDuration = SnackbarDuration.Short,
     override val withDismissAction: Boolean = duration == SnackbarDuration.Indefinite,
     val type: TemplateSnackbarType = TemplateSnackbarType.Default,
