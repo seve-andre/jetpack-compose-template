@@ -43,10 +43,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController.OnDestinationChangedListener
 import com.mitch.template.domain.models.TemplateThemeConfig
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
@@ -61,12 +59,9 @@ import com.mitch.template.ui.designsystem.theme.custom.padding
 import com.mitch.template.ui.navigation.TemplateDestination
 import com.mitch.template.ui.navigation.TemplateNavHost
 import com.mitch.template.ui.rememberTemplateAppState
-import com.mitch.template.ui.util.SnackbarManager
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -112,40 +107,6 @@ class MainActivity : AppCompatActivity() {
                     val appState = rememberTemplateAppState(
                         networkMonitor = dependenciesProvider.networkMonitor
                     )
-                    val snackbarHostState = appState.snackbarHostState
-                    // val isOffline by appState.isOffline.collectAsStateWithLifecycle()
-
-                    // observe snackbars
-                    // (they persist across navigation; if this behavior is not desired, see below)
-                    val lifecycleOwner = LocalLifecycleOwner.current
-                    LaunchedEffect(lifecycleOwner.lifecycle, SnackbarManager.events) {
-                        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            withContext(Dispatchers.Main.immediate) {
-                                SnackbarManager.events.collect { data ->
-                                    // uncomment if new snackbar should dismiss old one
-                                    // snackbarHostState.currentSnackbarData?.dismiss()
-
-                                    val result = snackbarHostState.showSnackbar(data.toVisuals())
-                                    when (result) {
-                                        SnackbarResult.Dismissed -> data.onDismiss?.invoke()
-                                        SnackbarResult.ActionPerformed -> data.action?.onPerformAction?.invoke()
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    // to dismiss snackbar on navigation changed
-                    DisposableEffect(appState.navController) {
-                        val listener = OnDestinationChangedListener { _, _, _ ->
-                            snackbarHostState.currentSnackbarData?.dismiss()
-                        }
-                        appState.navController.addOnDestinationChangedListener(listener)
-
-                        onDispose {
-                            appState.navController.removeOnDestinationChangedListener(listener)
-                        }
-                    }
 
                     Scaffold(
                         snackbarHost = { SwipeToDismissSnackbarHost(appState.snackbarHostState) },
