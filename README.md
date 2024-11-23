@@ -63,7 +63,6 @@ To create you own repo, click on:
 - [TemplateAppState](https://github.com/seve-andre/jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/template/ui/TemplateAppState.kt): [see inspo](https://github.com/android/nowinandroid/blob/main/app/src/main/kotlin/com/google/samples/apps/nowinandroid/ui/NiaAppState.kt)
 - [NetworkMonitor](https://github.com/seve-andre/jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/template/util/network/NetworkMonitor.kt): [see inspo](https://github.com/android/nowinandroid/blob/main/core/data/src/main/kotlin/com/google/samples/apps/nowinandroid/core/data/util/NetworkMonitor.kt)
 - [ConnectivityManagerNetworkMonitor](https://github.com/seve-andre/jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/template/util/network/ConnectivityManagerNetworkMonitor.kt): [see inspo](https://github.com/android/nowinandroid/blob/main/core/data/src/main/kotlin/com/google/samples/apps/nowinandroid/core/data/util/ConnectivityManagerNetworkMonitor.kt)
-- [SnackbarManager](https://github.com/seve-andre/jetpack-compose-template/blob/main/app/src/main/kotlin/com/mitch/template/ui/util/SnackbarManager.kt): [see inspo](https://github.com/android/compose-samples/blob/main/Jetsnack/app/src/main/java/com/example/jetsnack/model/SnackbarManager.kt)
 
 ### Useful features
 
