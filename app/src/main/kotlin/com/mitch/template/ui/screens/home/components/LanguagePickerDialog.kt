@@ -32,7 +32,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mitch.template.R
-import com.mitch.template.domain.models.TemplateLanguageConfig
+import com.mitch.template.domain.models.TemplateLanguagePreference
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.TemplateTheme
@@ -40,9 +40,9 @@ import com.mitch.template.ui.designsystem.theme.custom.padding
 
 @Composable
 fun LanguagePickerDialog(
-    selectedLanguage: TemplateLanguageConfig,
+    selectedLanguage: TemplateLanguagePreference,
     onDismiss: () -> Unit,
-    onConfirm: (TemplateLanguageConfig) -> Unit
+    onConfirm: (TemplateLanguagePreference) -> Unit
 ) {
     var tempLanguage by remember { mutableStateOf(selectedLanguage) }
 
@@ -130,7 +130,7 @@ fun LanguagePickerDialog(
 private fun LanguagePickerDialogPreview() {
     TemplateTheme {
         LanguagePickerDialog(
-            selectedLanguage = TemplateLanguageConfig.English,
+            selectedLanguage = TemplateLanguagePreference.English,
             onDismiss = { },
             onConfirm = { }
         )
@@ -138,16 +138,16 @@ private fun LanguagePickerDialogPreview() {
 }
 
 sealed class LanguagePickerItem(
-    val language: TemplateLanguageConfig,
+    val language: TemplateLanguagePreference,
     @DrawableRes val flagId: Int
 ) {
     data object English : LanguagePickerItem(
-        language = TemplateLanguageConfig.English,
+        language = TemplateLanguagePreference.English,
         flagId = R.drawable.english_flag
     )
 
     data object Italian : LanguagePickerItem(
-        language = TemplateLanguageConfig.Italian,
+        language = TemplateLanguagePreference.Italian,
         flagId = R.drawable.italian_flag
     )
 }

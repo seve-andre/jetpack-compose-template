@@ -1,13 +1,12 @@
 package com.mitch.template.data.settings
 
-import com.mitch.template.domain.models.TemplateLanguageConfig
-import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.domain.models.TemplateLanguagePreference
+import com.mitch.template.domain.models.TemplateThemePreference
+import com.mitch.template.domain.models.TemplateUserPreferences
 import kotlinx.coroutines.flow.Flow
 
 interface UserSettingsRepository {
-    fun getTheme(): Flow<TemplateThemeConfig>
-    suspend fun setTheme(theme: TemplateThemeConfig)
-
-    fun getLanguage(): Flow<TemplateLanguageConfig>
-    suspend fun setLanguage(language: TemplateLanguageConfig)
+    val preferences: Flow<TemplateUserPreferences>
+    suspend fun setTheme(theme: TemplateThemePreference)
+    suspend fun setLanguage(language: TemplateLanguagePreference)
 }

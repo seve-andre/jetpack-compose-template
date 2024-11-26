@@ -5,29 +5,32 @@ import com.mitch.template.data.language.toDomainLanguage
 import com.mitch.template.data.userprefs.UserPreferencesLocalDataSource
 import com.mitch.template.data.userprefs.toDomainModel
 import com.mitch.template.data.userprefs.toProtoModel
-import com.mitch.template.domain.models.TemplateLanguageConfig
-import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.domain.models.TemplateLanguagePreference
+import com.mitch.template.domain.models.TemplateThemePreference
+import com.mitch.template.domain.models.TemplateUserPreferences
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 
 class DefaultUserSettingsRepository(
     private val userPreferencesLocalDataSource: UserPreferencesLocalDataSource,
     private val languageLocalDataSource: LanguageLocalDataSource
 ) : UserSettingsRepository {
 
-    override fun getTheme(): Flow<TemplateThemeConfig> {
-        return userPreferencesLocalDataSource.getTheme().map { it.toDomainModel() }
+    override val preferences: Flow<TemplateUserPreferences> = combine(
+        userPreferencesLocalDataSource.protoPreferences,
+        languageLocalDataSource.getLocale()
+    ) { protoPreferences, locale ->
+        TemplateUserPreferences(
+            theme = protoPreferences.theme.toDomainModel(),
+            language = locale.toDomainLanguage()
+        )
     }
 
-    override suspend fun setTheme(theme: TemplateThemeConfig) {
+    override suspend fun setTheme(theme: TemplateThemePreference) {
         userPreferencesLocalDataSource.setTheme(theme.toProtoModel())
     }
 
-    override fun getLanguage(): Flow<TemplateLanguageConfig> {
-        return languageLocalDataSource.getLocale().map { it.toDomainLanguage() }
-    }
-
-    override suspend fun setLanguage(language: TemplateLanguageConfig) {
+    override suspend fun setLanguage(language: TemplateLanguagePreference) {
         languageLocalDataSource.setLocale(language.locale)
     }
 }

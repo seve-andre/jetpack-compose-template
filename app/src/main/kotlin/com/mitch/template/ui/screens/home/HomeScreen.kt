@@ -16,8 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.template.R
-import com.mitch.template.domain.models.TemplateLanguageConfig
-import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.domain.models.TemplateLanguagePreference
+import com.mitch.template.domain.models.TemplateThemePreference
 import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.components.loading.LoadingScreen
 import com.mitch.template.ui.screens.home.components.LanguagePickerDialog
@@ -37,8 +37,8 @@ fun HomeRoute(viewModel: HomeViewModel) {
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
-    onChangeTheme: (TemplateThemeConfig) -> Unit,
-    onChangeLanguage: (TemplateLanguageConfig) -> Unit,
+    onChangeTheme: (TemplateThemePreference) -> Unit,
+    onChangeLanguage: (TemplateLanguagePreference) -> Unit,
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
@@ -91,8 +91,8 @@ private fun HomeScreenContentPreview() {
     TemplateTheme {
         HomeScreen(
             uiState = HomeUiState.Success(
-                language = TemplateLanguageConfig.English,
-                theme = TemplateThemeConfig.Light
+                language = TemplateLanguagePreference.English,
+                theme = TemplateThemePreference.Light
             ),
             onChangeTheme = { },
             onChangeLanguage = { }

@@ -3,7 +3,7 @@ package com.mitch.template
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mitch.template.data.settings.UserSettingsRepository
-import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.domain.models.TemplateThemePreference
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -15,18 +15,18 @@ class MainActivityViewModel(
 
     /**
      * Initial [MainActivity] ui state is set to [MainActivityUiState.Loading] and mapped to
-     * [MainActivityUiState.Success] once the [TemplateThemeConfig] data is retrieved
+     * [MainActivityUiState.Success] once the [TemplateThemePreference] data is retrieved
      */
-    val uiState: StateFlow<MainActivityUiState> = userSettingsRepository.getTheme().map {
-        MainActivityUiState.Success(it)
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = MainActivityUiState.Loading
-    )
+    val uiState: StateFlow<MainActivityUiState> = userSettingsRepository.preferences
+        .map { MainActivityUiState.Success(theme = it.theme) }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = MainActivityUiState.Loading
+        )
 }
 
 sealed class MainActivityUiState {
     data object Loading : MainActivityUiState()
-    data class Success(val theme: TemplateThemeConfig) : MainActivityUiState()
+    data class Success(val theme: TemplateThemePreference) : MainActivityUiState()
 }

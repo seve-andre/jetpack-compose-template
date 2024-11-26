@@ -7,7 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.mitch.template.domain.models.TemplateLanguageConfig
+import com.mitch.template.domain.models.TemplateLanguagePreference
 import com.mitch.template.ui.util.AppNameAndroidComposeTestRule
 import org.junit.Before
 import org.junit.Rule
@@ -36,7 +36,7 @@ class LanguagePickerDialogTest {
     fun setUp() {
         composeTestRule.setContent {
             LanguagePickerDialog(
-                selectedLanguage = TemplateLanguageConfig.Default,
+                selectedLanguage = TemplateLanguagePreference.Default,
                 onDismiss = { },
                 onConfirm = { }
             )
@@ -46,21 +46,21 @@ class LanguagePickerDialogTest {
     @Test
     fun allLanguageOptionsExist() {
         with(correctItemsRobot) {
-            assertLanguageExists(TemplateLanguageConfig.English)
-            assertLanguageExists(TemplateLanguageConfig.Italian)
-            assertLanguageIsSelected(TemplateLanguageConfig.Default)
+            assertLanguageExists(TemplateLanguagePreference.English)
+            assertLanguageExists(TemplateLanguagePreference.Italian)
+            assertLanguageIsSelected(TemplateLanguagePreference.Default)
         }
     }
 
     @Test
     fun whenNewSelected_displaysCorrectOption() {
         with(correctItemsRobot) {
-            assertLanguageIsSelected(TemplateLanguageConfig.Default)
-            selectLanguage(TemplateLanguageConfig.Italian)
-            assertLanguageIsSelected(TemplateLanguageConfig.Italian)
+            assertLanguageIsSelected(TemplateLanguagePreference.Default)
+            selectLanguage(TemplateLanguagePreference.Italian)
+            assertLanguageIsSelected(TemplateLanguagePreference.Italian)
 
-            if (TemplateLanguageConfig.Default != TemplateLanguageConfig.Italian) {
-                assertLanguageIsNotSelected(TemplateLanguageConfig.Default)
+            if (TemplateLanguagePreference.Default != TemplateLanguagePreference.Italian) {
+                assertLanguageIsNotSelected(TemplateLanguagePreference.Default)
             }
         }
     }
@@ -68,12 +68,12 @@ class LanguagePickerDialogTest {
     @Test(expected = IllegalArgumentException::class)
     fun whenItemsAreWrong_throwsError() {
         with(wrongItemsRobot) {
-            assertLanguageIsSelected(TemplateLanguageConfig.Default)
-            selectLanguage(TemplateLanguageConfig.Italian)
-            assertLanguageIsSelected(TemplateLanguageConfig.Italian)
+            assertLanguageIsSelected(TemplateLanguagePreference.Default)
+            selectLanguage(TemplateLanguagePreference.Italian)
+            assertLanguageIsSelected(TemplateLanguagePreference.Italian)
 
-            if (TemplateLanguageConfig.Default != TemplateLanguageConfig.Italian) {
-                assertLanguageIsNotSelected(TemplateLanguageConfig.Default)
+            if (TemplateLanguagePreference.Default != TemplateLanguagePreference.Italian) {
+                assertLanguageIsNotSelected(TemplateLanguagePreference.Default)
             }
         }
     }
@@ -84,13 +84,13 @@ class LanguagePickerRobot(
     private val items: List<LanguagePickerItem>
 ) {
 
-    fun selectLanguage(language: TemplateLanguageConfig) {
+    fun selectLanguage(language: TemplateLanguagePreference) {
         composeTestRule
             .onNodeWithText(language.locale.displayLanguage)
             .performClick()
     }
 
-    fun assertLanguageExists(language: TemplateLanguageConfig) {
+    fun assertLanguageExists(language: TemplateLanguagePreference) {
         val item = items.singleOrNull { it.language == language }
         requireNotNull(item) {
             "item from language $language is null; check that items DO NOT have the same language"
@@ -108,13 +108,13 @@ class LanguagePickerRobot(
             .assertExists()
     }
 
-    fun assertLanguageIsSelected(language: TemplateLanguageConfig) {
+    fun assertLanguageIsSelected(language: TemplateLanguagePreference) {
         composeTestRule
             .onNodeWithText(language.locale.displayLanguage)
             .assertIsSelected()
     }
 
-    fun assertLanguageIsNotSelected(language: TemplateLanguageConfig) {
+    fun assertLanguageIsNotSelected(language: TemplateLanguagePreference) {
         composeTestRule
             .onNodeWithText(language.locale.displayLanguage)
             .assertIsNotSelected()

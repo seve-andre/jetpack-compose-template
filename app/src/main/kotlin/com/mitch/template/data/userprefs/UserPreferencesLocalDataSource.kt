@@ -3,7 +3,6 @@ package com.mitch.template.data.userprefs
 import androidx.datastore.core.DataStore
 import com.mitch.template.data.userprefs.ProtoUserPreferences.ProtoAppTheme
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 /**
  * [UserPreferencesLocalDataSource] is the mediator between [ProtoUserPreferences] Datastore and
@@ -14,6 +13,7 @@ import kotlinx.coroutines.flow.map
 class UserPreferencesLocalDataSource(
     private val userPreferences: DataStore<ProtoUserPreferences>
 ) {
+    val protoPreferences: Flow<ProtoUserPreferences> = userPreferences.data
     suspend fun setTheme(theme: ProtoAppTheme) {
         userPreferences.updateData {
             it.copy {
@@ -21,6 +21,4 @@ class UserPreferencesLocalDataSource(
             }
         }
     }
-
-    fun getTheme(): Flow<ProtoAppTheme> = userPreferences.data.map { it.theme }
 }

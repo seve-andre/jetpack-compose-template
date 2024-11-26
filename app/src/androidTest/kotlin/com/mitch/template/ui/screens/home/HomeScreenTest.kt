@@ -7,8 +7,8 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.mitch.template.R
-import com.mitch.template.domain.models.TemplateLanguageConfig
-import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.domain.models.TemplateLanguagePreference
+import com.mitch.template.domain.models.TemplateThemePreference
 import com.mitch.template.ui.designsystem.components.loading.LoadingTag
 import org.junit.Rule
 import org.junit.Test
@@ -40,8 +40,8 @@ class HomeScreenTest {
         composeTestRule.setContent {
             HomeScreen(
                 uiState = HomeUiState.Success(
-                    language = TemplateLanguageConfig.English,
-                    theme = TemplateThemeConfig.FollowSystem
+                    language = TemplateLanguagePreference.English,
+                    theme = TemplateThemePreference.FollowSystem
                 ),
                 onChangeLanguage = { },
                 onChangeTheme = { }

@@ -28,7 +28,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.domain.models.TemplateThemePreference
 import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarHost
 import com.mitch.template.ui.designsystem.components.snackbars.toVisuals
@@ -138,9 +138,9 @@ private fun shouldUseDarkTheme(
 ): Boolean = when (uiState) {
     MainActivityUiState.Loading -> isSystemInDarkTheme()
     is MainActivityUiState.Success -> when (uiState.theme) {
-        TemplateThemeConfig.Dark -> true
-        TemplateThemeConfig.Light -> false
-        TemplateThemeConfig.FollowSystem -> isSystemInDarkTheme()
+        TemplateThemePreference.Dark -> true
+        TemplateThemePreference.Light -> false
+        TemplateThemePreference.FollowSystem -> isSystemInDarkTheme()
     }
 }
 
