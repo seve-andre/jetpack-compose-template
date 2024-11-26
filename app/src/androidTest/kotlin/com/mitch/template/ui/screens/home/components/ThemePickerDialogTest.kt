@@ -7,7 +7,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.mitch.template.domain.models.TemplateThemeConfig
+import com.mitch.template.domain.models.TemplateThemePreference
 import com.mitch.template.ui.util.AppNameAndroidComposeTestRule
 import com.mitch.template.ui.util.stringResource
 import org.junit.Before
@@ -41,7 +41,7 @@ class ThemePickerDialogTest {
     fun setUp() {
         composeTestRule.setContent {
             ThemePickerDialog(
-                selectedTheme = TemplateThemeConfig.Default,
+                selectedTheme = TemplateThemePreference.Default,
                 onDismiss = { },
                 onConfirm = { }
             )
@@ -51,30 +51,30 @@ class ThemePickerDialogTest {
     @Test
     fun allThemeOptionsExist() {
         with(correctItemsRobot) {
-            assertThemeExists(TemplateThemeConfig.FollowSystem)
-            assertThemeExists(TemplateThemeConfig.Light)
-            assertThemeExists(TemplateThemeConfig.Dark)
-            assertThemeIsSelected(TemplateThemeConfig.Default)
+            assertThemeExists(TemplateThemePreference.FollowSystem)
+            assertThemeExists(TemplateThemePreference.Light)
+            assertThemeExists(TemplateThemePreference.Dark)
+            assertThemeIsSelected(TemplateThemePreference.Default)
         }
     }
 
     @Test
     fun whenNewSelected_displaysCorrectOption() {
         with(correctItemsRobot) {
-            selectTheme(TemplateThemeConfig.Dark)
-            assertThemeIsNotSelected(TemplateThemeConfig.Light)
-            assertThemeIsNotSelected(TemplateThemeConfig.FollowSystem)
-            assertThemeIsSelected(TemplateThemeConfig.Dark)
+            selectTheme(TemplateThemePreference.Dark)
+            assertThemeIsNotSelected(TemplateThemePreference.Light)
+            assertThemeIsNotSelected(TemplateThemePreference.FollowSystem)
+            assertThemeIsSelected(TemplateThemePreference.Dark)
         }
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun whenItemsAreWrong_throwsError() {
         with(wrongItemsRobot) {
-            selectTheme(TemplateThemeConfig.Dark)
-            assertThemeIsNotSelected(TemplateThemeConfig.Light)
-            assertThemeIsNotSelected(TemplateThemeConfig.FollowSystem)
-            assertThemeIsSelected(TemplateThemeConfig.Dark)
+            selectTheme(TemplateThemePreference.Dark)
+            assertThemeIsNotSelected(TemplateThemePreference.Light)
+            assertThemeIsNotSelected(TemplateThemePreference.FollowSystem)
+            assertThemeIsSelected(TemplateThemePreference.Dark)
         }
     }
 }
@@ -83,7 +83,7 @@ class ThemePickerRobot(
     private val composeTestRule: AppNameAndroidComposeTestRule,
     private val items: List<ThemePickerItem>
 ) {
-    fun selectTheme(theme: TemplateThemeConfig) {
+    fun selectTheme(theme: TemplateThemePreference) {
         val item = items.singleOrNull { it.theme == theme }
         requireNotNull(item) {
             "item from theme $theme is null; check that items DO NOT have the same theme"
@@ -94,7 +94,7 @@ class ThemePickerRobot(
             .performClick()
     }
 
-    fun assertThemeExists(theme: TemplateThemeConfig) {
+    fun assertThemeExists(theme: TemplateThemePreference) {
         val item = items.singleOrNull { it.theme == theme }
         requireNotNull(item) {
             "item from theme $theme is null; check that items DO NOT have the same theme"
@@ -112,7 +112,7 @@ class ThemePickerRobot(
             .assertExists()
     }
 
-    fun assertThemeIsSelected(theme: TemplateThemeConfig) {
+    fun assertThemeIsSelected(theme: TemplateThemePreference) {
         val item = items.singleOrNull { it.theme == theme }
         requireNotNull(item) {
             "item from theme $theme is null; check that items DO NOT have the same theme"
@@ -123,7 +123,7 @@ class ThemePickerRobot(
             .assertIsSelected()
     }
 
-    fun assertThemeIsNotSelected(theme: TemplateThemeConfig) {
+    fun assertThemeIsNotSelected(theme: TemplateThemePreference) {
         val item = items.singleOrNull { it.theme == theme }
         requireNotNull(item) {
             "item from theme $theme is null; check that items DO NOT have the same theme"
