@@ -7,11 +7,14 @@ import java.io.InputStream
 import java.io.OutputStream
 
 fun <T> Serializer<T>.encrypted(): Serializer<T> = EncryptedSerializer(this)
-class EncryptedSerializer<T>(private val wrappedSerializer: Serializer<T>) : Serializer<T> {
+class EncryptedSerializer<T>(
+    private val wrappedSerializer: Serializer<T>,
+    private val cryptoManager: CryptoManager = CryptoManager()
+) : Serializer<T> {
     override val defaultValue: T = wrappedSerializer.defaultValue
 
     override suspend fun readFrom(input: InputStream): T {
-        val decryptedBytes = CryptoManager.decrypt(input)
+        val decryptedBytes = cryptoManager.decrypt(input)
         return wrappedSerializer.readFrom(decryptedBytes.inputStream())
     }
 
@@ -20,6 +23,6 @@ class EncryptedSerializer<T>(private val wrappedSerializer: Serializer<T>) : Ser
             wrappedSerializer.writeTo(t, stream)
             stream.toByteArray()
         }
-        CryptoManager.encrypt(bytes, output)
+        cryptoManager.encrypt(bytes, output)
     }
 }
