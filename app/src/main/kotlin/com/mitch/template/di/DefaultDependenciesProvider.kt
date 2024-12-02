@@ -10,8 +10,8 @@ import com.mitch.template.data.TemplateDatabase
 import com.mitch.template.data.language.LanguageLocalDataSource
 import com.mitch.template.data.settings.DefaultUserSettingsRepository
 import com.mitch.template.data.settings.UserSettingsRepository
-import com.mitch.template.data.userprefs.ProtoUserPreferences
 import com.mitch.template.data.userprefs.UserPreferencesLocalDataSource
+import com.mitch.template.data.userprefs.UserPreferencesProtoModel
 import com.mitch.template.data.userprefs.UserPreferencesSerializer
 import com.mitch.template.util.network.ConnectivityManagerNetworkMonitor
 import com.mitch.template.util.network.NetworkMonitor
@@ -44,7 +44,7 @@ class DefaultDependenciesProvider(
         )
     }
 
-    private val preferencesDataStore: DataStore<ProtoUserPreferences> by lazy {
+    private val preferencesDataStore: DataStore<UserPreferencesProtoModel> by lazy {
         DataStoreFactory.create(
             serializer = UserPreferencesSerializer,
             scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher)
