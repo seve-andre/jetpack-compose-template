@@ -7,6 +7,7 @@ import androidx.datastore.dataStoreFile
 import androidx.room.Room
 import com.mitch.template.BuildConfig
 import com.mitch.template.data.TemplateDatabase
+import com.mitch.template.data.encrypted
 import com.mitch.template.data.language.LanguageLocalDataSource
 import com.mitch.template.data.settings.DefaultUserSettingsRepository
 import com.mitch.template.data.settings.UserSettingsRepository
@@ -46,7 +47,7 @@ class DefaultDependenciesProvider(
 
     private val preferencesDataStore: DataStore<ProtoUserPreferences> by lazy {
         DataStoreFactory.create(
-            serializer = UserPreferencesSerializer,
+            serializer = UserPreferencesSerializer.encrypted(),
             scope = CoroutineScope(coroutineScope.coroutineContext + ioDispatcher)
         ) {
             context.dataStoreFile("user_preferences.pb")
