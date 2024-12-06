@@ -5,7 +5,7 @@
 
     <!-- The final theme we use -->
     <style name="Theme.Template" parent="NightAdjusted.Theme.Template">
-        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
     </style>
 
     <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
