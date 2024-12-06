@@ -1,16 +1,17 @@
 package com.mitch.template.data.userprefs
 
-import com.mitch.template.data.userprefs.ProtoUserPreferences.ProtoAppTheme
+import com.mitch.template.data.userprefs.UserPreferencesProtoModel.TemplateThemePreferenceProto
 import com.mitch.template.domain.models.TemplateThemePreference
 
-fun TemplateThemePreference.toProtoModel(): ProtoAppTheme = when (this) {
-    TemplateThemePreference.FollowSystem -> ProtoAppTheme.FOLLOW_SYSTEM
-    TemplateThemePreference.Light -> ProtoAppTheme.LIGHT
-    TemplateThemePreference.Dark -> ProtoAppTheme.DARK
+fun TemplateThemePreference.toProtoModel(): TemplateThemePreferenceProto = when (this) {
+    TemplateThemePreference.FollowSystem -> TemplateThemePreferenceProto.FOLLOW_SYSTEM
+    TemplateThemePreference.Light -> TemplateThemePreferenceProto.LIGHT
+    TemplateThemePreference.Dark -> TemplateThemePreferenceProto.DARK
 }
 
-fun ProtoAppTheme.toDomainModel(): TemplateThemePreference = when (this) {
-    ProtoAppTheme.LIGHT -> TemplateThemePreference.Light
-    ProtoAppTheme.DARK -> TemplateThemePreference.Dark
-    ProtoAppTheme.UNRECOGNIZED, ProtoAppTheme.FOLLOW_SYSTEM -> TemplateThemePreference.FollowSystem
+fun TemplateThemePreferenceProto.toDomainModel(): TemplateThemePreference = when (this) {
+    TemplateThemePreferenceProto.LIGHT -> TemplateThemePreference.Light
+    TemplateThemePreferenceProto.DARK -> TemplateThemePreference.Dark
+    TemplateThemePreferenceProto.UNRECOGNIZED,
+    TemplateThemePreferenceProto.FOLLOW_SYSTEM -> TemplateThemePreference.FollowSystem
 }

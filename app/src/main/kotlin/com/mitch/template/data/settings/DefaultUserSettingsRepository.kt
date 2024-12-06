@@ -1,7 +1,7 @@
 package com.mitch.template.data.settings
 
 import com.mitch.template.data.language.LanguageLocalDataSource
-import com.mitch.template.data.language.toDomainLanguage
+import com.mitch.template.data.language.toDomainModel
 import com.mitch.template.data.userprefs.UserPreferencesLocalDataSource
 import com.mitch.template.data.userprefs.toDomainModel
 import com.mitch.template.data.userprefs.toProtoModel
@@ -22,7 +22,7 @@ class DefaultUserSettingsRepository(
     ) { protoPreferences, locale ->
         TemplateUserPreferences(
             theme = protoPreferences.theme.toDomainModel(),
-            language = locale.toDomainLanguage()
+            language = locale.toDomainModel()
         )
     }
 
