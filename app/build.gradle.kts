@@ -304,9 +304,4 @@ dependencies {
     detektPlugins(libs.detekt.formatting)
     detektPlugins(libs.linting.composeDetekt)
     lintChecks(projects.lint)
-
-    // Crypto
-    implementation(platform(libs.whyoleg.cryptography.bom))
-    implementation(libs.whyoleg.cryptography.core)
-    implementation(libs.whyoleg.cryptography.providerJdk)
 }
