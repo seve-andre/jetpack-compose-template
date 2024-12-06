@@ -15,7 +15,11 @@ class EncryptedSerializer<T>(
 
     override suspend fun readFrom(input: InputStream): T {
         val decryptedBytes = cryptoManager.decrypt(input)
-        return wrappedSerializer.readFrom(decryptedBytes.inputStream())
+        return try {
+            wrappedSerializer.readFrom(decryptedBytes.inputStream())
+        } catch (e: Exception) {
+            defaultValue
+        }
     }
 
     override suspend fun writeTo(t: T, output: OutputStream) {
