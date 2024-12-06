@@ -1,46 +1,52 @@
 package com.mitch.template.data.language
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 import java.util.Locale
 
-class LanguageLocalDataSource(
-    private val context: Context
-) {
+class LanguageLocalDataSource {
     suspend fun setLocale(locale: Locale) {
         withContext(Dispatchers.Main) {
             AppCompatDelegate.setApplicationLocales(
                 LocaleListCompat.forLanguageTags(locale.toLanguageTag())
             )
+            refreshTrigger.emit(Unit)
         }
     }
 
-    fun getLocale(): Flow<Locale> = callbackFlow {
-        val localeChangedReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent) {
-                if (intent.action == Intent.ACTION_LOCALE_CHANGED) {
-                    val newLocale =
-                        AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault()
-                    trySend(newLocale)
-                }
-            }
+    private val refreshTrigger = MutableSharedFlow<Unit>(replay = 1)
+    fun getLocale(): Flow<Locale> = refreshTrigger
+        .onStart { emit(Unit) }
+        .flatMapLatest {
+            flowOf(
+                AppCompatDelegate.getApplicationLocales()[0] ?: initializeLocale()
+            )
         }
-        context.registerReceiver(localeChangedReceiver, IntentFilter(Intent.ACTION_LOCALE_CHANGED))
+        .distinctUntilChanged()
 
-        trySend(AppCompatDelegate.getApplicationLocales()[0] ?: Locale.getDefault())
-
-        awaitClose {
-            context.unregisterReceiver(localeChangedReceiver)
-        }
-    }.distinctUntilChanged()
+    /**
+     * Initializes the application's locale based on the device's default locale.
+     *
+     * Retrieves the device's default locale, maps it to the domain language preference
+     * and applies its corresponding locale to the app.
+     *
+     * @return The initialized locale.
+     */
+    private fun initializeLocale(): Locale {
+        val defaultLocale = Locale.getDefault()
+        val preference = defaultLocale.toDomainLanguage()
+        val preferenceLocale = preference.locale
+        AppCompatDelegate.setApplicationLocales(
+            LocaleListCompat.forLanguageTags(preferenceLocale.toLanguageTag())
+        )
+        return preferenceLocale
+    }
 }

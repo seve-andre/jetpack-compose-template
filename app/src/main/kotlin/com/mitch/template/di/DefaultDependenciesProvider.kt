@@ -57,7 +57,7 @@ class DefaultDependenciesProvider(
     override val userSettingsRepository: UserSettingsRepository by lazy {
         DefaultUserSettingsRepository(
             userPreferencesLocalDataSource = UserPreferencesLocalDataSource(preferencesDataStore),
-            languageLocalDataSource = LanguageLocalDataSource(context)
+            languageLocalDataSource = LanguageLocalDataSource()
         )
     }
 

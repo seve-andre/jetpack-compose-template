@@ -1,7 +1,9 @@
 package com.mitch.template
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -24,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -112,6 +115,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    // Workaround to let Compose know that the configuration has changed
+    // https://issuetracker.google.com/issues/321896385
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val composeView = window.decorView
+            .findViewById<ViewGroup>(android.R.id.content)
+            .getChildAt(0) as? ComposeView
+        composeView?.dispatchConfigurationChanged(newConfig)
     }
 
     @Composable
