@@ -19,30 +19,30 @@ class CryptoManager {
     }
 
     private val encryptCipher
-        get() = Cipher.getInstance(TRANSFORMATION).apply {
+        get() = Cipher.getInstance(AesGcmNoPaddingTransformation).apply {
             init(Cipher.ENCRYPT_MODE, getKey())
         }
 
     private fun getDecryptCipherForIv(iv: ByteArray): Cipher {
-        return Cipher.getInstance(TRANSFORMATION).apply {
-            init(Cipher.DECRYPT_MODE, getKey(), GCMParameterSpec(TLEN, iv))
+        return Cipher.getInstance(AesGcmNoPaddingTransformation).apply {
+            init(Cipher.DECRYPT_MODE, getKey(), GCMParameterSpec(GcmTlen, iv))
         }
     }
 
     private fun getKey(): SecretKey {
-        val existingKey = keyStore.getEntry(KEY_ALIAS, null) as? KeyStore.SecretKeyEntry
+        val existingKey = keyStore.getEntry(KeyAlias, null) as? KeyStore.SecretKeyEntry
         return existingKey?.secretKey ?: createKey()
     }
 
     private fun createKey(): SecretKey {
-        return KeyGenerator.getInstance(ALGORITHM).apply {
+        return KeyGenerator.getInstance(AesAlgorithm).apply {
             init(
                 KeyGenParameterSpec.Builder(
-                    KEY_ALIAS,
+                    KeyAlias,
                     KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
                 )
-                    .setBlockModes(BLOCK_MODE)
-                    .setEncryptionPaddings(PADDING)
+                    .setBlockModes(GcmBlockMode)
+                    .setEncryptionPaddings(PaddingNone)
                     .setUserAuthenticationRequired(false)
                     .setRandomizedEncryptionRequired(true)
                     .build()
@@ -56,8 +56,8 @@ class CryptoManager {
         outputStream.use {
             it.write(iv)
             val inputStream = ByteArrayInputStream(bytes)
-            val buffer = ByteArray(CHUNK_SIZE)
-            while (inputStream.available() > CHUNK_SIZE) {
+            val buffer = ByteArray(ChunkSize)
+            while (inputStream.available() > ChunkSize) {
                 inputStream.read(buffer)
                 val ciphertextChunk = cipher.update(buffer)
                 it.write(ciphertextChunk)
@@ -71,13 +71,13 @@ class CryptoManager {
 
     fun decrypt(inputStream: InputStream): ByteArray {
         return inputStream.use {
-            val iv = ByteArray(IV_SIZE)
+            val iv = ByteArray(GcmIvSize)
             it.read(iv)
             val cipher = getDecryptCipherForIv(iv)
             val outputStream = ByteArrayOutputStream()
 
-            val buffer = ByteArray(CHUNK_SIZE)
-            while (inputStream.available() > CHUNK_SIZE) {
+            val buffer = ByteArray(ChunkSize)
+            while (inputStream.available() > ChunkSize) {
                 inputStream.read(buffer)
                 val ciphertextChunk = cipher.update(buffer)
                 outputStream.write(ciphertextChunk)
@@ -92,13 +92,13 @@ class CryptoManager {
     }
 
     companion object {
-        private const val KEY_ALIAS = "keystore_key"
-        private const val CHUNK_SIZE = 4096
-        private const val TLEN = 128
-        private const val IV_SIZE = 12
-        private const val ALGORITHM = KeyProperties.KEY_ALGORITHM_AES
-        private const val BLOCK_MODE = KeyProperties.BLOCK_MODE_GCM
-        private const val PADDING = KeyProperties.ENCRYPTION_PADDING_NONE
-        private const val TRANSFORMATION = "$ALGORITHM/$BLOCK_MODE/$PADDING"
+        private const val KeyAlias = "keystore_key"
+        private const val ChunkSize = 4096
+        private const val GcmTlen = 128
+        private const val GcmIvSize = 12
+        private const val AesAlgorithm = KeyProperties.KEY_ALGORITHM_AES
+        private const val GcmBlockMode = KeyProperties.BLOCK_MODE_GCM
+        private const val PaddingNone = KeyProperties.ENCRYPTION_PADDING_NONE
+        private const val AesGcmNoPaddingTransformation = "$AesAlgorithm/$GcmBlockMode/$PaddingNone"
     }
 }
