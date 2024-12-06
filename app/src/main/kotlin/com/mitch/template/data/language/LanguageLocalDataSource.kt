@@ -42,7 +42,7 @@ class LanguageLocalDataSource {
      */
     private fun initializeLocale(): Locale {
         val defaultLocale = Locale.getDefault()
-        val preference = defaultLocale.toDomainLanguage()
+        val preference = defaultLocale.toDomainModel()
         val preferenceLocale = preference.locale
         AppCompatDelegate.setApplicationLocales(
             LocaleListCompat.forLanguageTags(preferenceLocale.toLanguageTag())
