@@ -6,8 +6,6 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest.Builder
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.produceState
@@ -94,41 +92,19 @@ class ConnectivityManagerNetworkMonitor(
         .flowOn(ioDispatcher)
         .conflate()
 
-    @Suppress("DEPRECATION")
-    private fun ConnectivityManager.isCurrentlyConnected() = when {
-        VERSION.SDK_INT >= VERSION_CODES.M ->
-            activeNetwork
-                ?.let(::getNetworkCapabilities)
-                ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    private fun ConnectivityManager.isCurrentlyConnected(): Boolean {
+        val networkCapabilities = this.networkCapabilities() ?: return false
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
 
-        else -> activeNetworkInfo?.isConnected
-    } ?: false
+    private fun ConnectivityManager.isOnWifi(): Boolean {
+        val networkCapabilities = this.networkCapabilities() ?: return false
+        return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+    }
 
-    @Suppress("DEPRECATION")
-    private fun ConnectivityManager.isOnWifi() = when {
-        VERSION.SDK_INT >= VERSION_CODES.M -> {
-            val networkCapabilities = activeNetwork?.let(::getNetworkCapabilities)
-
-            when {
-                networkCapabilities == null -> false
-
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-
-                else -> false
-            }
-        }
-
-        else -> {
-            when {
-                activeNetworkInfo == null -> false
-
-                activeNetworkInfo?.type == ConnectivityManager.TYPE_WIFI ||
-                    activeNetworkInfo?.type == ConnectivityManager.TYPE_ETHERNET -> true
-
-                else -> false
-            }
-        }
+    private fun ConnectivityManager.networkCapabilities(): NetworkCapabilities? {
+        return this.activeNetwork?.let(::getNetworkCapabilities)
     }
 }
 
