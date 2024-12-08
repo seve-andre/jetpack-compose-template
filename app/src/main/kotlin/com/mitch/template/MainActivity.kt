@@ -1,13 +1,17 @@
 package com.mitch.template
 
+import android.app.UiModeManager
+import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -43,6 +47,7 @@ import com.mitch.template.ui.rememberTemplateAppState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -77,7 +82,9 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             val isThemeDark = shouldUseDarkTheme(uiState)
-            UpdateSystemBarsEffect(isThemeDark)
+            val shouldFollowSystem = shouldFollowSystemTheme(uiState)
+            Timber.d("called setContent: isThemeDark=$isThemeDark, shouldFollowSystem=$shouldFollowSystem")
+            UpdateSystemBarsEffect(isThemeDark, shouldFollowSystem)
 
             CompositionLocalProvider(LocalPadding provides padding) {
                 TemplateTheme(isThemeDark = isThemeDark) {
@@ -124,12 +131,13 @@ class MainActivity : AppCompatActivity() {
         val composeView = window.decorView
             .findViewById<ViewGroup>(android.R.id.content)
             .getChildAt(0) as? ComposeView
+        Timber.d("onConfigurationChanged: newConfig=$newConfig")
         composeView?.dispatchConfigurationChanged(newConfig)
     }
 
     @Composable
-    private fun UpdateSystemBarsEffect(isThemeDark: Boolean) {
-        DisposableEffect(isThemeDark) {
+    private fun UpdateSystemBarsEffect(isThemeDark: Boolean, shouldFollowSystem: Boolean) {
+        DisposableEffect(isThemeDark, shouldFollowSystem) {
             enableEdgeToEdge(
                 statusBarStyle = SystemBarStyle.auto(
                     Color.TRANSPARENT,
@@ -139,6 +147,11 @@ class MainActivity : AppCompatActivity() {
                     LightScrim,
                     DarkScrim
                 ) { isThemeDark }
+            )
+            setAppTheme(
+                uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager,
+                isThemeDark = isThemeDark,
+                shouldFollowSystem = shouldFollowSystem
             )
             onDispose { }
         }
@@ -154,6 +167,47 @@ private fun shouldUseDarkTheme(
         TemplateThemePreference.Dark -> true
         TemplateThemePreference.Light -> false
         TemplateThemePreference.FollowSystem -> isSystemInDarkTheme()
+    }
+}
+
+@Composable
+private fun shouldFollowSystemTheme(uiState: MainActivityUiState): Boolean = when (uiState) {
+    MainActivityUiState.Loading -> isSystemInDarkTheme()
+    is MainActivityUiState.Success -> when (uiState.theme) {
+        TemplateThemePreference.FollowSystem -> true
+        else -> false
+    }
+}
+
+/**
+ * Sets app theme to reflect user choice.
+ */
+private fun setAppTheme(
+    uiModeManager: UiModeManager,
+    isThemeDark: Boolean,
+    shouldFollowSystem: Boolean
+) {
+    Timber.d("setAppTheme: isThemeDark=$isThemeDark, shouldFollowSystem=$shouldFollowSystem")
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        uiModeManager.setApplicationNightMode(
+            if (shouldFollowSystem) {
+                UiModeManager.MODE_NIGHT_AUTO
+            } else if (isThemeDark) {
+                UiModeManager.MODE_NIGHT_YES
+            } else {
+                UiModeManager.MODE_NIGHT_NO
+            }.also { Timber.d("setAppTheme: mode1=$it") }
+        )
+    } else {
+        AppCompatDelegate.setDefaultNightMode(
+            if (shouldFollowSystem) {
+                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            } else if (isThemeDark) {
+                AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                AppCompatDelegate.MODE_NIGHT_NO
+            }.also { Timber.d("setAppTheme: mode2=$it") }
+        )
     }
 }
 
