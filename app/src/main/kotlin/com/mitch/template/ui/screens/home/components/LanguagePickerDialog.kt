@@ -29,7 +29,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.mitch.template.R
 import com.mitch.template.domain.models.TemplateLanguagePreference
@@ -125,18 +125,6 @@ fun LanguagePickerDialog(
     )
 }
 
-@Preview
-@Composable
-private fun LanguagePickerDialogPreview() {
-    TemplateTheme {
-        LanguagePickerDialog(
-            selectedLanguage = TemplateLanguagePreference.English,
-            onDismiss = { },
-            onConfirm = { }
-        )
-    }
-}
-
 sealed class LanguagePickerItem(
     val language: TemplateLanguagePreference,
     @DrawableRes val flagId: Int
@@ -150,4 +138,16 @@ sealed class LanguagePickerItem(
         language = TemplateLanguagePreference.Italian,
         flagId = R.drawable.italian_flag
     )
+}
+
+@PreviewLightDark
+@Composable
+private fun LanguagePickerDialogPreview() {
+    TemplateTheme {
+        LanguagePickerDialog(
+            selectedLanguage = TemplateLanguagePreference.English,
+            onDismiss = { },
+            onConfirm = { }
+        )
+    }
 }
