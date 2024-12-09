@@ -81,13 +81,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContent {
-            val isThemeDark = shouldUseDarkTheme(uiState)
-            val shouldFollowSystem = shouldFollowSystemTheme(uiState)
-            Timber.d("called setContent: isThemeDark=$isThemeDark, shouldFollowSystem=$shouldFollowSystem")
-            UpdateSystemBarsEffect(isThemeDark, shouldFollowSystem)
+            val themeInfo = themeInfo(uiState)
+            Timber.d("called setContent: isThemeDark=${themeInfo.isThemeDark}, shouldFollowSystem=${themeInfo.shouldFollowSystem}")
+            UpdateSystemBarsEffect(themeInfo)
 
             CompositionLocalProvider(LocalPadding provides padding) {
-                TemplateTheme(isThemeDark = isThemeDark) {
+                TemplateTheme(isThemeDark = themeInfo.isThemeDark) {
                     val appState = rememberTemplateAppState(
                         networkMonitor = dependenciesProvider.networkMonitor
                     )
@@ -136,46 +135,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Composable
-    private fun UpdateSystemBarsEffect(isThemeDark: Boolean, shouldFollowSystem: Boolean) {
-        DisposableEffect(isThemeDark, shouldFollowSystem) {
+    private fun UpdateSystemBarsEffect(themeInfo: ThemeInfo) {
+        DisposableEffect(themeInfo) {
             enableEdgeToEdge(
                 statusBarStyle = SystemBarStyle.auto(
                     Color.TRANSPARENT,
                     Color.TRANSPARENT
-                ) { isThemeDark },
+                ) { themeInfo.isThemeDark },
                 navigationBarStyle = SystemBarStyle.auto(
                     LightScrim,
                     DarkScrim
-                ) { isThemeDark }
+                ) { themeInfo.isThemeDark }
             )
             setAppTheme(
                 uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager,
-                isThemeDark = isThemeDark,
-                shouldFollowSystem = shouldFollowSystem
+                themeInfo = themeInfo
             )
             onDispose { }
         }
     }
 }
 
-@Composable
-private fun shouldUseDarkTheme(
-    uiState: MainActivityUiState
-): Boolean = when (uiState) {
-    MainActivityUiState.Loading -> isSystemInDarkTheme()
-    is MainActivityUiState.Success -> when (uiState.theme) {
-        TemplateThemePreference.Dark -> true
-        TemplateThemePreference.Light -> false
-        TemplateThemePreference.FollowSystem -> isSystemInDarkTheme()
-    }
-}
+private data class ThemeInfo(val isThemeDark: Boolean, val shouldFollowSystem: Boolean)
 
 @Composable
-private fun shouldFollowSystemTheme(uiState: MainActivityUiState): Boolean = when (uiState) {
-    MainActivityUiState.Loading -> isSystemInDarkTheme()
-    is MainActivityUiState.Success -> when (uiState.theme) {
-        TemplateThemePreference.FollowSystem -> true
-        else -> false
+private fun themeInfo(uiState: MainActivityUiState): ThemeInfo {
+    return when (uiState) {
+        MainActivityUiState.Loading -> ThemeInfo(
+            isThemeDark = isSystemInDarkTheme(),
+            shouldFollowSystem = false
+        )
+
+        is MainActivityUiState.Success -> {
+            val isThemeDark = uiState.theme == TemplateThemePreference.Dark
+            val shouldFollowSystem = uiState.theme == TemplateThemePreference.FollowSystem
+            ThemeInfo(
+                isThemeDark = isThemeDark || (shouldFollowSystem && isSystemInDarkTheme()),
+                shouldFollowSystem = shouldFollowSystem
+            )
+        }
     }
 }
 
@@ -184,15 +182,14 @@ private fun shouldFollowSystemTheme(uiState: MainActivityUiState): Boolean = whe
  */
 private fun setAppTheme(
     uiModeManager: UiModeManager,
-    isThemeDark: Boolean,
-    shouldFollowSystem: Boolean
+    themeInfo: ThemeInfo
 ) {
-    Timber.d("setAppTheme: isThemeDark=$isThemeDark, shouldFollowSystem=$shouldFollowSystem")
+    Timber.d("setAppTheme: isThemeDark=${themeInfo.isThemeDark}, shouldFollowSystem=${themeInfo.shouldFollowSystem}")
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         uiModeManager.setApplicationNightMode(
-            if (shouldFollowSystem) {
+            if (themeInfo.shouldFollowSystem) {
                 UiModeManager.MODE_NIGHT_AUTO
-            } else if (isThemeDark) {
+            } else if (themeInfo.isThemeDark) {
                 UiModeManager.MODE_NIGHT_YES
             } else {
                 UiModeManager.MODE_NIGHT_NO
@@ -200,9 +197,9 @@ private fun setAppTheme(
         )
     } else {
         AppCompatDelegate.setDefaultNightMode(
-            if (shouldFollowSystem) {
+            if (themeInfo.shouldFollowSystem) {
                 AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            } else if (isThemeDark) {
+            } else if (themeInfo.isThemeDark) {
                 AppCompatDelegate.MODE_NIGHT_YES
             } else {
                 AppCompatDelegate.MODE_NIGHT_NO
