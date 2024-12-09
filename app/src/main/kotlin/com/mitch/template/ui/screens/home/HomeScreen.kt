@@ -13,7 +13,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.template.R
 import com.mitch.template.domain.models.TemplateLanguagePreference
@@ -85,7 +86,8 @@ private enum class ActiveDialog {
     None, Language, Theme
 }
 
-@Preview
+@PreviewLightDark
+@PreviewScreenSizes
 @Composable
 private fun HomeScreenContentPreview() {
     TemplateTheme {
