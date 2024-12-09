@@ -1,6 +1,6 @@
 [versions]
 # Kotlin
-kotlin = "2.0.21" # kotlin and ksp should be updated together
+kotlin = "2.1.0" # kotlin and ksp should be updated together
 kotlinx-datetime = "0.6.1"
 kotlinx-serialization = "1.7.3"
 kotlinx-coroutines = "1.9.0"
@@ -9,7 +9,7 @@ kotlinx-coroutines = "1.9.0"
 compose-bom = "2024.11.00"
 activity-compose = "1.9.3"
 androidx-lifecycle = "2.8.7"
-coil = "3.0.3"
+coil = "3.0.4"
 eva = "1.1.1"
 core-splashscreen = "1.0.1"
 appcompat = "1.7.0"
@@ -22,7 +22,7 @@ room = "2.6.1"
 
 # Datastore
 datastore = "1.1.1"
-protobuf = "4.28.3"
+protobuf = "4.29.0"
 protobufPlugin = "0.9.4"
 
 # Logging
@@ -47,16 +47,16 @@ desugar-jdk-libs = "2.1.3"
 
 # Formatting + Linting
 detekt = "1.23.7"
-nlopez-composeRules = "0.4.18"
+nlopez-composeRules = "0.4.19"
 
 # API calls
 ktor = "3.0.1"
 
 # Plugins
 # android-gradle-plugin and androidTools should be updated together
-android-gradle-plugin = "8.7.2" # agp = x.y.z
-androidTools = "31.7.2" # androidTools = (agp.x + 23).(agp.y).(agp.z)
-ksp = "2.0.21-1.0.28" # kotlin and ksp should be updated together
+android-gradle-plugin = "8.7.3" # agp = x.y.z
+androidTools = "31.7.3" # androidTools = (agp.x + 23).(agp.y).(agp.z)
+ksp = "2.1.0-1.0.29" # kotlin and ksp should be updated together
 junit5-plugin = "1.11.2.0"
 secrets = "2.0.1"
 
