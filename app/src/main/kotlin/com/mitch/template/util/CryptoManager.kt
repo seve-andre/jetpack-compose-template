@@ -91,7 +91,7 @@ class CryptoManager {
         }
     }
 
-    companion object {
+    private companion object {
         private const val KeyAlias = "keystore_key"
         private const val ChunkSize = 4096
         private const val GcmTlen = 128
