@@ -47,7 +47,6 @@ import com.mitch.template.ui.rememberTemplateAppState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -82,8 +81,24 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             val themeInfo = themeInfo(uiState)
-            Timber.d("called setContent: isThemeDark=${themeInfo.isThemeDark}, shouldFollowSystem=${themeInfo.shouldFollowSystem}")
-            UpdateSystemBarsEffect(themeInfo)
+            DisposableEffect(themeInfo.isThemeDark, themeInfo.shouldFollowSystem) {
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(
+                        Color.TRANSPARENT,
+                        Color.TRANSPARENT
+                    ) { themeInfo.isThemeDark },
+                    navigationBarStyle = SystemBarStyle.auto(
+                        LightScrim,
+                        DarkScrim
+                    ) { themeInfo.isThemeDark },
+                )
+                setAppTheme(
+                    uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager,
+                    isThemeDark = themeInfo.isThemeDark,
+                    shouldFollowSystem = themeInfo.shouldFollowSystem
+                )
+                onDispose { }
+            }
 
             CompositionLocalProvider(LocalPadding provides padding) {
                 TemplateTheme(isThemeDark = themeInfo.isThemeDark) {
@@ -130,29 +145,7 @@ class MainActivity : AppCompatActivity() {
         val composeView = window.decorView
             .findViewById<ViewGroup>(android.R.id.content)
             .getChildAt(0) as? ComposeView
-        Timber.d("onConfigurationChanged: newConfig=$newConfig")
         composeView?.dispatchConfigurationChanged(newConfig)
-    }
-
-    @Composable
-    private fun UpdateSystemBarsEffect(themeInfo: ThemeInfo) {
-        DisposableEffect(themeInfo) {
-            enableEdgeToEdge(
-                statusBarStyle = SystemBarStyle.auto(
-                    Color.TRANSPARENT,
-                    Color.TRANSPARENT
-                ) { themeInfo.isThemeDark },
-                navigationBarStyle = SystemBarStyle.auto(
-                    LightScrim,
-                    DarkScrim
-                ) { themeInfo.isThemeDark }
-            )
-            setAppTheme(
-                uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager,
-                themeInfo = themeInfo
-            )
-            onDispose { }
-        }
     }
 }
 
@@ -182,28 +175,28 @@ private fun themeInfo(uiState: MainActivityUiState): ThemeInfo {
  */
 private fun setAppTheme(
     uiModeManager: UiModeManager,
-    themeInfo: ThemeInfo
+    isThemeDark: Boolean,
+    shouldFollowSystem: Boolean
 ) {
-    Timber.d("setAppTheme: isThemeDark=${themeInfo.isThemeDark}, shouldFollowSystem=${themeInfo.shouldFollowSystem}")
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         uiModeManager.setApplicationNightMode(
-            if (themeInfo.shouldFollowSystem) {
+            if (shouldFollowSystem) {
                 UiModeManager.MODE_NIGHT_AUTO
-            } else if (themeInfo.isThemeDark) {
+            } else if (isThemeDark) {
                 UiModeManager.MODE_NIGHT_YES
             } else {
                 UiModeManager.MODE_NIGHT_NO
-            }.also { Timber.d("setAppTheme: mode1=$it") }
+            }
         )
     } else {
         AppCompatDelegate.setDefaultNightMode(
-            if (themeInfo.shouldFollowSystem) {
+            if (shouldFollowSystem) {
                 AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            } else if (themeInfo.isThemeDark) {
+            } else if (isThemeDark) {
                 AppCompatDelegate.MODE_NIGHT_YES
             } else {
                 AppCompatDelegate.MODE_NIGHT_NO
-            }.also { Timber.d("setAppTheme: mode2=$it") }
+            }
         )
     }
 }
