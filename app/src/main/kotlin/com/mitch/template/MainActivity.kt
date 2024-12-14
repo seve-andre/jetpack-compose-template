@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                     navigationBarStyle = SystemBarStyle.auto(
                         LightScrim,
                         DarkScrim
-                    ) { themeInfo.isThemeDark },
+                    ) { themeInfo.isThemeDark }
                 )
                 setAppTheme(
                     uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager,
