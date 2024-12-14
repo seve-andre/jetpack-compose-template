@@ -76,7 +76,7 @@ android {
             applicationIdSuffix = TemplateBuildType.Debug.applicationIdSuffix
         }
         register("staging") {
-            initWith(getByName("release"))
+            initWith(named("release").get())
             isDebuggable = true
             applicationIdSuffix = TemplateBuildType.Staging.applicationIdSuffix
             secrets.propertiesFileName = "secrets.staging.properties"
