@@ -175,8 +175,9 @@ kotlin {
 
 composeCompiler {
     reportsDestination = layout.buildDirectory.dir("compose_compiler")
-    stabilityConfigurationFile =
+    stabilityConfigurationFiles.addAll(
         rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
+    )
 }
 
 detekt {
