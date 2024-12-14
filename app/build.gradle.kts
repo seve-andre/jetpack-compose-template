@@ -75,8 +75,8 @@ android {
             isMinifyEnabled = false
             applicationIdSuffix = TemplateBuildType.Debug.applicationIdSuffix
         }
-        create("staging") {
-            initWith(getByName("release"))
+        register("staging") {
+            initWith(named("release").get())
             isDebuggable = true
             applicationIdSuffix = TemplateBuildType.Staging.applicationIdSuffix
             secrets.propertiesFileName = "secrets.staging.properties"
@@ -105,7 +105,7 @@ android {
     flavorDimensions += TemplateFlavorDimension.values().map { it.dimensionName }
     productFlavors {
         TemplateFlavor.values().forEach { flavor ->
-            create(flavor.flavorName) {
+            register(flavor.flavorName) {
                 dimension = flavor.dimension.dimensionName
                 if (flavor.applicationIdSuffix != null) {
                     applicationIdSuffix = flavor.applicationIdSuffix
@@ -141,7 +141,7 @@ fun NamedDomainObjectContainer<out ApkSigningConfig>.createSigningConfig(
     name: String,
     properties: Properties
 ) {
-    create(name) {
+    register(name) {
         keyAlias = properties["${name}KeyAlias"] as String
         keyPassword = properties["${name}KeyPassword"] as String
         storeFile = file(properties["storeFile"] as String)
