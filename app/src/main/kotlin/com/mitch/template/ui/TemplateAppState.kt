@@ -3,11 +3,12 @@ package com.mitch.template.ui
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mitch.template.util.network.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope
@@ -37,13 +38,26 @@ class TemplateAppState(
     networkMonitor: NetworkMonitor
 ) {
 
+    private val previousDestination = mutableStateOf<NavDestination?>(null)
+
     /**
      * App's current [NavDestination] if set, otherwise starting destination.
      *
      * Starting destination: search for `@RootNavGraph(start = true)`
      */
     val currentDestination: NavDestination?
-        @Composable get() = navController.currentBackStackEntryAsState().value?.destination
+        @Composable get() {
+            // Collect the currentBackStackEntryFlow as a state
+            val currentEntry =
+                navController.currentBackStackEntryFlow.collectAsState(initial = null)
+
+            // Fallback to previousDestination if currentEntry is null
+            return currentEntry.value?.destination.also { destination ->
+                if (destination != null) {
+                    previousDestination.value = destination
+                }
+            } ?: previousDestination.value
+        }
 
     /**
      * Manages app connectivity status
