@@ -1,5 +1,6 @@
 package com.mitch.template.data.language
 
+import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import kotlinx.coroutines.Dispatchers
@@ -13,16 +14,13 @@ import kotlinx.coroutines.withContext
 import java.util.Locale
 
 class LanguageLocalDataSource {
+    private val refreshTrigger = MutableSharedFlow<Unit>(replay = 1)
+
     suspend fun setLocale(locale: Locale) {
-        withContext(Dispatchers.Main) {
-            AppCompatDelegate.setApplicationLocales(
-                LocaleListCompat.forLanguageTags(locale.toLanguageTag())
-            )
-            refreshTrigger.emit(Unit)
-        }
+        changeAppLocale(locale)
+        refreshTrigger.emit(Unit)
     }
 
-    private val refreshTrigger = MutableSharedFlow<Unit>(replay = 1)
     fun getLocale(): Flow<Locale> = refreshTrigger
         .onStart { emit(Unit) }
         .flatMapLatest {
@@ -44,11 +42,21 @@ class LanguageLocalDataSource {
         val defaultLocale = Locale.getDefault()
         val preference = defaultLocale.toDomainModel()
         val preferenceLocale = preference.locale
-        withContext(Dispatchers.Main) {
-            AppCompatDelegate.setApplicationLocales(
-                LocaleListCompat.forLanguageTags(preferenceLocale.toLanguageTag())
-            )
-        }
+        changeAppLocale(preferenceLocale)
         return preferenceLocale
+    }
+
+    private suspend fun changeAppLocale(locale: Locale) {
+        withContext(Dispatchers.Main) {
+            // temporarily allow disk reads and writes,
+            // since setApplicationLocales is a blocking operation;
+            // (returns old policy to restore afterwards)
+            val oldPolicy = StrictMode.allowThreadDiskWrites()
+            AppCompatDelegate.setApplicationLocales(
+                LocaleListCompat.forLanguageTags(locale.toLanguageTag())
+            )
+            // restore old policy
+            StrictMode.setThreadPolicy(oldPolicy)
+        }
     }
 }
