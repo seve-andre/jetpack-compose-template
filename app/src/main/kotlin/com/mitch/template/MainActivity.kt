@@ -178,7 +178,7 @@ private fun setAppTheme(
     isThemeDark: Boolean,
     shouldFollowSystem: Boolean
 ) {
-    if (Build.VERSION.SDK_INT >= 31) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         val mode = when {
             shouldFollowSystem -> UiModeManager.MODE_NIGHT_AUTO
             isThemeDark -> UiModeManager.MODE_NIGHT_YES
