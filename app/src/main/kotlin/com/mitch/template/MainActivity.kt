@@ -178,26 +178,20 @@ private fun setAppTheme(
     isThemeDark: Boolean,
     shouldFollowSystem: Boolean
 ) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        uiModeManager.setApplicationNightMode(
-            if (shouldFollowSystem) {
-                UiModeManager.MODE_NIGHT_AUTO
-            } else if (isThemeDark) {
-                UiModeManager.MODE_NIGHT_YES
-            } else {
-                UiModeManager.MODE_NIGHT_NO
-            }
-        )
+    if (Build.VERSION.SDK_INT >= 31) {
+        val mode = when {
+            shouldFollowSystem -> UiModeManager.MODE_NIGHT_AUTO
+            isThemeDark -> UiModeManager.MODE_NIGHT_YES
+            else -> UiModeManager.MODE_NIGHT_NO
+        }
+        uiModeManager.setApplicationNightMode(mode)
     } else {
-        AppCompatDelegate.setDefaultNightMode(
-            if (shouldFollowSystem) {
-                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            } else if (isThemeDark) {
-                AppCompatDelegate.MODE_NIGHT_YES
-            } else {
-                AppCompatDelegate.MODE_NIGHT_NO
-            }
-        )
+        val mode = when {
+            shouldFollowSystem -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            isThemeDark -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> AppCompatDelegate.MODE_NIGHT_NO
+        }
+        AppCompatDelegate.setDefaultNightMode(mode)
     }
 }
 
