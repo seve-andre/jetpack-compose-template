@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
 import android.view.ViewGroup
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -146,6 +147,12 @@ class MainActivity : AppCompatActivity() {
             .findViewById<ViewGroup>(android.R.id.content)
             .getChildAt(0) as? ComposeView
         composeView?.dispatchConfigurationChanged(newConfig)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val oldPolicy = StrictMode.allowThreadDiskWrites()
+        super.attachBaseContext(newBase)
+        StrictMode.setThreadPolicy(oldPolicy)
     }
 }
 
