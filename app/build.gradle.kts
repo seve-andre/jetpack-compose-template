@@ -58,10 +58,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        androidResources {
-            generateLocaleConfig = true
-        }
     }
     signingConfigs {
         if (!keystoreProperties.isEmpty) {
