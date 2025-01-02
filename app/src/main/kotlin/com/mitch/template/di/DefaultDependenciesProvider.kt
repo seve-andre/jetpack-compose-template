@@ -8,7 +8,6 @@ import androidx.room.Room
 import com.mitch.template.BuildConfig
 import com.mitch.template.data.TemplateDatabase
 import com.mitch.template.data.encrypted
-import com.mitch.template.data.language.LanguageLocalDataSource
 import com.mitch.template.data.settings.DefaultUserSettingsRepository
 import com.mitch.template.data.settings.UserSettingsRepository
 import com.mitch.template.data.userprefs.UserPreferencesLocalDataSource
@@ -56,8 +55,7 @@ class DefaultDependenciesProvider(
 
     override val userSettingsRepository: UserSettingsRepository by lazy {
         DefaultUserSettingsRepository(
-            userPreferencesLocalDataSource = UserPreferencesLocalDataSource(preferencesDataStore),
-            languageLocalDataSource = LanguageLocalDataSource()
+            userPreferencesLocalDataSource = UserPreferencesLocalDataSource(preferencesDataStore)
         )
     }
 
