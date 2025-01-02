@@ -31,8 +31,6 @@ To create you own repo, click on:
 - [Coil](https://coil-kt.github.io/coil/compose/) for image loading backed by Kotlin coroutines
 - [Splashscreen API](https://developer.android.com/develop/ui/views/launch/splash-screen) to display
   a splashscreen at app launch
-- [Per-app language preferences](https://developer.android.com/guide/topics/resources/app-languages)
-  to use a language inside the app that is different from the system language
 
 ## What does it offer?
 
