@@ -1,6 +1,5 @@
 package com.mitch.template.ui.screens.home.components
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -46,11 +45,6 @@ fun LanguagePickerDialog(
 ) {
     var tempLanguage by remember { mutableStateOf(selectedLanguage) }
 
-    val items = listOf(
-        LanguagePickerItem.English,
-        LanguagePickerItem.Italian
-    )
-
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = {
@@ -64,8 +58,8 @@ fun LanguagePickerDialog(
         },
         text = {
             Column(modifier = Modifier.selectableGroup()) {
-                for (item in items) {
-                    val isSelected = item.language == tempLanguage
+                for (languagePreference in TemplateLanguagePreference.entries) {
+                    val isSelected = languagePreference == tempLanguage
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -73,7 +67,7 @@ fun LanguagePickerDialog(
                             .clip(RoundedCornerShape(16.dp))
                             .selectable(
                                 selected = isSelected,
-                                onClick = { tempLanguage = item.language },
+                                onClick = { tempLanguage = languagePreference },
                                 role = Role.RadioButton
                             )
                             .padding(horizontal = padding.medium),
@@ -89,14 +83,16 @@ fun LanguagePickerDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Image(
-                                painter = painterResource(id = item.flagId),
+                                painter = languagePreference.flag(),
                                 contentDescription = null,
-                                modifier = Modifier
-                                    .size(20.dp)
-                                    .testTag(item.flagId.toString())
+                                modifier = Modifier.size(20.dp)
                             )
                             Text(
-                                text = item.language.locale.displayLanguage,
+                                text = if (languagePreference.locale == null) {
+                                    stringResource(id = R.string.system_default)
+                                } else {
+                                    languagePreference.locale.displayLanguage
+                                },
                                 style = TemplateDesignSystem.typography.bodyLarge
                             )
                         }
@@ -125,19 +121,14 @@ fun LanguagePickerDialog(
     )
 }
 
-sealed class LanguagePickerItem(
-    val language: TemplateLanguagePreference,
-    @DrawableRes val flagId: Int
-) {
-    data object English : LanguagePickerItem(
-        language = TemplateLanguagePreference.English,
-        flagId = R.drawable.english_flag
-    )
-
-    data object Italian : LanguagePickerItem(
-        language = TemplateLanguagePreference.Italian,
-        flagId = R.drawable.italian_flag
-    )
+@Composable
+private fun TemplateLanguagePreference.flag(): Painter {
+    val flagId = when (this) {
+        TemplateLanguagePreference.FollowSystem -> R.drawable.earth_flag
+        TemplateLanguagePreference.English -> R.drawable.english_flag
+        TemplateLanguagePreference.Italian -> R.drawable.italian_flag
+    }
+    return painterResource(id = flagId)
 }
 
 @PreviewLightDark

@@ -57,9 +57,14 @@ class MainActivity : AppCompatActivity() {
          */
         val splashScreen = installSplashScreen()
         enableEdgeToEdge()
+        val dependenciesProvider = (application as TemplateApplication).dependenciesProvider
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                dependenciesProvider.userSettingsRepository.initLocaleIfNeeded()
+            }
+        }
         super.onCreate(savedInstanceState)
 
-        val dependenciesProvider = (application as TemplateApplication).dependenciesProvider
         val viewModel = MainActivityViewModel(dependenciesProvider.userSettingsRepository)
 
         var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
