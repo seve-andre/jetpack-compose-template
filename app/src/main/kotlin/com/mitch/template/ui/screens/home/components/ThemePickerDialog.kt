@@ -1,6 +1,5 @@
 package com.mitch.template.ui.screens.home.components
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -45,12 +43,6 @@ fun ThemePickerDialog(
 ) {
     var tempTheme by remember { mutableStateOf(selectedTheme) }
 
-    val items = listOf(
-        ThemePickerItem.FollowSystem,
-        ThemePickerItem.Light,
-        ThemePickerItem.Dark
-    )
-
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = {
@@ -64,8 +56,8 @@ fun ThemePickerDialog(
         },
         text = {
             Column(modifier = Modifier.selectableGroup()) {
-                for (item in items) {
-                    val isSelected = item.theme == tempTheme
+                for (themePreference in TemplateThemePreference.entries) {
+                    val isSelected = themePreference == tempTheme
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -73,7 +65,7 @@ fun ThemePickerDialog(
                             .clip(RoundedCornerShape(16.dp))
                             .selectable(
                                 selected = isSelected,
-                                onClick = { tempTheme = item.theme },
+                                onClick = { tempTheme = themePreference },
                                 role = Role.RadioButton
                             )
                             .padding(horizontal = padding.medium),
@@ -89,14 +81,12 @@ fun ThemePickerDialog(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                imageVector = item.icon,
+                                imageVector = themePreference.icon(),
                                 contentDescription = null,
-                                modifier = Modifier
-                                    .size(20.dp)
-                                    .testTag(item.icon.toString())
+                                modifier = Modifier.size(20.dp)
                             )
                             Text(
-                                text = stringResource(id = item.titleId),
+                                text = themePreference.title(),
                                 style = TemplateDesignSystem.typography.bodyLarge
                             )
                         }
@@ -105,10 +95,8 @@ fun ThemePickerDialog(
             }
         },
         dismissButton = {
-            TextButton(
-                onClick = onDismiss
-            ) {
-                Text(stringResource(R.string.cancel))
+            TextButton(onClick = onDismiss) {
+                Text(text = stringResource(id = R.string.cancel))
             }
         },
         confirmButton = {
@@ -119,34 +107,29 @@ fun ThemePickerDialog(
                 },
                 enabled = tempTheme != selectedTheme
             ) {
-                Text(stringResource(R.string.save))
+                Text(text = stringResource(id = R.string.save))
             }
         }
     )
 }
 
-sealed class ThemePickerItem(
-    val theme: TemplateThemePreference,
-    val icon: ImageVector,
-    @StringRes val titleId: Int
-) {
-    data object FollowSystem : ThemePickerItem(
-        theme = TemplateThemePreference.FollowSystem,
-        icon = TemplateIcons.Outlined.FollowSystem,
-        titleId = R.string.system_default
-    )
+@Composable
+private fun TemplateThemePreference.icon(): ImageVector {
+    return when (this) {
+        TemplateThemePreference.FollowSystem -> TemplateIcons.Outlined.FollowSystem
+        TemplateThemePreference.Light -> TemplateIcons.Outlined.LightMode
+        TemplateThemePreference.Dark -> TemplateIcons.Outlined.DarkMode
+    }
+}
 
-    data object Light : ThemePickerItem(
-        theme = TemplateThemePreference.Light,
-        icon = TemplateIcons.Outlined.LightMode,
-        titleId = R.string.light_theme
-    )
-
-    data object Dark : ThemePickerItem(
-        theme = TemplateThemePreference.Dark,
-        icon = TemplateIcons.Outlined.DarkMode,
-        titleId = R.string.dark_theme
-    )
+@Composable
+private fun TemplateThemePreference.title(): String {
+    val titleId = when (this) {
+        TemplateThemePreference.FollowSystem -> R.string.system_default
+        TemplateThemePreference.Light -> R.string.light_theme
+        TemplateThemePreference.Dark -> R.string.dark_theme
+    }
+    return stringResource(id = titleId)
 }
 
 @PreviewLightDark
