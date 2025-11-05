@@ -1,29 +1,29 @@
 [versions]
 # Kotlin
-kotlin = "2.1.20" # kotlin and ksp should be updated together
+kotlin = "2.2.21" # kotlin and ksp should be updated together
 kotlinx-datetime = "0.6.2"
-kotlinx-serialization = "1.8.1"
+kotlinx-serialization = "1.9.0"
 kotlinx-coroutines = "1.10.2"
 
 # UI
-compose-bom = "2025.04.01"
-activity-compose = "1.10.1"
-androidx-lifecycle = "2.8.7"
-coil = "3.1.0"
+compose-bom = "2025.10.01"
+activity-compose = "1.11.0"
+androidx-lifecycle = "2.9.4"
+coil = "3.3.0"
 eva = "1.1.1"
 core-splashscreen = "1.0.1"
-appcompat = "1.7.0"
+appcompat = "1.7.1"
 
 # Navigation
-compose-navigation = "2.8.9"
+compose-navigation = "2.9.5"
 
 # Database
-room = "2.7.1"
+room = "2.8.3"
 
 # Datastore
-datastore = "1.1.5"
-protobuf = "4.30.2"
-protobufPlugin = "0.9.4"
+datastore = "1.1.7"
+protobuf = "4.33.0"
+protobufPlugin = "0.9.5"
 
 # Logging
 timber = "5.0.1"
@@ -31,15 +31,15 @@ timber = "5.0.1"
 # Testing
 ## Unit
 junit4 = "4.13.2"
-junit5 = "5.12.2"
+junit5 = "5.14.0" # to keep in sync with junit5-plugin
 assertk = "0.28.1"
 turbine = "1.2.0"
 ## Instrumented
-test-core = "1.6.1"
-espresso-core = "3.6.1"
-test-ext-junit = "1.2.1"
-test-rules = "1.6.1"
-test-runner = "1.6.2"
+test-core = "1.7.0"
+espresso-core = "3.7.0"
+test-ext-junit = "1.3.0"
+test-rules = "1.7.0"
+test-runner = "1.7.0"
 uiAutomator = "2.3.0"
 
 # Desugaring
@@ -47,17 +47,17 @@ desugar-jdk-libs = "2.1.5"
 
 # Formatting + Linting
 detekt = "1.23.8"
-nlopez-composeRules = "0.4.22"
+nlopez-composeRules = "0.4.26"
 
 # API calls
-ktor = "3.1.2"
+ktor = "3.3.2"
 
 # Plugins
 # android-gradle-plugin and androidTools should be updated together
-android-gradle-plugin = "8.9.2" # agp = x.y.z
-androidTools = "31.9.2" # androidTools = (agp.x + 23).(agp.y).(agp.z)
-ksp = "2.1.20-2.0.0" # kotlin and ksp should be updated together
-junit5-plugin = "1.12.0.0"
+android-gradle-plugin = "8.13.0" # agp = x.y.z
+androidTools = "31.13.0" # androidTools = (agp.x + 23).(agp.y).(agp.z)
+ksp = "2.2.21-2.0.4" # kotlin and ksp should be updated together
+junit5-plugin = "1.14.0.0" # to keep in sync with junit5
 secrets = "2.0.1"
 
 [libraries]

@@ -47,11 +47,11 @@ if (keystorePropertiesFile.exists()) keystoreProperties.load(FileInputStream(key
 android {
     namespace = packageName
 
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         applicationId = packageName
         minSdk = 23
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -78,7 +78,7 @@ android {
             secrets.propertiesFileName = "secrets.staging.properties"
             signingConfig = try {
                 signingConfigs.named("staging").get()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 null
             }
         }
@@ -93,7 +93,7 @@ android {
             secrets.propertiesFileName = "secrets.release.properties"
             signingConfig = try {
                 signingConfigs.named("release").get()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 null
             }
         }
