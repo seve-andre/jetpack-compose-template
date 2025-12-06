@@ -1,7 +1,6 @@
 package com.mitch.template
 
 import android.app.UiModeManager
-import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
@@ -98,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                     ) { themeInfo.isThemeDark }
                 )
                 setAppTheme(
-                    uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager,
+                    uiModeManager = getSystemService(UI_MODE_SERVICE) as UiModeManager,
                     isThemeDark = themeInfo.isThemeDark,
                     shouldFollowSystem = themeInfo.shouldFollowSystem
                 )
