@@ -11,7 +11,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -22,15 +21,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.util.Consumer
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -38,12 +35,14 @@ import com.mitch.template.domain.models.TemplateThemePreference
 import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarHost
 import com.mitch.template.ui.designsystem.components.snackbars.toVisuals
-import com.mitch.template.ui.designsystem.theme.custom.LocalPadding
-import com.mitch.template.ui.designsystem.theme.custom.padding
 import com.mitch.template.ui.navigation.TemplateDestination
 import com.mitch.template.ui.navigation.TemplateNavHost
 import com.mitch.template.ui.rememberTemplateAppState
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -56,86 +55,93 @@ class MainActivity : AppCompatActivity() {
          */
         val splashScreen = installSplashScreen()
         enableEdgeToEdge()
-        val dependenciesProvider = (application as TemplateApplication).dependenciesProvider
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                dependenciesProvider.userSettingsRepository.initLocaleIfNeeded()
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // Force the 3-button navigation bar to be transparent
+            // See: https://developer.android.com/develop/ui/views/layout/edge-to-edge#create-transparent
+            window.isNavigationBarContrastEnforced = false
         }
+        val dependenciesProvider = (application as TemplateApplication).dependenciesProvider
         super.onCreate(savedInstanceState)
 
         val viewModel = MainActivityViewModel(dependenciesProvider.userSettingsRepository)
+        var themeInfo by mutableStateOf(
+            ThemeInfo(
+                isThemeDark = resources.configuration.isSystemInDarkTheme,
+                shouldFollowSystem = false
+            )
+        )
 
-        var uiState: MainActivityUiState by mutableStateOf(MainActivityUiState.Loading)
-        // Update the uiState
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState
-                    .onEach { uiState = it }
-                    .collect()
+                launch {
+                    dependenciesProvider.userSettingsRepository.initLocaleIfNeeded()
+                }
+
+                launch {
+                    combine(
+                        isSystemInDarkTheme(),
+                        viewModel.uiState
+                    ) { isSystemInDarkTheme, uiState ->
+                        themeInfo(isSystemInDarkTheme = isSystemInDarkTheme, uiState = uiState)
+                    }
+                        .onEach { themeInfo = it }
+                        .distinctUntilChanged()
+                        .collect { themeInfo ->
+                            enableEdgeToEdge(
+                                statusBarStyle = SystemBarStyle.auto(
+                                    Color.TRANSPARENT,
+                                    Color.TRANSPARENT
+                                ) { themeInfo.isThemeDark },
+                                navigationBarStyle = SystemBarStyle.auto(
+                                    Color.TRANSPARENT,
+                                    Color.TRANSPARENT
+                                ) { themeInfo.isThemeDark }
+                            )
+                            setAppTheme(
+                                uiModeManager = getSystemService(UI_MODE_SERVICE) as UiModeManager,
+                                isThemeDark = themeInfo.isThemeDark,
+                                shouldFollowSystem = themeInfo.shouldFollowSystem
+                            )
+                        }
+                }
             }
         }
 
         splashScreen.setKeepOnScreenCondition {
-            when (uiState) {
-                MainActivityUiState.Loading -> true
-                is MainActivityUiState.Success -> false
-            }
+            viewModel.uiState.value is MainActivityUiState.Loading
         }
 
         setContent {
-            val themeInfo = themeInfo(uiState)
-            DisposableEffect(themeInfo.isThemeDark, themeInfo.shouldFollowSystem) {
-                enableEdgeToEdge(
-                    statusBarStyle = SystemBarStyle.auto(
-                        Color.TRANSPARENT,
-                        Color.TRANSPARENT
-                    ) { themeInfo.isThemeDark },
-                    navigationBarStyle = SystemBarStyle.auto(
-                        LightScrim,
-                        DarkScrim
-                    ) { themeInfo.isThemeDark }
+            TemplateTheme(isThemeDark = themeInfo.isThemeDark) {
+                val appState = rememberTemplateAppState(
+                    networkMonitor = dependenciesProvider.networkMonitor
                 )
-                setAppTheme(
-                    uiModeManager = getSystemService(UI_MODE_SERVICE) as UiModeManager,
-                    isThemeDark = themeInfo.isThemeDark,
-                    shouldFollowSystem = themeInfo.shouldFollowSystem
-                )
-                onDispose { }
-            }
 
-            CompositionLocalProvider(LocalPadding provides padding) {
-                TemplateTheme(isThemeDark = themeInfo.isThemeDark) {
-                    val appState = rememberTemplateAppState(
-                        networkMonitor = dependenciesProvider.networkMonitor
-                    )
-
-                    Scaffold(
-                        snackbarHost = { TemplateSnackbarHost(appState.snackbarHostState) },
-                        contentWindowInsets = WindowInsets(0)
-                    ) { padding ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(padding)
-                                .consumeWindowInsets(padding)
-                                .windowInsetsPadding(
-                                    WindowInsets.safeDrawing.only(
-                                        WindowInsetsSides.Horizontal
-                                    )
+                Scaffold(
+                    snackbarHost = { TemplateSnackbarHost(appState.snackbarHostState) },
+                    contentWindowInsets = WindowInsets(0)
+                ) { padding ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(padding)
+                            .consumeWindowInsets(padding)
+                            .windowInsetsPadding(
+                                WindowInsets.safeDrawing.only(
+                                    WindowInsetsSides.Horizontal
                                 )
-                        ) {
-                            TemplateNavHost(
-                                onShowSnackbar = { event ->
-                                    appState
-                                        .snackbarHostState
-                                        .showSnackbar(event.toVisuals())
-                                },
-                                dependenciesProvider = dependenciesProvider,
-                                navController = appState.navController,
-                                startDestination = TemplateDestination.Screen.Home
                             )
-                        }
+                    ) {
+                        TemplateNavHost(
+                            onShowSnackbar = { event ->
+                                appState
+                                    .snackbarHostState
+                                    .showSnackbar(event.toVisuals())
+                            },
+                            dependenciesProvider = dependenciesProvider,
+                            navController = appState.navController,
+                            startDestination = TemplateDestination.Screen.Home
+                        )
                     }
                 }
             }
@@ -155,11 +161,13 @@ class MainActivity : AppCompatActivity() {
 
 private data class ThemeInfo(val isThemeDark: Boolean, val shouldFollowSystem: Boolean)
 
-@Composable
-private fun themeInfo(uiState: MainActivityUiState): ThemeInfo {
+private fun themeInfo(
+    isSystemInDarkTheme: Boolean,
+    uiState: MainActivityUiState
+): ThemeInfo {
     return when (uiState) {
         MainActivityUiState.Loading -> ThemeInfo(
-            isThemeDark = isSystemInDarkTheme(),
+            isThemeDark = isSystemInDarkTheme,
             shouldFollowSystem = false
         )
 
@@ -167,7 +175,7 @@ private fun themeInfo(uiState: MainActivityUiState): ThemeInfo {
             val isThemeDark = uiState.theme == TemplateThemePreference.Dark
             val shouldFollowSystem = uiState.theme == TemplateThemePreference.FollowSystem
             ThemeInfo(
-                isThemeDark = isThemeDark || (shouldFollowSystem && isSystemInDarkTheme()),
+                isThemeDark = isThemeDark || (shouldFollowSystem && isSystemInDarkTheme),
                 shouldFollowSystem = shouldFollowSystem
             )
         }
@@ -200,13 +208,25 @@ private fun setAppTheme(
 }
 
 /**
- * The default light scrim, as defined by androidx and the platform:
- * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=35-38;drc=27e7d52e8604a080133e8b842db10c89b4482598
+ * Convenience wrapper for dark mode checking
  */
-private val LightScrim = Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
+private val Configuration.isSystemInDarkTheme
+    get() = (uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 
 /**
- * The default dark scrim, as defined by androidx and the platform:
- * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:activity/activity/src/main/java/androidx/activity/EdgeToEdge.kt;l=40-44;drc=27e7d52e8604a080133e8b842db10c89b4482598
+ * Registers listener for configuration changes to retrieve whether system is in dark theme or not.
+ * Immediately upon subscribing, it sends the current value and then registers listener for changes.
  */
-private val DarkScrim = Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+private fun AppCompatActivity.isSystemInDarkTheme() = callbackFlow {
+    channel.trySend(resources.configuration.isSystemInDarkTheme)
+
+    val listener = Consumer<Configuration> {
+        channel.trySend(it.isSystemInDarkTheme)
+    }
+
+    addOnConfigurationChangedListener(listener)
+
+    awaitClose { removeOnConfigurationChangedListener(listener) }
+}
+    .distinctUntilChanged()
+    .conflate()
