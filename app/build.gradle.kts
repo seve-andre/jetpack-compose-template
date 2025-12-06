@@ -83,6 +83,7 @@ android {
             }
         }
         release {
+            applicationIdSuffix = TemplateBuildType.Release.applicationIdSuffix
             isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
