@@ -25,7 +25,12 @@ fun rememberTemplateAppState(
     coroutineScope: CoroutineScope = rememberCoroutineScope()
 ): TemplateAppState {
     return remember(navController, snackbarHostState, coroutineScope, networkMonitor) {
-        TemplateAppState(navController, snackbarHostState, coroutineScope, networkMonitor)
+        TemplateAppState(
+            navController = navController,
+            snackbarHostState = snackbarHostState,
+            coroutineScope = coroutineScope,
+            networkMonitor = networkMonitor
+        )
     }
 }
 
