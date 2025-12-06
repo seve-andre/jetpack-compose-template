@@ -68,8 +68,8 @@ fun ThemePickerDialog(
                                 onClick = { tempTheme = themePreference },
                                 role = Role.RadioButton
                             )
-                            .padding(horizontal = padding.medium),
-                        horizontalArrangement = Arrangement.spacedBy(padding.medium),
+                            .padding(horizontal = TemplateDesignSystem.padding.medium),
+                        horizontalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.medium),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
@@ -77,7 +77,7 @@ fun ThemePickerDialog(
                             onClick = null // null recommended for accessibility with screen readers
                         )
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(padding.small),
+                            horizontalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.small),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(

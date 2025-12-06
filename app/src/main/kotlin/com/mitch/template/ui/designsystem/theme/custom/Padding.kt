@@ -6,11 +6,12 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.mitch.template.ui.designsystem.TemplateDesignSystem
 
 val LocalPadding: ProvidableCompositionLocal<Padding> = compositionLocalOf { Padding() }
 
 @Suppress("TopLevelPropertyNaming")
-val padding: Padding
+val TemplateDesignSystem.padding: Padding
     @Composable
     @ReadOnlyComposable
     get() = LocalPadding.current

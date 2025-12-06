@@ -61,7 +61,7 @@ fun TemplateSnackbar(
                     imageVector = icon,
                     contentDescription = null
                 )
-                Spacer(modifier = Modifier.width(padding.small))
+                Spacer(modifier = Modifier.width(TemplateDesignSystem.padding.small))
             }
             Text(text = message)
         }
@@ -81,7 +81,7 @@ private fun TemplateSnackbarDefaultPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun TemplateSnackbarDefaultIndefinitePreview() {
     TemplateTheme {
@@ -107,7 +107,7 @@ private fun TemplateSnackbarDefaultIndefinitePreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun TemplateSnackbarSuccessPreview() {
     TemplateTheme {
@@ -120,7 +120,7 @@ private fun TemplateSnackbarSuccessPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun TemplateSnackbarWarningPreview() {
     TemplateTheme {
@@ -133,7 +133,7 @@ private fun TemplateSnackbarWarningPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun TemplateSnackbarErrorPreview() {
     TemplateTheme {

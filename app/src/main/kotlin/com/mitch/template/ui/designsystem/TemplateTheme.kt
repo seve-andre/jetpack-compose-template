@@ -6,6 +6,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import com.mitch.template.ui.designsystem.theme.custom.DarkExtendedColorScheme
+import com.mitch.template.ui.designsystem.theme.custom.LightExtendedColorScheme
+import com.mitch.template.ui.designsystem.theme.custom.LocalExtendedColorScheme
+import com.mitch.template.ui.designsystem.theme.custom.LocalPadding
+import com.mitch.template.ui.designsystem.theme.custom.padding
 
 val DarkColorScheme: ColorScheme = darkColorScheme()
 val LightColorScheme: ColorScheme = lightColorScheme()
@@ -22,9 +28,19 @@ fun TemplateTheme(
     } else {
         LightColorScheme
     }
+    val extendedColorScheme = if (isThemeDark) {
+        DarkExtendedColorScheme
+    } else {
+        LightExtendedColorScheme
+    }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        content = content
-    )
+    CompositionLocalProvider(
+        LocalExtendedColorScheme provides extendedColorScheme,
+        LocalPadding provides TemplateDesignSystem.padding
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            content = content
+        )
+    }
 }

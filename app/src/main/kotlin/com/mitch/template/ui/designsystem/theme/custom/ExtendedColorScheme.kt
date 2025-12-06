@@ -3,6 +3,7 @@ package com.mitch.template.ui.designsystem.theme.custom
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import com.mitch.template.ui.designsystem.TemplateDesignSystem
@@ -35,4 +36,5 @@ val LocalExtendedColorScheme: ProvidableCompositionLocal<ExtendedColorScheme> =
 @Suppress("TopLevelPropertyNaming")
 val TemplateDesignSystem.extendedColorScheme: ExtendedColorScheme
     @Composable
+    @ReadOnlyComposable
     get() = LocalExtendedColorScheme.current

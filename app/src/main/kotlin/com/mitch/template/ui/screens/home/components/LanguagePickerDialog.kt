@@ -70,8 +70,8 @@ fun LanguagePickerDialog(
                                 onClick = { tempLanguage = languagePreference },
                                 role = Role.RadioButton
                             )
-                            .padding(horizontal = padding.medium),
-                        horizontalArrangement = Arrangement.spacedBy(padding.medium),
+                            .padding(horizontal = TemplateDesignSystem.padding.medium),
+                        horizontalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.medium),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
@@ -79,7 +79,7 @@ fun LanguagePickerDialog(
                             onClick = null
                         )
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(padding.small),
+                            horizontalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.small),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Image(

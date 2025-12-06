@@ -27,7 +27,7 @@ fun TemplateSnackbarHost(hostState: SnackbarHostState, modifier: Modifier = Modi
         modifier = Modifier
             .navigationBarsPadding()
             .imePadding()
-            .padding(horizontal = padding.medium)
+            .padding(horizontal = TemplateDesignSystem.padding.medium)
             .then(modifier)
     ) { snackbarData ->
         val customVisuals = snackbarData.visuals as TemplateSnackbarVisuals

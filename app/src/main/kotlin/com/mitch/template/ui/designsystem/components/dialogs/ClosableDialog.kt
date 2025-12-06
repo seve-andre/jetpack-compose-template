@@ -66,11 +66,11 @@ fun ClosableDialog(
             tonalElevation = AlertDialogDefaults.TonalElevation
         ) {
             Column(
-                modifier = Modifier.padding(padding.medium)
+                modifier = Modifier.padding(TemplateDesignSystem.padding.medium)
             ) {
                 Box(
                     modifier = Modifier
-                        .padding(bottom = padding.small)
+                        .padding(bottom = TemplateDesignSystem.padding.small)
                         .align(Alignment.End)
                 ) {
                     TooltipBox(
@@ -96,7 +96,7 @@ fun ClosableDialog(
                 icon?.let {
                     Box(
                         modifier = Modifier
-                            .padding(bottom = padding.medium)
+                            .padding(bottom = TemplateDesignSystem.padding.medium)
                             .align(Alignment.CenterHorizontally)
                     ) {
                         icon()
@@ -108,7 +108,7 @@ fun ClosableDialog(
                     ProvideTextStyle(textStyle) {
                         Box(
                             modifier = Modifier
-                                .padding(bottom = padding.medium)
+                                .padding(bottom = TemplateDesignSystem.padding.medium)
                                 .align(
                                     if (icon == null) {
                                         Alignment.Start
