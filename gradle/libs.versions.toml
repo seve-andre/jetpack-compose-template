@@ -1,6 +1,7 @@
 [versions]
 # Kotlin
 kotlin = "2.2.21" # kotlin and ksp should be updated together
+kotlinx-collectionsImmutable = "0.4.0"
 kotlinx-datetime = "0.7.1"
 kotlinx-serialization = "1.9.0"
 kotlinx-coroutines = "1.10.2"
@@ -63,6 +64,7 @@ secrets = "2.0.1"
 [libraries]
 # Kotlin
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlinx-collectionsImmutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinx-collectionsImmutable" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
