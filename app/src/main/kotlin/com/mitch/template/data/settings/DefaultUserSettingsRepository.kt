@@ -28,7 +28,8 @@ class DefaultUserSettingsRepository(
                 language = if (protoPreferences.locale.isEmpty()) {
                     TemplateLanguagePreference.FollowSystem
                 } else {
-                    TemplateLanguagePreference.fromLocale(Locale(protoPreferences.locale))
+                    val locale = Locale.forLanguageTag(protoPreferences.locale)
+                    TemplateLanguagePreference.fromLocale(locale)
                 }
             )
         }
