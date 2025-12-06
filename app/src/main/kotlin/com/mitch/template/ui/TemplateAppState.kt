@@ -29,7 +29,6 @@ fun rememberTemplateAppState(
     }
 }
 
-// Controls app state. Stable -> if any of the values is changed, the Composables are recomposed
 @Stable
 class TemplateAppState(
     val navController: NavHostController,
@@ -41,9 +40,7 @@ class TemplateAppState(
     private val previousDestination = mutableStateOf<NavDestination?>(null)
 
     /**
-     * App's current [NavDestination] if set, otherwise starting destination.
-     *
-     * Starting destination: search for `@RootNavGraph(start = true)`
+     * App's current [NavDestination] if set, otherwise previous destination.
      */
     val currentDestination: NavDestination?
         @Composable get() {
