@@ -1,6 +1,7 @@
 package com.mitch.template
 
 import android.app.Application
+import android.content.pm.ApplicationInfo
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy.Builder
 import com.mitch.template.di.DefaultDependenciesProvider
@@ -15,8 +16,7 @@ class TemplateApplication : Application() {
         super.onCreate()
         dependenciesProvider = DefaultDependenciesProvider(this)
 
-        // BuildConfig will be created after first run of the app
-        if (BuildConfig.DEBUG) {
+        if (isDebuggable()) {
             Timber.plant(Timber.DebugTree())
             setStrictModePolicy()
         }
@@ -32,5 +32,12 @@ class TemplateApplication : Application() {
         StrictMode.setThreadPolicy(
             Builder().detectAll().penaltyLog().build()
         )
+    }
+
+    /**
+     * Return true if the application is debuggable.
+     */
+    private fun isDebuggable(): Boolean {
+        return 0 != applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE
     }
 }
