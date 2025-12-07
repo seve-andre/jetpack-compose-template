@@ -91,7 +91,7 @@ fun LanguagePickerDialog(
                                 text = if (languagePreference.locale == null) {
                                     stringResource(id = R.string.system_default)
                                 } else {
-                                    languagePreference.locale.displayLanguage
+                                    languagePreference.locale.getDisplayLanguage(languagePreference.locale)
                                 },
                                 style = TemplateDesignSystem.typography.bodyLarge
                             )

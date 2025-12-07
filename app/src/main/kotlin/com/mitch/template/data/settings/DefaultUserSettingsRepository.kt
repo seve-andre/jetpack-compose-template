@@ -3,6 +3,7 @@ package com.mitch.template.data.settings
 import android.os.StrictMode
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import com.mitch.template.data.language.toDomainModel
 import com.mitch.template.data.userprefs.UserPreferencesLocalDataSource
 import com.mitch.template.data.userprefs.toDomainModel
 import com.mitch.template.data.userprefs.toProtoModel
@@ -29,7 +30,7 @@ class DefaultUserSettingsRepository(
                     TemplateLanguagePreference.FollowSystem
                 } else {
                     val locale = Locale.forLanguageTag(protoPreferences.locale)
-                    TemplateLanguagePreference.fromLocale(locale)
+                    locale.toDomainModel()
                 }
             )
         }
