@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    dependenciesProvider.userSettingsRepository.initLocaleIfNeeded()
+                    dependenciesProvider.userSettingsRepository.initLocale()
                 }
 
                 launch {

@@ -35,7 +35,7 @@ class DefaultUserSettingsRepository(
             )
         }
 
-    override suspend fun initLocaleIfNeeded() {
+    override suspend fun initLocale() {
         val languagePreference = preferences.firstOrNull()?.language
         if (
             languagePreference?.locale != null &&

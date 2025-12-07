@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserSettingsRepository {
     val preferences: Flow<TemplateUserPreferences>
-    suspend fun initLocaleIfNeeded()
+    suspend fun initLocale()
     suspend fun setTheme(theme: TemplateThemePreference)
     suspend fun setLanguage(language: TemplateLanguagePreference)
 }
