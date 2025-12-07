@@ -242,7 +242,7 @@ dependencies {
     implementation(libs.compose.animation)
     implementation(libs.compose.material3)
     implementation(libs.compose.material3.windowSizeClass)
-    implementation(libs.lifecycle.viewModel.compose)
+    implementation(libs.lifecycle.viewModel.nav3)
     implementation(libs.lifecycle.viewModel.savedstate)
     implementation(libs.lifecycle.runtimeCompose)
     implementation(libs.coil)
@@ -254,7 +254,8 @@ dependencies {
     implementation(libs.appcompat)
 
     // Navigation
-    implementation(libs.compose.navigation)
+    implementation(libs.nav3.runtime)
+    implementation(libs.nav3.ui)
 
     // Database
     ksp(libs.room.compiler)

@@ -10,13 +10,14 @@ kotlinx-coroutines = "1.10.2"
 compose-bom = "2025.12.00"
 activity-compose = "1.12.1"
 androidx-lifecycle = "2.10.0"
+androidx-lifecycle-viewmodel-nav3 = "2.10.0"
 coil = "3.3.0"
 eva = "1.1.1"
 core-splashscreen = "1.2.0"
 appcompat = "1.7.1"
 
 # Navigation
-compose-navigation = "2.9.6"
+nav3 = "1.0.0"
 
 # Database
 room = "2.8.4"
@@ -83,7 +84,7 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 compose-animation = { group = "androidx.compose.animation", name = "animation" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
-lifecycle-viewModel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+lifecycle-viewModel-nav3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "androidx-lifecycle-viewmodel-nav3" }
 
 # collectAsStateWithLifecycle()
 lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
@@ -100,7 +101,8 @@ core-splashscreen = { group = "androidx.core", name = "core-splashscreen", versi
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 # Navigation
-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "compose-navigation" }
+nav3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3" }
+nav3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3" }
 
 # Database
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }

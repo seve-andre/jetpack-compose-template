@@ -3,13 +3,8 @@ package com.mitch.template.ui
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.navigation.NavDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.mitch.template.util.network.NetworkMonitor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,13 +15,11 @@ import kotlinx.coroutines.flow.stateIn
 @Composable
 fun rememberTemplateAppState(
     networkMonitor: NetworkMonitor,
-    navController: NavHostController = rememberNavController(),
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     coroutineScope: CoroutineScope = rememberCoroutineScope()
 ): TemplateAppState {
-    return remember(navController, snackbarHostState, coroutineScope, networkMonitor) {
+    return remember(snackbarHostState, coroutineScope, networkMonitor) {
         TemplateAppState(
-            navController = navController,
             snackbarHostState = snackbarHostState,
             coroutineScope = coroutineScope,
             networkMonitor = networkMonitor
@@ -36,31 +29,10 @@ fun rememberTemplateAppState(
 
 @Stable
 class TemplateAppState(
-    val navController: NavHostController,
     val snackbarHostState: SnackbarHostState,
     coroutineScope: CoroutineScope,
     networkMonitor: NetworkMonitor
 ) {
-
-    private val previousDestination = mutableStateOf<NavDestination?>(null)
-
-    /**
-     * App's current [NavDestination] if set, otherwise previous destination.
-     */
-    val currentDestination: NavDestination?
-        @Composable get() {
-            // Collect the currentBackStackEntryFlow as a state
-            val currentEntry =
-                navController.currentBackStackEntryFlow.collectAsState(initial = null)
-
-            // Fallback to previousDestination if currentEntry is null
-            return currentEntry.value?.destination.also { destination ->
-                if (destination != null) {
-                    previousDestination.value = destination
-                }
-            } ?: previousDestination.value
-        }
-
     /**
      * Manages app connectivity status
      */

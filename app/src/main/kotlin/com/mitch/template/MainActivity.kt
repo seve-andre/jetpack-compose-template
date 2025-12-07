@@ -31,12 +31,13 @@ import androidx.core.util.Consumer
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation3.runtime.rememberNavBackStack
 import com.mitch.template.domain.models.TemplateThemePreference
 import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.components.snackbars.TemplateSnackbarHost
 import com.mitch.template.ui.designsystem.components.snackbars.toVisuals
-import com.mitch.template.ui.navigation.TemplateDestination
-import com.mitch.template.ui.navigation.TemplateNavHost
+import com.mitch.template.ui.navigation.TemplateNavDisplay
+import com.mitch.template.ui.navigation.TemplateNavKey
 import com.mitch.template.ui.rememberTemplateAppState
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -112,6 +113,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContent {
+            val backstack = rememberNavBackStack(TemplateNavKey.Home)
+
             TemplateTheme(isThemeDark = themeInfo.isThemeDark) {
                 val appState = rememberTemplateAppState(
                     networkMonitor = dependenciesProvider.networkMonitor
@@ -132,15 +135,14 @@ class MainActivity : AppCompatActivity() {
                                 )
                             )
                     ) {
-                        TemplateNavHost(
+                        TemplateNavDisplay(
                             onShowSnackbar = { event ->
                                 appState
                                     .snackbarHostState
                                     .showSnackbar(event.toVisuals())
                             },
                             dependenciesProvider = dependenciesProvider,
-                            navController = appState.navController,
-                            startDestination = TemplateDestination.Screen.Home
+                            backStack = backstack
                         )
                     }
                 }
