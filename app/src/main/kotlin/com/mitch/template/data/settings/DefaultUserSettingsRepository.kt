@@ -52,11 +52,10 @@ class DefaultUserSettingsRepository(
     override suspend fun setLanguage(language: TemplateLanguagePreference) {
         if (language.locale == null) {
             userPreferencesLocalDataSource.resetLocale()
-            setAppLocale(locale = null)
         } else {
             userPreferencesLocalDataSource.setLocale(language.locale)
-            setAppLocale(language.locale)
         }
+        setAppLocale(language.locale)
     }
 
     /**
