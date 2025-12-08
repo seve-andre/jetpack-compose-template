@@ -2,9 +2,13 @@
 <SmellBaseline>
   <ManuallySuppressedIssues>
     <ID>UnusedPrivateProperty:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$private val httpClient: HttpClient by lazy { HttpClient { if (BuildConfig.DEBUG) { install(Logging) { logger = Logger.ANDROID level = LogLevel.BODY } } install(ContentNegotiation) { json(jsonSerializer) } install(Resources) install(Auth) defaultRequest { contentType(ContentType.Application.Json) } } }</ID>
+    <ID>InjectDispatcher:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$Default</ID>
+    <ID>InjectDispatcher:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$IO</ID>
   </ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>UnusedParameter:TemplateNavDisplay.kt$onShowSnackbar: suspend (SnackbarEvent) -&gt; SnackbarResult</ID>
     <ID>UnusedPrivateProperty:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$private val httpClient: HttpClient by lazy { HttpClient { if (BuildConfig.DEBUG) { install(Logging) { logger = Logger.ANDROID level = LogLevel.BODY } } install(ContentNegotiation) { json(jsonSerializer) } install(Resources) install(Auth) defaultRequest { contentType(ContentType.Application.Json) } } }</ID>
+    <ID>InjectDispatcher:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$Default</ID>
+    <ID>InjectDispatcher:DefaultDependenciesProvider.kt$DefaultDependenciesProvider$IO</ID>
   </CurrentIssues>
 </SmellBaseline>
