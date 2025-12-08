@@ -195,6 +195,10 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     include("**/*.kts")
     exclude("resources/")
     exclude("build/")
+    jvmTarget = JvmTarget.JVM_17.target
+}
+tasks.withType<io.gitlab.arturbosch.detekt.DetektCreateBaselineTask>().configureEach {
+    jvmTarget = JvmTarget.JVM_17.target
 }
 
 protobuf {

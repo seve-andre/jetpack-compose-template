@@ -26,7 +26,7 @@ class TemplateApplication : Application() {
      * Set a thread policy that detects all potential problems on the main thread, such as network
      * and disk access.
      *
-     * If a problem is found, the offending call will be logged and the application will be killed.
+     * If a problem is found, the offending call will be logged.
      */
     private fun setStrictModePolicy() {
         StrictMode.setThreadPolicy(
