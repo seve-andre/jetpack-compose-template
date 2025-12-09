@@ -18,8 +18,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,14 +37,17 @@ import com.mitch.template.ui.designsystem.TemplateDesignSystem
 import com.mitch.template.ui.designsystem.TemplateIcons
 import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.theme.custom.padding
+import kotlinx.collections.immutable.PersistentSet
+import kotlinx.collections.immutable.toPersistentSet
 
 @Composable
 fun LanguagePickerDialog(
-    selectedLanguage: TemplateLanguagePreference,
     onDismiss: () -> Unit,
-    onConfirm: (TemplateLanguagePreference) -> Unit
+    onConfirm: (TemplateLanguagePreference) -> Unit,
+    selectedLanguage: TemplateLanguagePreference,
+    languageOptions: PersistentSet<TemplateLanguagePreference>
 ) {
-    var tempLanguage by remember { mutableStateOf(selectedLanguage) }
+    var tempLanguage by rememberSaveable { mutableStateOf(selectedLanguage) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -58,44 +62,19 @@ fun LanguagePickerDialog(
         },
         text = {
             Column(modifier = Modifier.selectableGroup()) {
-                for (languagePreference in TemplateLanguagePreference.entries) {
+                for (languagePreference in languageOptions) {
                     val isSelected = languagePreference == tempLanguage
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(56.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                            .selectable(
-                                selected = isSelected,
-                                onClick = { tempLanguage = languagePreference },
-                                role = Role.RadioButton
-                            )
-                            .padding(horizontal = TemplateDesignSystem.padding.medium),
-                        horizontalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.medium),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            selected = isSelected,
-                            onClick = null
+
+                    key(languagePreference.ordinal) {
+                        LanguageOptionRadioButton(
+                            isSelected = isSelected,
+                            onClick = {
+                                if (!isSelected) {
+                                    tempLanguage = languagePreference
+                                }
+                            },
+                            languagePreference = languagePreference
                         )
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.small),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = languagePreference.flag(),
-                                contentDescription = null,
-                                modifier = Modifier.size(20.dp)
-                            )
-                            Text(
-                                text = if (languagePreference.locale == null) {
-                                    stringResource(id = R.string.system_default)
-                                } else {
-                                    languagePreference.locale.getDisplayLanguage(languagePreference.locale)
-                                },
-                                style = TemplateDesignSystem.typography.bodyLarge
-                            )
-                        }
                     }
                 }
             }
@@ -120,6 +99,47 @@ fun LanguagePickerDialog(
 }
 
 @Composable
+private fun LanguageOptionRadioButton(
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    languagePreference: TemplateLanguagePreference
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .clip(RoundedCornerShape(16.dp))
+            .selectable(
+                selected = isSelected,
+                onClick = onClick,
+                role = Role.RadioButton
+            )
+            .padding(horizontal = TemplateDesignSystem.padding.medium),
+        horizontalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.medium),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(
+            selected = isSelected,
+            onClick = null
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.small),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = languagePreference.flag(),
+                contentDescription = null,
+                modifier = Modifier.size(20.dp)
+            )
+            Text(
+                text = languagePreference.displayLanguage(),
+                style = TemplateDesignSystem.typography.bodyLarge
+            )
+        }
+    }
+}
+
+@Composable
 private fun TemplateLanguagePreference.flag(): Painter {
     val flagId = when (this) {
         TemplateLanguagePreference.FollowSystem -> R.drawable.earth_flag
@@ -129,14 +149,24 @@ private fun TemplateLanguagePreference.flag(): Painter {
     return painterResource(id = flagId)
 }
 
+@Composable
+private fun TemplateLanguagePreference.displayLanguage(): String {
+    return if (this.locale == null) {
+        stringResource(id = R.string.system_default)
+    } else {
+        this.locale.getDisplayLanguage(this.locale)
+    }
+}
+
 @PreviewLightDark
 @Composable
 private fun LanguagePickerDialogPreview() {
     TemplateTheme {
         LanguagePickerDialog(
-            selectedLanguage = TemplateLanguagePreference.English,
             onDismiss = { },
-            onConfirm = { }
+            onConfirm = { },
+            selectedLanguage = TemplateLanguagePreference.English,
+            languageOptions = TemplateLanguagePreference.entries.toPersistentSet()
         )
     }
 }

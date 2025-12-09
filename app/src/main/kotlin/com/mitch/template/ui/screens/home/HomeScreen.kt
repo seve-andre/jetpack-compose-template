@@ -8,7 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +23,7 @@ import com.mitch.template.ui.designsystem.TemplateTheme
 import com.mitch.template.ui.designsystem.components.loading.LoadingScreen
 import com.mitch.template.ui.screens.home.components.LanguagePickerDialog
 import com.mitch.template.ui.screens.home.components.ThemePickerDialog
+import kotlinx.collections.immutable.toPersistentSet
 
 @Composable
 fun HomeRoute(viewModel: HomeViewModel) {
@@ -46,20 +47,25 @@ fun HomeScreen(
         HomeUiState.Loading -> LoadingScreen()
 
         is HomeUiState.Success -> {
-            var activeDialog by remember { mutableStateOf(ActiveDialog.None) }
+            var activeDialog by rememberSaveable {
+                mutableStateOf(ActiveDialog.None)
+            }
+
             when (activeDialog) {
                 ActiveDialog.None -> Unit
 
                 ActiveDialog.Language -> LanguagePickerDialog(
-                    selectedLanguage = uiState.language,
                     onDismiss = { activeDialog = ActiveDialog.None },
-                    onConfirm = onChangeLanguage
+                    onConfirm = onChangeLanguage,
+                    selectedLanguage = uiState.language,
+                    languageOptions = TemplateLanguagePreference.entries.toPersistentSet()
                 )
 
                 ActiveDialog.Theme -> ThemePickerDialog(
-                    selectedTheme = uiState.theme,
                     onDismiss = { activeDialog = ActiveDialog.None },
-                    onConfirm = onChangeTheme
+                    onConfirm = onChangeTheme,
+                    selectedTheme = uiState.theme,
+                    themeOptions = TemplateThemePreference.entries.toPersistentSet()
                 )
             }
 
