@@ -2,7 +2,9 @@ package com.mitch.template.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mitch.template.R
 import com.mitch.template.domain.models.TemplateLanguagePreference
@@ -77,7 +80,7 @@ fun HomeScreen(
                 Button(onClick = { activeDialog = ActiveDialog.Language }) {
                     Text(text = stringResource(id = R.string.change_language))
                 }
-
+                Spacer(modifier = Modifier.height(10.dp))
                 Button(onClick = { activeDialog = ActiveDialog.Theme }) {
                     Text(text = stringResource(R.string.change_theme))
                 }
