@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.mitch.template.R
@@ -59,7 +60,10 @@ fun ThemePickerDialog(
             Text(text = stringResource(id = R.string.change_theme))
         },
         text = {
-            Column(modifier = Modifier.selectableGroup()) {
+            Column(
+                modifier = Modifier.selectableGroup(),
+                verticalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.small)
+            ) {
                 for (themePreference in themeOptions) {
                     val isSelected = themePreference == tempTheme
 
@@ -105,14 +109,17 @@ private fun ThemeOptionRadioButton(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp)
+            .wrapContentHeight(Alignment.CenterVertically)
             .clip(RoundedCornerShape(16.dp))
             .selectable(
                 selected = isSelected,
                 onClick = onClick,
                 role = Role.RadioButton
             )
-            .padding(horizontal = TemplateDesignSystem.padding.medium),
+            .padding(
+                horizontal = TemplateDesignSystem.padding.medium,
+                vertical = TemplateDesignSystem.padding.medium
+            ),
         horizontalArrangement = Arrangement.spacedBy(TemplateDesignSystem.padding.medium),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -157,6 +164,7 @@ private fun TemplateThemePreference.title(): String {
 }
 
 @PreviewLightDark
+@PreviewFontScale
 @Composable
 private fun ThemePickerDialogPreview() {
     TemplateTheme {
