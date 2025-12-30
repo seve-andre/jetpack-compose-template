@@ -92,9 +92,7 @@ fun LanguagePickerDialog(
             TextButton(
                 onClick = {
                     onConfirm(tempLanguage)
-                    onDismiss()
-                },
-                enabled = tempLanguage != selectedLanguage
+                }
             ) {
                 Text(text = stringResource(id = R.string.save))
             }

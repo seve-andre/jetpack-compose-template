@@ -62,14 +62,24 @@ fun HomeScreen(
 
                 ActiveDialog.Language -> LanguagePickerDialog(
                     onDismiss = { activeDialog = ActiveDialog.None },
-                    onConfirm = onChangeLanguage,
+                    onConfirm = { newLanguage ->
+                        if (newLanguage != uiState.language) {
+                            onChangeLanguage(newLanguage)
+                        }
+                        activeDialog = ActiveDialog.None
+                    },
                     selectedLanguage = uiState.language,
                     languageOptions = TemplateLanguagePreference.entries.toPersistentSet()
                 )
 
                 ActiveDialog.Theme -> ThemePickerDialog(
                     onDismiss = { activeDialog = ActiveDialog.None },
-                    onConfirm = onChangeTheme,
+                    onConfirm = { newTheme ->
+                        if (newTheme != uiState.theme) {
+                            onChangeTheme(newTheme)
+                        }
+                        activeDialog = ActiveDialog.None
+                    },
                     selectedTheme = uiState.theme,
                     themeOptions = TemplateThemePreference.entries.toPersistentSet()
                 )
