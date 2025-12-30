@@ -90,9 +90,7 @@ fun ThemePickerDialog(
             TextButton(
                 onClick = {
                     onConfirm(tempTheme)
-                    onDismiss()
-                },
-                enabled = tempTheme != selectedTheme
+                }
             ) {
                 Text(text = stringResource(id = R.string.save))
             }
