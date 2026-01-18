@@ -1,8 +1,17 @@
 name: linting-on-pr
-on: pull_request
+
+on:
+  pull_request:
+    paths:
+      - 'app/**'
+      - '**/*.kt'
+      - '**/*.kts'
+      - 'gradle/**'
+      - '.github/workflows/linting-on-pr.yml'
+
 jobs:
-  run_linter:
-    name: "Linting checks"
+  lint:
+    name: Lint & Detekt
     runs-on: ubuntu-latest
 
     steps:
@@ -22,14 +31,35 @@ jobs:
           validate-wrappers: true
           gradle-home-cache-cleanup: true
 
-      - name: Run detekt
-        run: ./gradlew detektMain
+      - name: Detect changed files
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            kotlin:
+              - '**/*.kt'
+              - '**/*.kts'
+            android:
+              - 'app/src/**'
+              - 'lint/src/**'
 
-      - name: Run lint
-        run: ./gradlew :app:lintProdRelease :lint:lint
+      - name: Run Detekt
+        if: steps.changes.outputs.kotlin == 'true'
+        run: ./gradlew detektMain --build-cache --parallel --configuration-cache
+
+      - name: Upload Detekt reports (HTML)
+        if: steps.changes.outputs.kotlin == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: detekt-reports
+          path: '**/build/reports/detekt/*.html'
+
+      - name: Run Android Lint
+        if: steps.changes.outputs.android == 'true'
+        run: ./gradlew :app:lintProdRelease --build-cache --parallel --configuration-cache
 
       - name: Upload lint reports (HTML)
-        if: always()
+        if: steps.changes.outputs.android == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: lint-reports
