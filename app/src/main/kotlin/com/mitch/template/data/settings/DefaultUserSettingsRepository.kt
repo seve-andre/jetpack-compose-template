@@ -26,10 +26,10 @@ class DefaultUserSettingsRepository(
         .map { protoPreferences ->
             TemplateUserPreferences(
                 theme = protoPreferences.theme.toDomainModel(),
-                language = if (protoPreferences.locale.isEmpty()) {
+                language = if (protoPreferences.locale?.isEmpty() == true) {
                     TemplateLanguagePreference.FollowSystem
                 } else {
-                    val locale = Locale.forLanguageTag(protoPreferences.locale)
+                    val locale = Locale.forLanguageTag(protoPreferences.locale.orEmpty())
                     locale.toDomainModel()
                 }
             )

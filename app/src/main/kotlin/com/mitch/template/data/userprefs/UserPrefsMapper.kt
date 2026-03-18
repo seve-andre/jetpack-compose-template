@@ -12,6 +12,5 @@ fun TemplateThemePreference.toProtoModel(): TemplateThemePreferenceProto = when 
 fun TemplateThemePreferenceProto.toDomainModel(): TemplateThemePreference = when (this) {
     TemplateThemePreferenceProto.LIGHT -> TemplateThemePreference.Light
     TemplateThemePreferenceProto.DARK -> TemplateThemePreference.Dark
-    TemplateThemePreferenceProto.UNRECOGNIZED,
     TemplateThemePreferenceProto.FOLLOW_SYSTEM -> TemplateThemePreference.FollowSystem
 }
