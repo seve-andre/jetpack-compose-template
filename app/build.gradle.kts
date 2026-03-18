@@ -1,17 +1,15 @@
-import com.android.build.api.dsl.ApkSigningConfig
+import com.android.build.api.variant.BuildConfigField
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.io.FileInputStream
+import java.io.StringReader
 import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
     alias(libs.plugins.detekt)
     alias(libs.plugins.junit5)
     alias(libs.plugins.kotlinx.serialization)
-    alias(libs.plugins.secrets)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.protobuf)
 }
@@ -19,9 +17,11 @@ plugins {
 val packageName = "com.mitch.template"
 
 enum class TemplateBuildType(val applicationIdSuffix: String? = null) {
-    Debug(".debug"),
-    Staging(".staging"),
-    Release
+    Debug(applicationIdSuffix = ".debug"),
+    Staging(applicationIdSuffix = ".staging"),
+    Release;
+
+    val typeName = this.name.replaceFirstChar { it.lowercase() }
 }
 
 enum class TemplateFlavorDimension {
@@ -40,18 +40,14 @@ enum class TemplateFlavor(
     val flavorName = this.name.replaceFirstChar { it.lowercase() }
 }
 
-val keystorePropertiesFile = rootProject.file("keystore.properties")
-val keystoreProperties = Properties()
-if (keystorePropertiesFile.exists()) keystoreProperties.load(FileInputStream(keystorePropertiesFile))
-
 android {
     namespace = packageName
 
-    compileSdk = 36
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         applicationId = packageName
-        minSdk = 23
-        targetSdk = 36
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -60,9 +56,25 @@ android {
         }
     }
     signingConfigs {
-        if (!keystoreProperties.isEmpty) {
-            createSigningConfig("staging", keystoreProperties)
-            createSigningConfig("release", keystoreProperties)
+        listOf(
+            TemplateBuildType.Staging,
+            TemplateBuildType.Release
+        ).forEach { type ->
+            providers.fileContents(
+                isolated.rootProject.projectDirectory.dir("config/signing")
+                    .file("signing.${type.typeName}.properties")
+            ).asText.map { text ->
+                val properties = Properties().apply {
+                    load(StringReader(text))
+                }
+
+                register(type.typeName) {
+                    keyAlias = properties["keyAlias"] as String
+                    keyPassword = properties["keyPassword"] as String
+                    storeFile = file(properties["storeFile"] as String)
+                    storePassword = properties["storePassword"] as String
+                }
+            }
         }
     }
     buildTypes {
@@ -71,13 +83,12 @@ android {
             isMinifyEnabled = false
             applicationIdSuffix = TemplateBuildType.Debug.applicationIdSuffix
         }
-        register("staging") {
-            initWith(named("release").get())
+        register(TemplateBuildType.Staging.typeName) {
+            initWith(named(TemplateBuildType.Release.typeName).get())
             isDebuggable = true
             applicationIdSuffix = TemplateBuildType.Staging.applicationIdSuffix
-            secrets.propertiesFileName = "secrets.staging.properties"
             signingConfig = try {
-                signingConfigs.named("staging").get()
+                signingConfigs.named(TemplateBuildType.Staging.typeName).get()
             } catch (_: Exception) {
                 null
             }
@@ -91,9 +102,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            secrets.propertiesFileName = "secrets.release.properties"
             signingConfig = try {
-                signingConfigs.named("release").get()
+                signingConfigs.named(TemplateBuildType.Release.typeName).get()
             } catch (_: Exception) {
                 null
             }
@@ -134,16 +144,51 @@ android {
     }
 }
 
-fun NamedDomainObjectContainer<out ApkSigningConfig>.createSigningConfig(
-    name: String,
-    properties: Properties
-) {
-    register(name) {
-        keyAlias = properties["${name}KeyAlias"] as String
-        keyPassword = properties["${name}KeyPassword"] as String
-        storeFile = file(properties["storeFile"] as String)
-        storePassword = properties["storePassword"] as String
+private val javaVarRegexp = Regex(pattern = "[^a-zA-Z_$0-9]")
+androidComponents {
+    onVariants { variant ->
+        val secretsProps = providers.fileContents(
+            isolated.rootProject.projectDirectory.dir("config/secrets")
+                .file("secrets.${variant.buildType}.properties")
+        ).asBytes.map { bytes ->
+            Properties().apply {
+                load(bytes.inputStream())
+            }
+        }.orElse(Properties())
+
+        secretsProps.get()
+            .keys
+            .map { it as String }
+            .filter { it.isNotEmpty() }
+            .forEach { key ->
+                val rawValue = secretsProps.get().getProperty(key)
+                val value = rawValue.removeSurrounding("\"")
+                val sanitizedKey = key.replace(javaVarRegexp, "")
+
+                val (type, buildValue) = when {
+                    value.equals("true", ignoreCase = true) -> "boolean" to true
+                    value.equals("false", ignoreCase = true) -> "boolean" to false
+                    value.endsWith("L") && value.dropLast(1).toLongOrNull() != null ->
+                        "long" to value.dropLast(1).toLong()
+
+                    value.toIntOrNull() != null -> "int" to value.toInt()
+                    value.toFloatOrNull() != null -> "float" to value.toFloat()
+                    else -> "String" to value.addQuotesIfNeeded()
+                }
+
+                variant.buildConfigFields?.put(
+                    sanitizedKey,
+                    BuildConfigField(type = type, value = buildValue, comment = null)
+                )
+                variant.manifestPlaceholders.put(sanitizedKey, value)
+            }
     }
+}
+
+private fun String.addQuotesIfNeeded() = when {
+    isEmpty() -> this
+    length >= 2 && startsWith('"') && endsWith('"') -> this
+    else -> "\"$this\""
 }
 
 kotlin {
@@ -171,25 +216,25 @@ kotlin {
 }
 
 composeCompiler {
-    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    reportsDestination =
+        layout.buildDirectory.dir("compose_compiler")
     stabilityConfigurationFiles.addAll(
-        rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
+        isolated.rootProject.projectDirectory.file("compose_compiler_config.conf")
     )
 }
 
 detekt {
-    config.setFrom("$rootDir/config/detekt/detekt.yml")
-    baseline = file("$rootDir/config/detekt/baseline.xml")
+    config.setFrom("${isolated.rootProject}/config/detekt/detekt.yml")
+    baseline = file("${isolated.rootProject}/config/detekt/baseline.xml")
     autoCorrect = true
     buildUponDefaultConfig = true
     parallel = true
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+tasks.withType<dev.detekt.gradle.Detekt>().configureEach {
     reports {
         html.required.set(true) // observe findings in your browser with structure and code snippets
-        xml.required.set(true) // checkstyle like format mainly for integrations like Jenkins
-        md.required.set(true) // simple Markdown format
+        markdown.required.set(true) // simple Markdown format
     }
     include("**/*.kt")
     include("**/*.kts")
@@ -197,7 +242,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     exclude("build/")
     jvmTarget = JvmTarget.JVM_17.target
 }
-tasks.withType<io.gitlab.arturbosch.detekt.DetektCreateBaselineTask>().configureEach {
+tasks.withType<dev.detekt.gradle.DetektCreateBaselineTask>().configureEach {
     jvmTarget = JvmTarget.JVM_17.target
 }
 
@@ -217,11 +262,6 @@ protobuf {
             }
         }
     }
-}
-
-secrets {
-    defaultPropertiesFileName = "secrets.defaults.properties"
-    propertiesFileName = "secrets.properties"
 }
 
 dependencies {
@@ -285,7 +325,8 @@ dependencies {
     // Testing
     // Unit
     testImplementation(libs.junit4)
-    testImplementation(libs.junit5)
+    testImplementation(platform(libs.junit5.bom))
+    testImplementation(libs.junit5.api)
     testRuntimeOnly(libs.junit5.engine)
     testImplementation(libs.junit5.params)
     testImplementation(libs.assertk)

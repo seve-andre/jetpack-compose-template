@@ -16,7 +16,9 @@ build/
 
 # Local configuration file (sdk path, etc)
 local.properties
-keystore.properties
+keystore.*.properties
+# Secrets
+secrets.*.properties
 
 # Eclipse project files
 .classpath
@@ -49,5 +51,12 @@ captures/
 # Kotlin 2.0
 .kotlin
 
-# Secrets
-secrets.properties
+# JAR files
+*.jar
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
