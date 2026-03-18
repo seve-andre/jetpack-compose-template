@@ -11,7 +11,7 @@ plugins {
     alias(libs.plugins.junit5)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.protobuf)
+    alias(libs.plugins.square.wire)
 }
 
 val packageName = "com.mitch.template"
@@ -246,21 +246,9 @@ tasks.withType<dev.detekt.gradle.DetektCreateBaselineTask>().configureEach {
     jvmTarget = JvmTarget.JVM_17.target
 }
 
-protobuf {
-    protoc {
-        artifact = libs.protobuf.protoc.get().toString()
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                register("java") {
-                    option("lite")
-                }
-                register("kotlin") {
-                    option("lite")
-                }
-            }
-        }
+wire {
+    kotlin {
+        android = true
     }
 }
 
@@ -308,7 +296,6 @@ dependencies {
 
     // Datastore (previously SharedPreferences)
     implementation(libs.datastore.core)
-    implementation(libs.protobuf.kotlin.lite)
 
     // Logging
     implementation(libs.timber)

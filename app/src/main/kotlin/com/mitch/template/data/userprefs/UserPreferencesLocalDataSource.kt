@@ -18,25 +18,19 @@ class UserPreferencesLocalDataSource(
 
     suspend fun setTheme(theme: TemplateThemePreferenceProto) {
         userPreferences.updateData {
-            it.copy {
-                this.theme = theme
-            }
+            it.copy(theme = theme)
         }
     }
 
     suspend fun setLocale(locale: Locale) {
         userPreferences.updateData {
-            it.copy {
-                this.locale = locale.toLanguageTag()
-            }
+            it.copy(locale = locale.toLanguageTag())
         }
     }
 
     suspend fun resetLocale() {
         userPreferences.updateData {
-            it.copy {
-                clearLocale()
-            }
+            it.copy(locale = null)
         }
     }
 }
