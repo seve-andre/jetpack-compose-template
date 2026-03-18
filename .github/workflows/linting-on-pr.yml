@@ -45,14 +45,14 @@ jobs:
 
       - name: Run Detekt
         if: steps.changes.outputs.kotlin == 'true'
-        run: ./gradlew detektMain --build-cache --parallel --configuration-cache
+        run: ./gradlew detektProdRelease --build-cache --parallel --configuration-cache
 
       - name: Upload Detekt reports (HTML)
         if: steps.changes.outputs.kotlin == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: detekt-reports
-          path: '**/build/reports/detekt/*.html'
+          path: '**/build/reports/detekt/prodRelease.html'
 
       - name: Run Android Lint
         if: steps.changes.outputs.android == 'true'
@@ -63,4 +63,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: lint-reports
-          path: '**/build/reports/lint-results-*.html'
+          path: '**/build/reports/lint-results-prodRelease.html'

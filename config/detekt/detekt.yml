@@ -47,7 +47,6 @@ output-reports:
   active: true
   exclude:
     - 'MdOutputReport'
-    - 'HtmlOutputReport'
     - 'TxtOutputReport'
     - 'XmlOutputReport'
 

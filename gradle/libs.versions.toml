@@ -1,31 +1,31 @@
 [versions]
 # Kotlin
-kotlin = "2.2.21" # kotlin and ksp should be updated together
+kotlin = "2.3.0"
 kotlinx-collectionsImmutable = "0.4.0"
 kotlinx-datetime = "0.7.1"
-kotlinx-serialization = "1.9.0"
+kotlinx-serialization = "1.10.0"
 kotlinx-coroutines = "1.10.2"
 
 # UI
-compose-bom = "2025.12.00"
-activity-compose = "1.12.1"
+compose-bom = "2026.03.00"
+activity-compose = "1.13.0"
 androidx-lifecycle = "2.10.0"
 androidx-lifecycle-viewmodel-nav3 = "2.10.0"
-coil = "3.3.0"
+coil = "3.4.0"
 eva = "1.1.1"
 core-splashscreen = "1.2.0"
 appcompat = "1.7.1"
 
 # Navigation
-nav3 = "1.0.0"
+nav3 = "1.0.1"
 
 # Database
 room = "2.8.4"
 
 # Datastore
-datastore = "1.2.0"
-protobuf = "4.33.1"
-protobufPlugin = "0.9.5"
+datastore = "1.2.1"
+protobuf = "4.34.0"
+protobufPlugin = "0.9.6"
 
 # Logging
 timber = "5.0.1"
@@ -33,7 +33,7 @@ timber = "5.0.1"
 # Testing
 ## Unit
 junit4 = "4.13.2"
-junit5 = "5.14.0" # to keep in sync with junit5-plugin
+junit5 = "5.14.1" # to keep in sync with junit5-plugin
 assertk = "0.28.1"
 turbine = "1.2.1"
 ## Instrumented
@@ -48,19 +48,23 @@ uiAutomator = "2.3.0"
 desugar-jdk-libs = "2.1.5"
 
 # Formatting + Linting
-detekt = "1.23.8"
-nlopez-composeRules = "0.4.26"
+detekt = "2.0.0-alpha.2"
+nlopez-composeRules = "0.5.6"
 
 # API calls
-ktor = "3.3.3"
+ktor = "3.4.1"
 
 # Plugins
 # android-gradle-plugin and androidTools should be updated together
-android-gradle-plugin = "8.13.1" # agp = x.y.z
-androidTools = "31.13.1" # androidTools = (agp.x + 23).(agp.y).(agp.z)
-ksp = "2.2.21-2.0.4" # kotlin and ksp should be updated together
-junit5-plugin = "1.14.0.0" # to keep in sync with junit5
-secrets = "2.0.1"
+android-gradle-plugin = "9.1.0" # agp = x.y.z
+androidTools = "32.1.0" # androidTools = (agp.x + 23).(agp.y).(agp.z)
+ksp = "2.3.6"
+junit5-plugin = "2.0.1" # to keep in sync with junit5
+
+# Sdk
+minSdk = "23"
+targetSdk = "36"
+compileSdk = "36"
 
 [libraries]
 # Kotlin
@@ -120,9 +124,10 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 # Testing
 ## Unit
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
-junit5 = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit5" }
-junit5-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit5" }
-junit5-params = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit5" }
+junit5-bom = { group = "org.junit", name = "junit-bom", version.ref = "junit5" }
+junit5-api = { group = "org.junit.jupiter", name = "junit-jupiter-api" }
+junit5-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine" }
+junit5-params = { group = "org.junit.jupiter", name = "junit-jupiter-params" }
 assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 ## Instrumented
@@ -139,7 +144,7 @@ test-uiAutomator = { group = "androidx.test.uiautomator", name = "uiautomator", 
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 
 # Formatting + Linting
-detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+detekt-formatting = { group = "dev.detekt", name = "detekt-rules-ktlint-wrapper", version.ref = "detekt" }
 linting-composeDetekt = { group = "io.nlopez.compose.rules", name = "detekt", version.ref = "nlopez-composeRules" }
 
 # API calls
@@ -159,16 +164,13 @@ lint-checks = { group = "com.android.tools.lint", name = "lint-checks", version.
 lint-tests = { group = "com.android.tools.lint", name = "lint-tests", version.ref = "androidTools" }
 
 [plugins]
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 room = { id = "androidx.room", version.ref = "room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5-plugin" }
 android-test = { id = "com.android.test", version.ref = "android-gradle-plugin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 android-lint = { id = "com.android.lint", version.ref = "android-gradle-plugin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
